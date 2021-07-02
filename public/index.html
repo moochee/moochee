@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="babel.min.js"></script>
+	<script src="react.development.js"></script>
+	<script src="react-dom.development.js"></script>
+	<script src="react-router-dom.js"></script>
+	<script nomodule src="bundle.es5.js"></script>
+	<script src="bundle.esm.js" type="module"></script>
+</head>
+
+<body id="content" class="sapUiBody">
+
+	<div id="react-root"></div>
+
+	<script type="text/babel">
+		// TODO
+		// - create new game
+		// - join game
+		// - + QR code
+		// - # integrate with server using web sockets
+		// - + try different / more fancy UI library more suited for games
+		// - respond to click -> evaluate
+		// - podium screen
+		// - try if using <> works, or why it doesn't work
+		// DONE
+		// - # entrance screen (enter name and game id)
+
+		'use strict'
+		function Welcome(props) {
+			return <h1>Hello, {props.name}</h1>
+		}
+
+		function MyInput() {
+			const [name, setName] = React.useState('')
+			const onNameInput = (event) => {
+				setName(event.target.value);
+			};
+			return <div>
+				<ui5-input id="name" value={name} onInput={onNameInput}></ui5-input>
+				<div>{name}</div>
+			</div>
+		}
+
+		function Clock() {
+			const [date, setDate] = React.useState(new Date())
+			let interval
+
+			React.useEffect(() => {
+				interval = setInterval(() => setDate(new Date()), 1000)
+				return () => clearInterval(interval)
+			}, [])
+
+			return <div>
+				<h2>It is {date.toLocaleTimeString()}</h2>
+			</div>
+		}
+
+		function test() {
+			console.log('test')
+		}
+
+		function Podium() {
+			let [isClockShown, setIsClockShown] = React.useState(true)
+			const toggleClock = () => setIsClockShown(!isClockShown)
+			return <div>
+				<MyInput />
+				<Welcome name={name} />
+				{isClockShown ? <Clock /> : ''}
+				<button onClick={toggleClock}>{isClockShown ? 'Hide Clock' : 'Show Clock'}</button>
+			</div>
+		}
+
+		function Question(props) {
+			return <div style={{ display: "flex", flexDirection: "column" }}>
+				<ui5-label>{props.text}</ui5-label>
+				<img width="80%" src={props.imageUrl} />
+			</div>
+		}
+
+		function AnswerBlock(props) {
+			return <div style={{ display: "flex", flexDirection: "column" }}>
+				<div style={{ display: "flex", flexDirection: "row" }}>
+					<Answer text={props.answer1} />
+					<Answer text={props.answer2} />
+				</div>
+				<div style={{ display: "flex", flexDirection: "row" }}>
+					<Answer text={props.answer3} />
+					<Answer text={props.answer4} />
+				</div>
+			</div>
+		}
+
+		function Entrance(props) {
+			// TODO enable join button only when correct game id (e.g. exactly 6 numbers)
+			let gameId = location.hash.substr(1) || ''
+			return <div style={{ display: "flex", flexDirection: "column" }}>
+				<ui5-label for="gameId" required>Game id</ui5-label>
+				<ui5-input id="gameId" placeholder="Enter game id" value={gameId}></ui5-input>
+				<ui5-label for="name" required>Name</ui5-label>
+				<ui5-input id="name" placeholder="Enter your name" required></ui5-input>
+				<ui5-button onClick={props.onJoin(gameId)}>Join game</ui5-button>
+				<ui5-button>Create game</ui5-button>
+			</div>
+		}
+
+		function Answer(props) {
+			return <ui5-button design="Default" onClick={props.onClick}>{props.text}</ui5-button>
+		}
+
+		function Countdown() {
+			let [isClockShown, setIsClockShown] = React.useState(true)
+			const toggleClock = () => setIsClockShown(!isClockShown)
+			return <div>
+				<MyInput />
+				<Welcome name={name} />
+				{isClockShown ? <Clock /> : ''}
+				<button onClick={toggleClock}>{isClockShown ? 'Hide Clock' : 'Show Clock'}</button>
+			</div>
+		}
+
+		function Quiz() {
+			const { id } = ReactRouterDOM.useParams()
+			let [isClockShown, setIsClockShown] = React.useState(true)
+			const toggleClock = () => setIsClockShown(!isClockShown)
+			return <div>
+				<ui5-title level="H1">Game {id}</ui5-title>
+				<Question text="Test question" imageUrl="" />
+				<AnswerBlock answer1="sample answer 1" answer2="sample answer 2" answer3="sample answer 3" answer4="sample answer 4" />
+			</div>
+		}
+
+		function Experiments() {
+			let [isClockShown, setIsClockShown] = React.useState(true)
+			const toggleClock = () => setIsClockShown(!isClockShown)
+			return <div>
+				<MyInput />
+				<Welcome name={name} />
+				{isClockShown ? <Clock /> : ''}
+				<button onClick={toggleClock}>{isClockShown ? 'Hide Clock' : 'Show Clock'}</button>
+			</div>
+		}
+
+		function App() {
+			const {HashRouter, Switch, Route} = ReactRouterDOM;
+			const join = () => {
+
+			}
+			return <HashRouter>
+				<Switch>
+					<Route exact path="/">
+						<Entrance onJoin={join} />
+					</Route>
+					<Route path="/:id">
+						<Quiz onJoin={join} />
+					</Route>
+				</Switch>
+			</HashRouter>
+		}
+
+		const domContainer = document.querySelector('#react-root')
+		ReactDOM.render(<App />, domContainer)
+	</script>
+
+</body>
+
+</html>
