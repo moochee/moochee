@@ -2,6 +2,7 @@
 <html>
 
 <head>
+	<link rel="icon" type="image/png" href="icons8-harambe-the-gorilla-50.png" />
 	<script src="babel.min.js"></script>
 	<script src="react.development.js"></script>
 	<script src="react-dom.development.js"></script>
@@ -11,7 +12,6 @@
 </head>
 
 <body id="content" class="sapUiBody">
-
 	<div id="react-root"></div>
 
 	<script type="text/babel">
@@ -28,47 +28,9 @@
 		// - # entrance screen (enter name and game id)
 
 		'use strict'
-		function Welcome(props) {
-			return <h1>Hello, {props.name}</h1>
-		}
-
-		function MyInput() {
-			const [name, setName] = React.useState('')
-			const onNameInput = (event) => {
-				setName(event.target.value);
-			};
-			return <div>
-				<ui5-input id="name" value={name} onInput={onNameInput}></ui5-input>
-				<div>{name}</div>
-			</div>
-		}
-
-		function Clock() {
-			const [date, setDate] = React.useState(new Date())
-			let interval
-
-			React.useEffect(() => {
-				interval = setInterval(() => setDate(new Date()), 1000)
-				return () => clearInterval(interval)
-			}, [])
-
-			return <div>
-				<h2>It is {date.toLocaleTimeString()}</h2>
-			</div>
-		}
-
-		function test() {
-			console.log('test')
-		}
 
 		function Podium() {
-			let [isClockShown, setIsClockShown] = React.useState(true)
-			const toggleClock = () => setIsClockShown(!isClockShown)
 			return <div>
-				<MyInput />
-				<Welcome name={name} />
-				{isClockShown ? <Clock /> : ''}
-				<button onClick={toggleClock}>{isClockShown ? 'Hide Clock' : 'Show Clock'}</button>
 			</div>
 		}
 
@@ -94,14 +56,16 @@
 
 		function Entrance(props) {
 			// TODO enable join button only when correct game id (e.g. exactly 6 numbers)
-			let gameId = location.hash.substr(1) || ''
+			const [gameId, setGameId] = React.useState('')
+			const updateGameId = (event) => setGameId(event.target.value)
+
 			return <div style={{ display: "flex", flexDirection: "column" }}>
 				<ui5-label for="gameId" required>Game id</ui5-label>
-				<ui5-input id="gameId" placeholder="Enter game id" value={gameId}></ui5-input>
+				<ui5-input id="gameId" placeholder="Enter game id" value={gameId} onInput={updateGameId}></ui5-input>
 				<ui5-label for="name" required>Name</ui5-label>
 				<ui5-input id="name" placeholder="Enter your name" required></ui5-input>
-				<ui5-button onClick={props.onJoin(gameId)}>Join game</ui5-button>
-				<ui5-button>Create game</ui5-button>
+				<ui5-button onClick={() => props.onJoin(gameId)}>Join game</ui5-button>
+				<ui5-button onClick={() => props.onCreate()}>Create game</ui5-button>
 			</div>
 		}
 
@@ -120,7 +84,7 @@
 			</div>
 		}
 
-		function Quiz() {
+		function PlayGame() {
 			const { id } = ReactRouterDOM.useParams()
 			let [isClockShown, setIsClockShown] = React.useState(true)
 			const toggleClock = () => setIsClockShown(!isClockShown)
@@ -131,36 +95,67 @@
 			</div>
 		}
 
-		function Experiments() {
-			let [isClockShown, setIsClockShown] = React.useState(true)
-			const toggleClock = () => setIsClockShown(!isClockShown)
+		function HostGame() {
 			return <div>
-				<MyInput />
-				<Welcome name={name} />
-				{isClockShown ? <Clock /> : ''}
-				<button onClick={toggleClock}>{isClockShown ? 'Hide Clock' : 'Show Clock'}</button>
+				todo
 			</div>
 		}
 
 		function App() {
-			const {HashRouter, Switch, Route} = ReactRouterDOM;
-			const join = () => {
+			let nextGameId = 100000
+			const { HashRouter, Switch, Route } = ReactRouterDOM
 
+			const audio = React.useRef(null)
+			const [muted, setMuted] = React.useState(true)
+			const toggleMute = () => setMuted(!muted)
+
+			React.useEffect(() => audio.current.play(), [])
+
+			const join = (gameId) => {
+				window.location = `#/play/${gameId}`
 			}
+			const create = () => {
+				window.location = `#/host/${nextGameId++}`
+			}
+
 			return <HashRouter>
+				<audio id="audio" ref={audio} loop muted={muted} src="positive-funny-background-music-for-video-games.mp3"></audio>
+				<ui5-button onClick={toggleMute} icon={muted ? 'sound' : 'sound-off'} aria-labelledby="mute"></ui5-button>
+				<ui5-label style={{ display: "none" }} id="mute" aria-hidden="true">{muted ? 'Unmute' : 'Mute'} Sound</ui5-label>
+
 				<Switch>
 					<Route exact path="/">
-						<Entrance onJoin={join} />
+						<Entrance onJoin={join} onCreate={create} />
 					</Route>
-					<Route path="/:id">
-						<Quiz onJoin={join} />
+					<Route path="/play/:id">
+						<PlayGame />
+					</Route>
+					<Route path="/host/:id">
+						<HostGame />
 					</Route>
 				</Switch>
+				<ui5-label>
+					<ui5-link target="_blank" href="https://icons8.com/icon/58842/harambe-the-gorilla">Harambe the Gorilla</ui5-link> favicon by <ui5-link target="_blank" href="https://icons8.com">Icons8</ui5-link>
+				</ui5-label>
 			</HashRouter>
 		}
 
 		const domContainer = document.querySelector('#react-root')
 		ReactDOM.render(<App />, domContainer)
+
+		// TODO make it a countdown
+		function Clock() {
+			const [date, setDate] = React.useState(new Date())
+
+			React.useEffect(() => {
+				const interval = setInterval(() => setDate(new Date()), 1000)
+				return () => clearInterval(interval)
+			}, [])
+
+			return <div>
+				<h2>It is {date.toLocaleTimeString()}</h2>
+			</div>
+		}
 	</script>
 
 </body>
