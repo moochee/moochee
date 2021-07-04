@@ -24,6 +24,7 @@
 		// - respond to click -> evaluate
 		// - podium screen
 		// - try if using <> works, or why it doesn't work
+		// - once we hit the 200 lines mark, split this file, e.g. one file per React component
 		// DONE
 		// - # entrance screen (enter name and game id)
 
@@ -73,14 +74,17 @@
 			return <ui5-button design="Default" onClick={props.onClick}>{props.text}</ui5-button>
 		}
 
-		function Countdown() {
-			let [isClockShown, setIsClockShown] = React.useState(true)
-			const toggleClock = () => setIsClockShown(!isClockShown)
+		// TODO make it a countdown
+		function Clock() {
+			const [date, setDate] = React.useState(new Date())
+
+			React.useEffect(() => {
+				const interval = setInterval(() => setDate(new Date()), 1000)
+				return () => clearInterval(interval)
+			}, [])
+
 			return <div>
-				<MyInput />
-				<Welcome name={name} />
-				{isClockShown ? <Clock /> : ''}
-				<button onClick={toggleClock}>{isClockShown ? 'Hide Clock' : 'Show Clock'}</button>
+				<h2>It is {date.toLocaleTimeString()}</h2>
 			</div>
 		}
 
@@ -147,20 +151,6 @@
 
 		const domContainer = document.querySelector('#react-root')
 		ReactDOM.render(<App />, domContainer)
-
-		// TODO make it a countdown
-		function Clock() {
-			const [date, setDate] = React.useState(new Date())
-
-			React.useEffect(() => {
-				const interval = setInterval(() => setDate(new Date()), 1000)
-				return () => clearInterval(interval)
-			}, [])
-
-			return <div>
-				<h2>It is {date.toLocaleTimeString()}</h2>
-			</div>
-		}
 	</script>
 
 </body>
