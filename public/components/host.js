@@ -31,7 +31,7 @@ function HostGame(props) {
 
     function Player(props) {
         return <ui5-card heading={props.name}>
-            <div style={{fontSize: '4em'}} slot="avatar">{props.avatar}</div>
+            <div style={{ fontSize: '4em' }} slot="avatar">{props.avatar}</div>
         </ui5-card>
     }
 
@@ -46,10 +46,16 @@ function HostGame(props) {
     let playerUrl = `${window.location.origin}/#/play/${props.gameId}`
     const [players, setPlayers] = React.useState([])
     const [question, setQuestion] = React.useState(null)
+    const [canStart, setCanStart] = React.useState(false)
 
     const onPlayerJoined = (gameId, name, avatar) => {
         if (gameId === props.gameId) {
-            setPlayers((oldPlayers) => [...oldPlayers, { name, avatar }])
+            setPlayers((oldPlayers) => {
+                if (oldPlayers.length >= 1) {
+                    setCanStart(true)
+                }
+                return [...oldPlayers, { name, avatar }]
+            })
         }
     }
 
@@ -61,6 +67,7 @@ function HostGame(props) {
 
     const start = () => {
         props.adapter.start(props.gameId)
+        setCanStart(false)
     }
 
     const copyToClipboard = () => {
@@ -78,6 +85,7 @@ function HostGame(props) {
     }, [])
 
     const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
+    const startButton = canStart ? <ui5-button onClick={start} style={{ width: "100%" }}>Start</ui5-button> : ''
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
@@ -90,8 +98,7 @@ function HostGame(props) {
         <ui5-title level="H2">Players:</ui5-title>
         <Players players={players} />
         <ui5-toast id="playerUrlCopied">Player's URL has been copied to clipboard!</ui5-toast>
-        FIXME disabled does not work as mentioned in docu
-        <ui5-button disabled="false" onClick={start} style={{ width: "100%" }}>Start</ui5-button>
+        {startButton}
         {questionBlock}
     </div>
 }
