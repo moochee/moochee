@@ -2,6 +2,7 @@
 <html>
 
 <head>
+	<title>Gorilla</title>
 	<link rel="icon" type="image/png" href="icons8-harambe-the-gorilla-50.png" />
 	<script src="lib/babel.min.js"></script>
 	<script src="lib/react.development.js"></script>
@@ -9,7 +10,11 @@
 	<script src="lib/react-router-dom.js"></script>
 	<script nomodule src="lib/bundle.es5.js"></script>
 	<script src="lib/bundle.esm.js" type="module"></script>
-	<script src="components.js" type="text/babel"></script>
+	<script src="demo-adapter.js" type="text/babel"></script>
+	<script src="components/general.js" type="text/babel"></script>
+	<script src="components/entrance.js" type="text/babel"></script>
+	<script src="components/host.js" type="text/babel"></script>
+	<script src="components/play.js" type="text/babel"></script>
 </head>
 
 <body id="content" class="sapUiBody">
@@ -21,6 +26,7 @@
 		// - guess the answer
 		// - evaluate
 		// - present next question
+		// - timer/countdown
 		// - + QR code
 		// - + try different / more fancy UI library more suited for games
 		// - # integrate with server using web sockets
@@ -39,37 +45,20 @@
 
 		'use strict'
 
-		function WebSocketsAdapter() {
-			let nextGameId = 100000
-			const joinSubscribers = []
-
-			this.subscribeJoin = (subscriber) => {
-				joinSubscribers.push(subscriber)
-			}
-
-			this.unsubscribeJoin = (subscriber) => {
-				const index = joinSubscribers.findIndex((js) => js === subscriber)
-				joinSubscribers.splice(index, 1)
-			}
-
-			this.join = (gameId, playerName) => {
-				joinSubscribers.forEach((js) => js(gameId, playerName))
-			}
-
-			this.host = () => {
-				// TODO should come from server
-				return String(nextGameId++)
-			}
-		}
-
 		function HostGameWeb(props) {
 			const { gameId } = ReactRouterDOM.useParams()
-			return <HostGame gameId={gameId} adapter={props.adapter} />
+			return <div>
+				<Music />
+				<HostGame gameId={gameId} adapter={props.adapter} />
+			</div>
 		}
 
 		function PlayGameWeb(props) {
 			const { gameId, playerName } = ReactRouterDOM.useParams()
-			return <PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
+			return <div>
+				<Music />
+				<PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
+			</div>
 		}
 
 		function WebApp(props) {
@@ -85,7 +74,6 @@
 
 			return <div style={{ marginLeft: "20%", marginRight: "20%" }}>
 				<HashRouter>
-					<Music />
 					<Switch>
 						<Route exact path="/">
 							<Entrance onJoin={join} onHost={host} adapter={props.adapter} />
@@ -97,12 +85,13 @@
 							<HostGameWeb adapter={props.adapter} />
 						</Route>
 					</Switch>
-					<References />
 				</HashRouter>
+				<p />
+				<References />
 			</div>
 		}
 
-		ReactDOM.render(<WebApp adapter={new WebSocketsAdapter()} />, document.querySelector('#react-root'))
+		ReactDOM.render(<WebApp adapter={new DemoAdapter()} />, document.querySelector('#react-root'))
 	</script>
 
 </body>

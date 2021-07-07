@@ -9,7 +9,11 @@
 	<script src="lib/react-router-dom.js"></script>
 	<script nomodule src="lib/bundle.es5.js"></script>
 	<script src="lib/bundle.esm.js" type="module"></script>
-	<script src="components.js" type="text/babel"></script>
+	<script src="demo-adapter.js" type="text/babel"></script>
+	<script src="components/general.js" type="text/babel"></script>
+	<script src="components/entrance.js" type="text/babel"></script>
+	<script src="components/host.js" type="text/babel"></script>
+	<script src="components/play.js" type="text/babel"></script>
 </head>
 
 <body id="content" class="sapUiBody">
@@ -17,44 +21,6 @@
 
 	<script type="text/babel">
 		'use strict'
-
-		// TODO implement avatar logic
-		function DemoAdapter() {
-			let nextGameId = 100000
-			const avatars = "🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲"
-			const joinSubscribers = []
-			const newQuestionSubscribers = []
-
-			this.subscribeJoin = (subscriber) => {
-				joinSubscribers.push(subscriber)
-			}
-
-			this.unsubscribeJoin = (subscriber) => {
-				const index = joinSubscribers.findIndex((s) => s === subscriber)
-				joinSubscribers.splice(index, 1)
-			}
-
-			this.subscribeNewQuestion = (subscriber) => {
-				newQuestionSubscribers.push(subscriber)
-			}
-
-			this.unsubscribeNewQuestion = (subscriber) => {
-				const index = newQuestionSubscribers.findIndex((s) => s === subscriber)
-				newQuestionSubscribers.splice(index, 1)
-			}			
-
-			this.join = (gameId, playerName) => {
-				joinSubscribers.forEach((subscriber) => subscriber(gameId, playerName))
-			}
-
-			this.host = () => {
-				return String(nextGameId++)
-			}
-
-			this.start = (gameId) => {
-				newQuestionSubscribers.forEach((subscriber) => subscriber(gameId, "Fake question?"))
-			}
-		}
 
 		function DemoClient(props) {
 			const [status, setStatus] = React.useState('')
