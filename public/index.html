@@ -3,12 +3,12 @@
 
 <head>
 	<link rel="icon" type="image/png" href="icons8-harambe-the-gorilla-50.png" />
-	<script src="babel.min.js"></script>
-	<script src="react.development.js"></script>
-	<script src="react-dom.development.js"></script>
-	<script src="react-router-dom.js"></script>
-	<script nomodule src="bundle.es5.js"></script>
-	<script src="bundle.esm.js" type="module"></script>
+	<script src="lib/babel.min.js"></script>
+	<script src="lib/react.development.js"></script>
+	<script src="lib/react-dom.development.js"></script>
+	<script src="lib/react-router-dom.js"></script>
+	<script nomodule src="lib/bundle.es5.js"></script>
+	<script src="lib/bundle.esm.js" type="module"></script>
 </head>
 
 <body id="content" class="sapUiBody">
@@ -24,6 +24,7 @@
 		// - respond to click -> evaluate
 		// - podium screen
 		// - try if using <> works, or why it doesn't work
+		// - once we hit the 200 lines mark, split this file, e.g. one file per React component
 		// DONE
 		// - # entrance screen (enter name and game id)
 
@@ -73,14 +74,17 @@
 			return <ui5-button design="Default" onClick={props.onClick}>{props.text}</ui5-button>
 		}
 
-		function Countdown() {
-			let [isClockShown, setIsClockShown] = React.useState(true)
-			const toggleClock = () => setIsClockShown(!isClockShown)
+		// TODO make it a countdown
+		function Clock() {
+			const [date, setDate] = React.useState(new Date())
+
+			React.useEffect(() => {
+				const interval = setInterval(() => setDate(new Date()), 1000)
+				return () => clearInterval(interval)
+			}, [])
+
 			return <div>
-				<MyInput />
-				<Welcome name={name} />
-				{isClockShown ? <Clock /> : ''}
-				<button onClick={toggleClock}>{isClockShown ? 'Hide Clock' : 'Show Clock'}</button>
+				<h2>It is {date.toLocaleTimeString()}</h2>
 			</div>
 		}
 
@@ -111,28 +115,35 @@
 			</div>
 		}
 
-		function App() {
-			let nextGameId = 100000
-			const { HashRouter, Switch, Route } = ReactRouterDOM
-
+		function Music() {
 			const audio = React.useRef(null)
 			const [muted, setMuted] = React.useState(true)
 			const toggleMute = () => setMuted(!muted)
 
 			React.useEffect(() => audio.current.play(), [])
 
-			const join = (gameId) => {
-				window.location = `#/play/${gameId}`
-			}
-			const create = () => {
-				window.location = `#/host/${nextGameId++}`
-			}
-
-			return <HashRouter>
+			return <div>
 				<audio id="audio" ref={audio} loop muted={muted} src="positive-funny-background-music-for-video-games.mp3"></audio>
 				<ui5-button onClick={toggleMute} icon={muted ? 'sound' : 'sound-off'} aria-labelledby="mute"></ui5-button>
 				<ui5-label style={{ display: "none" }} id="mute" aria-hidden="true">{muted ? 'Unmute' : 'Mute'} Sound</ui5-label>
+			</div>
+		}
 
+		function References() {
+			return <ui5-label>
+				<ui5-link target="_blank" href="https://icons8.com/icon/58842/harambe-the-gorilla">Harambe the Gorilla</ui5-link> favicon by <ui5-link target="_blank" href="https://icons8.com">Icons8</ui5-link>
+			</ui5-label>
+		}
+
+		function App() {
+			let nextGameId = 100000
+			const { HashRouter, Switch, Route } = ReactRouterDOM
+
+			const join = (gameId) => window.location = `#/play/${gameId}`
+			const create = () => window.location = `#/host/${nextGameId++}`
+
+			return <HashRouter>
+				<Music />
 				<Switch>
 					<Route exact path="/">
 						<Entrance onJoin={join} onCreate={create} />
@@ -144,28 +155,12 @@
 						<HostGame />
 					</Route>
 				</Switch>
-				<ui5-label>
-					<ui5-link target="_blank" href="https://icons8.com/icon/58842/harambe-the-gorilla">Harambe the Gorilla</ui5-link> favicon by <ui5-link target="_blank" href="https://icons8.com">Icons8</ui5-link>
-				</ui5-label>
+				<References />
 			</HashRouter>
 		}
 
 		const domContainer = document.querySelector('#react-root')
 		ReactDOM.render(<App />, domContainer)
-
-		// TODO make it a countdown
-		function Clock() {
-			const [date, setDate] = React.useState(new Date())
-
-			React.useEffect(() => {
-				const interval = setInterval(() => setDate(new Date()), 1000)
-				return () => clearInterval(interval)
-			}, [])
-
-			return <div>
-				<h2>It is {date.toLocaleTimeString()}</h2>
-			</div>
-		}
 	</script>
 
 </body>
