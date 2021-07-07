@@ -49,10 +49,20 @@
 
 		function DemoApp(props) {
 			const [clients, setClients] = React.useState([])
-			const addClient = () => setClients((oldClients) => [...oldClients, { id: oldClients.length }])
+
+			const addClient = () => {
+				setClients((oldClients) => [...oldClients, { id: oldClients.length }])
+			}
+
+			const clientsHtml = clients.map((c) => {
+				return <div key={c.id}>
+					<h1>Client {c.id + 1}</h1>
+					<DemoClient adapter={props.adapter} />
+				</div>
+			})
 
 			return <div style={{ marginLeft: "20%", marginRight: "20%" }}>
-				{clients.map((c) => <div key={c.id}><h1>Client {c.id + 1}</h1><DemoClient adapter={props.adapter} /></div>)}
+				{clientsHtml}
 				<p />
 				<button onClick={addClient}>Add Demo Client</button>
 			</div>
