@@ -96,8 +96,18 @@
 		}
 
 		function HostGame() {
-			return <div>
-				todo
+			const { id } = ReactRouterDOM.useParams()
+			let playerUrl = `${window.location.origin}/#/play/${id}`
+
+			const copyToClipboard = () => {
+				navigator.clipboard.writeText(playerUrl)
+				document.getElementById("playerUrlCopied").show()
+			}
+
+			return <div style={{ display: "flex", flexDirection: "row" }}>
+				<ui5-input readonly value={playerUrl}></ui5-input>
+				<ui5-button icon="copy" onClick={copyToClipboard}></ui5-button>
+				<ui5-toast id="playerUrlCopied">Player's URL has been copied to clipboard!</ui5-toast>
 			</div>
 		}
 
