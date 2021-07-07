@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="icon" type="image/png" href="icons8-harambe-the-gorilla-50.png" />
+	<script src="lib/babel.min.js"></script>
+	<script src="lib/react.development.js"></script>
+	<script src="lib/react-dom.development.js"></script>
+	<script src="lib/react-router-dom.js"></script>
+	<script nomodule src="lib/bundle.es5.js"></script>
+	<script src="lib/bundle.esm.js" type="module"></script>
+	<script src="components.js" type="text/babel"></script>
+</head>
+
+<body id="content" class="sapUiBody">
+	<div id="react-root"></div>
+
+	<script type="text/babel">
+		'use strict'
+
+		// TODO implement avatar logic
+		function DemoAdapter() {
+			let nextGameId = 100000
+			const avatars = "🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲"
+			const joinSubscribers = []
+
+			this.subscribeJoin = (subscriber) => {
+				joinSubscribers.push(subscriber)
+			}
+
+			this.unsubscribeJoin = (subscriber) => {
+				const index = joinSubscribers.findIndex((js) => js === subscriber)
+				joinSubscribers.splice(index, 1)
+			}
+
+			this.join = (gameId, playerName) => {
+				joinSubscribers.forEach((js) => js(gameId, playerName))
+			}
+
+			this.host = () => {
+				return String(nextGameId++)
+			}
+		}
+
+		function DemoClient(props) {
+			const [status, setStatus] = React.useState('')
+			const [gameId, setGameId] = React.useState('')
+			const [playerName, setPlayerName] = React.useState('')
+
+			const join = async (gameId, playerName) => {
+				setPlayerName(playerName)
+				setGameId(gameId)
+				setStatus('play')
+			}
+
+			const host = async (gameId) => {
+				setGameId(gameId)
+				setStatus('host')
+			}
+
+			if (status === 'play') {
+				return <PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
+			} else if (status === 'host') {
+				return <HostGame gameId={gameId} adapter={props.adapter} />
+			} else {
+				return <Entrance onJoin={join} onHost={host} adapter={props.adapter} />
+			}
+		}
+
+		function DemoApp(props) {
+			const [clients, setClients] = React.useState([])
+			const addClient = () => setClients((oldClients) => [...oldClients, { id: oldClients.length }])
+
+			return <div style={{ marginLeft: "20%", marginRight: "20%" }}>
+				{clients.map((c) => <div key={c.id}><h1>Client {c.id + 1}</h1><DemoClient adapter={props.adapter} /></div>)}
+				<p />
+				<button onClick={addClient}>Add Demo Client</button>
+			</div>
+		}
+
+		ReactDOM.render(<DemoApp adapter={new DemoAdapter()} />, document.querySelector('#react-root'))
+	</script>
+
+</body>
+
+</html>
