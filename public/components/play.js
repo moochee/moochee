@@ -2,7 +2,7 @@
 
 function PlayGame(props) {
     function Answer(props) {
-        return <ui5-button design="Default" onClick={props.onClick} style={{ width: "50%" }}>{props.text}</ui5-button>
+        return <ui5-button design="Default" onClick={e => guess(e.target.innerText)} style={{ width: "50%" }}>{props.text}</ui5-button>
     }
 
     function Answers(props) {
@@ -35,6 +35,10 @@ function PlayGame(props) {
         if (gameId === props.gameId) {
             setQuestion(newQuestion)
         }
+    }
+
+    const guess = (answer) => {
+        props.adapter.guess(props.gameId, question, props.playerName, answer)
     }
 
     // REVISE it seems there is some redundancy between Host/Player wrt displaying the question / responding to new question being presented

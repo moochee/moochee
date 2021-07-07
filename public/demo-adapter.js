@@ -17,6 +17,7 @@ function DemoAdapter() {
         { sequence: 9, text: 'Fake question 9?', answers: ['answer1', 'answer2', 'answer3', 'answer4'] },
         { sequence: 10, text: 'Fake question 10?', answers: ['answer1', 'answer2', 'answer3', 'answer4'] }
     ]
+    const games = []
 
     this.subscribeJoin = (subscriber) => {
         joinSubscribers.push(subscriber)
@@ -42,11 +43,20 @@ function DemoAdapter() {
     }
 
     this.host = () => {
-        return String(nextGameId++)
+        const gameId = String(nextGameId++)
+        const questionsAndGuesses = questions.map(q => { return { sequence: q.sequence, guesses: [] } })
+        games.push({id: gameId, questions: questionsAndGuesses})
+        return gameId
     }
 
     this.start = (gameId) => {
         const nextQuestion = questions.shift()
         newQuestionSubscribers.forEach((subscriber) => subscriber(gameId, nextQuestion))
+    }
+
+    this.guess = (gameId, question, playerName, answer) => {
+        games.find(id => id = gameId)
+            .questions.find(sequence => sequence = question.sequence)
+            .guesses.push({playerName, answer})
     }
 }
