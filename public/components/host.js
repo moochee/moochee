@@ -48,6 +48,8 @@ function HostGame(props) {
     const [question, setQuestion] = React.useState(null)
     const [canStart, setCanStart] = React.useState(false)
 
+    const urlCopiedToast = React.createRef()
+
     const onPlayerJoined = (gameId, name, avatar) => {
         if (gameId === props.gameId) {
             setPlayers((oldPlayers) => {
@@ -72,7 +74,7 @@ function HostGame(props) {
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(playerUrl)
-        document.getElementById("playerUrlCopied").show()
+        urlCopiedToast.current.show()
     }
 
     React.useEffect(() => {
@@ -97,7 +99,7 @@ function HostGame(props) {
         <p />
         <ui5-title level="H2">Players:</ui5-title>
         <Players players={players} />
-        <ui5-toast id="playerUrlCopied">Player's URL has been copied to clipboard!</ui5-toast>
+        <ui5-toast ref={urlCopiedToast}>Join URL has been copied to clipboard!</ui5-toast>
         {startButton}
         {questionBlock}
     </div>
