@@ -80,11 +80,29 @@ function Clock() {
 
 function PlayGame(props) {
     let [isClockShown, setIsClockShown] = React.useState(true)
+    const [question, setQuestion] = React.useState(null)
+
     const toggleClock = () => setIsClockShown(!isClockShown)
+
+    const onNewQuestion = (gameId, newQuestion) => {
+        if (gameId === props.gameId) {
+            setQuestion(newQuestion)
+        }
+    }
+
+    // REVISE it seems there is some redundancy between Host/Player wrt displaying the question / responding to new question being presented
+    //          maybe it is ok since we Host and Player to deal with this slightly differently in future, so we don't refactor to a re-use component right now - revisit later!
+    React.useEffect(() => {
+        props.adapter.subscribeNewQuestion(onNewQuestion)
+        return () => {
+            props.adapter.unsubscribeNewQuestion(onNewQuestion)
+        }
+    }, [])
+
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
         <ui5-title level="H2">Playing as {props.playerName}</ui5-title>
-        <Question text="Test question" imageUrl="" />
+        <Question text={question} imageUrl="" />
         <AnswerBlock answer1="sample answer 1" answer2="sample answer 2" answer3="sample answer 3" answer4="sample answer 4" />
     </div>
 }
@@ -103,11 +121,22 @@ function Players(props) {
 function HostGame(props) {
     let playerUrl = `${window.location.origin}/#/play/${props.gameId}`
     const [players, setPlayers] = React.useState([])
+    const [question, setQuestion] = React.useState(null)
 
-    const onJoin = (gameId, playerName) => {
+    const onPlayerJoined = (gameId, playerName) => {
         if (gameId === props.gameId) {
             setPlayers((oldPlayers) => [...oldPlayers, { name: playerName, avatar: null }])
         }
+    }
+
+    const onNewQuestion = (gameId, newQuestion) => {
+        if (gameId === props.gameId) {
+            setQuestion(newQuestion)
+        }
+    }
+
+    const start = () => {
+        props.adapter.start(props.gameId)
     }
 
     const copyToClipboard = () => {
@@ -116,9 +145,15 @@ function HostGame(props) {
     }
 
     React.useEffect(() => {
-        props.adapter.subscribeJoin(onJoin)
-        return () => props.adapter.unsubscribeJoin(onJoin)
+        props.adapter.subscribeJoin(onPlayerJoined)
+        props.adapter.subscribeNewQuestion(onNewQuestion)
+        return () => {
+            props.adapter.unsubscribeJoin(onPlayerJoined)
+            props.adapter.unsubscribeNewQuestion(onNewQuestion)
+        }
     }, [])
+
+    const questionHtml = question ? <div>{question}</div> : '' 
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
@@ -129,8 +164,10 @@ function HostGame(props) {
         </div>
         <p />
         <ui5-title level="H2">Players:</ui5-title>
-        <ui5-toast id="playerUrlCopied">Player's URL has been copied to clipboard!</ui5-toast>
         <Players players={players} />
+        <ui5-toast id="playerUrlCopied">Player's URL has been copied to clipboard!</ui5-toast>
+        <ui5-button onClick={start}>Start</ui5-button>
+        {questionHtml}
     </div>
 }
 

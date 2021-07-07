@@ -17,20 +17,29 @@
 
 	<script type="text/babel">
 		// TODO
-		// - create new game
-		// - join game
+		// - don't only deliver the question - also deliver the 4 possible answers!
+		// - guess the answer
+		// - evaluate
+		// - present next question
 		// - + QR code
-		// - # integrate with server using web sockets
 		// - + try different / more fancy UI library more suited for games
+		// - # integrate with server using web sockets
+		// - try implement both a WebSocket adapter and an HttpRestAdapter, both should work to be "plugged in" without changing the code
 		// - respond to click -> evaluate
 		// - podium screen
 		// - try if using <> works, or understand why it doesn't work
+		// - should participants see the other players?
+		//
 		// DONE
 		// - # entrance screen (enter name and game id)
+		// - create/host game
+		// - join game
+		// - copy url
+		// - start the quiz after sufficient people joined
 
 		'use strict'
 
-		function WebAdapter() {
+		function WebSocketsAdapter() {
 			let nextGameId = 100000
 			const joinSubscribers = []
 
@@ -93,7 +102,7 @@
 			</div>
 		}
 
-		ReactDOM.render(<WebApp adapter={new WebAdapter()} />, document.querySelector('#react-root'))
+		ReactDOM.render(<WebApp adapter={new WebSocketsAdapter()} />, document.querySelector('#react-root'))
 	</script>
 
 </body>

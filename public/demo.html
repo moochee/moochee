@@ -23,22 +23,36 @@
 			let nextGameId = 100000
 			const avatars = "🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲"
 			const joinSubscribers = []
+			const newQuestionSubscribers = []
 
 			this.subscribeJoin = (subscriber) => {
 				joinSubscribers.push(subscriber)
 			}
 
 			this.unsubscribeJoin = (subscriber) => {
-				const index = joinSubscribers.findIndex((js) => js === subscriber)
+				const index = joinSubscribers.findIndex((s) => s === subscriber)
 				joinSubscribers.splice(index, 1)
 			}
 
+			this.subscribeNewQuestion = (subscriber) => {
+				newQuestionSubscribers.push(subscriber)
+			}
+
+			this.unsubscribeNewQuestion = (subscriber) => {
+				const index = newQuestionSubscribers.findIndex((s) => s === subscriber)
+				newQuestionSubscribers.splice(index, 1)
+			}			
+
 			this.join = (gameId, playerName) => {
-				joinSubscribers.forEach((js) => js(gameId, playerName))
+				joinSubscribers.forEach((subscriber) => subscriber(gameId, playerName))
 			}
 
 			this.host = () => {
 				return String(nextGameId++)
+			}
+
+			this.start = (gameId) => {
+				newQuestionSubscribers.forEach((subscriber) => subscriber(gameId, "Fake question?"))
 			}
 		}
 
