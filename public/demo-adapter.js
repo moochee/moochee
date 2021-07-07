@@ -1,9 +1,8 @@
 'use strict'
 
-// TODO implement avatar logic
 function DemoAdapter() {
     let nextGameId = 100000
-    const avatars = "🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲"
+    let avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲')
     const joinSubscribers = []
     const newQuestionSubscribers = []
     const questions = [
@@ -38,7 +37,8 @@ function DemoAdapter() {
     }
 
     this.join = (gameId, playerName) => {
-        joinSubscribers.forEach((subscriber) => subscriber(gameId, playerName))
+        const avatar = avatars.splice(Math.random() * avatars.length, 1)
+        joinSubscribers.forEach((subscriber) => subscriber(gameId, playerName, avatar))
     }
 
     this.host = () => {

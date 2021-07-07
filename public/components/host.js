@@ -31,7 +31,7 @@ function HostGame(props) {
 
     function Player(props) {
         return <ui5-card heading={props.name}>
-            <img src={props.avatar} slot="avatar" />
+            <div style={{fontSize: '4em'}} slot="avatar">{props.avatar}</div>
         </ui5-card>
     }
 
@@ -46,11 +46,10 @@ function HostGame(props) {
     let playerUrl = `${window.location.origin}/#/play/${props.gameId}`
     const [players, setPlayers] = React.useState([])
     const [question, setQuestion] = React.useState(null)
-    const [isStarted, setIsStarted] = React.useState(false)
 
-    const onPlayerJoined = (gameId, playerName) => {
+    const onPlayerJoined = (gameId, name, avatar) => {
         if (gameId === props.gameId) {
-            setPlayers((oldPlayers) => [...oldPlayers, { name: playerName, avatar: null }])
+            setPlayers((oldPlayers) => [...oldPlayers, { name, avatar }])
         }
     }
 
@@ -61,7 +60,6 @@ function HostGame(props) {
     }
 
     const start = () => {
-        setIsStarted(true)
         props.adapter.start(props.gameId)
     }
 
