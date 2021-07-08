@@ -4,6 +4,8 @@
 <head>
 	<title>Gorilla</title>
 	<link rel="icon" type="image/png" href="icons8-harambe-the-gorilla-50.png" />
+	<link rel="stylesheet" type="text/css" href="font/komikatext_regular_macroman/stylesheet.css" />
+	<link rel="stylesheet" type="text/css" href="components/sticky/sticky-button.css" />
 	<script src="lib/babel.min.js"></script>
 	<script src="lib/react.development.js"></script>
 	<script src="lib/react-dom.development.js"></script>
@@ -15,12 +17,15 @@
 	<script src="components/entrance.js" type="text/babel"></script>
 	<script src="components/host.js" type="text/babel"></script>
 	<script src="components/play.js" type="text/babel"></script>
+	<script src="components/sticky/sticky-button.js" type="text/babel"></script>
 </head>
 
 <body id="content" class="sapUiBody">
 	<div id="react-root"></div>
 
 	<script type="text/babel">
+		'use strict'
+
 		// TODO
 		// - evaluate
 		// - present next question
@@ -33,7 +38,11 @@
 		// - try implement both a WebSocket adapter and an HttpRestAdapter, both should work to be "plugged in" without changing the code
 		// - try if using <> works, or understand why it doesn't work
 		//
+		// DOING
+		// - try own widget, e.g. post-its or fruits
+		//
 		// DONE
+		// - animated transition
 		// - avatars
 		// - don't only deliver the question - also deliver the 4 possible answers!
 		// - entrance screen (enter name and game id)
@@ -42,8 +51,6 @@
 		// - copy url
 		// - start the quiz after sufficient people joined
 		// - guess the answer
-
-		'use strict'
 
 		function HostGameWeb(props) {
 			const { gameId } = ReactRouterDOM.useParams()

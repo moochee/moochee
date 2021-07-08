@@ -1,0 +1,48 @@
+.stickyButton {
+    position: relative;
+    width: 40%;
+    cursor: pointer;
+    transition: all 400ms cubic-bezier(.47,1.64,.41,.8);
+}
+.stickyButton:hover {
+    transform: scale(1.2);
+}
+
+.stickyThrowAway {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-name: throwAway;
+    animation-name: throwAway;
+    visibility: visible;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes throwAway {
+    to {
+        transform: scale(.1) translate(200%, -100%) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@keyframes throwAway {
+    to {
+        transform: scale(.1) translate(200%, -100%) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.stickyButton .textField {
+    font-family: komika_textregular;
+    font-size: 2em;
+    color: white;
+    position: absolute;
+    left: 15%;
+    right: 20%;
+    top: 50%;
+    text-align: center;
+    transform: translate(0, -50%) rotate(-3deg);
+}
+
+.stickyButton img {
+     width: 100%;
+}

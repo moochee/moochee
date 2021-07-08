@@ -8,12 +8,12 @@ function HostGame(props) {
     function Answers(props) {
         return <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <Answer text={props.answers[0]} />
-                <Answer text={props.answers[1]} />
+                <StickyButton color="green" onClick={()=>null} text={props.answers[0]}/>
+                <StickyButton color="purple" onClick={()=>null} text={props.answers[1]}/>
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <Answer text={props.answers[2]} />
-                <Answer text={props.answers[3]} />
+                <StickyButton color="blue" onClick={()=>null} text={props.answers[2]}/>
+                <StickyButton color="orange" onClick={()=>null} text={props.answers[3]}/>
             </div>
         </div>
     }
