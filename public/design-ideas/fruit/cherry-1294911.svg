@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 60.698186 82.143882" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter id="a" x="-.76538" y="-.76538" width="2.5308" height="2.5308">
+   <feGaussianBlur stdDeviation="2.8993075"/>
+  </filter>
+ </defs>
+ <g transform="translate(156.07 -494.15)">
+  <path d="m-130.7 496.75c-2.1047 16.398-5.4964 33.037-15.849 51.534l1.4819 0.81993c9.6795-17.295 13.283-33.023 15.456-48.308 4.4496 16.008 9.8159 31.229 16.849 45.022l1.5204-0.77225c-7.5078-14.725-13.179-31.093-17.797-48.409l-1.6612 0.11332z" color="#000000" fill="#008000" stroke="#000" stroke-width=".56569" style="block-progression:tb;text-decoration-line:none;text-indent:0;text-transform:none"/>
+  <path d="m-145.45 548.27c-16.99-3.5951-11.286 29.742 4.531 27.645 21.543-2.5038 6.8981-39.485-4.531-27.645" fill="#dc0000" stroke="#000" stroke-width=".56569px"/>
+  <circle transform="matrix(.56078 -.074373 .074373 .56078 -499.07 300.73)" cx="569.73" cy="527.08" r="4.5457" fill="#fff" fill-rule="evenodd" filter="url(#a)"/>
+  <path d="m-113.22 542.36c-17.309-5.9984-11.286 29.742 4.531 27.645 23.387-3.9711 11.198-40.87-4.531-27.645" fill="#dc0000" stroke="#000" stroke-width=".56569px"/>
+  <circle transform="matrix(.56078 -.074373 .074373 .56078 -463.37 296.4)" cx="569.73" cy="527.08" r="4.5457" fill="#fff" fill-rule="evenodd" filter="url(#a)"/>
+  <path d="m-130.96 497.17c6.891 11.117 15.852 18.04 30.871 12.689-4.8904-13.2-14.148-19.145-30.871-12.689" fill="#008000" stroke="#000" stroke-width=".80591px"/>
+ </g>
+</svg>
