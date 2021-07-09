@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Gorilla</title>
+	<link rel="icon" type="image/png" href="icons8-harambe-the-gorilla-50.png" />
+	<link rel="stylesheet" type="text/css" href="font/komikatext_regular_macroman/stylesheet.css" />
+	<link rel="stylesheet" type="text/css" href="components/sticky/sticky-button.css" />
+	<script src="lib/babel.min.js"></script>
+	<script src="lib/react.development.js"></script>
+	<script src="lib/react-dom.development.js"></script>
+	<script src="lib/react-router-dom.js"></script>
+	<script nomodule src="lib/bundle.es5.js"></script>
+	<script src="lib/bundle.esm.js" type="module"></script>
+	<script src="demo-adapter.js" type="text/babel"></script>
+	<script src="components/general.js" type="text/babel"></script>
+	<script src="components/entrance.js" type="text/babel"></script>
+	<script src="components/host.js" type="text/babel"></script>
+	<script src="components/play.js" type="text/babel"></script>
+	<script src="components/sticky/sticky-button.js" type="text/babel"></script>
+
+	<style>
+		#footer {
+			position: fixed;
+			height: 10%;
+			background-color: red;
+			bottom: 0px;
+			left: 0px;
+			right: 0px;
+			margin-bottom: 0px;
+		}
+		
+		html {
+			height: 100%;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background: -webkit-linear-gradient(to top, #606060, #000000);
+			background: -moz-linear-gradient(to top, #606060, #000000);
+			background: -ms-linear-gradient(to top, #606060, #000000);
+			background: -o-linear-gradient(to top, #606060, #000000);
+			background: linear-gradient(to top, #606060, #000000);
+		}
+
+	</style>
+</head>
+
+<body id="content" class="sapUiBody">
+	<div id="react-root"></div>
+
+	<script type="text/babel">
+		'use strict'
+
+		function SampleLayout(props) {
+			return <div style={{ width: "60%", marginLeft: "20%" }}>
+
+				<div style={{ textAlign: "center", fontFamily: "komika_textregular", fontSize: "2em", color: "white" }}>Round #1 - Passionate Product Ownership Quiz</div>
+				<h1 style={{ textAlign: "center", fontFamily: "komika_textregular", fontSize: "3em", color: "white" }}>Are you in?</h1>
+
+				<div style={{ display: "flex", flexDirection: "column" }}>
+					<div style={{ alignItems: "center", justifyContent: "center", display: "flex", flexDirection: "row" }}>
+						<StickyButton color="green" onClick={() => null} text="Yes" />
+						<StickyButton color="purple" onClick={() => null} text="No" />
+					</div>
+					<div style={{ alignItems: "center", justifyContent: "center", display: "flex", flexDirection: "row" }}>
+						<StickyButton color="blue" onClick={() => null} text="I don't know" />
+						<StickyButton color="orange" onClick={() => null} text="Maybe" />
+					</div>
+				</div>
+
+				<div id="footer" style={{ background: "white", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row", width: "100%" }}>
+					<img style={{ width: "25%" }} src="ACDC-Logo.png" />
+					<img style={{ width: "25%" }} src="Cloud-Curriculum_Logo-with-Tagline.png" />
+				</div>
+			</div>
+		}
+
+		ReactDOM.render(<SampleLayout />, document.querySelector('#react-root'))
+	</script>
+
+</body>
+
+</html>
