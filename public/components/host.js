@@ -47,6 +47,9 @@ function HostGame(props) {
     const [players, setPlayers] = React.useState([])
     const [question, setQuestion] = React.useState(null)
     const [canStart, setCanStart] = React.useState(false)
+    const [canNext, setCanNext] = React.useState(false)
+    const [playerScores, setPlayerScores] = React.useState([])
+    const [state, setState] = React.useState(null)
 
     const urlCopiedToast = React.createRef()
 
@@ -64,12 +67,28 @@ function HostGame(props) {
     const onNewQuestion = (gameId, newQuestion) => {
         if (gameId === props.gameId) {
             setQuestion(newQuestion)
+            setState('question')
+        }
+    }
+
+    const onEvaluate = (gameId, players) => {
+        if (gameId === props.gameId) {
+            setPlayerScores(() => {
+                return [...players]
+            })
+            setState('podium')
+            setCanNext(true)
         }
     }
 
     const start = () => {
         props.adapter.start(props.gameId)
         setCanStart(false)
+    }
+
+    const next = () => {
+        props.adapter.start(props.gameId)
+        setCanNext(false)
     }
 
     const copyToClipboard = () => {
@@ -80,14 +99,18 @@ function HostGame(props) {
     React.useEffect(() => {
         props.adapter.subscribeJoin(onPlayerJoined)
         props.adapter.subscribeNewQuestion(onNewQuestion)
+        props.adapter.subscribeEvaluate(onEvaluate)
         return () => {
             props.adapter.unsubscribeJoin(onPlayerJoined)
             props.adapter.unsubscribeNewQuestion(onNewQuestion)
+            props.adapter.unsubscribeEvaluate(onEvaluate)
         }
     }, [])
 
-    const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
+    const questionBlock = question && state === 'question' ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
     const startButton = canStart ? <ui5-button onClick={start} style={{ width: "100%" }}>Start</ui5-button> : ''
+    const podiumBlock = state === 'podium' ? <Podium players={playerScores} /> : ''
+    const nextButton = canNext ? <ui5-button onClick={next} style={{ width: "100%" }}>Next</ui5-button> : ''
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
@@ -102,5 +125,7 @@ function HostGame(props) {
         <ui5-toast ref={urlCopiedToast}>Join URL has been copied to clipboard!</ui5-toast>
         {startButton}
         {questionBlock}
+        {podiumBlock}
+        {nextButton}
     </div>
 }

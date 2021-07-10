@@ -30,31 +30,46 @@ function PlayGame(props) {
     }
 
     const [question, setQuestion] = React.useState(null)
+    const [playerScores, setPlayerScores] = React.useState([])
+    const [state, setState] = React.useState(null)
 
     const onNewQuestion = (gameId, newQuestion) => {
         if (gameId === props.gameId) {
             setQuestion(newQuestion)
+            setState('question')
         }
     }
 
+    const onEvaluate = (gameId, players) => {
+        if (gameId === props.gameId) {
+            setPlayerScores(() => {
+                return [...players]
+            })
+            setState('podium')
+        }
+    }
     const guess = (answer) => {
-        props.adapter.guess(props.gameId, question, props.playerName, answer)
+        props.adapter.guess(props.gameId, question.sequence, props.playerName, answer)
     }
 
     // REVISE it seems there is some redundancy between Host/Player wrt displaying the question / responding to new question being presented
     //          maybe it is ok since we Host and Player to deal with this slightly differently in future, so we don't refactor to a re-use component right now - revisit later!
     React.useEffect(() => {
         props.adapter.subscribeNewQuestion(onNewQuestion)
+        props.adapter.subscribeEvaluate(onEvaluate)
         return () => {
             props.adapter.unsubscribeNewQuestion(onNewQuestion)
+            props.adapter.unsubscribeEvaluate(onEvaluate)
         }
     }, [])
 
-    const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
+    const questionBlock = question && state === 'question' ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
+    const podiumBlock = state === 'podium' ? <Podium players={playerScores} /> : ''
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
         <ui5-title level="H2">Playing as {props.playerName}</ui5-title>
         {questionBlock}
+        {podiumBlock}
     </div>
 }

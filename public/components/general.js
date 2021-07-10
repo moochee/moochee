@@ -1,7 +1,12 @@
 'use strict'
 
-function Podium() {
+function Podium(props) {
+    const items = props.players.map((p, index) => 
+        <li key={index}>{p.name}: {p.score}</li>
+    )
     return <div>
+        <h2>Podium</h2>
+        <ol>{items}</ol>
     </div>
 }
 
