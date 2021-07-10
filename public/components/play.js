@@ -40,8 +40,6 @@ function PlayGame(props) {
     }
 
     const onRoundFinished = (gameId, result) => {
-        console.log('onRoundFinished')
-        console.log(gameId)
         if (gameId === props.gameId) {
             setQuestion(null)
             setResult(result)
@@ -63,7 +61,6 @@ function PlayGame(props) {
 
     const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
     const podiumBlock = result ? <Podium players={[result[0], result[1], result[2], result[3]]} /> : ''
-    console.log(podiumBlock)
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
