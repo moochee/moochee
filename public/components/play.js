@@ -30,41 +30,37 @@ function PlayGame(props) {
     }
 
     const [question, setQuestion] = React.useState(null)
-    const [playerScores, setPlayerScores] = React.useState([])
-    const [state, setState] = React.useState(null)
+    const [result, setResult] = React.useState(null)
 
-    const onNewQuestion = (gameId, newQuestion) => {
+    const onRoundStarted = (gameId, newQuestion) => {
         if (gameId === props.gameId) {
             setQuestion(newQuestion)
-            setState('question')
+            setResult(null)
         }
     }
 
-    const onEvaluate = (gameId, players) => {
+    const onRoundFinished = (gameId, result) => {
         if (gameId === props.gameId) {
-            setPlayerScores(() => {
-                return [...players]
-            })
-            setState('podium')
+            setQuestion(null)
+            setResult(result)
         }
     }
+
     const guess = (answer) => {
-        props.adapter.guess(props.gameId, question.sequence, props.playerName, answer)
+        props.adapter.guess(props.gameId, question.text, props.playerName, answer)
     }
 
-    // REVISE it seems there is some redundancy between Host/Player wrt displaying the question / responding to new question being presented
-    //          maybe it is ok since we Host and Player to deal with this slightly differently in future, so we don't refactor to a re-use component right now - revisit later!
     React.useEffect(() => {
-        props.adapter.subscribeNewQuestion(onNewQuestion)
-        props.adapter.subscribeEvaluate(onEvaluate)
+        props.adapter.subscribe('roundStarted', onRoundStarted)
+        props.adapter.subscribe('roundFinished', onRoundFinished)
         return () => {
-            props.adapter.unsubscribeNewQuestion(onNewQuestion)
-            props.adapter.unsubscribeEvaluate(onEvaluate)
+            props.adapter.unsubscribe(onRoundStarted)
+            props.adapter.unsubscribe(onRoundFinished)
         }
     }, [])
 
-    const questionBlock = question && state === 'question' ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
-    const podiumBlock = state === 'podium' ? <Podium players={playerScores} /> : ''
+    const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
+    const podiumBlock = result ? <Podium players={[result[0], result[1], result[2], result[3]]} /> : ''
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>

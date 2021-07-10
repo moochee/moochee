@@ -8,12 +8,12 @@ function HostGame(props) {
     function Answers(props) {
         return <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <StickyButton color="green" onClick={()=>null} text={props.answers[0]}/>
-                <StickyButton color="purple" onClick={()=>null} text={props.answers[1]}/>
+                <StickyButton color="green" onClick={() => null} text={props.answers[0]} />
+                <StickyButton color="purple" onClick={() => null} text={props.answers[1]} />
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <StickyButton color="blue" onClick={()=>null} text={props.answers[2]}/>
-                <StickyButton color="orange" onClick={()=>null} text={props.answers[3]}/>
+                <StickyButton color="blue" onClick={() => null} text={props.answers[2]} />
+                <StickyButton color="orange" onClick={() => null} text={props.answers[3]} />
             </div>
         </div>
     }
@@ -43,40 +43,37 @@ function HostGame(props) {
         return <div>{players}</div>
     }
 
-    let playerUrl = `${window.location.origin}/#/play/${props.gameId}`
+    let joinUrl = `${window.location.origin}/#/play/${props.gameId}`
     const [players, setPlayers] = React.useState([])
     const [question, setQuestion] = React.useState(null)
     const [canStart, setCanStart] = React.useState(false)
     const [canNext, setCanNext] = React.useState(false)
-    const [playerScores, setPlayerScores] = React.useState([])
-    const [state, setState] = React.useState(null)
+    const [result, setResult] = React.useState(null)
 
     const urlCopiedToast = React.createRef()
 
-    const onPlayerJoined = (gameId, name, avatar) => {
+    const onPlayerJoined = (gameId, player) => {
         if (gameId === props.gameId) {
             setPlayers((oldPlayers) => {
                 if (oldPlayers.length >= 1) {
                     setCanStart(true)
                 }
-                return [...oldPlayers, { name, avatar }]
+                return [...oldPlayers, player]
             })
         }
     }
 
-    const onNewQuestion = (gameId, newQuestion) => {
+    const onRoundStarted = (gameId, newQuestion) => {
         if (gameId === props.gameId) {
             setQuestion(newQuestion)
-            setState('question')
+            setResult(null)
         }
     }
 
-    const onEvaluate = (gameId, players) => {
+    const onRoundFinished = (gameId, players) => {
         if (gameId === props.gameId) {
-            setPlayerScores(() => {
-                return [...players]
-            })
-            setState('podium')
+            setQuestion(null)
+            setResult(players)
             setCanNext(true)
         }
     }
@@ -92,31 +89,31 @@ function HostGame(props) {
     }
 
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(playerUrl)
+        navigator.clipboard.writeText(joinUrl)
         urlCopiedToast.current.show()
     }
 
     React.useEffect(() => {
-        props.adapter.subscribeJoin(onPlayerJoined)
-        props.adapter.subscribeNewQuestion(onNewQuestion)
-        props.adapter.subscribeEvaluate(onEvaluate)
+        props.adapter.subscribe('playerJoined', onPlayerJoined)
+        props.adapter.subscribe('roundStarted', onRoundStarted)
+        props.adapter.subscribe('roundFinished', onRoundFinished)
         return () => {
-            props.adapter.unsubscribeJoin(onPlayerJoined)
-            props.adapter.unsubscribeNewQuestion(onNewQuestion)
-            props.adapter.unsubscribeEvaluate(onEvaluate)
+            props.adapter.unsubscribe(onPlayerJoined)
+            props.adapter.unsubscribe(onNewQuestion)
+            props.adapter.unsubscribe(onRoundFinished)
         }
     }, [])
 
-    const questionBlock = question && state === 'question' ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
+    const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
     const startButton = canStart ? <ui5-button onClick={start} style={{ width: "100%" }}>Start</ui5-button> : ''
-    const podiumBlock = state === 'podium' ? <Podium players={playerScores} /> : ''
+    const podiumBlock = result ? <Podium players={[result[0], result[1], result[2], result[3]]} /> : ''
     const nextButton = canNext ? <ui5-button onClick={next} style={{ width: "100%" }}>Next</ui5-button> : ''
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
         <p />
         <div style={{ display: "flex", flexDirection: "row" }}>
-            <ui5-input style={{ "width": "100%" }} readonly value={playerUrl}></ui5-input>
+            <ui5-input style={{ "width": "100%" }} readonly value={joinUrl}></ui5-input>
             <ui5-button icon="copy" onClick={copyToClipboard}></ui5-button>
         </div>
         <p />

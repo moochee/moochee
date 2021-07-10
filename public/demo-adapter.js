@@ -1,72 +1,81 @@
 'use strict'
 
-function DemoAdapter() {
+export default function DemoAdapter(setTimeout, questions) {
     let nextGameId = 100000
     let avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲')
-    const joinSubscribers = []
-    const newQuestionSubscribers = []
-    const evaluateSubscribers = []
-    const questions = [
-        { sequence: 1, text: 'Fake question 1?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-        { sequence: 2, text: 'Fake question 2?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-        { sequence: 3, text: 'Fake question 3?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' }
-    ]
-    const questionsWithoutRightAnswer = questions.map( q => {
-        return { sequence: q.sequence, text: q.text, answers: q.answers }
-    })
+    const subscribers = []
     const games = []
 
-    this.subscribeJoin = (subscriber) => {
-        joinSubscribers.push(subscriber)
+    // const questions = [
+    //     { text: 'Fake question 1?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
+    //     { text: 'Fake question 2?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
+    //     { text: 'Fake question 3?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
+    //     { text: 'Fake question 4?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
+    //     { text: 'Fake question 5?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
+    //     { text: 'Fake question 6?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
+    //     { text: 'Fake question 7?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
+    //     { text: 'Fake question 8?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
+    //     { text: 'Fake question 9?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
+    //     { text: 'Fake question 10?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' }
+    // ]
+
+    // REVISE just checking - why do we need to map the whole thing, can't we just do it on the fly in "nextRound"
+    const questionsWithoutRightAnswer = questions.map((q, index) => {
+        return { sequence: index + 1, text: q.text, answers: q.answers }
+    })
+
+    this.subscribe = (event, subscriber) => {
+        subscribers.push({ event, subscriber })
     }
 
-    this.unsubscribeJoin = (subscriber) => {
-        const index = joinSubscribers.findIndex((s) => s === subscriber)
-        joinSubscribers.splice(index, 1)
+    this.unsubscribe = (subscriber) => {
+        const index = subscribers.findIndex((entry) => entry.subscriber === subscriber)
+        subscribers.splice(index, 1)
     }
 
-    this.subscribeNewQuestion = (subscriber) => {
-        newQuestionSubscribers.push(subscriber)
+    const publish = (event, ...args) => {
+        subscribers.filter((entry) => entry.event === event).forEach((entry) => entry.subscriber(...args))
     }
 
-    this.unsubscribeNewQuestion = (subscriber) => {
-        const index = newQuestionSubscribers.findIndex((s) => s === subscriber)
-        newQuestionSubscribers.splice(index, 1)
-    }
-
-    this.subscribeEvaluate = (subscriber) => {
-        evaluateSubscribers.push(subscriber)
-    }
-
-    this.unsubscribeEvaluate = (subscriber) => {
-        const index = evaluateSubscribers.findIndex((s) => s === subscriber)
-        evaluateSubscribers.splice(index, 1)
-    }
-
-    this.join = (gameId, playerName) => {
+    this.join = (gameId, name) => {
         const avatar = avatars.splice(Math.random() * avatars.length, 1)
-        joinSubscribers.forEach((subscriber) => subscriber(gameId, playerName, avatar))
-        games.find(game => game.id === gameId).players.push({name: playerName, score: 0})
+        const newPlayer = { name, avatar, score: 0 }
+        games.find((g) => g.id === gameId).players.push(newPlayer)
+        publish('playerJoined', gameId, newPlayer)
     }
 
     this.host = () => {
         const gameId = String(nextGameId++)
-        const questionsAndGuesses = questions.map(q => { 
-            return { sequence: q.sequence, rightAnswer: q.rightAnswer, guesses: [] } 
+        const questionsAndGuesses = questions.map(q => {
+            return { text: q.text, rightAnswer: q.rightAnswer, guesses: [] }
         })
-        games.push({id: gameId, questions: questionsAndGuesses, players: []})
+        games.push({ id: gameId, questions: questionsAndGuesses, players: [] })
         return gameId
     }
 
-    this.start = (gameId) => {
-        const nextQuestion = questionsWithoutRightAnswer.shift()
-        newQuestionSubscribers.forEach((subscriber) => subscriber(gameId, nextQuestion))
+    const finishRound = (gameId) => {
+        const game = games.find((g) => g.id === gameId)
+        // TODO implement "player is on fire", e.g. when climbed 3 times, or guessed right 3 times, or ...
+        publish('roundFinished', gameId, game.players)
+        // TODO if no more questions left, game is finished
+        // publish('gameFinished', endResult)
     }
 
-    this.guess = (gameId, questionSequence, playerName, answer) => {
+    this.nextRound = (gameId) => {
+        const timeToGuess = 20000;
+        setTimeout(() => finishRound(gameId), timeToGuess)
+        const question = questionsWithoutRightAnswer.shift()
+        publish('roundStarted', gameId, question, timeToGuess)
+    }
+
+    this.start = (gameId) => {
+        this.nextRound(gameId)
+    }
+
+    this.guess = (gameId, questionText, playerName, answer) => {
         const game = games.find(g => g.id === gameId)
 
-        const question = game.questions.find(q => q.sequence === questionSequence)
+        const question = game.questions.find(q => q.text === questionText)
         //TODO: make sure only 1 answer per player
         question.guesses.push({playerName, answer})
 
@@ -74,7 +83,7 @@ function DemoAdapter() {
         game.players.find(p => p.name === playerName).score += score
 
         if (question.guesses.length === game.players.length) {
-            evaluateSubscribers.forEach((subscriber) => subscriber(gameId, game.players))
+            publish('roundFinished', gameId, game.players)
         }
     }
 }

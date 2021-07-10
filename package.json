@@ -4,12 +4,16 @@
   "description": "",
   "scripts": {
     "start": "node gorilla.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine **/*.spec.mjs"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jasmine": "^3.8.0"
   }
 }
