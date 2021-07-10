@@ -46,6 +46,10 @@ function PlayGame(props) {
         }
     }
 
+    const onGameFinished = (gameId, result) => {
+        onRoundFinished(gameId, result)
+    }
+
     const guess = (answer) => {
         props.adapter.guess(props.gameId, question.text, props.playerName, answer)
     }
@@ -53,9 +57,11 @@ function PlayGame(props) {
     React.useEffect(() => {
         props.adapter.subscribe('roundStarted', onRoundStarted)
         props.adapter.subscribe('roundFinished', onRoundFinished)
+        props.adapter.subscribe('gameFinished', onGameFinished)
         return () => {
             props.adapter.unsubscribe(onRoundStarted)
             props.adapter.unsubscribe(onRoundFinished)
+            props.adapter.unsubscribe(onGameFinished)
         }
     }, [])
 

@@ -56,9 +56,11 @@ export default function DemoAdapter(setTimeout, questions) {
     const finishRound = (gameId) => {
         const game = games.find((g) => g.id === gameId)
         // TODO implement "player is on fire", e.g. when climbed 3 times, or guessed right 3 times, or ...
-        publish('roundFinished', gameId, game.players)
-        // TODO if no more questions left, game is finished
-        // publish('gameFinished', endResult)
+        if (questionsWithoutRightAnswer.length > 0) {
+            publish('roundFinished', gameId, game.players)
+        } else {
+            publish('gameFinished', gameId, game.players)
+        }
     }
 
     this.nextRound = (gameId) => {
@@ -83,7 +85,7 @@ export default function DemoAdapter(setTimeout, questions) {
         game.players.find(p => p.name === playerName).score += score
 
         if (question.guesses.length === game.players.length) {
-            publish('roundFinished', gameId, game.players)
+            finishRound(gameId)
         }
     }
 }
