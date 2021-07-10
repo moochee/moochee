@@ -30,10 +30,21 @@ function PlayGame(props) {
     }
 
     const [question, setQuestion] = React.useState(null)
+    const [result, setResult] = React.useState(null)
 
     const onNewQuestion = (gameId, newQuestion) => {
         if (gameId === props.gameId) {
             setQuestion(newQuestion)
+            setResult(null)
+        }
+    }
+
+    const onRoundFinished = (gameId, result) => {
+        console.log('onRoundFinished')
+        console.log(gameId)
+        if (gameId === props.gameId) {
+            setQuestion(null)
+            setResult(result)
         }
     }
 
@@ -41,20 +52,23 @@ function PlayGame(props) {
         props.adapter.guess(props.gameId, question, props.playerName, answer)
     }
 
-    // REVISE it seems there is some redundancy between Host/Player wrt displaying the question / responding to new question being presented
-    //          maybe it is ok since we Host and Player to deal with this slightly differently in future, so we don't refactor to a re-use component right now - revisit later!
     React.useEffect(() => {
-        props.adapter.subscribeNewQuestion(onNewQuestion)
+        props.adapter.subscribe('newQuestion', onNewQuestion)
+        props.adapter.subscribe('roundFinished', onRoundFinished)
         return () => {
-            props.adapter.unsubscribeNewQuestion(onNewQuestion)
+            props.adapter.unsubscribe(onNewQuestion)
+            props.adapter.unsubscribe(onRoundFinished)
         }
     }, [])
 
     const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
+    const podiumBlock = result ? <Podium players={[result[0], result[1], result[2], result[3]]} /> : ''
+    console.log(podiumBlock)
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
         <ui5-title level="H2">Playing as {props.playerName}</ui5-title>
         {questionBlock}
+        {podiumBlock}
     </div>
 }

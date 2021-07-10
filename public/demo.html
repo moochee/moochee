@@ -12,19 +12,21 @@
 	<script src="lib/react-router-dom.js"></script>
 	<script nomodule src="lib/bundle.es5.js"></script>
 	<script src="lib/bundle.esm.js" type="module"></script>
-	<script src="demo-adapter.js" type="text/babel"></script>
 	<script src="components/general.js" type="text/babel"></script>
 	<script src="components/entrance.js" type="text/babel"></script>
 	<script src="components/host.js" type="text/babel"></script>
 	<script src="components/play.js" type="text/babel"></script>
+	<script src="components/podium/podium.js" type="text/babel"></script>
 	<script src="components/sticky/sticky-button.js" type="text/babel"></script>
 </head>
 
 <body id="content" class="sapUiBody">
 	<div id="react-root"></div>
 
-	<script type="text/babel">
+	<script type="text/babel" data-type="module">
 		'use strict'
+
+		import DemoAdapter from "./demo-adapter.js"
 
 		function DemoClient(props) {
 			const [status, setStatus] = React.useState('')
