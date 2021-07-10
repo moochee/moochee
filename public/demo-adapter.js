@@ -56,10 +56,12 @@ export default function DemoAdapter(setTimeout, questions) {
     const finishRound = (gameId) => {
         const game = games.find((g) => g.id === gameId)
         // TODO implement "player is on fire", e.g. when climbed 3 times, or guessed right 3 times, or ...
+        const result = [...game.players]
+        result.sort((a, b) => b.score - a.score)
         if (questionsWithoutRightAnswer.length > 0) {
-            publish('roundFinished', gameId, game.players)
+            publish('roundFinished', gameId, result)
         } else {
-            publish('gameFinished', gameId, game.players)
+            publish('gameFinished', gameId, result)
         }
     }
 
