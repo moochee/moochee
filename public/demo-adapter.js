@@ -66,10 +66,10 @@ export default function DemoAdapter(setTimeout, questions) {
     }
 
     this.nextRound = (gameId) => {
-        const timeToGuess = 20000;
-        setTimeout(() => finishRound(gameId), timeToGuess)
         const question = questionsWithoutRightAnswer.shift()
+        const timeToGuess = 20000;
         publish('roundStarted', gameId, question, timeToGuess)
+        setTimeout(() => finishRound(gameId), timeToGuess)
     }
 
     this.start = (gameId) => {

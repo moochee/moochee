@@ -43,8 +43,9 @@ describe('Game Adapter', () => {
     })
 
     it('publishes an event when the round is finished with the ranking', (done) => {
+        const questions = [{ text: 'question1', answers: [] }]
         const immediatelyTriggeringSetTimeout = (finishRound) => finishRound()
-        const adapter = new DemoAdapter(immediatelyTriggeringSetTimeout, dummyQuestions)
+        const adapter = new DemoAdapter(immediatelyTriggeringSetTimeout, questions)
         const gameId = adapter.host()
         adapter.subscribe('roundFinished', (gId, ranking) => {
             expect(gId).toBe(gameId)
@@ -74,7 +75,7 @@ describe('Game Adapter', () => {
         adapter.nextRound(gameId)
     })
 
-    xit('publishes an event when no more questions / the game is finished', (done) => {
+    it('publishes an event when no more questions / the game is finished', (done) => {
         const questions = [{ text: '', answers: [] }, { text: '', answers: [] }]
         const immediatelyTriggeringSetTimeout = (finishRound) => finishRound()
         const adapter = new DemoAdapter(immediatelyTriggeringSetTimeout, questions)
