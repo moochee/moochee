@@ -43,7 +43,7 @@ describe('Game Adapter', () => {
     })
 
     it('publishes an event when the round is finished with the ranking', (done) => {
-        const questions = [{ text: 'question1', answers: [] }]
+        const questions = [{ text: 'question1', answers: [] }, { text: 'question2', answers: [] }]
         const immediatelyTriggeringSetTimeout = (finishRound) => finishRound()
         const adapter = new DemoAdapter(immediatelyTriggeringSetTimeout, questions)
         const gameId = adapter.host()
@@ -88,5 +88,45 @@ describe('Game Adapter', () => {
         })
         adapter.start(gameId)
         adapter.nextRound(gameId)
+    })
+
+    it('ranks players according to their score', (done) => {
+        const questions = [{ text: 'a', answers: ['x', 'y'], rightAnswer: 'x' }]
+        let finishRound
+        const setTimeoutSpy = (finishRoundCallback) => finishRound = finishRoundCallback
+        const adapter = new DemoAdapter(setTimeoutSpy, questions)
+        const gameId = adapter.host()
+        adapter.subscribe('gameFinished', (gId, ranking) => {
+            expect(ranking.length).toBe(2)
+            expect(ranking[0]).toEqual(jasmine.objectContaining({rank: 1, name:'bob', score: 100}))
+            expect(ranking[1]).toEqual(jasmine.objectContaining({rank: 2, name:'alice', score: 0}))
+            done()
+        })
+        adapter.join(gameId, 'alice')
+        adapter.join(gameId, 'bob')
+        adapter.start(gameId)
+        adapter.guess(gameId, 'a', 'bob', 'x')
+        adapter.guess(gameId, 'a', 'alice', 'y')
+        finishRound()
+    })
+
+    it('gives players the same rank if they have the same score', (done) => {
+        const questions = [{ text: 'a', answers: ['x', 'y'], rightAnswer: 'x' }]
+        let finishRound
+        const setTimeoutSpy = (finishRoundCallback) => finishRound = finishRoundCallback
+        const adapter = new DemoAdapter(setTimeoutSpy, questions)
+        const gameId = adapter.host()
+        adapter.subscribe('gameFinished', (gId, ranking) => {
+            expect(ranking.length).toBe(2)
+            expect(ranking[0]).toEqual(jasmine.objectContaining({rank: 1, name:'alice', score: 100}))
+            expect(ranking[1]).toEqual(jasmine.objectContaining({rank: 1, name:'bob', score: 100}))
+            done()
+        })
+        adapter.join(gameId, 'alice')
+        adapter.join(gameId, 'bob')
+        adapter.start(gameId)
+        adapter.guess(gameId, 'a', 'bob', 'x')
+        adapter.guess(gameId, 'a', 'alice', 'x')
+        finishRound()
     })
 })

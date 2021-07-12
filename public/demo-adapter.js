@@ -6,19 +6,6 @@ export default function DemoAdapter(setTimeout, questions) {
     const subscribers = []
     const games = []
 
-    // const questions = [
-    //     { text: 'Fake question 1?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-    //     { text: 'Fake question 2?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-    //     { text: 'Fake question 3?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-    //     { text: 'Fake question 4?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-    //     { text: 'Fake question 5?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-    //     { text: 'Fake question 6?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-    //     { text: 'Fake question 7?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-    //     { text: 'Fake question 8?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-    //     { text: 'Fake question 9?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-    //     { text: 'Fake question 10?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' }
-    // ]
-
     // REVISE just checking - why do we need to map the whole thing, can't we just do it on the fly in "nextRound"
     const questionsWithoutRightAnswer = questions.map((q, index) => {
         return { sequence: index + 1, text: q.text, answers: q.answers }
@@ -58,6 +45,8 @@ export default function DemoAdapter(setTimeout, questions) {
         // TODO implement "player is on fire", e.g. when climbed 3 times, or guessed right 3 times, or ...
         const result = [...game.players]
         result.sort((a, b) => b.score - a.score)
+        const hasSameScoreAsPrevious = (index) => (index > 0) && (result[index].score === result[index - 1].score)
+        result.forEach((p, index) => p.rank = hasSameScoreAsPrevious(index) ? index : index + 1)
         if (questionsWithoutRightAnswer.length > 0) {
             publish('roundFinished', gameId, result)
         } else {
