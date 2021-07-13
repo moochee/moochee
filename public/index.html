@@ -25,7 +25,7 @@
 	<script type="text/babel" data-type="module">
 		'use strict'
 		
-		import DemoAdapter from "./demo-adapter.js"
+		import WsClientAdapter from "./ws-client-adapter.js"
 
 		function HostGameWeb(props) {
 			const { gameId } = ReactRouterDOM.useParams()
@@ -72,12 +72,8 @@
 				<References />
 			</div>
 		}
-    const questions = [
-        { text: 'Fake question 1?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-        { text: 'Fake question 2?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
-        { text: 'Fake question 3?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' }
-			]
-		ReactDOM.render(<WebApp adapter={new DemoAdapter(() => null, questions)} />, document.querySelector('#react-root'))
+
+		ReactDOM.render(<WebApp adapter={new WsClientAdapter()} />, document.querySelector('#react-root'))
 	</script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
