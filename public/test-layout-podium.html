@@ -29,12 +29,14 @@
 
 		import DemoAdapter from "./demo-adapter.js"
 
+		const players = [{ rank: 1, avatar: '🐲', name: 'Katie' }, { rank: 2, avatar: '🐵', name: 'Yang' }, { rank: 2, avatar: '🐙', name: 'Jens' }, { rank: 4, avatar: '🐔', name: 'Robert' }]
+
 		const content = <div style={{ width: "60%", marginLeft: "20%", display: "flex", flexDirection: "row" }}>
 			<div style={{ justifyContent: "center", width: "20%", display: "flex", flexDirection: "column" }}>
 				<img className="firework" style={{ height: "100%", animationDelay: "8600ms" }} src="components/podium/celebration-152950.svg" />
 				<img className="firework" style={{ height: "100%", animationDelay: "6300ms" }} src="components/podium/celebration-152951.svg" />
 			</div>
-			<Podium players={[{ avatar: 'Katie 🐲' }, { avatar: 'Yang 🐵' }, { avatar: 'Jens 🐙' }, { avatar: 'Robert 🐔' }]} />
+			<Podium players={players} />
 			<img className="firework" style={{ justifyContent: "center", width: "20%", animationDelay: '4200ms' }} src="components/podium/fireworks-152949.svg" />
 		</div>
 
