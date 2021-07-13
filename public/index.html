@@ -12,7 +12,6 @@
 	<script src="lib/react-router-dom.js"></script>
 	<script nomodule src="lib/bundle.es5.js"></script>
 	<script src="lib/bundle.esm.js" type="module"></script>
-	<script src="demo-adapter.js" type="text/babel"></script>
 	<script src="components/general.js" type="text/babel"></script>
 	<script src="components/entrance.js" type="text/babel"></script>
 	<script src="components/host.js" type="text/babel"></script>
@@ -23,9 +22,11 @@
 <body id="content" class="sapUiBody">
 	<div id="react-root"></div>
 
-	<script type="text/babel">
+	<script type="text/babel" data-type="module">
 		'use strict'
 		
+		import DemoAdapter from "./demo-adapter.js"
+
 		function HostGameWeb(props) {
 			const { gameId } = ReactRouterDOM.useParams()
 			return <div>
@@ -71,10 +72,13 @@
 				<References />
 			</div>
 		}
-
-		ReactDOM.render(<WebApp adapter={new DemoAdapter()} />, document.querySelector('#react-root'))
+    const questions = [
+        { text: 'Fake question 1?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
+        { text: 'Fake question 2?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' },
+        { text: 'Fake question 3?', answers: ['answer1', 'answer2', 'answer3', 'answer4'], rightAnswer: 'answer1' }
+			]
+		ReactDOM.render(<WebApp adapter={new DemoAdapter(() => null, questions)} />, document.querySelector('#react-root'))
 	</script>
-
 </body>
 
 </html>
