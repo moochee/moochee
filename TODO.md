@@ -2,6 +2,7 @@
 - podium screen, incl. participants with same score share the rank
 - respond to roundStarted->roundFinished->...->gameFinished in the ui
 - timer/countdown
+- check animations etc. in chrome, edge, firefox, safari
 - should participants see the other players?
 - QR code
 - integrate with server using web sockets

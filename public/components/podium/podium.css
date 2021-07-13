@@ -1,0 +1,64 @@
+.firework {
+    -webkit-animation-duration: 1.3s;
+    animation-duration: 1.3s;
+    -webkit-animation-name: firework;
+    animation-name: firework;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    transform: scale(0)
+}
+
+@keyframes firework {
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes podium {
+    from {
+        transform: scale(.1) translate(200%, -100%) rotate(720deg);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.podiumFirst {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-name: podium;
+    animation-name: podium;
+    animation-delay: 8.5s;
+    transform: scale(0);
+    animation-fill-mode: forwards;
+}
+
+.podiumSecond {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-name: podium;
+    animation-name: podium;
+    animation-delay: 6s;
+    transform: scale(0);
+    animation-fill-mode: forwards;
+}
+
+.podiumThird {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-name: podium;
+    animation-name: podium;
+    animation-delay: 4s;
+    transform: scale(0);
+    animation-fill-mode: forwards;
+}
+
+.podiumFourth {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-name: podium;
+    animation-name: podium;
+    animation-delay: 2s;
+    transform: scale(0);
+    animation-fill-mode: forwards;
+}

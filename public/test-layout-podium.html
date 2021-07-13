@@ -12,49 +12,33 @@
 	<script src="lib/react-router-dom.js"></script>
 	<script nomodule src="lib/bundle.es5.js"></script>
 	<script src="lib/bundle.esm.js" type="module"></script>
-	<script src="demo-adapter.js" type="text/babel"></script>
 	<script src="components/general.js" type="text/babel"></script>
 	<script src="components/entrance.js" type="text/babel"></script>
 	<script src="components/host.js" type="text/babel"></script>
 	<script src="components/play.js" type="text/babel"></script>
+	<link rel="stylesheet" type="text/css" href="components/podium/podium.css" />
 	<script src="components/podium/podium.js" type="text/babel"></script>
 	<script src="components/sticky/sticky-button.js" type="text/babel"></script>
-
-	<style>
-		#footer {
-			position: fixed;
-			height: 10%;
-			background-color: red;
-			bottom: 0px;
-			left: 0px;
-			right: 0px;
-			margin-bottom: 0px;
-		}
-
-		html {
-			height: 100%;
-			-webkit-background-size: cover;
-			-moz-background-size: cover;
-			-o-background-size: cover;
-			background-size: cover;
-			background-repeat: no-repeat;
-			background: -webkit-linear-gradient(to top, #aaaaaa, #ffffff);
-			background: -moz-linear-gradient(to top, #aaaaaa, #ffffff);
-			background: -ms-linear-gradient(to top, #aaaaaa, #ffffff);
-			background: -o-linear-gradient(to top, #aaaaaa, #ffffff);
-			background: linear-gradient(to top, #aaaaaa, #ffffff);
-		}
-
-	</style>
 </head>
 
-<body id="content" class="sapUiBody">
+<body id="content" class="sapUiBody" style="background: black;">
 	<div id="react-root"></div>
 
-	<script type="text/babel">
+	<script type="text/babel" data-type="module">
 		'use strict'
 
-		ReactDOM.render(<Podium players={[{ avatar: 'A' }, { avatar: 'B' }]} />, document.querySelector('#react-root'))
+		import DemoAdapter from "./demo-adapter.js"
+
+		const content = <div style={{ width: "60%", marginLeft: "20%", display: "flex", flexDirection: "row" }}>
+			<div style={{ justifyContent: "center", width: "20%", display: "flex", flexDirection: "column" }}>
+				<img className="firework" style={{ height: "100%", animationDelay: "8600ms" }} src="components/podium/celebration-152950.svg" />
+				<img className="firework" style={{ height: "100%", animationDelay: "6300ms" }} src="components/podium/celebration-152951.svg" />
+			</div>
+			<Podium players={[{ avatar: 'Katie 🐲' }, { avatar: 'Yang 🐵' }, { avatar: 'Jens 🐙' }, { avatar: 'Robert 🐔' }]} />
+			<img className="firework" style={{ justifyContent: "center", width: "20%", animationDelay: '4200ms' }} src="components/podium/fireworks-152949.svg" />
+		</div>
+
+		ReactDOM.render(content, document.querySelector('#react-root'))
 	</script>
 
 </body>
