@@ -1,15 +1,5 @@
 'use strict'
 
-function Podium(props) {
-    const items = props.result.map((p, index) => 
-        <li key={index}>{p.name}: {p.score}</li>
-    )
-    return <div>
-        <h2>Podium</h2>
-        <ol>{items}</ol>
-    </div>
-}
-
 // TODO make it a countdown
 function Clock() {
     const [date, setDate] = React.useState(new Date())
