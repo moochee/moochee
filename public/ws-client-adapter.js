@@ -7,7 +7,7 @@ export default function WsClientAdapter(socket) {
     }
 
     this.unsubscribe = (subscriber) => {
-        socket.off(event, subscriber)
+        socket.removeAllListeners();
     }
 
     this.join = async (gameId, name) => {
