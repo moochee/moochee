@@ -2,7 +2,7 @@
 
 function PlayGame(props) {
     function Answer(props) {
-        return <StickyButton color={props.color} onClick={e => guess(e.target.innerText)} text={props.text} />
+        return <StickyButton color={props.color} onClick={() => guess(props.text)} text={props.text} />
     }
 
     function Answers(props) {
