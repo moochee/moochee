@@ -45,8 +45,6 @@ export default function DemoAdapter(setTimeout, questions) {
         // TODO implement "player is on fire", e.g. when climbed 3 times, or guessed right 3 times, or ...
         const result = [...game.players]
         result.sort((a, b) => b.score - a.score)
-        const hasSameScoreAsPrevious = (index) => (index > 0) && (result[index].score === result[index - 1].score)
-        result.forEach((p, index) => p.rank = hasSameScoreAsPrevious(index) ? index : index + 1)
         if (questionsWithoutRightAnswer.length > 0) {
             publish('roundFinished', gameId, result)
         } else {

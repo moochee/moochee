@@ -90,7 +90,7 @@ describe('Game Adapter', () => {
         adapter.nextRound(gameId)
     })
 
-    it('ranks players according to their score', (done) => {
+    it('orders players according to their score in the ranking', (done) => {
         const questions = [{ text: 'a', answers: ['x', 'y'], rightAnswer: 'x' }]
         let finishRound
         const setTimeoutSpy = (finishRoundCallback) => finishRound = finishRoundCallback
@@ -98,8 +98,8 @@ describe('Game Adapter', () => {
         const gameId = adapter.host()
         adapter.subscribe('gameFinished', (gId, ranking) => {
             expect(ranking.length).toBe(2)
-            expect(ranking[0]).toEqual(jasmine.objectContaining({rank: 1, name:'bob', score: 100}))
-            expect(ranking[1]).toEqual(jasmine.objectContaining({rank: 2, name:'alice', score: 0}))
+            expect(ranking[0]).toEqual(jasmine.objectContaining({name:'bob', score: 100}))
+            expect(ranking[1]).toEqual(jasmine.objectContaining({name:'alice', score: 0}))
             done()
         })
         adapter.join(gameId, 'alice')
@@ -107,26 +107,6 @@ describe('Game Adapter', () => {
         adapter.start(gameId)
         adapter.guess(gameId, 'a', 'bob', 'x')
         adapter.guess(gameId, 'a', 'alice', 'y')
-        finishRound()
-    })
-
-    it('gives players the same rank if they have the same score', (done) => {
-        const questions = [{ text: 'a', answers: ['x', 'y'], rightAnswer: 'x' }]
-        let finishRound
-        const setTimeoutSpy = (finishRoundCallback) => finishRound = finishRoundCallback
-        const adapter = new DemoAdapter(setTimeoutSpy, questions)
-        const gameId = adapter.host()
-        adapter.subscribe('gameFinished', (gId, ranking) => {
-            expect(ranking.length).toBe(2)
-            expect(ranking[0]).toEqual(jasmine.objectContaining({rank: 1, name:'alice', score: 100}))
-            expect(ranking[1]).toEqual(jasmine.objectContaining({rank: 1, name:'bob', score: 100}))
-            done()
-        })
-        adapter.join(gameId, 'alice')
-        adapter.join(gameId, 'bob')
-        adapter.start(gameId)
-        adapter.guess(gameId, 'a', 'bob', 'x')
-        adapter.guess(gameId, 'a', 'alice', 'x')
         finishRound()
     })
 })
