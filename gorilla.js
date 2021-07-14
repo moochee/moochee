@@ -36,8 +36,9 @@ io.on('connection', (socket) => {
       io.to(gameId).emit(event, gameId, result)
     }
   })
+
 })
 
-server.listen(3000, () => {
+server.listen(process.env.PORT || 3000, () => {
   console.log('Server started on *:3000')
 })

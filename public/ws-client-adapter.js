@@ -10,14 +10,14 @@ export default function WsClientAdapter(socket) {
         socket.removeAllListeners();
     }
 
-    this.join = async (gameId, name) => {
-        socket.emit('join', gameId, name)
-    }
-
     this.host = async () => {
         return new Promise(resolve => {
             socket.emit('host', (gameId) => resolve(gameId))
         })
+    }
+
+    this.join = async (gameId, name) => {
+        socket.emit('join', gameId, name)
     }
 
     this.nextRound = (gameId) => {
