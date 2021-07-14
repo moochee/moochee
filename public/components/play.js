@@ -2,18 +2,18 @@
 
 function PlayGame(props) {
     function Answer(props) {
-        return <ui5-button design="Default" onClick={e => guess(e.target.innerText)} style={{ width: "50%" }}>{props.text}</ui5-button>
+        return <StickyButton color={props.color} onClick={e => guess(e.target.innerText)} text={props.text} />
     }
 
     function Answers(props) {
         return <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <Answer text={props.answers[0]} />
-                <Answer text={props.answers[1]} />
+                <Answer color="green" text={props.answers[0]} />
+                <Answer color="purple" text={props.answers[1]} />
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <Answer text={props.answers[2]} />
-                <Answer text={props.answers[3]} />
+                <Answer color="blue" text={props.answers[2]} />
+                <Answer color="orange" text={props.answers[3]} />
             </div>
         </div>
     }

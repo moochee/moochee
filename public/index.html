@@ -40,7 +40,6 @@
 		function PlayGameWeb(props) {
 			const { gameId, playerName } = ReactRouterDOM.useParams()
 			return <div>
-				<Music />
 				<PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
 			</div>
 		}
