@@ -14,15 +14,6 @@
     }
 }
 
-@keyframes podium {
-    from {
-        transform: scale(.1) translate(200%, -100%) rotate(720deg);
-    }
-    to {
-        transform: scale(1);
-    }
-}
-
 .podium {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
@@ -52,4 +43,13 @@
 
 .podium:nth-child(4) {
     animation-delay: 2s;
+}
+
+@keyframes podium {
+    from {
+        transform: scale(.1) translate(200%, -100%) rotate(720deg);
+    }
+    to {
+        transform: scale(1);
+    }
 }
