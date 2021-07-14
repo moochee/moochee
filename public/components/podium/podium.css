@@ -23,42 +23,33 @@
     }
 }
 
-.podiumFirst {
+.podium {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
     -webkit-animation-name: podium;
     animation-name: podium;
+    transform: scale(0);
+    animation-fill-mode: forwards;
+    font-size: 5em;
+    color: white;
+    font-family: komika_textregular;
+    padding: 2%;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.podium:nth-child(1) {
     animation-delay: 8.5s;
-    transform: scale(0);
-    animation-fill-mode: forwards;
 }
 
-.podiumSecond {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-name: podium;
-    animation-name: podium;
+.podium:nth-child(2) {
     animation-delay: 6s;
-    transform: scale(0);
-    animation-fill-mode: forwards;
 }
 
-.podiumThird {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-name: podium;
-    animation-name: podium;
+.podium:nth-child(3) {
     animation-delay: 4s;
-    transform: scale(0);
-    animation-fill-mode: forwards;
 }
 
-.podiumFourth {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-name: podium;
-    animation-name: podium;
+.podium:nth-child(4) {
     animation-delay: 2s;
-    transform: scale(0);
-    animation-fill-mode: forwards;
 }
