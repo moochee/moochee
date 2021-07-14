@@ -1,5 +1,5 @@
 # TODO
-- podium screen, incl. participants with same score share the rank
+- podium screen: display score
 - respond to roundStarted->roundFinished->...->gameFinished in the ui
 - timer/countdown, and also consider the time to "scale" the score
 - check animations etc. in chrome, edge, firefox, safari
@@ -10,6 +10,7 @@
 - try if using <> works, or understand why it doesn't work
 
 # DONE
+- podium screen, incl. participants with same score share the rank
 - try own widget, e.g. post-its or fruits
 - evaluate
 - present next question
