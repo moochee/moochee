@@ -3,7 +3,7 @@
 function Podium(props) {
 
     const html = props.players.map((p, index) => {
-        const img = ['🥇', '🥈', '🥉'][index - 1] || ''
+        const img = ['🥇', '🥈', '🥉'][index] || ''
         return <div key={p.name} className="podium">
             {img} {p.avatar} {p.name}
         </div>
