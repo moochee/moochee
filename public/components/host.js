@@ -73,6 +73,7 @@ function HostGame(props) {
     const onRoundFinished = (gameId, result) => {
         if (gameId === props.gameId) {
             setQuestion(null)
+            console.log(result)
             setResult(result)
             setCanNext(true)
         }
@@ -114,9 +115,12 @@ function HostGame(props) {
         }
     }, [])
 
+    console.log(result)
+    console.log(canNext)
+
     const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
     const startButton = canStart ? <ui5-button onClick={start} style={{ width: "100%" }}>Start</ui5-button> : ''
-    const podiumBlock = result ? <Podium players={[result[0], result[1], result[2], result[3]]} /> : ''
+    const podiumBlock = result ? <Podium players={result} /> : ''
     const nextButton = canNext ? <ui5-button onClick={next} style={{ width: "100%" }}>Next</ui5-button> : ''
 
     return <div>

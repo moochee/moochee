@@ -1,6 +1,6 @@
 'use strict'
 
-export default function WsClientAdapter() {
+export default function WsClientAdapter(socket) {
     
     this.subscribe = (event, subscriber) => {
         socket.on(event, subscriber)

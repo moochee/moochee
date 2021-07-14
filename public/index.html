@@ -18,6 +18,7 @@
 	<script src="components/play.js" type="text/babel"></script>
 	<script src="components/podium/podium.js" type="text/babel"></script>
 	<script src="components/sticky/sticky-button.js" type="text/babel"></script>
+	<script src="/socket.io/socket.io.js"></script>
 </head>
 
 <body id="content" class="sapUiBody">
@@ -74,11 +75,7 @@
 			</div>
 		}
 
-		ReactDOM.render(<WebApp adapter={new WsClientAdapter()} />, document.querySelector('#react-root'))
-	</script>
-	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		const socket = io();
+		ReactDOM.render(<WebApp adapter={new WsClientAdapter(io())} />, document.querySelector('#react-root'))
 	</script>
 </body>
 
