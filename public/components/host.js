@@ -73,7 +73,6 @@ function HostGame(props) {
     const onRoundFinished = (gameId, result) => {
         if (gameId === props.gameId) {
             setQuestion(null)
-            console.log(result)
             setResult(result)
             setCanNext(true)
         }
@@ -114,9 +113,6 @@ function HostGame(props) {
             props.adapter.unsubscribe(onGameFinished)
         }
     }, [])
-
-    console.log(result)
-    console.log(canNext)
 
     const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
     const startButton = canStart ? <ui5-button onClick={start} style={{ width: "100%" }}>Start</ui5-button> : ''

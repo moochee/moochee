@@ -41,7 +41,6 @@ function PlayGame(props) {
 
     const onRoundFinished = (gameId, result) => {
         if (gameId === props.gameId) {
-            console.log(result)
             setQuestion(null)
             setResult(result)
         }
