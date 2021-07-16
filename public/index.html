@@ -62,6 +62,7 @@
     	}
 			
 			return <div style={{ display: "flex", flexDirection: "column" }}>
+				<ui5-title level="H1">Game {gameId}</ui5-title>
 				<ui5-label for="playerName" required>Name</ui5-label>
 				<ui5-input style={{ width: "100%" }} id="playerName" placeholder="Enter your name" value={playerName} onInput={updatePlayerName}></ui5-input>
 				<ui5-button style={{ width: "100%" }} onClick={join}>Join</ui5-button>
