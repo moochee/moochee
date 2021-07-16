@@ -17,7 +17,9 @@ export default function WsClientAdapter(socket) {
     }
 
     this.join = async (gameId, name) => {
-        socket.emit('join', gameId, name)
+        return new Promise(resolve => {
+            socket.emit('join', gameId, name, (joined) => resolve(joined))
+        })
     }
 
     this.nextRound = (gameId) => {

@@ -1,6 +1,6 @@
 'use strict'
 
-export default function WsServerAdapter(setTimeout, questions) {
+export default function GamesAdapter(setTimeout, questions) {
   let nextGameId = 100000
   let avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲')
   const games = []
@@ -18,6 +18,10 @@ export default function WsServerAdapter(setTimeout, questions) {
   }
 
   this.join = (gameId, name) => {
+    const game = games.find(g => g.id === gameId)
+    if (game.players.find( p => p.name === name)) {
+      throw new Error('name exists!')
+    }
     const avatar = avatars.splice(Math.random() * avatars.length, 1)
     const newPlayer = { name, avatar, score: 0 }
     games.find((g) => g.id === gameId).players.push(newPlayer)

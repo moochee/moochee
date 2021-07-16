@@ -44,6 +44,31 @@
 			</div>
 		}
 
+		function PlayerName(props) {
+			const { gameId } = ReactRouterDOM.useParams()
+			const [playerName, setPlayerName] = React.useState('')
+    	const updatePlayerName = (event) => setPlayerName(event.target.value)
+
+			const nameExistsToast = React.createRef()
+
+			const join = async () => {
+        // TODO do we get avatar back? and if yes, what to do with it?
+        const joined = await props.adapter.join(gameId, playerName)
+				if (joined) {
+        	props.onJoin(gameId, playerName)
+				} else {
+					nameExistsToast.current.show()
+				}
+    	}
+			
+			return <div style={{ display: "flex", flexDirection: "column" }}>
+				<ui5-label for="playerName" required>Name</ui5-label>
+				<ui5-input style={{ width: "100%" }} id="playerName" placeholder="Enter your name" value={playerName} onInput={updatePlayerName}></ui5-input>
+				<ui5-button style={{ width: "100%" }} onClick={join}>Join</ui5-button>
+				<ui5-toast ref={nameExistsToast}>Player {playerName} exists, choose another name!</ui5-toast>
+			</div>
+		}
+
 		function WebApp(props) {
 			const { HashRouter, Switch, Route } = ReactRouterDOM
 
@@ -63,6 +88,9 @@
 						</Route>
 						<Route path="/play/:gameId/:playerName">
 							<PlayGameWeb adapter={props.adapter} />
+						</Route>
+						<Route path="/play/:gameId">
+							<PlayerName adapter={props.adapter} onJoin={join}/>
 						</Route>
 						<Route path="/host/:gameId">
 							<HostGameWeb adapter={props.adapter} />
