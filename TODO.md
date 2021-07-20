@@ -1,6 +1,7 @@
 # TODO
 - podium screen: display score
 - respond to roundStarted->roundFinished->...->gameFinished in the ui
+- handle players getting out in middle of the game
 - timer/countdown, and also consider the time to "scale" the score
 - check animations etc. in chrome, edge, firefox, safari
 - should participants see the other players?
@@ -10,6 +11,7 @@
 - try if using <> works, or understand why it doesn't work
 
 # DONE
+- list multiple quizzes, select one to host a name
 - podium screen, incl. participants with same score share the rank
 - try own widget, e.g. post-its or fruits
 - evaluate
