@@ -1,21 +1,22 @@
 'use strict'
+
 import express from 'express'
 const app = express()
-import http from 'http'
-const server = http.createServer(app)
-import { Server } from 'socket.io'
-const io = new Server(server)
-import GamesAdapter from './games-adapter.js'
-import Quiz from './quiz.js'
-const quiz = new Quiz()
-const adapter = new GamesAdapter(() => null, quiz)
-
 app.use(express.static('public'))
 
-io.on('connection', (socket) => {
+import http from 'http'
+const server = http.createServer(app)
 
+import { Server } from 'socket.io'
+const io = new Server(server)
+import QuizRepo from './quiz-repo.js'
+const quizRepo = new QuizRepo()
+import Games from './games.js'
+const adapter = new Games(() => null, quizRepo)
+
+io.on('connection', (socket) => {
   socket.on('getQuizzes', async (callback) => {
-    const quizzes = await quiz.getQuizzes()
+    const quizzes = await quizRepo.getAll()
     callback(quizzes)
   })
 
@@ -47,7 +48,6 @@ io.on('connection', (socket) => {
       io.to(gameId).emit(event, gameId, result)
     }
   })
-
 })
 
 server.listen(process.env.PORT || 3000, () => {

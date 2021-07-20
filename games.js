@@ -1,13 +1,13 @@
 'use strict'
 
-export default function GamesAdapter(setTimeout, quiz) {
+export default function Games(setTimeout, quizRepo) {
   let nextGameId = 100000
   let avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲')
   const games = []
 
   this.host = async (quizId) => {
     const gameId = String(nextGameId++)
-    const questions = await quiz.getQuestions(quizId)
+    const questions = (await quizRepo.getById(quizId)).questions
     const remainingQuestions = questions.map((q, index) => {
       return { sequence: index + 1, text: q.text, answers: q.answers }
     })
