@@ -53,8 +53,8 @@
 
 			const join = async () => {
         // TODO do we get avatar back? and if yes, what to do with it?
-        const joined = await props.adapter.join(gameId, playerName)
-				if (joined) {
+        const errorMessage = await props.adapter.join(gameId, playerName)
+				if (!errorMessage) {
         	props.onJoin(gameId, playerName)
 				} else {
 					nameExistsToast.current.show()

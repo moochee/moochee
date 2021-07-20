@@ -21,7 +21,7 @@ export default function GamesAdapter(setTimeout, quiz) {
   this.join = (gameId, name) => {
     const game = games.find(g => g.id === gameId)
     if (game.players.find( p => p.name === name)) {
-      throw new Error('name exists!')
+      throw new Error(`Player ${name} exists!`)
     }
     const avatar = avatars.splice(Math.random() * avatars.length, 1)
     const newPlayer = { name, avatar, score: 0 }

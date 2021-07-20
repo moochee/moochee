@@ -24,7 +24,7 @@ export default function WsClientAdapter(socket) {
 
     this.join = async (gameId, name) => {
         return new Promise(resolve => {
-            socket.emit('join', gameId, name, (joined) => resolve(joined))
+            socket.emit('join', gameId, name, (errorMessage) => resolve(errorMessage))
         })
     }
 

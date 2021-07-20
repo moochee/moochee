@@ -30,9 +30,9 @@ io.on('connection', (socket) => {
       const newPlayer = adapter.join(gameId, name)
       socket.join(gameId)
       io.to(gameId).emit('playerJoined', gameId, newPlayer)
-      callback(true)
+      callback()
     } catch (error) {
-      callback(false)
+      callback(error.message)
     }
   })
   
