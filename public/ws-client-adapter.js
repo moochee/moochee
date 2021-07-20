@@ -10,9 +10,15 @@ export default function WsClientAdapter(socket) {
         socket.removeAllListeners();
     }
 
-    this.host = async () => {
+    this.getQuizzes = async () => {
         return new Promise(resolve => {
-            socket.emit('host', (gameId) => resolve(gameId))
+            socket.emit('getQuizzes', (quizzes) => resolve(quizzes))
+        })
+    }
+
+    this.host = async (quizId) => {
+        return new Promise(resolve => {
+            socket.emit('host', quizId, (gameId) => resolve(gameId))
         })
     }
 

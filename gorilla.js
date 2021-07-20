@@ -6,15 +6,21 @@ const server = http.createServer(app)
 import { Server } from 'socket.io'
 const io = new Server(server)
 import GamesAdapter from './games-adapter.js'
-import questions from './questions.js'
-const adapter = new GamesAdapter(() => null, questions)
+import Quiz from './quiz.js'
+const quiz = new Quiz()
+const adapter = new GamesAdapter(() => null, quiz)
 
 app.use(express.static('public'))
 
 io.on('connection', (socket) => {
 
-  socket.on('host', (callback) => {
-    const gameId = adapter.host()
+  socket.on('getQuizzes', async (callback) => {
+    const quizzes = await quiz.getQuizzes()
+    callback(quizzes)
+  })
+
+  socket.on('host', async (quizId, callback) => {
+    const gameId = await adapter.host(quizId)
     socket.join(gameId)
     callback(gameId)
   })
