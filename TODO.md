@@ -5,12 +5,12 @@
 - timer/countdown, and also consider the time to "scale" the score
 - check animations etc. in chrome, edge, firefox, safari
 - should participants see the other players?
-- QR code
 - integrate with server using web sockets
 - try implement both a WebSocket adapter and an HttpRestAdapter, both should work to be "plugged in" without changing the code
 - try if using <> works, or understand why it doesn't work
 
 # DONE
+- QR code
 - list multiple quizzes, select one to host a name
 - podium screen, incl. participants with same score share the rank
 - try own widget, e.g. post-its or fruits

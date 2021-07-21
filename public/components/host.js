@@ -1,6 +1,20 @@
 'use strict'
 
 function HostGame(props) {
+    function QRCode(props) {
+        const canvas = React.useRef(null)
+        React.useEffect(() => {
+            if (canvas != null && canvas.current != null) {
+                let qr = new QRious({
+                    element: canvas.current,
+                        value: props.text,
+                        size: props.size
+                })
+            }
+        })
+        return(<canvas ref={canvas}></canvas>)
+    }
+
     function Answer(props) {
         return <StickyButton color={props.color} onClick={() => null} text={props.text} />
     }
@@ -126,6 +140,7 @@ function HostGame(props) {
             <ui5-input style={{ "width": "100%" }} readonly value={joinUrl}></ui5-input>
             <ui5-button icon="copy" onClick={copyToClipboard}></ui5-button>
         </div>
+        <QRCode text={joinUrl} size="200"/>
         <p />
         <ui5-title level="H2">Players:</ui5-title>
         <Players players={players} />
