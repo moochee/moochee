@@ -51,8 +51,6 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     const { gameId, playerName } = adapter.disconnect(socket.id)
-    console.log(gameId)
-    console.log(playerName)
     if (gameId) {
       io.to(gameId).emit('playerDisconnected', gameId, playerName)
     }
