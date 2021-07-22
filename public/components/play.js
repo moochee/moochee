@@ -31,10 +31,12 @@ function PlayGame(props) {
 
     const [question, setQuestion] = React.useState(null)
     const [result, setResult] = React.useState(null)
+    const [waiting, setWaiting] = React.useState(false)
 
     const onRoundStarted = (gameId, newQuestion) => {
         if (gameId === props.gameId) {
             setQuestion(newQuestion)
+            setWaiting(false)
             setResult(null)
         }
     }
@@ -42,6 +44,7 @@ function PlayGame(props) {
     const onRoundFinished = (gameId, result) => {
         if (gameId === props.gameId) {
             setQuestion(null)
+            setWaiting(false)
             setResult(result)
         }
     }
@@ -52,6 +55,9 @@ function PlayGame(props) {
 
     const guess = (answer) => {
         props.adapter.guess(props.gameId, question.text, props.playerName, answer)
+        setQuestion(null)
+        setWaiting(true)
+        setResult(null)
     }
 
     React.useEffect(() => {
@@ -67,11 +73,13 @@ function PlayGame(props) {
 
     const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
     const podiumBlock = result ? <Podium players={result} /> : ''
+    const waitingBlock = waiting ? <h2>Waiting for other players...</h2> : ''
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
         <ui5-title level="H2">Playing as {props.playerName}</ui5-title>
         {questionBlock}
         {podiumBlock}
+        {waitingBlock}
     </div>
 }
