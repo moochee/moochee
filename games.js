@@ -18,13 +18,13 @@ export default function Games(setTimeout, quizRepo) {
     return gameId
   }
 
-  this.join = (gameId, name) => {
+  this.join = (gameId, name, socketId) => {
     const game = games.find(g => g.id === gameId)
     if (game.players.find( p => p.name === name)) {
       throw new Error(`Player ${name} exists!`)
     }
     const avatar = avatars.splice(Math.random() * avatars.length, 1)
-    const newPlayer = { name, avatar, score: 0 }
+    const newPlayer = { name, avatar, score: 0, socketId}
     games.find((g) => g.id === gameId).players.push(newPlayer)
     return newPlayer
   }
@@ -62,6 +62,23 @@ export default function Games(setTimeout, quizRepo) {
       return {event: 'roundFinished', result}
     } else {
       return {event: 'gameFinished', result}
+    }
+  }
+
+  this.disconnect = (socketId) => {
+    let game, player
+    for (let g of games) {
+      player = g.players.find(p => p.socketId === socketId)
+      if (player) {
+        game = g
+        break
+      }
+    }
+    if (game && game.players) {
+      game.players = game.players.filter(p => p.socketId != socketId)
+      return {gameId: game.id, playerName: player.name }
+    } else {
+      return {gameId: null, playerName: null}
     }
   }
 }

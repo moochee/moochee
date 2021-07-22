@@ -77,6 +77,17 @@ function HostGame(props) {
         }
     }
 
+    const onPlayerDisconnected = (gameId, player) => {
+        if (gameId === props.gameId) {
+            setPlayers((oldPlayers) => {
+                if (oldPlayers.length <= 2) {
+                    setCanStart(false)
+                }
+                return oldPlayers.filter(p => p.name != player)
+            })
+        }
+    }
+
     const onRoundStarted = (gameId, newQuestion) => {
         if (gameId === props.gameId) {
             setQuestion(newQuestion)
@@ -120,11 +131,13 @@ function HostGame(props) {
         props.adapter.subscribe('roundStarted', onRoundStarted)
         props.adapter.subscribe('roundFinished', onRoundFinished)
         props.adapter.subscribe('gameFinished', onGameFinished)
+        props.adapter.subscribe('playerDisconnected', onPlayerDisconnected)
         return () => {
             props.adapter.unsubscribe(onPlayerJoined)
             props.adapter.unsubscribe(onRoundStarted)
             props.adapter.unsubscribe(onRoundFinished)
             props.adapter.unsubscribe(onGameFinished)
+            props.adapter.unsubscribe(onPlayerDisconnected)
         }
     }, [])
 

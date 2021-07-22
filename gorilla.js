@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
   
   socket.on('join', (gameId, name, callback) => {
     try {
-      const newPlayer = adapter.join(gameId, name)
+      const newPlayer = adapter.join(gameId, name, socket.id)
       socket.join(gameId)
       io.to(gameId).emit('playerJoined', gameId, newPlayer)
       callback()
@@ -46,6 +46,15 @@ io.on('connection', (socket) => {
     const {event, result} = adapter.guess(gameId, questionText, playerName, answer)
     if (event) {
       io.to(gameId).emit(event, gameId, result)
+    }
+  })
+
+  socket.on('disconnect', () => {
+    const { gameId, playerName } = adapter.disconnect(socket.id)
+    console.log(gameId)
+    console.log(playerName)
+    if (gameId) {
+      io.to(gameId).emit('playerDisconnected', gameId, playerName)
     }
   })
 })
