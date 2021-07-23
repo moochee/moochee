@@ -64,7 +64,7 @@ function HostGame(props) {
     const [canNext, setCanNext] = React.useState(false)
     const [result, setResult] = React.useState(null)
 
-    const urlCopiedToast = React.createRef()
+    const urlCopiedToast = React.useRef(null)
 
     const onPlayerJoined = (gameId, player) => {
         if (gameId === props.gameId) {

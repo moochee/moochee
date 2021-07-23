@@ -51,7 +51,7 @@
 			const [playerName, setPlayerName] = React.useState('')
     	const updatePlayerName = (event) => setPlayerName(event.target.value)
 
-			const nameExistsToast = React.createRef()
+			const nameExistsToast = React.useRef(null)
 
 			const join = async () => {
         // TODO do we get avatar back? and if yes, what to do with it?
