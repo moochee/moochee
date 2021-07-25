@@ -1,54 +1,204 @@
-.firework {
-    -webkit-animation-duration: 1.3s;
-    animation-duration: 1.3s;
-    -webkit-animation-name: firework;
-    animation-name: firework;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-    transform: scale(0)
+/* 
+The positioning must be relative to the podium picture, which has a 16:9 aspect ration - here's how it's done:
+- when the viewport gets wider than 16:9, the podium takes full height and its width won't increase further
+  => x-coordinates should be relative to viewport height * 16/9 (=actual width of podium) instead of relative to viewport width (=bigger than actual width of podium)
+- when the viewport gets more narrow than 16:9, the podium takes full width and its height won't increase further
+  => y-coordinates should be relative to viewport width * 9/16 (=actual height of podium) instead of relative to viewport height (=bigger than actual height of podium)
+*/
+
+.podium {
+    height: 100%;
+    background-image: url(pedestal-4762661_1920.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: auto;
+    background-position: center;
+    animation: bounce 1.2s linear infinite;
 }
 
-@keyframes firework {
+@keyframes bounce {
+    from {        
+        transform: translateY(min(2vw, 3.55vh)) translateX(0px);
+    }
+    25% {
+        transform: translateY(0px) translateX(min(1.5vw, 2.66vh)) rotate(1deg);
+    }
+    50% {
+        transform: translateY(min(2vw, 3.55vh)) translateX(0px);
+    }
+    75% {
+        transform: translateY(0px) translateX(max(-1.5vw, -2.66vh)) rotate(-1deg);
+    }
     to {
-        transform: scale(1);
+        transform: translateY(min(2vw, 3.55vh)) translateX(0px);
     }
 }
 
-.podium {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-name: podium;
-    animation-name: podium;
-    transform: scale(0);
-    animation-fill-mode: forwards;
-    font-size: 5em;
-    color: white;
+.podium > div {
     font-family: komika_textregular;
-    padding: 2%;
+    font-size: min(3.5vw, 6.22vh);
+    color: white;
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
     text-align: center;
-    white-space: nowrap;
 }
 
-.podium:nth-child(1) {
-    animation-delay: 8.5s;
+.podiumRank1 {
+    transform: scale(0) translateX(-50%) translateX(max(-30vw, -53.33vh)) translateY(-100%) rotate(720deg);
+    animation: flyIn1 1s linear forwards;
+    animation-delay: 13s;
 }
 
-.podium:nth-child(2) {
-    animation-delay: 6s;
+@keyframes flyIn1 {
+    50% {
+        transform: scale(.5) translateX(-50%) translateX(max(-30vw, -53.33vh)) translateY(-100%) rotate(360deg);
+    }
+    to {
+        transform: scale(1) translateX(-50%) translateY(-100%);
+    }
 }
 
-.podium:nth-child(3) {
+.podiumRank2 {
+    transform: scale(0) translateX(-50%) translateX(max(-15vw, -26.66vh)) translateY(-100%) translateY(min(7.31vw, 13vh)) rotate(720deg);
+    animation: flyIn2 1s linear forwards;
+    animation-delay: 8s;
+}
+
+@keyframes flyIn2 {
+    50% {
+        transform: scale(.5) translateX(-50%) translateX(max(-30vw, -53.33vh)) translateY(-100%) translateY(min(7.31vw, 13vh)) rotate(360deg);
+    }
+    to {
+        transform: scale(1) translateX(-50%) translateX(max(-15vw, -26.66vh)) translateY(-100%) translateY(min(7.31vw, 13vh));
+    }
+}
+
+.podiumRank3 {
+    transform: scale(0) translateX(-50%) translateX(min(15vw, 26.66vh)) translateY(-100%) translateY(min(11.25vw, 20vh)) rotate(720deg);
+    animation: flyIn3 1s linear forwards;
+    animation-delay: 3s;
+}
+
+@keyframes flyIn3 {
+    50% {
+        transform: scale(.5) translateX(-50%) translateX(min(30vw, 53.33vh)) translateY(-100%) translateY(min(11.25vw, 20vh)) rotate(360deg);
+    }
+    to {
+        transform: scale(1) translateX(-50%) translateX(min(15vw, 26.66vh)) translateY(-100%) translateY(min(11.25vw, 20vh));
+    }
+}
+
+.podiumAvatar1 {
+    font-size: 3em; 
+    animation: jumpSomersault 2s linear infinite;
+    animation-delay: 14s;
+}
+
+.podiumAvatar2 {
+    font-size: 3em;
+    animation: jumpWhip .9s linear infinite;
+    animation-delay: 9s;
+}
+
+.podiumAvatar3 {
+    font-size: 3em;
+    animation: jump .5s linear infinite;
     animation-delay: 4s;
 }
 
-.podium:nth-child(4) {
-    animation-delay: 2s;
+@keyframes jump {
+    from {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(max(-2.81vw, -5vh));
+    }
+    to {
+        transform: translateY(0px);
+    }
 }
 
-@keyframes podium {
+@keyframes jumpWhip {
     from {
-        transform: scale(.1) translate(200%, -100%) rotate(720deg);
+        transform: translateY(0px) translateX(0px);
     }
+    25% {
+        transform: translateY(max(-2.81vw, -5vh)) translateX(min(2vw, 3.55vh)) rotate(20deg);
+    }
+    50% {
+        transform: translateY(0px) translateX(0px);
+    }
+    75% {
+        transform: translateY(max(-2.81vw, -5vh)) translateX(max(-2vw, -3.55vh)) rotate(-20deg);
+    }   
+    to {
+        transform: translateY(0px) translateX(0px);
+    }
+}
+
+@keyframes jumpSomersault {
+    from {
+        transform: translateY(0px);
+    }
+    10% {
+        transform: translateY(max(-2.81vw, -5vh)) rotate(72deg);
+    }
+    20% {
+        transform: translateY(max(-3vw, -5.33vh)) rotate(144deg);
+    }
+    30% {
+        transform: translateY(max(-4vw, -7.11vh)) rotate(216deg);
+    }
+    40% {
+        transform: translateY(max(-3vw, -5.33vh)) rotate(288deg);
+    }
+    50% {
+        transform: translateY(0px) rotate(360deg);
+    }
+    60% {
+        transform: translateY(max(-2.81vw, -5vh)) rotate(288deg);
+    }
+    70% {
+        transform: translateY(max(-3vw, -5.33vh)) rotate(216deg);
+    }
+    80% {
+        transform: translateY(max(-4vw, -7.11vh)) rotate(144deg);
+    }
+    90% {
+        transform: translateY(max(-3vw, -5.33vh)) rotate(72deg);
+    }
+    to {
+        transform: translateY(-0px) rotate(deg);
+    }
+}
+
+.firework {
+    width: min(25vw, 44.44vh);
+    position: absolute;
+    animation: firework 1.3s linear infinite;
+    transform: scale(0)
+}
+
+.firework1 {
+    left: calc(50vw - min(35vw, 62.22vh));
+    top: calc(50vh - min(22.5vw, 40vh));
+    animation-delay: 14.0s
+}
+
+.firework2 {
+    left: calc(50vw + min(15vw, 26.66vh));
+    top: calc(50vh - min(19.69vw, 35vh));
+    animation-delay: 14.3s
+}
+
+.firework3 {
+    left: calc(50vw - min(6vw, 10.66vh));
+    top: calc(50vh - min(33.75vw, 60vh));
+    animation-delay: 14.7s
+}
+
+@keyframes firework {
     to {
         transform: scale(1);
     }
