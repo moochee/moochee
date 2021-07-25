@@ -1,5 +1,16 @@
 package main
 
+// TODO
+// players can join the game
+// points are accumulated during the quiz
+// quiz is over when no more questions
+// every second of response time reduces the points by 10%, e.g. after 4 seconds it's 65 seconds (100 * .9 ^ 4)
+// response time is limited to 20 seconds
+// the "leaderboard" can be inspected, e.g. who are the top 3 participants
+// changes to the leaderboard can be tracked, e.g. "peter is on a fire" if he climbed consistently during the last questions
+// DONE
+// #3.1 more questions
+
 import (
 	"testing"
 )
@@ -12,6 +23,7 @@ type QuizQuestion struct {
 
 type Quiz struct {
 	currentQuestion QuizQuestion
+	playerList      [1]string
 }
 
 func (q *Quiz) Start() {
@@ -24,6 +36,7 @@ func (q *Quiz) Start() {
 	allQuestions[0].answers[2] = "Maybe"
 	allQuestions[0].answers[3] = "I don't know"
 	allQuestions[0].rightAnswer = "Yes"
+	// q.allQuestions[0].question = "..." - before we write like it, but we delete q. as allQuestions doesn't need to belong quize, and we also want to save memory
 
 	allQuestions[1] = QuizQuestion{}
 	allQuestions[1].question = "What does PPO stand for?"
@@ -82,43 +95,47 @@ func (q *Quiz) Guess(givenAnswer string) int {
 	}
 }
 
-func TestQuiz(t *testing.T) {
+func (q *Quiz) Join(name string) { //<-- function "header", or also called "signature"
+	q.playerList[0] = "Alice"
+	// q.playerList...
+}
 
+func TestQuiz(test *testing.T) {
 	// #1 when quiz starts, then one question and 4 answers should be presented
 	quiz := Quiz{}
 
 	quiz.Start()
 
 	if quiz.currentQuestion.question == "" {
-		t.Error("expected a question")
+		test.Error("expected a question")
 	}
 
 	if len(quiz.currentQuestion.answers) != 4 {
-		t.Error("expected 4 answers")
+		test.Error("expected 4 answers")
 	}
 
 	// #2 guess wrong answer => 0 points
 	if quiz.Guess("No") != 0 {
-		t.Error("expected 0 points")
+		test.Error("expected 0 points")
 	}
 
 	// #3 guess right answer => 100 points
 	if quiz.Guess("Yes") != 100 {
-		t.Error("expected 100 points")
+		test.Error("expected 100 points")
 	}
 
-	// TODO
-	// #4 every second of response time reduces the points by 10%, e.g. after 4 seconds it's 65 seconds (100 * .9 ^ 4)
-	// #5 response time is limited to 20 seconds
-	// #6 points are accumulated during the quiz
-	// #7 the "leaderboard" can be inspected, e.g. who are the top 3 participants
-	// #8 changes to the leaderboard can be tracked, e.g. "peter is on a fire" if he climbed consistently during the last questions
-	// #9 quiz is over when no more questions
-	// DONE
-	// #3.1 more questions
+	quiz.Join("Alice")
+
+	if quiz.playerList[0] != "Alice" {
+		test.Error("expected Alice for the first player")
+	}
+
+	// Given quiz
+	// When "Alice" joins
+	// Then the quiz should have one player with name "Alice"
 
 	// r := strings.NewReader("test")
-	// req := httptest.NewRequest("POST", "/api/requests", r)
+	// req := httptestest.NewRequest("POST", "/api/requests", r)
 	// rr := httptest.NewRecorder()
 
 	// serveApiRequests(rr, req)
