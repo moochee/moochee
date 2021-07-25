@@ -48,30 +48,30 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 .podiumRank1 {
-    transform: translateX(-50%) translateY(-100%);
+    transform: translateX(-50%) translateY(-100%) translateY(min(0.7vw, 1.24vh));
 }
 
 .podiumRank1Animated {
-    transform: scale(0) translateX(-50%) translateX(max(-30vw, -53.33vh)) translateY(-100%) rotate(720deg);
+    transform: scale(0) translateX(-50%) translateX(max(-30vw, -53.33vh)) translateY(-100%) translateY(min(0.7vw, 1.24vh))rotate(720deg);
     animation: flyIn1 1s linear forwards;
     animation-delay: 13s;
 }
 
 @keyframes flyIn1 {
     50% {
-        transform: scale(.5) translateX(-50%) translateX(max(-30vw, -53.33vh)) translateY(-100%) rotate(360deg);
+        transform: scale(.5) translateX(-50%) translateX(max(-30vw, -53.33vh)) translateY(-100%) translateY(min(0.7vw, 1.24vh)) rotate(360deg);
     }
     to {
-        transform: scale(1) translateX(-50%) translateY(-100%);
+        transform: scale(1) translateX(-50%) translateY(-100%) translateY(min(0.7vw, 1.24vh));
     }
 }
 
 .podiumRank2 {
-    transform: translateX(-50%) translateX(max(-15vw, -26.66vh)) translateY(-100%) translateY(min(7.31vw, 13vh));
+    transform: translateX(-50%) translateX(max(-14.5vw, -25.78vh)) translateY(-100%) translateY(min(7.31vw, 13vh));
 }
 
 .podiumRank2Animated {
-    transform: scale(0) translateX(-50%) translateX(max(-15vw, -26.66vh)) translateY(-100%) translateY(min(7.31vw, 13vh)) rotate(720deg);
+    transform: scale(0) translateX(-50%) translateX(max(-14.5vw, -25.78vh)) translateY(-100%) translateY(min(7.31vw, 13vh)) rotate(720deg);
     animation: flyIn2 1s linear forwards;
     animation-delay: 8s;
 }
@@ -81,26 +81,26 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
         transform: scale(.5) translateX(-50%) translateX(max(-30vw, -53.33vh)) translateY(-100%) translateY(min(7.31vw, 13vh)) rotate(360deg);
     }
     to {
-        transform: scale(1) translateX(-50%) translateX(max(-15vw, -26.66vh)) translateY(-100%) translateY(min(7.31vw, 13vh));
+        transform: scale(1) translateX(-50%) translateX(max(-14.5vw, -25.78vh)) translateY(-100%) translateY(min(7.31vw, 13vh));
     }
 }
 
 .podiumRank3 {
-    transform: translateX(-50%) translateX(min(15vw, 26.66vh)) translateY(-100%) translateY(min(11.25vw, 20vh));
+    transform: translateX(-50%) translateX(min(14.5vw, 25.78vh)) translateY(-100%) translateY(min(10.69vw, 19vh));
 }
 
 .podiumRank3Animated {
-    transform: scale(0) translateX(-50%) translateX(min(15vw, 26.66vh)) translateY(-100%) translateY(min(11.25vw, 20vh)) rotate(720deg);
+    transform: scale(0) translateX(-50%) translateX(min(14.5vw, 25.78vh)) translateY(-100%) translateY(min(10.69vw, 19vh)) rotate(720deg);
     animation: flyIn3 1s linear forwards;
     animation-delay: 3s;
 }
 
 @keyframes flyIn3 {
     50% {
-        transform: scale(.5) translateX(-50%) translateX(min(30vw, 53.33vh)) translateY(-100%) translateY(min(11.25vw, 20vh)) rotate(360deg);
+        transform: scale(.5) translateX(-50%) translateX(min(30vw, 53.33vh)) translateY(-100%) translateY(min(10.69vw, 19vh)) rotate(360deg);
     }
     to {
-        transform: scale(1) translateX(-50%) translateX(min(15vw, 26.66vh)) translateY(-100%) translateY(min(11.25vw, 20vh));
+        transform: scale(1) translateX(-50%) translateX(min(14.5vw, 25.78vh)) translateY(-100%) translateY(min(10.69vw, 19vh));
     }
 }
 
@@ -154,38 +154,26 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 @keyframes jumpSomersault {
-    from {
-        transform: translateY(0px);
+    5% {
+        transform: translateY(max(-1vw, -1.78vh)) rotate(0deg);
     }
-    10% {
-        transform: translateY(max(-2.81vw, -5vh)) rotate(72deg);
+    25% {
+        transform: translateY(max(-2.81vw, -5vh)) rotate(180deg);
     }
-    20% {
-        transform: translateY(max(-3vw, -5.33vh)) rotate(144deg);
-    }
-    30% {
-        transform: translateY(max(-4vw, -7.11vh)) rotate(216deg);
-    }
-    40% {
-        transform: translateY(max(-3vw, -5.33vh)) rotate(288deg);
+    45% {
+        transform: translateY(max(-1vw, -1.78vh)) rotate(360deg);
     }
     50% {
         transform: translateY(0px) rotate(360deg);
     }
-    60% {
-        transform: translateY(max(-2.81vw, -5vh)) rotate(288deg);
+    55% {
+        transform: translateY(max(-1vw, -1.78vh)) rotate(360deg);
     }
-    70% {
-        transform: translateY(max(-3vw, -5.33vh)) rotate(216deg);
+    75% {
+        transform: translateY(max(-2.81vw, -5vh)) rotate(180deg);
     }
-    80% {
-        transform: translateY(max(-4vw, -7.11vh)) rotate(144deg);
-    }
-    90% {
-        transform: translateY(max(-3vw, -5.33vh)) rotate(72deg);
-    }
-    to {
-        transform: translateY(-0px) rotate(deg);
+    95% {
+        transform: translateY(max(-1vw, -1.78vh)) rotate(0deg);
     }
 }
 
@@ -197,7 +185,7 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 .firework1 {
-    left: calc(50vw - min(30vw, 53.33vh));
+    left: calc(50vw - min(35vw, 62.22vh));
     top: calc(50vh - min(24.31vw, 45vh));
     animation-delay: 14.0s
 }
