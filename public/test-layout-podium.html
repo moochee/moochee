@@ -9,6 +9,7 @@
 	<script src="lib/react.development.js"></script>
 	<script src="lib/react-dom.development.js"></script>
 	<script src="lib/react-router-dom.js"></script>
+	<script src="components/general.js" type="text/babel"></script>
 	<link rel="stylesheet" type="text/css" href="components/podium/podium.css" />
 	<script src="components/podium/podium.js" type="text/babel"></script>
 	<script src="components/podium/podium-final.js" type="text/babel"></script>
@@ -16,13 +17,13 @@
 		html,
 		body,
 		#react-root {
+			margin: 0;
 			height: 100%;
 		}
 
 		html {
-			background: black
+			background: black;
 		}
-
 	</style>
 </head>
 
@@ -33,7 +34,14 @@
 	<script type="text/babel" data-type="module">
 		'use strict'
 		const players = [{ name: 'Alice', avatar: '🐰', score: '100 points' }, { name: 'Bob Marley', avatar: '🦁', score: '80 points' }, { name: 'Cindy', avatar: '🐵', score: '70 points' }]
-		ReactDOM.render(<PodiumFinal players={players} />, document.querySelector('#react-root'))
+		const Page = function () {
+			const [volume, setVolume] = React.useState(1)
+			return <div style={{ height: "100%" }}>
+				<PodiumFinal players={players} volume={volume} />
+				<Audio onVolume={setVolume} />
+			</div>
+		}
+		ReactDOM.render(<Page />, document.querySelector('#react-root'))
 	</script>
 </body>
 

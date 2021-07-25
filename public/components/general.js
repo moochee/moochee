@@ -14,6 +14,27 @@ function Clock() {
     </div>
 }
 
+function Audio(props) {
+    const volumeSlider = React.useRef(false)
+    const [muted, setMuted] = React.useState(false)
+
+    const toggleMute = () => {
+        const newState = !muted
+        setMuted(newState)
+        props.onVolume(newState ? 0 : volumeSlider.current.value)
+    }
+
+    const adjustVolume = () => {
+        setMuted(false)
+        props.onVolume(volumeSlider.current.value)
+    }
+
+    return <div className="audio" style={{ cursor: "pointer", position: "absolute", left: "calc(50vw - min(47vw, 16 / 9 * 47vh))", top: "calc(50vh - min(9 / 16 * 46vw, 46vh))" }}>
+        <span style={{ fontSize: "2em" }} onClick={toggleMute}>{muted ? '🔇' : '🔈'}</span>
+        <input style={{ cursor: "pointer" }} ref={volumeSlider} onChange={adjustVolume} type="range" min="0" step="0.01" max="1"></input>
+    </div>
+}
+
 function Music() {
     const audio = React.useRef(null)
     const [muted, setMuted] = React.useState(false)
