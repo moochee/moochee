@@ -1,6 +1,6 @@
 'use strict'
 
-export default function Games(setTimeout, quizRepo) {
+export default function Games(setTimeout, quizRepo, eventEmitter) {
   let nextGameId = 100000
   let avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲')
   const games = []
@@ -26,7 +26,7 @@ export default function Games(setTimeout, quizRepo) {
     const avatar = avatars.splice(Math.random() * avatars.length, 1)
     const newPlayer = { name, avatar, score: 0, socketId}
     games.find((g) => g.id === gameId).players.push(newPlayer)
-    return newPlayer
+    eventEmitter.publish('playerJoined', gameId, newPlayer)
   }
 
   this.nextRound = (gameId) => {
@@ -34,7 +34,7 @@ export default function Games(setTimeout, quizRepo) {
     const question = game.remainingQuestions.shift()
     const timeToGuess = 20000;
     setTimeout(() => finishRound(gameId), timeToGuess)
-    return { question, timeToGuess }
+    eventEmitter.publish('roundStarted', gameId, question, timeToGuess)
   }
 
   this.guess = (gameId, questionText, playerName, answer) => {
@@ -47,9 +47,7 @@ export default function Games(setTimeout, quizRepo) {
     game.players.find(p => p.name === playerName).score += score
 
     if (question.guesses.length === game.players.length) {
-      return finishRound(gameId)
-    } else {
-      return {event: '', result: null}
+      finishRound(gameId)
     }
   }
 
@@ -59,9 +57,9 @@ export default function Games(setTimeout, quizRepo) {
     const result = [...game.players]
     result.sort((a, b) => b.score - a.score)
     if (game.remainingQuestions.length > 0) {
-      return {event: 'roundFinished', result}
+      eventEmitter.publish('roundFinished', gameId, result)
     } else {
-      return {event: 'gameFinished', result}
+      eventEmitter.publish('gameFinished', gameId, result)
     }
   }
 
@@ -76,9 +74,7 @@ export default function Games(setTimeout, quizRepo) {
     }
     if (game && game.players) {
       game.players = game.players.filter(p => p.socketId != socketId)
-      return {gameId: game.id, playerName: player.name }
-    } else {
-      return {gameId: null, playerName: null}
+      eventEmitter.publish('playerDisconnected', game.id, player.name)
     }
   }
 }

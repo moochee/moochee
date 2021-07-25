@@ -9,10 +9,12 @@ const server = http.createServer(app)
 
 import { Server } from 'socket.io'
 const io = new Server(server)
+import EventEmitter from './event-emitter.js'
+const eventEmitter = new EventEmitter(io)
 import QuizRepo from './quiz-repo.js'
 const quizRepo = new QuizRepo()
 import Games from './games.js'
-const adapter = new Games(() => null, quizRepo)
+const adapter = new Games(setTimeout, quizRepo, eventEmitter)
 
 io.on('connection', (socket) => {
   socket.on('getQuizzes', async (callback) => {
@@ -28,9 +30,8 @@ io.on('connection', (socket) => {
   
   socket.on('join', (gameId, name, callback) => {
     try {
-      const newPlayer = adapter.join(gameId, name, socket.id)
+      adapter.join(gameId, name, socket.id)
       socket.join(gameId)
-      io.to(gameId).emit('playerJoined', gameId, newPlayer)
       callback()
     } catch (error) {
       callback(error.message)
@@ -38,22 +39,15 @@ io.on('connection', (socket) => {
   })
   
   socket.on('nextRound', (gameId) => {
-    const {question, timeToGuess} = adapter.nextRound(gameId)
-    io.to(gameId).emit('roundStarted', gameId, question, timeToGuess)
+    adapter.nextRound(gameId)
   })
 
   socket.on('guess', (gameId, questionText, playerName, answer) => {
-    const {event, result} = adapter.guess(gameId, questionText, playerName, answer)
-    if (event) {
-      io.to(gameId).emit(event, gameId, result)
-    }
+    adapter.guess(gameId, questionText, playerName, answer)
   })
 
   socket.on('disconnect', () => {
-    const { gameId, playerName } = adapter.disconnect(socket.id)
-    if (gameId) {
-      io.to(gameId).emit('playerDisconnected', gameId, playerName)
-    }
+    adapter.disconnect(socket.id)
   })
 })
 
