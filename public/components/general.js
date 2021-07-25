@@ -22,7 +22,7 @@ function Music() {
     React.useEffect(() => audio.current.play(), [])
 
     return <div>
-        <audio id="audio" ref={audio} loop muted={muted} src="components/positive-funny-background-music-for-video-games.mp3"></audio>
+        <audio ref={audio} loop muted={muted} src="components/positive-funny-background-music-for-video-games.mp3"></audio>
         <ui5-button onClick={toggleMute} icon={muted ? 'sound' : 'sound-off'} aria-labelledby="mute"></ui5-button>
         <ui5-label style={{ display: "none" }} id="mute" aria-hidden="true">{muted ? 'Unmute' : 'Mute'} Sound</ui5-label>
     </div>
