@@ -13,6 +13,9 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
     background-size: contain;
     margin: auto;
     background-position: center;
+}
+
+.podiumAnimated {
     animation: bounce 1.2s linear infinite;
 }
 
@@ -45,6 +48,10 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 .podiumRank1 {
+    transform: translateX(-50%) translateY(-100%);
+}
+
+.podiumRank1Animated {
     transform: scale(0) translateX(-50%) translateX(max(-30vw, -53.33vh)) translateY(-100%) rotate(720deg);
     animation: flyIn1 1s linear forwards;
     animation-delay: 13s;
@@ -60,6 +67,10 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 .podiumRank2 {
+    transform: translateX(-50%) translateX(max(-15vw, -26.66vh)) translateY(-100%) translateY(min(7.31vw, 13vh));
+}
+
+.podiumRank2Animated {
     transform: scale(0) translateX(-50%) translateX(max(-15vw, -26.66vh)) translateY(-100%) translateY(min(7.31vw, 13vh)) rotate(720deg);
     animation: flyIn2 1s linear forwards;
     animation-delay: 8s;
@@ -75,6 +86,10 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 .podiumRank3 {
+    transform: translateX(-50%) translateX(min(15vw, 26.66vh)) translateY(-100%) translateY(min(11.25vw, 20vh));
+}
+
+.podiumRank3Animated {
     transform: scale(0) translateX(-50%) translateX(min(15vw, 26.66vh)) translateY(-100%) translateY(min(11.25vw, 20vh)) rotate(720deg);
     animation: flyIn3 1s linear forwards;
     animation-delay: 3s;
@@ -89,20 +104,21 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
     }
 }
 
+.podiumAvatar {
+    font-size: 3em;
+}
+
 .podiumAvatar1 {
-    font-size: 3em; 
     animation: jumpSomersault 2s linear infinite;
     animation-delay: 14s;
 }
 
 .podiumAvatar2 {
-    font-size: 3em;
     animation: jumpWhip .9s linear infinite;
     animation-delay: 9s;
 }
 
 .podiumAvatar3 {
-    font-size: 3em;
     animation: jump .5s linear infinite;
     animation-delay: 4s;
 }
@@ -174,15 +190,15 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 .firework {
-    width: min(25vw, 44.44vh);
+    width: min(20vw, 35.56vh);
     position: absolute;
     animation: firework 1.3s linear infinite;
     transform: scale(0)
 }
 
 .firework1 {
-    left: calc(50vw - min(35vw, 62.22vh));
-    top: calc(50vh - min(22.5vw, 40vh));
+    left: calc(50vw - min(30vw, 53.33vh));
+    top: calc(50vh - min(24.31vw, 45vh));
     animation-delay: 14.0s
 }
 
@@ -193,8 +209,8 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 .firework3 {
-    left: calc(50vw - min(6vw, 10.66vh));
-    top: calc(50vh - min(33.75vw, 60vh));
+    left: calc(50vw + min(1vw, 1.78vh));
+    top: calc(50vh - min(28.13vw, 50vh));
     animation-delay: 14.7s
 }
 

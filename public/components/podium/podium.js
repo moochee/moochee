@@ -6,10 +6,16 @@ function Podium(props) {
     //     document.getElementById('fireworks').play()
     // }, 14000)
 
+    // if (props.)
+    // React.useEffect(() => {
+    //     // document.getElementById('music').play()
+    //     audio.current.play()
+    // }, [])
+
     const playerToRankHtml = (player, rank) => {
         return <div key={player.name} className={`podiumRank${rank}`}>
-            <div>{player.name}</div>
-            <div className={`podiumAvatar${rank}`}>{player.avatar}</div>
+            <div>{player.score}</div>
+            <div className={`podiumAvatar`}>{player.avatar}</div>
         </div>
     }
     const first3Players = props.players.slice(0, 3)
@@ -18,11 +24,6 @@ function Podium(props) {
 
     return <div className="podium">
         <audio id="music" src="components/podium/arcade-game-music-loop.mp3"></audio>
-        <audio id="fireworks" loop src="components/podium/sounds-of-fireworks-exploding.mp3"></audio>
-        <img className="firework firework1" src="components/podium/fireworks-152949.svg" />
-        <img className="firework firework2" src="components/podium/celebration-152950.svg" />
-        <img className="firework firework3" src="components/podium/celebration-152951.svg" />
-
         {podiumPlayersHtml}
     </div>
 }

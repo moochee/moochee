@@ -11,6 +11,7 @@
 	<script src="lib/react-router-dom.js"></script>
 	<link rel="stylesheet" type="text/css" href="components/podium/podium.css" />
 	<script src="components/podium/podium.js" type="text/babel"></script>
+	<script src="components/podium/podium-final.js" type="text/babel"></script>
 	<style>
 		html,
 		body,
@@ -31,8 +32,8 @@
 	</div>
 	<script type="text/babel" data-type="module">
 		'use strict'
-		const players = [{ name: 'Alice', avatar: '🐰' }, { name: 'Bob Marley', avatar: '🦁' }, { name: 'Cindy', avatar: '🐵' }]
-		ReactDOM.render(<Podium players={players} />, document.querySelector('#react-root'))
+		const players = [{ name: 'Alice', avatar: '🐰', score: '100 points' }, { name: 'Bob Marley', avatar: '🦁', score: '80 points' }, { name: 'Cindy', avatar: '🐵', score: '70 points' }]
+		ReactDOM.render(<PodiumFinal players={players} />, document.querySelector('#react-root'))
 	</script>
 </body>
 
