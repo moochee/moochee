@@ -43,18 +43,12 @@ function HostGame(props) {
         </div>
     }
 
-    function Player(props) {
-        return <ui5-card heading={props.name}>
-            <div style={{ fontSize: '4em' }} slot="avatar">{props.avatar}</div>
-        </ui5-card>
-    }
-
     function Players(props) {
         const players = props.players.length > 0
-            ? props.players.map((p) => <Player key={p.name} name={p.name} avatar={p.avatar} />)
+            ? <div style={{fontSize: "4em"}}>{props.players.map(p => p.avatar)}</div>
             : <ui5-label>No players yet - invite people by sending them the join URL above</ui5-label>
 
-        return <div>{players}</div>
+        return players
     }
 
     let joinUrl = `${window.location.origin}/#/play/${props.gameId}`
