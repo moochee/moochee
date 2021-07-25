@@ -5,40 +5,34 @@
 	<title>Gorilla</title>
 	<link rel="icon" type="image/png" href="icons8-harambe-the-gorilla-50.png" />
 	<link rel="stylesheet" type="text/css" href="font/komikatext_regular_macroman/stylesheet.css" />
-	<!-- <link rel="stylesheet" type="text/css" href="components/sticky/sticky-button.css" /> -->
 	<script src="lib/babel.min.js"></script>
 	<script src="lib/react.development.js"></script>
 	<script src="lib/react-dom.development.js"></script>
 	<script src="lib/react-router-dom.js"></script>
-	<!-- <script nomodule src="lib/bundle.es5.js"></script> -->
-	<!-- <script src="lib/bundle.esm.js" type="module"></script> -->
-	<!-- <script src="components/general.js" type="text/babel"></script> -->
-	<!-- <script src="components/entrance.js" type="text/babel"></script> -->
-	<!-- <script src="components/host.js" type="text/babel"></script> -->
-	<!-- <script src="components/play.js" type="text/babel"></script> -->
 	<link rel="stylesheet" type="text/css" href="components/podium/podium.css" />
 	<script src="components/podium/podium.js" type="text/babel"></script>
-	<!-- <script src="components/sticky/sticky-button.js" type="text/babel"></script> -->
 	<style>
 		html,
 		body,
-		#react-root
-		{
+		#react-root {
 			height: 100%;
 		}
+
 		html {
 			background: black
 		}
+
 	</style>
 </head>
 
 <body>
-	
-	<div id="react-root">		
+
+	<div id="react-root">
 	</div>
 	<script type="text/babel" data-type="module">
 		'use strict'
-		ReactDOM.render(<Podium />, document.querySelector('#react-root'))
+		const players = [{ name: 'Alice', avatar: '🐰' }, { name: 'Bob Marley', avatar: '🦁' }, { name: 'Cindy', avatar: '🐵' }]
+		ReactDOM.render(<Podium players={players} />, document.querySelector('#react-root'))
 	</script>
 </body>
 
