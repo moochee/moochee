@@ -28,7 +28,7 @@
 
 	<script type="text/babel" data-type="module">
 		'use strict'
-		
+
 		import WsClientAdapter from "./ws-client-adapter.js"
 
 		function HostGameWeb(props) {
@@ -49,20 +49,20 @@
 		function PlayerName(props) {
 			const { gameId } = ReactRouterDOM.useParams()
 			const [playerName, setPlayerName] = React.useState('')
-    	const updatePlayerName = (event) => setPlayerName(event.target.value)
+			const updatePlayerName = (event) => setPlayerName(event.target.value)
 
 			const nameExistsToast = React.useRef(null)
 
 			const join = async () => {
-        // TODO do we get avatar back? and if yes, what to do with it?
-        const errorMessage = await props.adapter.join(gameId, playerName)
+				// TODO do we get avatar back? and if yes, what to do with it?
+				const errorMessage = await props.adapter.join(gameId, playerName)
 				if (!errorMessage) {
-        	props.onJoin(gameId, playerName)
+					props.onJoin(gameId, playerName)
 				} else {
 					nameExistsToast.current.show()
 				}
-    	}
-			
+			}
+
 			return <div style={{ display: "flex", flexDirection: "column" }}>
 				<ui5-title level="H1">Game {gameId}</ui5-title>
 				<ui5-label for="playerName" required>Name</ui5-label>
@@ -87,13 +87,13 @@
 				<HashRouter>
 					<Switch>
 						<Route exact path="/">
-							<Entrance onJoin={join} onHost={host} adapter={props.adapter} />
+							<Entrance onHost={host} adapter={props.adapter} />
 						</Route>
 						<Route path="/play/:gameId/:playerName">
 							<PlayGameWeb adapter={props.adapter} />
 						</Route>
 						<Route path="/play/:gameId">
-							<PlayerName adapter={props.adapter} onJoin={join}/>
+							<PlayerName adapter={props.adapter} onJoin={join} />
 						</Route>
 						<Route path="/host/:gameId">
 							<HostGameWeb adapter={props.adapter} />
