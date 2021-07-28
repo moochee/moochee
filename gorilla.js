@@ -51,6 +51,6 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(process.env.PORT || 3000, () => {
-  console.log('Server started on *:3000')
+const listener = server.listen(process.env.PORT || 3000, () => {
+  console.log(`Server started on *:${listener.address().port}`)
 })
