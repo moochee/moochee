@@ -52,14 +52,34 @@ function HostGame(props) {
         return players
     }
 
-    let joinUrl = `${window.location.origin}/#/play/${props.gameId}`
+    function WaitingToStart(props) {
+        const joinUrl = `${window.location.origin}/#/play/${props.gameId}`
+        const urlCopiedToast = React.useRef(null)
+        
+        const copyToClipboard = () => {
+            navigator.clipboard.writeText(joinUrl)
+            urlCopiedToast.current.show()
+        }
+        
+        return <div>
+            <p />
+            <div style={{ display: "flex", flexDirection: "row" }}>
+                <ui5-input style={{ "width": "100%" }} readonly value={joinUrl}></ui5-input>
+                <ui5-button icon="copy" onClick={copyToClipboard}></ui5-button>
+            </div>
+            <QRCode text={joinUrl} size="200"/>
+            <p />
+            <ui5-title level="H2">Players:</ui5-title>
+            <Players players={props.players} />
+            <ui5-toast ref={urlCopiedToast}>Join URL has been copied to clipboard!</ui5-toast>
+        </div>
+    }
+
     const [players, setPlayers] = React.useState([])
     const [question, setQuestion] = React.useState(null)
     const [canStart, setCanStart] = React.useState(false)
     const [canNext, setCanNext] = React.useState(false)
     const [result, setResult] = React.useState(null)
-
-    const urlCopiedToast = React.useRef(null)
 
     const onPlayerJoined = (gameId, player) => {
         if (gameId === props.gameId) {
@@ -116,11 +136,6 @@ function HostGame(props) {
         setCanNext(false)
     }
 
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(joinUrl)
-        urlCopiedToast.current.show()
-    }
-
     React.useEffect(() => {
         props.adapter.subscribe('playerJoined', onPlayerJoined)
         props.adapter.subscribe('roundStarted', onRoundStarted)
@@ -136,6 +151,7 @@ function HostGame(props) {
         }
     }, [])
 
+    const waitingToStartBlock = !question && !result ? <WaitingToStart gameId={props.gameId} players={players}/> : ''
     const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
     const startButton = canStart ? <ui5-button onClick={start} style={{ width: "100%" }}>Start</ui5-button> : ''
     const podiumBlock = result ? <Podium players={result} /> : ''
@@ -143,16 +159,7 @@ function HostGame(props) {
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
-        <p />
-        <div style={{ display: "flex", flexDirection: "row" }}>
-            <ui5-input style={{ "width": "100%" }} readonly value={joinUrl}></ui5-input>
-            <ui5-button icon="copy" onClick={copyToClipboard}></ui5-button>
-        </div>
-        <QRCode text={joinUrl} size="200"/>
-        <p />
-        <ui5-title level="H2">Players:</ui5-title>
-        <Players players={players} />
-        <ui5-toast ref={urlCopiedToast}>Join URL has been copied to clipboard!</ui5-toast>
+        {waitingToStartBlock}
         {startButton}
         {questionBlock}
         {podiumBlock}
