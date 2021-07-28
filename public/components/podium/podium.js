@@ -14,5 +14,6 @@ function Podium(props) {
     return <div className="podium">
         <audio id="music" src="components/podium/arcade-game-music-loop.mp3"></audio>
         {podiumPlayersHtml}
+        <ui5-button onClick={props.onNext} style={{ width: "100%" }}>Next</ui5-button>
     </div>
 }

@@ -78,7 +78,6 @@ function HostGame(props) {
     const [players, setPlayers] = React.useState([])
     const [question, setQuestion] = React.useState(null)
     const [canStart, setCanStart] = React.useState(false)
-    const [canNext, setCanNext] = React.useState(false)
     const [result, setResult] = React.useState(null)
 
     const onPlayerJoined = (gameId, player) => {
@@ -114,7 +113,6 @@ function HostGame(props) {
         if (gameId === props.gameId) {
             setQuestion(null)
             setResult(result)
-            setCanNext(true)
         }
     }
     
@@ -122,7 +120,6 @@ function HostGame(props) {
         if (gameId === props.gameId) {
             setQuestion(null)
             setResult(result)
-            setCanNext(false)
         }
     }
 
@@ -133,7 +130,6 @@ function HostGame(props) {
 
     const next = () => {
         props.adapter.start(props.gameId)
-        setCanNext(false)
     }
 
     React.useEffect(() => {
@@ -154,8 +150,7 @@ function HostGame(props) {
     const waitingToStartBlock = !question && !result ? <WaitingToStart gameId={props.gameId} players={players}/> : ''
     const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
     const startButton = canStart ? <ui5-button onClick={start} style={{ width: "100%" }}>Start</ui5-button> : ''
-    const podiumBlock = result ? <Podium players={result} /> : ''
-    const nextButton = canNext ? <ui5-button onClick={next} style={{ width: "100%" }}>Next</ui5-button> : ''
+    const podiumBlock = result ? <Podium players={result} onNext={next} /> : ''
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
@@ -163,6 +158,5 @@ function HostGame(props) {
         {startButton}
         {questionBlock}
         {podiumBlock}
-        {nextButton}
     </div>
 }
