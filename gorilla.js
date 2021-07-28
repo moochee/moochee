@@ -19,8 +19,7 @@ const games = new Games(setTimeout, quizRepo, eventEmitter)
 
 io.on('connection', (socket) => {
     socket.on('getQuizzes', async (callback) => {
-        // REVISE it somehow feels weird that we use the quizRepo directly here, but in the other cases it is used indirectly by games. I don't have a good idea how to clean it right now tho...
-        const quizzes = await quizRepo.getAll()
+        const quizzes = await games.getQuizzes()
         callback(quizzes)
     })
 

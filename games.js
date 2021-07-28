@@ -5,6 +5,10 @@ export default function Games(setTimeout, quizRepo, eventEmitter) {
   let avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲')
   const games = []
 
+  this.getQuizzes = async () => {
+    return await quizRepo.getAll()
+  }
+
   this.host = async (quizId) => {
     const gameId = String(nextGameId++)
     const questions = (await quizRepo.getById(quizId)).questions
