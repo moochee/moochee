@@ -22,11 +22,11 @@ function HostGame(props) {
 
     function Answers(props) {
         return <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <div style={{ justifyContent: "center", display: "flex", flexDirection: "row" }}>
                 <Answer color="green" text={props.answers[0]} />
                 <Answer color="purple" text={props.answers[1]} />
             </div>
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <div style={{ justifyContent: "center", display: "flex", flexDirection: "row" }}>
                 <Answer color="blue" text={props.answers[2]} />
                 <Answer color="orange" text={props.answers[3]} />
             </div>
@@ -34,13 +34,15 @@ function HostGame(props) {
     }
 
     function QuestionAndAnswers(props) {
-        return <div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-                <ui5-label>{props.question}</ui5-label>
-                <img width="80%" src={props.imageUrl} />
-            </div>
-
+        return <div style={{ width: "60%", marginLeft: "20%" }}>
+            <div style={{ textAlign: "center", fontFamily: "komika_textregular", fontSize: "2em", color: "#0070c0" }}>Round #1 - Passionate Product Ownership Quiz</div>
+            <h1 style={{ textAlign: "center", fontFamily: "komika_textregular", fontSize: "3em", color: "#0070c0" }}>{props.question}</h1>
+            {/* <img width="80%" src={props.imageUrl} /> */}
             <Answers answers={props.answers} />
+            <div id="footer" style={{ background: "black", display: "flex", justifyContent: "center", flexDirection: "row", width: "100%" }}>
+				<img style={{ width: "25%" }} src="ACDC-Logo_Neg.png" />
+				<img style={{ width: "25%" }} src="Cloud-Curriculum_Logo-with-Tagline_Neg.png" />
+			</div>
         </div>
     }
 

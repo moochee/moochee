@@ -7,11 +7,11 @@ function PlayGame(props) {
 
     function Answers(props) {
         return <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <div style={{ justifyContent: "center", display: "flex", flexDirection: "row" }}>
                 <Answer color="green" text={props.answers[0]} />
                 <Answer color="purple" text={props.answers[1]} />
             </div>
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <div style={{ justifyContent: "center", display: "flex", flexDirection: "row" }}>
                 <Answer color="blue" text={props.answers[2]} />
                 <Answer color="orange" text={props.answers[3]} />
             </div>
