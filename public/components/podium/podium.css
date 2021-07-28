@@ -15,6 +15,22 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
     background-position: center;
 }
 
+.podium-round {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+}
+  
+.podium-final {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    z-index: 1;
+}
+
 .podiumAnimated {
     animation: bounce 1.2s linear infinite;
 }
@@ -39,16 +55,16 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 
 .podium > div {
     font-family: komika_textregular;
-    font-size: min(3.5vw, 6.22vh);
+    font-size: 3vw;
     color: white;
     position: absolute;
-    left: 50vw;
-    top: 50vh;
+    left: 50%;
+    top: 50%;
     text-align: center;
 }
 
 .podiumRank1 {
-    transform: translateX(-50%) translateY(-100%) translateY(min(0.7vw, 1.24vh));
+    transform: translateX(-50%) translateY(-100%);
 }
 
 .podiumRank1Animated {
@@ -67,7 +83,7 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 .podiumRank2 {
-    transform: translateX(-50%) translateX(max(-14.5vw, -25.78vh)) translateY(-100%) translateY(min(7.31vw, 13vh));
+    transform: translateX(-170%) translateY(-80%);
 }
 
 .podiumRank2Animated {
@@ -86,7 +102,7 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 .podiumRank3 {
-    transform: translateX(-50%) translateX(min(14.5vw, 25.78vh)) translateY(-100%) translateY(min(10.69vw, 19vh));
+    transform: translateX(70%) translateY(-80%);
 }
 
 .podiumRank3Animated {
@@ -105,7 +121,7 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 .podiumAvatar {
-    font-size: 3em;
+    font-size: 7vw;
 }
 
 .podiumAvatar1 {

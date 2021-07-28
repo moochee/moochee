@@ -75,10 +75,26 @@ function HostGame(props) {
         </div>
     }
 
+    function PodiumPage(props) {
+        return <div>
+            <Podium players={props.players} />
+            <ui5-button onClick={props.onNext} style={{ width: "100%" }}>Next</ui5-button>
+        </div>
+    }
+
+    function PodiumFinalPage(props) {
+        const [volume, setVolume] = React.useState(1)
+        return <div style={{ height: "100%" }}>
+            <PodiumFinal players={props.players} volume={volume} />
+            <AudioControl onVolume={setVolume} />
+        </div>
+    }
+
     const [players, setPlayers] = React.useState([])
     const [question, setQuestion] = React.useState(null)
     const [canStart, setCanStart] = React.useState(false)
     const [result, setResult] = React.useState(null)
+    const [isFinal, setIsFinal] = React.useState(false)
 
     const onPlayerJoined = (gameId, player) => {
         if (gameId === props.gameId) {
@@ -120,6 +136,7 @@ function HostGame(props) {
         if (gameId === props.gameId) {
             setQuestion(null)
             setResult(result)
+            setIsFinal(true)
         }
     }
 
@@ -150,7 +167,8 @@ function HostGame(props) {
     const waitingToStartBlock = !question && !result ? <WaitingToStart gameId={props.gameId} players={players}/> : ''
     const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
     const startButton = canStart ? <ui5-button onClick={start} style={{ width: "100%" }}>Start</ui5-button> : ''
-    const podiumBlock = result ? <Podium players={result} onNext={next} /> : ''
+    const podiumBlock = result && !isFinal ? <PodiumPage players={result} onNext={next} /> : ''
+    const podiumFinalBlock = result && isFinal ? <PodiumFinalPage players={result} /> : ''
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
@@ -158,5 +176,6 @@ function HostGame(props) {
         {startButton}
         {questionBlock}
         {podiumBlock}
+        {podiumFinalBlock}
     </div>
 }

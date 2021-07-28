@@ -32,6 +32,7 @@ function PlayGame(props) {
     const [question, setQuestion] = React.useState(null)
     const [result, setResult] = React.useState(null)
     const [waiting, setWaiting] = React.useState(false)
+    const [isFinal, setIsFinal] = React.useState(false)
 
     const onRoundStarted = (gameId, newQuestion) => {
         if (gameId === props.gameId) {
@@ -51,6 +52,7 @@ function PlayGame(props) {
 
     const onGameFinished = (gameId, result) => {
         onRoundFinished(gameId, result)
+        setIsFinal(true)
     }
 
     const guess = (answer) => {
@@ -72,8 +74,9 @@ function PlayGame(props) {
     }, [])
 
     const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
-    const podiumBlock = result ? <Podium players={result} /> : ''
+    const podiumBlock = result && !isFinal ? <Podium players={result} /> : ''
     const waitingBlock = waiting ? <h2>Waiting for other players...</h2> : ''
+    const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
 
     return <div>
         <ui5-title level="H1">Game {props.gameId}</ui5-title>
@@ -81,5 +84,6 @@ function PlayGame(props) {
         {questionBlock}
         {podiumBlock}
         {waitingBlock}
+        {gameOverBlock}
     </div>
 }
