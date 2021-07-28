@@ -1,7 +1,5 @@
 # TODO
 - integrate stickies design in host + play screens (see test-layout-quiz-player.html)
-- display non-animated podium when transitioning to next question
-- podium screen: display score
 - respond to roundStarted->roundFinished->...->gameFinished in the ui
 - timer/countdown, and also consider the time to "scale" the score
 - check animations etc. in chrome, edge, firefox, safari
@@ -11,6 +9,8 @@
 - try if using <> works, or understand why it doesn't work
 
 # DONE
+- display non-animated podium when transitioning to next question
+- podium screen: display score
 - handle players getting out in middle of the game
 - QR code
 - list multiple quizzes, select one to host a name
