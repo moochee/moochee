@@ -8,7 +8,7 @@ export default function WsClientAdapter(socket) {
 
     // FIXME this somehow looks broken or incomplete (unused function argument 'subscriber')
     this.unsubscribe = (subscriber) => {
-        socket.removeAllListeners();
+        socket.removeAllListeners()
     }
 
     this.getQuizzes = () => {

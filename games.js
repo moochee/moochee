@@ -32,7 +32,7 @@ export default function Games(setTimeout, quizRepo, eventEmitter) {
   this.nextRound = (gameId) => {
     const game = games.find(g => g.id === gameId)
     const question = game.remainingQuestions.shift()
-    const timeToGuess = 20000;
+    const timeToGuess = 20000
     setTimeout(() => finishRound(gameId), timeToGuess)
     eventEmitter.publish('roundStarted', gameId, question, timeToGuess)
   }
