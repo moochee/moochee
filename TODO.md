@@ -1,4 +1,6 @@
 # TODO
+- integrate stickies design in host + play screens (see test-layout-quiz-player.html)
+- display non-animated podium when transitioning to next question
 - podium screen: display score
 - respond to roundStarted->roundFinished->...->gameFinished in the ui
 - timer/countdown, and also consider the time to "scale" the score
