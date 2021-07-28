@@ -13,9 +13,10 @@ app.use(express.static('public'))
 const server = http.createServer(app)
 
 const io = new Server(server)
-const eventEmitter = new EventEmitter(io)
+const timer = { setTimeout, clearTimeout }
 const quizRepo = new QuizRepo()
-const games = new Games(setTimeout, quizRepo, eventEmitter)
+const eventEmitter = new EventEmitter(io)
+const games = new Games(timer, quizRepo, eventEmitter)
 
 io.on('connection', (socket) => {
     socket.on('getQuizzes', async (callback) => {

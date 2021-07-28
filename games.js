@@ -1,6 +1,6 @@
 'use strict'
 
-export default function Games(setTimeout, quizRepo, eventEmitter) {
+export default function Games(timer, quizRepo, eventEmitter) {
   let nextGameId = 100000
   let avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲')
   const games = []
@@ -37,7 +37,7 @@ export default function Games(setTimeout, quizRepo, eventEmitter) {
     const game = games.find(g => g.id === gameId)
     const question = game.remainingQuestions.shift()
     const timeToGuess = 20000
-    setTimeout(() => finishRound(gameId), timeToGuess)
+    this.guessTimeoutId = timer.setTimeout(() => finishRound(gameId), timeToGuess)
     eventEmitter.publish('roundStarted', gameId, question, timeToGuess)
   }
 
@@ -51,6 +51,7 @@ export default function Games(setTimeout, quizRepo, eventEmitter) {
     game.players.find(p => p.name === playerName).score += score
 
     if (question.guesses.length === game.players.length) {
+      timer.clearTimeout(this.guessTimeoutId)
       finishRound(gameId)
     }
   }
@@ -62,6 +63,8 @@ export default function Games(setTimeout, quizRepo, eventEmitter) {
     result.sort((a, b) => b.score - a.score)
     if (game.remainingQuestions.length > 0) {
       eventEmitter.publish('roundFinished', gameId, result)
+      const timeToNextRound = 5000
+      this.nextRoundTimeoutId = timer.setTimeout(() => this.nextRound(gameId), timeToNextRound)
     } else {
       eventEmitter.publish('gameFinished', gameId, result)
     }
