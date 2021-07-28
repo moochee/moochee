@@ -29,6 +29,18 @@ describe('Game Adapter', () => {
         adapter.join(gameId, 'alice')
     })
 
+    it('throws an error when the player name already exists', async () => {
+        const adapter = new DemoAdapter(dummySetTimeout, dummyQuestions)
+        const gameId = adapter.host()
+        await adapter.join(gameId, 'alice')
+        try {
+            await adapter.join(gameId, 'alice')
+            fail('expected error to be thrown')
+        } catch (error) {
+            expect(error.message).toMatch(/alice.*exists/u)
+        }
+    })
+
     it('publishes an event when game is started with first question + time to guess', (done) => {
         const questions = [{ text: 'question1', answers: [] }]
         const adapter = new DemoAdapter(dummySetTimeout, questions)

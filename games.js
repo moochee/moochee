@@ -21,11 +21,11 @@ export default function Games(setTimeout, quizRepo, eventEmitter) {
   this.join = (gameId, name, socketId) => {
     const game = games.find(g => g.id === gameId)
     if (game.players.find( p => p.name === name)) {
-      throw new Error(`Player ${name} exists!`)
+      throw new Error(`Player ${name} already exists!`)
     }
     const avatar = avatars.splice(Math.random() * avatars.length, 1)
     const newPlayer = { name, avatar, score: 0, socketId}
-    games.find((g) => g.id === gameId).players.push(newPlayer)
+    game.players.push(newPlayer)
     eventEmitter.publish('playerJoined', gameId, newPlayer)
   }
 

@@ -25,9 +25,13 @@ export default function DemoAdapter(setTimeout, questions) {
     }
 
     this.join = (gameId, name) => {
+        const game = games.find((g) => g.id === gameId)
+        if (game.players.find(p => p.name === name)) {
+            throw new Error(`Player ${name} already exists!`)
+        }
         const avatar = avatars.splice(Math.random() * avatars.length, 1)
         const newPlayer = { name, avatar, score: 0 }
-        games.find((g) => g.id === gameId).players.push(newPlayer)
+        game.players.push(newPlayer)
         publish('playerJoined', gameId, newPlayer)
     }
 
@@ -68,7 +72,7 @@ export default function DemoAdapter(setTimeout, questions) {
 
         const question = game.questions.find(q => q.text === questionText)
         //TODO: make sure only 1 answer per player
-        question.guesses.push({playerName, answer})
+        question.guesses.push({ playerName, answer })
 
         const score = question.rightAnswer === answer ? 100 : 0
         game.players.find(p => p.name === playerName).score += score

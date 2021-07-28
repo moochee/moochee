@@ -50,16 +50,18 @@
 			const { gameId } = ReactRouterDOM.useParams()
 			const [playerName, setPlayerName] = React.useState('')
 			const updatePlayerName = (event) => setPlayerName(event.target.value)
+			const [errorMessage, setErrorMessage] = React.useState('')
 
-			const nameExistsToast = React.useRef(null)
+			const errorToast = React.useRef(null)
 
 			const join = async () => {
 				// TODO do we get avatar back? and if yes, what to do with it?
-				const errorMessage = await props.adapter.join(gameId, playerName)
-				if (!errorMessage) {
+				try {
+					await props.adapter.join(gameId, playerName)
 					props.onJoin(gameId, playerName)
-				} else {
-					nameExistsToast.current.show()
+				} catch (error) {
+					setErrorMessage(error.message)
+					errorToast.current.show()
 				}
 			}
 
@@ -68,7 +70,7 @@
 				<ui5-label for="playerName" required>Name</ui5-label>
 				<ui5-input style={{ width: "100%" }} id="playerName" placeholder="Enter your name" value={playerName} onInput={updatePlayerName}></ui5-input>
 				<ui5-button style={{ width: "100%" }} onClick={join}>Join</ui5-button>
-				<ui5-toast ref={nameExistsToast}>Player {playerName} exists, choose another name!</ui5-toast>
+				<ui5-toast ref={errorToast}>{errorMessage}</ui5-toast>
 			</div>
 		}
 
