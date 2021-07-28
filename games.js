@@ -38,6 +38,7 @@ export default function Games(timer, quizRepo, eventEmitter) {
     const question = game.remainingQuestions.shift()
     const timeToGuess = 20000
     this.guessTimeoutId = timer.setTimeout(() => finishRound(gameId), timeToGuess)
+    timer.clearTimeout(this.nextRoundTimeoutId)
     eventEmitter.publish('roundStarted', gameId, question, timeToGuess)
   }
 
