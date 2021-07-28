@@ -5,6 +5,7 @@ function HostGame(props) {
         const canvas = React.useRef(null)
         React.useEffect(() => {
             if (canvas != null && canvas.current != null) {
+                // REVISE I don't understand why we have to assign a variable that is then not used. I am guessing the constructor invocation has a side effect (*puke*), so the variable assignment is not needed...
                 let qr = new QRious({
                     element: canvas.current,
                         value: props.text,

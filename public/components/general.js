@@ -14,13 +14,13 @@ function Clock() {
     </div>
 }
 
-function Audio(props) {
+function AudioControl(props) {
     const volumeSlider = React.useRef(false)
     const [muted, setMuted] = React.useState(false)
 
     React.useEffect(() => {
         const isMuted = localStorage.getItem('gorilla-quiz.muted') === 'true'
-        const volume = Number(localStorage.getItem('gorilla-quiz.volume'))
+        const volume = Number(localStorage.getItem('gorilla-quiz.volume') || 1)
         setMuted(isMuted)
         volumeSlider.current.value = volume
         props.onVolume(isMuted ? 0 : volume)

@@ -38,7 +38,7 @@
 			const [volume, setVolume] = React.useState(1)
 			return <div style={{ height: "100%" }}>
 				<PodiumFinal players={players} volume={volume} />
-				<Audio onVolume={setVolume} />
+				<AudioControl onVolume={setVolume} />
 			</div>
 		}
 		ReactDOM.render(<Page />, document.querySelector('#react-root'))

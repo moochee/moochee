@@ -46,7 +46,7 @@
 			</div>
 		}
 
-		function PlayerName(props) {
+		function EnterGameWeb(props) {
 			const { gameId } = ReactRouterDOM.useParams()
 			const [playerName, setPlayerName] = React.useState('')
 			const updatePlayerName = (event) => setPlayerName(event.target.value)
@@ -95,7 +95,7 @@
 							<PlayGameWeb adapter={props.adapter} />
 						</Route>
 						<Route path="/play/:gameId">
-							<PlayerName adapter={props.adapter} onJoin={join} />
+							<EnterGameWeb adapter={props.adapter} onJoin={join} />
 						</Route>
 						<Route path="/host/:gameId">
 							<HostGameWeb adapter={props.adapter} />
