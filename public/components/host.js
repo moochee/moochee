@@ -35,7 +35,7 @@ function HostGame(props) {
 
     function QuestionAndAnswers(props) {
         return <div style={{ width: "60%", marginLeft: "20%" }}>
-            <div style={{ textAlign: "center", fontFamily: "komika_textregular", fontSize: "2em", color: "#0070c0" }}>Round #1 - Passionate Product Ownership Quiz</div>
+            {/* <div style={{ textAlign: "center", fontFamily: "komika_textregular", fontSize: "2em", color: "#0070c0" }}>Round #1 - Passionate Product Ownership Quiz</div> */}
             <h1 style={{ textAlign: "center", fontFamily: "komika_textregular", fontSize: "3em", color: "#0070c0" }}>{props.question}</h1>
             {/* <img width="80%" src={props.imageUrl} /> */}
             <Answers answers={props.answers} />
