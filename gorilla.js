@@ -14,7 +14,7 @@ const eventEmitter = new EventEmitter(io)
 import QuizRepo from './quiz-repo.js'
 const quizRepo = new QuizRepo()
 import Games from './games.js'
-const adapter = new Games(setTimeout, quizRepo, eventEmitter)
+const games = new Games(setTimeout, quizRepo, eventEmitter)
 
 io.on('connection', (socket) => {
   socket.on('getQuizzes', async (callback) => {
@@ -23,14 +23,14 @@ io.on('connection', (socket) => {
   })
 
   socket.on('host', async (quizId, callback) => {
-    const gameId = await adapter.host(quizId)
+    const gameId = await games.host(quizId)
     socket.join(gameId)
     callback(gameId)
   })
   
   socket.on('join', (gameId, name, callback) => {
     try {
-      adapter.join(gameId, name, socket.id)
+      games.join(gameId, name, socket.id)
       socket.join(gameId)
       callback()
     } catch (error) {
@@ -39,15 +39,15 @@ io.on('connection', (socket) => {
   })
   
   socket.on('nextRound', (gameId) => {
-    adapter.nextRound(gameId)
+    games.nextRound(gameId)
   })
 
   socket.on('guess', (gameId, questionText, playerName, answer) => {
-    adapter.guess(gameId, questionText, playerName, answer)
+    games.guess(gameId, questionText, playerName, answer)
   })
 
   socket.on('disconnect', () => {
-    adapter.disconnect(socket.id)
+    games.disconnect(socket.id)
   })
 })
 
