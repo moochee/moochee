@@ -25,5 +25,6 @@ function Entrance(props) {
         <ui5-list header-text="All Quizzes">
             {quizList}
         </ui5-list>
+        <Countdown seconds="15" />
     </div>
 }

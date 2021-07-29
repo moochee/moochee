@@ -4,12 +4,18 @@ function Countdown(props) {
     const [secondsLeft, setSecondsLeft] = React.useState(props.seconds)
 
     React.useEffect(() => {
-        if (!secondsLeft) return
         const interval = setInterval(() => {
-            setSecondsLeft(secondsLeft - 1)
+            setSecondsLeft(seconds => {
+                if (seconds === 0) {
+                    clearInterval(interval)
+                    return seconds
+                } else {
+                    return seconds - 1
+                }
+            })
         }, 1000)
         return () => clearInterval(interval)
-    }, [secondsLeft])
+    }, [])
 
     return <div>
         <h2>Counting down {secondsLeft}</h2>
