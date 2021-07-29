@@ -1,16 +1,18 @@
 'use strict'
 
-// TODO make it a countdown
-function Clock() {
-    const [date, setDate] = React.useState(new Date())
+function Countdown(props) {
+    const [secondsLeft, setSecondsLeft] = React.useState(props.seconds)
 
     React.useEffect(() => {
-        const interval = setInterval(() => setDate(new Date()), 1000)
+        if (!secondsLeft) return
+        const interval = setInterval(() => {
+            setSecondsLeft(secondsLeft - 1)
+        }, 1000)
         return () => clearInterval(interval)
-    }, [])
+    }, [secondsLeft])
 
     return <div>
-        <h2>It is {date.toLocaleTimeString()}</h2>
+        <h2>Counting down {secondsLeft}</h2>
     </div>
 }
 

@@ -30,6 +30,7 @@ function HostGame(props) {
 
     function QuestionAndAnswers(props) {
         return <div style={{ width: "60%", marginLeft: "20%" }}>
+            <Countdown seconds="20" />
             {/* <div style={{ textAlign: "center", fontFamily: "komika_textregular", fontSize: "2em", color: "#0070c0" }}>Round #1 - Passionate Product Ownership Quiz</div> */}
             <h1 style={{ textAlign: "center", fontFamily: "komika_textregular", fontSize: "3em", color: "#0070c0" }}>{props.question}</h1>
             {/* <img width="80%" src={props.imageUrl} /> */}
@@ -75,6 +76,7 @@ function HostGame(props) {
 
     function PodiumPage(props) {
         return <div>
+            <Countdown seconds="5" />
             <Podium players={props.players} />
             <ui5-button onClick={props.onNext} style={{ width: "100%" }}>Next</ui5-button>
         </div>
