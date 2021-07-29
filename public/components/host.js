@@ -63,6 +63,7 @@ function HostGame(props) {
         }
         
         return <div>
+            <ui5-title level="H1">Game {props.gameId}</ui5-title>
             <p />
             <div style={{ display: "flex", flexDirection: "row" }}>
                 <ui5-input style={{ "width": "100%" }} readonly value={joinUrl}></ui5-input>
@@ -172,7 +173,6 @@ function HostGame(props) {
     const podiumFinalBlock = result && isFinal ? <PodiumFinalPage players={result} /> : ''
 
     return <div>
-        <ui5-title level="H1">Game {props.gameId}</ui5-title>
         {waitingToStartBlock}
         {startButton}
         {questionBlock}
