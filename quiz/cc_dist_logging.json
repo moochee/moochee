@@ -1,0 +1,15 @@
+{
+  "text": "Cloud Development - Distributed Logging Quiz",
+  "questions": [
+    {
+      "text": "Scattered logs is the challenge of...",
+      "answers": ["A: missing standardization of logs", "B: the logs being distributed on different instances", "C: some logs being lost", "D: too many cluttered logs"],
+      "rightAnswer": "B: the logs being distributed on different instances"
+    },
+    {
+      "text": "What should you do to standardize your logs?",
+      "answers": ["A: collect all the logs from different microservices into a single storage", "B: use a structured log format (e.g. JSON)", "C: proppagate context info through multiple services ", "D: use correlation IDs"],
+      "rightAnswer": "B: use a structured log format (e.g. JSON)"
+    }
+  ]
+}
