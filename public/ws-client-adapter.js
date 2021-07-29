@@ -43,7 +43,7 @@ export default function WsClientAdapter(socket) {
         this.nextRound(gameId)
     }
 
-    this.guess = (gameId, questionText, playerName, answer) => {
-        socket.emit('guess', gameId, questionText, playerName, answer)
+    this.guess = (gameId, questionId, playerName, answerId) => {
+        socket.emit('guess', gameId, questionId, playerName, answerId)
     }
 }

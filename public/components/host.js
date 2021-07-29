@@ -5,29 +5,25 @@ function HostGame(props) {
         const canvas = React.useRef(null)
         React.useEffect(() => {
             if (canvas != null && canvas.current != null) {
-                new QRious({
-                    element: canvas.current,
-                        value: props.text,
-                        size: props.size
-                })
+                new QRious({ element: canvas.current, value: props.text, size: props.size })
             }
         })
         return(<canvas ref={canvas}></canvas>)
     }
 
     function Answer(props) {
-        return <StickyButton color={props.color} onClick={() => null} text={props.text} />
+        return <StickyButton color={props.color} onClick={() => null} text={props.answer.text} />
     }
 
     function Answers(props) {
         return <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ justifyContent: "center", display: "flex", flexDirection: "row" }}>
-                <Answer color="green" text={props.answers[0]} />
-                <Answer color="purple" text={props.answers[1]} />
+                <Answer color="green" answer={props.answers[0]} />
+                <Answer color="purple" answer={props.answers[1]} />
             </div>
             <div style={{ justifyContent: "center", display: "flex", flexDirection: "row" }}>
-                <Answer color="blue" text={props.answers[2]} />
-                <Answer color="orange" text={props.answers[3]} />
+                <Answer color="blue" answer={props.answers[2]} />
+                <Answer color="orange" answer={props.answers[3]} />
             </div>
         </div>
     }

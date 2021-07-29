@@ -2,14 +2,26 @@
   "text": "Cloud Development - Distributed Logging Quiz",
   "questions": [
     {
+      "id": "Q1",
       "text": "Scattered logs is the challenge of...",
-      "answers": ["A: missing standardization of logs", "B: the logs being distributed on different instances", "C: some logs being lost", "D: too many cluttered logs"],
-      "rightAnswer": "B: the logs being distributed on different instances"
+      "answers": [
+        { "id": "A", "text": "missing standardization of logs" },
+        { "id": "B", "text": "the logs being distributed on different instances" },
+        { "id": "C", "text": "some logs being lost" },
+        { "id": "D", "text": "D: too many cluttered logs" }
+      ],
+      "rightAnswerId": "B"
     },
     {
+      "id": "Q2",
       "text": "What should you do to standardize your logs?",
-      "answers": ["A: collect all the logs from different microservices into a single storage", "B: use a structured log format (e.g. JSON)", "C: proppagate context info through multiple services ", "D: use correlation IDs"],
-      "rightAnswer": "B: use a structured log format (e.g. JSON)"
+      "answers": [
+        { "id": "A", "text": "A: collect all the logs from different microservices into a single storage" },
+        { "id": "B", "text": "C: propagate context info through multiple microservices" },
+        { "id": "C", "text": "B: use a structured log format (e.g. JSON)" },
+        { "id": "D", "text": "D: use correlation IDs" }
+      ],
+      "rightAnswerId": "C"
     }
   ]
 }
