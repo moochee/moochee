@@ -3,7 +3,7 @@
 function Entrance(props) {
 
     const [quizzes, setQuizzes] = React.useState([])
-    
+
     React.useEffect(async () => {
         const list = await props.adapter.getQuizzes()
         setQuizzes(list)
@@ -14,7 +14,7 @@ function Entrance(props) {
         props.onHost(gameId)
     }
 
-    const quizList = quizzes.map( q => {
+    const quizList = quizzes.map(q => {
         return <ui5-li key={q.id} onClick={() => host(q.id)} >{q.text}</ui5-li>
     })
 
@@ -25,6 +25,5 @@ function Entrance(props) {
         <ui5-list header-text="All Quizzes">
             {quizList}
         </ui5-list>
-        <Countdown seconds="15" />
     </div>
 }
