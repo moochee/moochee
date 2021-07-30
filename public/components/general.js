@@ -46,7 +46,7 @@ function AudioControl(props) {
     }
 
     // REVISE re-think the styling - especially the absolute positioning is probably not a good idea to be defined by the component itself. Should rather be decided by the parent/user of this component.
-    return <div style={{ cursor: "pointer", position: "absolute", left: "calc(50vw - min(47vw, 16 / 9 * 47vh))", top: "calc(50vh - min(9 / 16 * 46vw, 46vh))" }}>
+    return <div style={{ cursor: "pointer", position: "absolute", right: "calc(50vw - min(47vw, 16 / 9 * 47vh))", top: "calc(50vh - min(9 / 16 * 46vw, 46vh))" }}>
         <span style={{ fontSize: "2em" }} onClick={toggleMute}>{muted ? '🔇' : '🔈'}</span>
         <input style={{ cursor: "pointer" }} ref={volumeSlider} onChange={adjustVolume} type="range" min="0" step="0.01" max="1"></input>
     </div>

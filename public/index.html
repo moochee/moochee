@@ -26,6 +26,14 @@
 	<script src="components/sticky/sticky-button.js" type="text/babel"></script>
 	<script src="/socket.io/socket.io.js"></script>
 
+	<style>
+		html,
+		body,
+		#react-root {
+			margin: 0;
+			height: 100%;
+		}
+	</style>
 </head>
 
 <body id="content" class="sapUiBody">
@@ -37,10 +45,15 @@
 		import WsClientAdapter from "./ws-client-adapter.js"
 
 		function HostGameWeb(props) {
+			React.useEffect(() => music.current.play(), [])			
+			const music = React.useRef({})
 			const { gameId } = ReactRouterDOM.useParams()
-			return <div>
-				<Music />
-				<HostGame gameId={gameId} adapter={props.adapter} />
+			const [volume, setVolume] = React.useState(1)
+			music.current.volume = volume
+			return <div style={{height: "100%"}}>
+				<HostGame gameId={gameId} adapter={props.adapter} volume={volume} />
+				<audio ref={music} loop src="components/positive-funny-background-music-for-video-games.mp3"></audio>
+				<AudioControl onVolume={setVolume} />
 			</div>
 		}
 
@@ -90,7 +103,7 @@
 				window.location = `#/host/${gameId}`
 			}
 
-			return <div style={{ marginLeft: "20%", marginRight: "20%" }}>
+			return <div style={{ height: "100%", width: "100%" }}>
 				<HashRouter>
 					<Switch>
 						<Route exact path="/">

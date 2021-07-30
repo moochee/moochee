@@ -21,14 +21,12 @@ function PodiumFinal(props) {
     music.current.volume = props.volume
     fireworks.current.volume = props.volume
 
-    return <div className="podium-final">
-        <div className="podium podiumAnimated">
-            <audio ref={music} src="components/podium/arcade-game-music-loop.mp3"></audio>
-            <audio ref={fireworks} loop src="components/podium/sounds-of-fireworks-exploding.mp3"></audio>
-            <img className="firework firework1" src="components/podium/fireworks-152949.svg" />
-            <img className="firework firework2" src="components/podium/celebration-152950.svg" />
-            <img className="firework firework3" src="components/podium/celebration-152951.svg" />
-            {podiumPlayersHtml}
-        </div>
+    return <div className="podium podiumAnimated">
+        <audio ref={music} src="components/podium/arcade-game-music-loop.mp3"></audio>
+        <audio ref={fireworks} loop src="components/podium/sounds-of-fireworks-exploding.mp3"></audio>
+        <img className="firework firework1" src="components/podium/fireworks-152949.svg" />
+        <img className="firework firework2" src="components/podium/celebration-152950.svg" />
+        <img className="firework firework3" src="components/podium/celebration-152951.svg" />
+        {podiumPlayersHtml}
     </div>
 }

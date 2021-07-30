@@ -8,7 +8,7 @@ function HostGame(props) {
                 new QRious({ element: canvas.current, value: props.text, size: props.size })
             }
         })
-        return(<canvas ref={canvas}></canvas>)
+        return (<canvas ref={canvas}></canvas>)
     }
 
     function Answer(props) {
@@ -36,15 +36,15 @@ function HostGame(props) {
             {/* <img width="80%" src={props.imageUrl} /> */}
             <Answers answers={props.answers} />
             <div id="footer" style={{ background: "black", display: "flex", justifyContent: "center", flexDirection: "row", width: "100%" }}>
-				<img style={{ width: "25%" }} src="ACDC-Logo_Neg.png" />
-				<img style={{ width: "25%" }} src="Cloud-Curriculum_Logo-with-Tagline_Neg.png" />
-			</div>
+                <img style={{ width: "25%" }} src="ACDC-Logo_Neg.png" />
+                <img style={{ width: "25%" }} src="Cloud-Curriculum_Logo-with-Tagline_Neg.png" />
+            </div>
         </div>
     }
 
     function Players(props) {
         const players = props.players.length > 0
-            ? <div style={{fontSize: "4em"}}>{props.players.map(p => p.avatar)}</div>
+            ? <div style={{ fontSize: "4em" }}>{props.players.map(p => p.avatar)}</div>
             : <ui5-label>No players yet - invite people by sending them the join URL above</ui5-label>
 
         return players
@@ -53,12 +53,12 @@ function HostGame(props) {
     function WaitingToStart(props) {
         const joinUrl = `${window.location.origin}/#/play/${props.gameId}`
         const urlCopiedToast = React.useRef(null)
-        
+
         const copyToClipboard = () => {
             navigator.clipboard.writeText(joinUrl)
             urlCopiedToast.current.show()
         }
-        
+
         return <div>
             <ui5-title level="H1">Game {props.gameId}</ui5-title>
             <p />
@@ -66,7 +66,7 @@ function HostGame(props) {
                 <ui5-input style={{ "width": "100%" }} readonly value={joinUrl}></ui5-input>
                 <ui5-button icon="copy" onClick={copyToClipboard}></ui5-button>
             </div>
-            <QRCode text={joinUrl} size="200"/>
+            <QRCode text={joinUrl} size="200" />
             <p />
             <ui5-title level="H2">Players:</ui5-title>
             <Players players={props.players} />
@@ -75,7 +75,7 @@ function HostGame(props) {
     }
 
     function PodiumPage(props) {
-        return <div>
+        return <div style={{ height: "100%" }}>
             <Countdown seconds="5" />
             <Podium players={props.players} />
             <ui5-button onClick={props.onNext} style={{ width: "100%" }}>Next</ui5-button>
@@ -131,7 +131,7 @@ function HostGame(props) {
             setResult(result)
         }
     }
-    
+
     const onGameFinished = (gameId, result) => {
         if (gameId === props.gameId) {
             setQuestion(null)
@@ -164,13 +164,13 @@ function HostGame(props) {
         }
     }, [])
 
-    const waitingToStartBlock = !question && !result ? <WaitingToStart gameId={props.gameId} players={players}/> : ''
+    const waitingToStartBlock = !question && !result ? <WaitingToStart gameId={props.gameId} players={players} /> : ''
     const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
     const startButton = canStart ? <ui5-button onClick={start} style={{ width: "100%" }}>Start</ui5-button> : ''
     const podiumBlock = result && !isFinal ? <PodiumPage players={result} onNext={next} /> : ''
     const podiumFinalBlock = result && isFinal ? <PodiumFinalPage players={result} /> : ''
 
-    return <div>
+    return <div style={{ height: "100%" }}>
         {waitingToStartBlock}
         {startButton}
         {questionBlock}
