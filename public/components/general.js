@@ -17,9 +17,7 @@ function Countdown(props) {
         return () => clearInterval(interval)
     }, [])
 
-    return <div>
-        <h2>Counting down {secondsLeft}</h2>
-    </div>
+    return <h2>Counting down {secondsLeft}</h2>
 }
 
 function AudioControl(props) {
