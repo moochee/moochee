@@ -1,4 +1,15 @@
 # TODO
+- unify background color podium + general
+- while joined player is waiting for quiz to start, should see the own avatar and the ones of the other players joining in
+- deploy to CF and test performance (initial load vs cached) and device responsiveness
+- simple eslint + formatter: use 4 spaces for indent, max 120 chars per line, no semicolon, always single quote (incl html)
+- fix music not working on mobile device
+- remove auto-transition for now, keep only next button
+- fix font sizes on post-its
+- fix resource handling, e.g. navigating to #/host/100003 or #/play/100003 should yield error if game doesn't exist
+- close/delete game when finished, or auto-close a game 30min after it was started
+- fix positioning of scaling of post-its and footer
+- positioning of avatars on intermediate podium
 - integrate stickies design in host + play screens (see test-layout-quiz-player.html)
 - respond to roundStarted->roundFinished->...->gameFinished in the ui
 - consider the time to "scale" the score
