@@ -9,9 +9,7 @@
 }
 
 .stickyThrowAway {
-    -webkit-animation-duration: 1s;
     animation-duration: 1s;
-    -webkit-animation-name: throwAway;
     animation-name: throwAway;
     visibility: visible;
     animation-fill-mode: forwards;

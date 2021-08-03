@@ -1,6 +1,5 @@
 .stickyCard {
     position: relative;
-    /* width: 20vw; */
     width: max(20vw, 25.56vh);
     cursor: pointer;
     transition: all 400ms cubic-bezier(.47, 1.64, .41, .8);
@@ -10,10 +9,9 @@
     transform: scale(1.2);
 }
 
+
 .stickyThrowAway {
-    -webkit-animation-duration: 1s;
     animation-duration: 1s;
-    -webkit-animation-name: throwAway;
     animation-name: throwAway;
     visibility: visible;
     animation-fill-mode: forwards;
@@ -33,9 +31,9 @@
     }
 }
 
-.stickyButton .textField {
+.stickyCard .textField {
     font-family: komika_textregular;
-    font-size: 2em;
+    font-size: 1em;
     color: white;
     position: absolute;
     left: 15%;
@@ -43,8 +41,4 @@
     top: 50%;
     text-align: center;
     transform: translate(0, -50%) rotate(-3deg);
-}
-
-.stickyButton img {
-    width: 100%;
 }
