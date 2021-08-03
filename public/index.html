@@ -44,6 +44,16 @@
     <script type="text/babel" data-type="module">
         'use strict'
 
+        // TODO
+        // nicer layout for entrance - try card/post-it layout
+        // remove auto-transition for now, keep only next button
+        // fix font sizes on post-its
+        // unify background color podium + general
+        // fix resource handling, e.g. navigating to #/host/100003 or #/play/100003 should yield error if game doesn't exist
+        // close/delete game when finished, or auto-close a game 30min after it was started
+        // fix positioning of scaling of post-its and footer
+        // positioning of avatars on intermediate podium
+
         import WsClientAdapter from "./ws-client-adapter.js"
 
         function HostGameWeb(props) {
