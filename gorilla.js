@@ -13,7 +13,7 @@ app.use(express.static('public'))
 const server = http.createServer(app)
 
 const io = new Server(server)
-const timer = { setTimeout, clearTimeout }
+const timer = { setTimeout: () => null, clearTimeout: () => null }
 const quizRepo = new QuizRepo()
 const eventEmitter = new EventEmitter(io)
 const games = new Games(timer, quizRepo, eventEmitter)
