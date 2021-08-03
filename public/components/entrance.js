@@ -21,7 +21,7 @@ function Entrance(props) {
     })
 
     return <div style={{ fontFamily: 'komika_textregular', alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-        <h1>Welcome to the Gorilla Quiz App!</h1>
+        <h1>Welcome to the 🦍 Quiz App!</h1>
         <h4>Select one quiz below to host a new game</h4>
         <p />
         <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>

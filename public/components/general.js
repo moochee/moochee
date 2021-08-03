@@ -65,9 +65,3 @@ function Music() {
         <ui5-label style={{ display: "none" }} id="mute" aria-hidden="true">{muted ? 'Unmute' : 'Mute'} Sound</ui5-label>
     </div>
 }
-
-function References() {
-    return <ui5-label>
-        <ui5-link target="_blank" href="https://icons8.com/icon/58842/harambe-the-gorilla">Harambe the Gorilla</ui5-link> favicon by <ui5-link target="_blank" href="https://icons8.com">Icons8</ui5-link>
-    </ui5-label>
-}
