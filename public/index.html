@@ -2,131 +2,133 @@
 <html>
 
 <head>
-	<title>Gorilla</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="HandheldFriendly" content="true">
-	<link rel="icon" type="image/png" href="icons8-harambe-the-gorilla-50.png" />
-	<link rel="stylesheet" type="text/css" href="font/komikatext_regular_macroman/stylesheet.css" />
-	<link rel="stylesheet" type="text/css" href="components/podium/podium.css" />
-	<link rel="stylesheet" type="text/css" href="components/sticky/sticky-button.css" />
-	<script src="lib/babel.min.js"></script>
-	<script src="lib/react.development.js"></script>
-	<script src="lib/react-dom.development.js"></script>
-	<script src="lib/react-router-dom.js"></script>
-	<script src="lib/qrious.min.js"></script>
-	<script nomodule src="lib/bundle.es5.js"></script>
-	<script src="lib/bundle.esm.js" type="module"></script>
-	<script src="components/general.js" type="text/babel"></script>
-	<script src="components/entrance.js" type="text/babel"></script>
-	<script src="components/host.js" type="text/babel"></script>
-	<script src="components/play.js" type="text/babel"></script>
-	<script src="components/podium/podium.js" type="text/babel"></script>
-	<script src="components/podium/podium-final.js" type="text/babel"></script>
-	<script src="components/sticky/sticky-button.js" type="text/babel"></script>
-	<script src="/socket.io/socket.io.js"></script>
+    <title>Gorilla</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true">
+    <link rel="icon" type="image/png" href="icons8-harambe-the-gorilla-50.png" />
+    <link rel="stylesheet" type="text/css" href="font/komikatext_regular_macroman/stylesheet.css" />
+    <link rel="stylesheet" type="text/css" href="components/podium/podium.css" />
+    <script src="lib/babel.min.js"></script>
+    <script src="lib/react.development.js"></script>
+    <script src="lib/react-dom.development.js"></script>
+    <script src="lib/react-router-dom.js"></script>
+    <script src="lib/qrious.min.js"></script>
+    <script nomodule src="lib/bundle.es5.js"></script>
+    <script src="lib/bundle.esm.js" type="module"></script>
+    <script src="components/general.js" type="text/babel"></script>
+    <script src="components/entrance.js" type="text/babel"></script>
+    <script src="components/host.js" type="text/babel"></script>
+    <script src="components/play.js" type="text/babel"></script>
+    <script src="components/podium/podium.js" type="text/babel"></script>
+    <script src="components/podium/podium-final.js" type="text/babel"></script>
+    <link rel="stylesheet" type="text/css" href="components/sticky/sticky-button.css" />
+    <script src="components/sticky/sticky-button.js" type="text/babel"></script>
+    <link rel="stylesheet" type="text/css" href="components/sticky-card/sticky-card.css" />
+    <script src="components/sticky-card/sticky-card.js" type="text/babel"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
-	<style>
-		html,
-		body,
-		#react-root {
-			margin: 0;
-			height: 100%;
-		}
-	</style>
+    <style>
+        html,
+        body,
+        #react-root {
+            margin: 0;
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body id="content" class="sapUiBody">
-	<div id="react-root"></div>
+    <div id="react-root"></div>
 
-	<script type="text/babel" data-type="module">
-		'use strict'
+    <script type="text/babel" data-type="module">
+        'use strict'
 
-		import WsClientAdapter from "./ws-client-adapter.js"
+        import WsClientAdapter from "./ws-client-adapter.js"
 
-		function HostGameWeb(props) {
-			React.useEffect(() => music.current.play(), [])			
-			const music = React.useRef({})
-			const { gameId } = ReactRouterDOM.useParams()
-			const [volume, setVolume] = React.useState(1)
-			music.current.volume = volume
-			return <div style={{height: "100%"}}>
-				<HostGame gameId={gameId} adapter={props.adapter} volume={volume} />
-				<audio ref={music} loop src="components/positive-funny-background-music-for-video-games.mp3"></audio>
-				<AudioControl onVolume={setVolume} />
-			</div>
-		}
+        function HostGameWeb(props) {
+            React.useEffect(() => music.current.play(), [])
+            const music = React.useRef({})
+            const { gameId } = ReactRouterDOM.useParams()
+            const [volume, setVolume] = React.useState(1)
+            music.current.volume = volume
+            return <div style={{ height: "100%" }}>
+                <HostGame gameId={gameId} adapter={props.adapter} volume={volume} />
+                <audio ref={music} loop src="components/positive-funny-background-music-for-video-games.mp3"></audio>
+                <AudioControl onVolume={setVolume} />
+            </div>
+        }
 
-		function PlayGameWeb(props) {
-			const { gameId, playerName } = ReactRouterDOM.useParams()
-			return <div>
-				<PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
-			</div>
-		}
+        function PlayGameWeb(props) {
+            const { gameId, playerName } = ReactRouterDOM.useParams()
+            return <div>
+                <PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
+            </div>
+        }
 
-		function EnterGameWeb(props) {
-			const { gameId } = ReactRouterDOM.useParams()
-			const [playerName, setPlayerName] = React.useState('')
-			const updatePlayerName = (event) => setPlayerName(event.target.value)
-			const [errorMessage, setErrorMessage] = React.useState('')
+        function EnterGameWeb(props) {
+            const { gameId } = ReactRouterDOM.useParams()
+            const [playerName, setPlayerName] = React.useState('')
+            const updatePlayerName = (event) => setPlayerName(event.target.value)
+            const [errorMessage, setErrorMessage] = React.useState('')
 
-			const errorToast = React.useRef(null)
+            const errorToast = React.useRef(null)
 
-			const join = async () => {
-				// TODO do we get avatar back? and if yes, what to do with it?
-				try {
-					await props.adapter.join(gameId, playerName)
-					props.onJoin(gameId, playerName)
-				} catch (error) {
-					setErrorMessage(error.message)
-					errorToast.current.show()
-				}
-			}
+            const join = async () => {
+                // TODO do we get avatar back? and if yes, what to do with it?
+                try {
+                    await props.adapter.join(gameId, playerName)
+                    props.onJoin(gameId, playerName)
+                } catch (error) {
+                    setErrorMessage(error.message)
+                    errorToast.current.show()
+                }
+            }
 
-			return <div style={{ display: "flex", flexDirection: "column" }}>
-				<ui5-title level="H1">Game {gameId}</ui5-title>
-				<ui5-label for="playerName" required>Name</ui5-label>
-				<ui5-input style={{ width: "100%" }} id="playerName" placeholder="Enter your name" value={playerName} onInput={updatePlayerName}></ui5-input>
-				<ui5-button style={{ width: "100%" }} onClick={join}>Join</ui5-button>
-				<ui5-toast ref={errorToast}>{errorMessage}</ui5-toast>
-			</div>
-		}
+            return <div style={{ display: "flex", flexDirection: "column" }}>
+                <ui5-title level="H1">Game {gameId}</ui5-title>
+                <ui5-label for="playerName" required>Name</ui5-label>
+                <ui5-input style={{ width: "100%" }} id="playerName" placeholder="Enter your name" value={playerName} onInput={updatePlayerName}></ui5-input>
+                <ui5-button style={{ width: "100%" }} onClick={join}>Join</ui5-button>
+                <ui5-toast ref={errorToast}>{errorMessage}</ui5-toast>
+            </div>
+        }
 
-		function WebApp(props) {
-			const { HashRouter, Switch, Route } = ReactRouterDOM
+        function WebApp(props) {
+            const { HashRouter, Switch, Route } = ReactRouterDOM
 
-			const join = (gameId, playerName) => {
-				window.location = `#/play/${gameId}/${playerName}`
-			}
+            const join = (gameId, playerName) => {
+                window.location = `#/play/${gameId}/${playerName}`
+            }
 
-			const host = (gameId) => {
-				window.location = `#/host/${gameId}`
-			}
+            const host = (gameId) => {
+                window.location = `#/host/${gameId}`
+            }
 
-			return <div style={{ height: "100%", width: "100%" }}>
-				<HashRouter>
-					<Switch>
-						<Route exact path="/">
-							<Entrance onHost={host} adapter={props.adapter} />
-						</Route>
-						<Route path="/play/:gameId/:playerName">
-							<PlayGameWeb adapter={props.adapter} />
-						</Route>
-						<Route path="/play/:gameId">
-							<EnterGameWeb adapter={props.adapter} onJoin={join} />
-						</Route>
-						<Route path="/host/:gameId">
-							<HostGameWeb adapter={props.adapter} />
-						</Route>
-					</Switch>
-				</HashRouter>
-				<p />
-				<References />
-			</div>
-		}
+            return <div style={{ height: "100%", width: "100%" }}>
+                <HashRouter>
+                    <Switch>
+                        <Route exact path="/">
+                            <Entrance onHost={host} adapter={props.adapter} />
+                        </Route>
+                        <Route path="/play/:gameId/:playerName">
+                            <PlayGameWeb adapter={props.adapter} />
+                        </Route>
+                        <Route path="/play/:gameId">
+                            <EnterGameWeb adapter={props.adapter} onJoin={join} />
+                        </Route>
+                        <Route path="/host/:gameId">
+                            <HostGameWeb adapter={props.adapter} />
+                        </Route>
+                    </Switch>
+                </HashRouter>
+                <p />
+                <References />
+            </div>
+        }
 
-		ReactDOM.render(<WebApp adapter={new WsClientAdapter(io())} />, document.querySelector('#react-root'))
-	</script>
+        ReactDOM.render(<WebApp adapter={new WsClientAdapter(io())} />, document.querySelector('#react-root'))
+    </script>
 </body>
 
 </html>
