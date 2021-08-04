@@ -29,8 +29,8 @@
     <script src="components/podium/podium-final.js" type="text/babel"></script>
     <link rel="stylesheet" type="text/css" href="components/sticky/sticky-button.css" />
     <script src="components/sticky/sticky-button.js" type="text/babel"></script>
-    <link rel="stylesheet" type="text/css" href="components/sticky-card/sticky-card.css" />
-    <script src="components/sticky-card/sticky-card.js" type="text/babel"></script>
+    <link rel="stylesheet" type="text/css" href="components/sticky/sticky-card.css" />
+    <script src="components/sticky/sticky-card.js" type="text/babel"></script>
     <script src="/socket.io/socket.io.js"></script>
 
     <style>
@@ -50,7 +50,7 @@
         'use strict'
         import WsClientAdapter from "./ws-client-adapter.js"
 
-        Gorilla.HostGameWeb = function(props) {
+        Gorilla.HostGameWeb = function (props) {
             React.useEffect(() => music.current.play(), [])
             const music = React.useRef({})
             const { gameId } = ReactRouterDOM.useParams()
@@ -63,14 +63,14 @@
             </div>
         }
 
-        Gorilla.PlayGameWeb = function(props) {
+        Gorilla.PlayGameWeb = function (props) {
             const { gameId, playerName } = ReactRouterDOM.useParams()
             return <div>
                 <Gorilla.PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
             </div>
         }
 
-        Gorilla.EnterGameWeb = function(props) {
+        Gorilla.EnterGameWeb = function (props) {
             const { gameId } = ReactRouterDOM.useParams()
             const [playerName, setPlayerName] = React.useState('')
             const updatePlayerName = (event) => setPlayerName(event.target.value)
@@ -98,7 +98,7 @@
             </div>
         }
 
-        Gorilla.WebApp = function(props) {
+        Gorilla.WebApp = function (props) {
             const { HashRouter, Switch, Route } = ReactRouterDOM
 
             const join = (gameId, playerName) => {
