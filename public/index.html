@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="HandheldFriendly" content="true">
+    <script type="application/javascript">
+        Gorilla = {}
+    </script>
+
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" type="text/css" href="font/komikatext_regular_macroman/stylesheet.css" />
     <link rel="stylesheet" type="text/css" href="components/podium/podium.css" />
@@ -44,30 +48,29 @@
 
     <script type="text/babel" data-type="module">
         'use strict'
-
         import WsClientAdapter from "./ws-client-adapter.js"
 
-        function HostGameWeb(props) {
+        Gorilla.HostGameWeb = function(props) {
             React.useEffect(() => music.current.play(), [])
             const music = React.useRef({})
             const { gameId } = ReactRouterDOM.useParams()
             const [volume, setVolume] = React.useState(1)
             music.current.volume = volume
             return <div style={{ height: "100%" }}>
-                <HostGame gameId={gameId} adapter={props.adapter} volume={volume} />
+                <Gorilla.HostGame gameId={gameId} adapter={props.adapter} volume={volume} />
                 <audio ref={music} loop src="components/positive-funny-background-music-for-video-games.mp3"></audio>
                 <AudioControl onVolume={setVolume} />
             </div>
         }
 
-        function PlayGameWeb(props) {
+        Gorilla.PlayGameWeb = function(props) {
             const { gameId, playerName } = ReactRouterDOM.useParams()
             return <div>
                 <PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
             </div>
         }
 
-        function EnterGameWeb(props) {
+        Gorilla.EnterGameWeb = function(props) {
             const { gameId } = ReactRouterDOM.useParams()
             const [playerName, setPlayerName] = React.useState('')
             const updatePlayerName = (event) => setPlayerName(event.target.value)
@@ -95,7 +98,7 @@
             </div>
         }
 
-        function WebApp(props) {
+        Gorilla.WebApp = function(props) {
             const { HashRouter, Switch, Route } = ReactRouterDOM
 
             const join = (gameId, playerName) => {
@@ -110,16 +113,16 @@
                 <HashRouter>
                     <Switch>
                         <Route exact path="/">
-                            <Entrance onHost={host} adapter={props.adapter} />
+                            <Gorilla.Entrance onHost={host} adapter={props.adapter} />
                         </Route>
                         <Route path="/play/:gameId/:playerName">
-                            <PlayGameWeb adapter={props.adapter} />
+                            <Gorilla.PlayGameWeb adapter={props.adapter} />
                         </Route>
                         <Route path="/play/:gameId">
-                            <EnterGameWeb adapter={props.adapter} onJoin={join} />
+                            <Gorilla.EnterGameWeb adapter={props.adapter} onJoin={join} />
                         </Route>
                         <Route path="/host/:gameId">
-                            <HostGameWeb adapter={props.adapter} />
+                            <Gorilla.HostGameWeb adapter={props.adapter} />
                         </Route>
                     </Switch>
                 </HashRouter>
@@ -127,7 +130,7 @@
             </div>
         }
 
-        ReactDOM.render(<WebApp adapter={new WsClientAdapter(io())} />, document.querySelector('#react-root'))
+        ReactDOM.render(<Gorilla.WebApp adapter={new WsClientAdapter(io())} />, document.querySelector('#react-root'))
     </script>
 </body>
 

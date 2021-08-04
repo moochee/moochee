@@ -8,6 +8,7 @@ import QuizRepo from './quiz-repo.js'
 import Games from './games.js'
 
 const app = express()
+
 app.use(express.static('public'))
 
 const server = http.createServer(app)

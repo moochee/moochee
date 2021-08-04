@@ -1,6 +1,6 @@
 'use strict'
 
-function HostGame(props) {
+Gorilla.HostGame = function (props) {
     function QRCode(props) {
         const canvas = React.useRef(null)
         React.useEffect(() => {
@@ -16,35 +16,33 @@ function HostGame(props) {
     }
 
     function Answers(props) {
-        return <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ justifyContent: "center", display: "flex", flexDirection: "row" }}>
-                <Answer color="green" answer={props.answers[0]} />
-                <Answer color="purple" answer={props.answers[1]} />
+        return <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
+                <Answer color='green' answer={props.answers[0]} />
+                <Answer color='purple' answer={props.answers[1]} />
             </div>
-            <div style={{ justifyContent: "center", display: "flex", flexDirection: "row" }}>
-                <Answer color="blue" answer={props.answers[2]} />
-                <Answer color="orange" answer={props.answers[3]} />
+            <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
+                <Answer color='blue' answer={props.answers[2]} />
+                <Answer color='orange' answer={props.answers[3]} />
             </div>
         </div>
     }
 
     function QuestionAndAnswers(props) {
-        return <div style={{ width: "60%", marginLeft: "20%" }}>
-            <Countdown seconds="20" />
-            {/* <div style={{ textAlign: "center", fontFamily: "komika_textregular", fontSize: "2em", color: "#0070c0" }}>Round #1 - Passionate Product Ownership Quiz</div> */}
-            <h1 style={{ textAlign: "center", fontFamily: "komika_textregular", fontSize: "3em", color: "#0070c0" }}>{props.question}</h1>
-            {/* <img width="80%" src={props.imageUrl} /> */}
+        return <div style={{ width: '60%', marginLeft: '20%' }}>
+            <Countdown seconds='20' />
+            <h1 style={{ textAlign: 'center', fontFamily: 'komika_textregular', fontSize: '3em', color: '#0070c0' }}>{props.question}</h1>
             <Answers answers={props.answers} />
-            <div id="footer" style={{ background: "black", display: "flex", justifyContent: "center", flexDirection: "row", width: "100%" }}>
-                <img style={{ width: "25%" }} src="ACDC-Logo_Neg.png" />
-                <img style={{ width: "25%" }} src="Cloud-Curriculum_Logo-with-Tagline_Neg.png" />
+            <div id='footer' style={{ background: 'black', display: 'flex', justifyContent: 'center', flexDirection: 'row', width: '100%' }}>
+                <img style={{ width: '25%' }} src='ACDC-Logo_Neg.png' />
+                <img style={{ width: '25%' }} src='Cloud-Curriculum_Logo-with-Tagline_Neg.png' />
             </div>
         </div>
     }
 
     function Players(props) {
         const players = props.players.length > 0
-            ? <div style={{ fontSize: "4em" }}>{props.players.map(p => p.avatar)}</div>
+            ? <div style={{ fontSize: '4em' }}>{props.players.map(p => p.avatar)}</div>
             : <ui5-label>No players yet - invite people by sending them the join URL above</ui5-label>
 
         return players
@@ -60,31 +58,31 @@ function HostGame(props) {
         }
 
         return <div>
-            <ui5-title level="H1">Game {props.gameId}</ui5-title>
+            <ui5-title level='H1'>Game {props.gameId}</ui5-title>
             <p />
-            <div style={{ display: "flex", flexDirection: "row" }}>
-                <ui5-input style={{ "width": "100%" }} readonly value={joinUrl}></ui5-input>
-                <ui5-button icon="copy" onClick={copyToClipboard}></ui5-button>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <ui5-input style={{ 'width': '100%' }} readonly value={joinUrl}></ui5-input>
+                <ui5-button icon='copy' onClick={copyToClipboard}></ui5-button>
             </div>
-            <QRCode text={joinUrl} size="200" />
+            <QRCode text={joinUrl} size='200' />
             <p />
-            <ui5-title level="H2">Players:</ui5-title>
+            <ui5-title level='H2'>Players:</ui5-title>
             <Players players={props.players} />
             <ui5-toast ref={urlCopiedToast}>Join URL has been copied to clipboard!</ui5-toast>
         </div>
     }
 
     function PodiumPage(props) {
-        return <div style={{ height: "100%" }}>
-            <Countdown seconds="5" />
+        return <div style={{ height: '100%' }}>
+            <Countdown seconds='5' />
             <Podium players={props.players} />
-            <ui5-button onClick={props.onNext} style={{ width: "100%" }}>Next</ui5-button>
+            <ui5-button onClick={props.onNext} style={{ width: '100%' }}>Next</ui5-button>
         </div>
     }
 
     function PodiumFinalPage(props) {
         const [volume, setVolume] = React.useState(1)
-        return <div style={{ height: "100%" }}>
+        return <div style={{ height: '100%' }}>
             <PodiumFinal players={props.players} volume={volume} />
             <AudioControl onVolume={setVolume} />
         </div>
@@ -165,12 +163,12 @@ function HostGame(props) {
     }, [])
 
     const waitingToStartBlock = !question && !result ? <WaitingToStart gameId={props.gameId} players={players} /> : ''
-    const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
-    const startButton = canStart ? <ui5-button onClick={start} style={{ width: "100%" }}>Start</ui5-button> : ''
+    const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl='' answers={question.answers} /> : ''
+    const startButton = canStart ? <ui5-button onClick={start} style={{ width: '100%' }}>Start</ui5-button> : ''
     const podiumBlock = result && !isFinal ? <PodiumPage players={result} onNext={next} /> : ''
     const podiumFinalBlock = result && isFinal ? <PodiumFinalPage players={result} /> : ''
 
-    return <div style={{ height: "100%" }}>
+    return <div style={{ height: '100%' }}>
         {waitingToStartBlock}
         {startButton}
         {questionBlock}

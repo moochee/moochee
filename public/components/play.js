@@ -6,23 +6,23 @@ function PlayGame(props) {
     }
 
     function Answers(props) {
-        return <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ justifyContent: "center", display: "flex", flexDirection: "row" }}>
-                <Answer color="green" answer={props.answers[0]} />
-                <Answer color="purple" answer={props.answers[1]} />
+        return <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
+                <Answer color='green' answer={props.answers[0]} />
+                <Answer color='purple' answer={props.answers[1]} />
             </div>
-            <div style={{ justifyContent: "center", display: "flex", flexDirection: "row" }}>
-                <Answer color="blue" answer={props.answers[2]} />
-                <Answer color="orange" answer={props.answers[3]} />
+            <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
+                <Answer color='blue' answer={props.answers[2]} />
+                <Answer color='orange' answer={props.answers[3]} />
             </div>
         </div>
     }
 
     function QuestionAndAnswers(props) {
         return <div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <ui5-label>{props.question}</ui5-label>
-                <img width="80%" src={props.imageUrl} />
+                <img width='80%' src={props.imageUrl} />
             </div>
 
             <Answers answers={props.answers} />
@@ -73,14 +73,14 @@ function PlayGame(props) {
         }
     }, [])
 
-    const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl="" answers={question.answers} /> : ''
+    const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl='' answers={question.answers} /> : ''
     const podiumBlock = result && !isFinal ? <Podium players={result} /> : ''
     const waitingBlock = waiting ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
 
     return <div>
-        <ui5-title level="H1">Game {props.gameId}</ui5-title>
-        <ui5-title level="H2">Playing as {props.playerName}</ui5-title>
+        <ui5-title level='H1'>Game {props.gameId}</ui5-title>
+        <ui5-title level='H2'>Playing as {props.playerName}</ui5-title>
         {questionBlock}
         {podiumBlock}
         {waitingBlock}

@@ -4,7 +4,7 @@ function Podium(props) {
     const playerToRankHtml = (player, rank) => {
         return <div key={player.name} className={`podiumRank${rank}`}>
             <div>{player.score}</div>
-            <div className={`podiumAvatar`}>{player.avatar}</div>
+            <div className='podiumAvatar'>{player.avatar}</div>
         </div>
     }
     const first3Players = props.players.slice(0, 3)
