@@ -37,8 +37,8 @@
 		const Page = function () {
 			const [volume, setVolume] = React.useState(1)
 			return <div style={{ height: "100%" }}>
-				<PodiumFinal players={players} volume={volume} />
-				<AudioControl onVolume={setVolume} />
+				<Gorilla.PodiumFinal players={players} volume={volume} />
+				<Gorilla.AudioControl onVolume={setVolume} />
 			</div>
 		}
 		ReactDOM.render(<Page />, document.querySelector('#react-root'))

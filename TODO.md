@@ -1,4 +1,5 @@
 # TODO
+- **DoD**: the unit tests are still using the DemoAdapter?? Must test games.js!!
 - **Feature**: add real PPO quiz
 - **UX**:unify background color podium + general
 - **DoD**: deploy to CF (or even K8s?) and test performance (initial load vs cached) and device responsiveness
@@ -19,8 +20,6 @@
 - **Tech Improve**: try find a clean way for importing the modules, see https://stackoverflow.com/questions/68648959/how-to-make-es6-modules-and-jsx-working-without-server-side-build
   - should then be able to remove the globals then in public/.eslintrc
   - should then be able to remove the rule exlusions in public/.eslintrc ("react/react-in-jsx-scope", "react/display-name": "off", ...)
-
-
 
 # DONE
 - simple eslint + formatter: use 4 spaces for indent, max 120 chars per line, no semicolon, always single quote (incl html)

@@ -1,6 +1,6 @@
 'use strict'
 
-function PodiumFinal(props) {
+Gorilla.PodiumFinal = function (props) {
     const music = React.useRef({})
     const fireworks = React.useRef({})
 
@@ -17,7 +17,7 @@ function PodiumFinal(props) {
     }
     const first3Players = props.players.slice(0, 3)
     const podiumPlayersHtml = first3Players.map((p, index) => playerToRankHtml(p, index + 1))
-    
+
     music.current.volume = props.volume
     fireworks.current.volume = props.volume
 

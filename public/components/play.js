@@ -1,8 +1,8 @@
 'use strict'
 
-function PlayGame(props) {
+Gorilla.PlayGame = function (props) {
     function Answer(props) {
-        return <StickyButton color={props.color} onClick={() => guess(props.answer.id)} text={props.answer.text} />
+        return <Gorilla.StickyButton color={props.color} onClick={() => guess(props.answer.id)} text={props.answer.text} />
     }
 
     function Answers(props) {

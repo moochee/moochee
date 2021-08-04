@@ -1,6 +1,6 @@
 'use strict'
 
-function Shell(props) {
+Gorilla.Shell = function (props) {
     return <div className='shell'>
         <div className='shell-header'>
             {props.header}

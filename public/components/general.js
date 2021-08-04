@@ -1,6 +1,6 @@
 'use strict'
 
-function Countdown(props) {
+Gorilla.Countdown = function (props) {
     const [secondsLeft, setSecondsLeft] = React.useState(props.seconds)
 
     React.useEffect(() => {
@@ -20,7 +20,7 @@ function Countdown(props) {
     return <h2>Counting down {secondsLeft}</h2>
 }
 
-function AudioControl(props) {
+Gorilla.AudioControl = function (props) {
     const volumeSlider = React.useRef(false)
     const [muted, setMuted] = React.useState(false)
 
@@ -52,7 +52,7 @@ function AudioControl(props) {
     </div>
 }
 
-function Music() {
+Gorilla.Music = function () {
     const audio = React.useRef(null)
     const [muted, setMuted] = React.useState(false)
     const toggleMute = () => setMuted(!muted)

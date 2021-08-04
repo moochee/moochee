@@ -12,7 +12,7 @@ Gorilla.HostGame = function (props) {
     }
 
     function Answer(props) {
-        return <StickyButton color={props.color} onClick={() => null} text={props.answer.text} />
+        return <Gorilla.StickyButton color={props.color} onClick={() => null} text={props.answer.text} />
     }
 
     function Answers(props) {
@@ -30,7 +30,7 @@ Gorilla.HostGame = function (props) {
 
     function QuestionAndAnswers(props) {
         return <div style={{ width: '60%', marginLeft: '20%' }}>
-            <Countdown seconds='20' />
+            <Gorilla.Countdown seconds='20' />
             <h1 style={{ textAlign: 'center', fontFamily: 'komika_textregular', fontSize: '3em', color: '#0070c0' }}>{props.question}</h1>
             <Answers answers={props.answers} />
             <div id='footer' style={{ background: 'black', display: 'flex', justifyContent: 'center', flexDirection: 'row', width: '100%' }}>
@@ -74,8 +74,8 @@ Gorilla.HostGame = function (props) {
 
     function PodiumPage(props) {
         return <div style={{ height: '100%' }}>
-            <Countdown seconds='5' />
-            <Podium players={props.players} />
+            <Gorilla.Countdown seconds='5' />
+            <Gorilla.Podium players={props.players} />
             <ui5-button onClick={props.onNext} style={{ width: '100%' }}>Next</ui5-button>
         </div>
     }
@@ -83,8 +83,8 @@ Gorilla.HostGame = function (props) {
     function PodiumFinalPage(props) {
         const [volume, setVolume] = React.useState(1)
         return <div style={{ height: '100%' }}>
-            <PodiumFinal players={props.players} volume={volume} />
-            <AudioControl onVolume={setVolume} />
+            <Gorilla.PodiumFinal players={props.players} volume={volume} />
+            <Gorilla.AudioControl onVolume={setVolume} />
         </div>
     }
 

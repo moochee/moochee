@@ -59,14 +59,14 @@
             return <div style={{ height: "100%" }}>
                 <Gorilla.HostGame gameId={gameId} adapter={props.adapter} volume={volume} />
                 <audio ref={music} loop src="components/positive-funny-background-music-for-video-games.mp3"></audio>
-                <AudioControl onVolume={setVolume} />
+                <Gorilla.AudioControl onVolume={setVolume} />
             </div>
         }
 
         Gorilla.PlayGameWeb = function(props) {
             const { gameId, playerName } = ReactRouterDOM.useParams()
             return <div>
-                <PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
+                <Gorilla.PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
             </div>
         }
 

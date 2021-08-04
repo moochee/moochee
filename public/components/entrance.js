@@ -17,7 +17,7 @@ Gorilla.Entrance = function (props) {
     }
 
     const quizList = quizzes.map((q) => {
-        return <StickyCard key={q.id} onClick={() => host(q.id)} text={q.text} color={q.color} />
+        return <Gorilla.StickyCard key={q.id} onClick={() => host(q.id)} text={q.text} color={q.color} />
     })
 
     return <div style={{ fontFamily: 'komika_textregular', alignItems: 'center', display: 'flex', flexDirection: 'column' }}>

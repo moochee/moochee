@@ -9,6 +9,8 @@
     },
     "globals": {
         "React": "readonly",
-        "Gorilla": "readonly"
-    }
+        "Gorilla": "readonly",
+        "QRious": "readonly"
+    },
+    "ignorePatterns": ["lib", "design-ideas"]
 }

@@ -45,11 +45,11 @@
 			}
 
 			if (status === 'play') {
-				return <PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
+				return <Gorilla.PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
 			} else if (status === 'host') {
-				return <HostGame gameId={gameId} adapter={props.adapter} />
+				return <Gorilla.HostGame gameId={gameId} adapter={props.adapter} />
 			} else {
-				return <Entrance onJoin={join} onHost={host} adapter={props.adapter} />
+				return <Gorilla.Entrance onJoin={join} onHost={host} adapter={props.adapter} />
 			}
 		}
 
