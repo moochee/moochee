@@ -162,7 +162,7 @@ Gorilla.HostGame = function (props) {
         }
     }, [])
 
-    const waitingToStartBlock = !question && !result ? <WaitingToStart gameId={props.gameId} players={players} /> : ''
+    const waitingToStartBlock = !question && !result ? <Gorilla.HostGame.WaitingToStart gameId={props.gameId} players={players} /> : ''
     const questionBlock = question ? <Gorilla.HostGame.QuestionAndAnswers question={question.text} imageUrl='' answers={question.answers} /> : ''
     const startButton = canStart ? <ui5-button onClick={start} style={{ width: '100%' }}>Start</ui5-button> : ''
     const podiumBlock = result && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
