@@ -1,17 +1,18 @@
 # TODO
+- **Feature**: add real PPO quiz
 - **UX**:unify background color podium + general
-- **UX**: while joined player is waiting for quiz to start, should see the own avatar and the ones of the other players joining in
-- **UX**: integrate stickies design in host + play screens (see test-layout-quiz-player.html)
 - **DoD**: deploy to CF and test performance (initial load vs cached) and device responsiveness
 - **DoD**: check animations etc. in chrome, edge, firefox, safari and on mobile device
 - **Bugfix**: music not working on mobile device
+- **Feature**: consider the time to "scale" the score
+- **Tech Improve**: simple eslint + formatter: use 4 spaces for indent, max 120 chars per line, no semicolon, always single quote (incl html)
+- **UX**: while joined player is waiting for quiz to start, should see the own avatar and the ones of the other players joining in
+- **UX**: integrate stickies design in host + play screens (see test-layout-quiz-player.html)
 - **Bugfix**: font sizes on post-its during quiz not scaling properly
 - **Bugfix**: navigating to #/host/{gameId} or #/play/{gameId} should yield error if game doesn't exist
 - **Bugfix**: close/delete game when finished, or auto-close a game 30min after it was started
 - **Bugfix**: incorrect positioning & scaling of post-its and footer during quiz
 - **Bugfix**: incorrect positioning of avatars on intermediate podium
-- **Feature**: consider the time to "scale" the score
-- **Tech Improve**: simple eslint + formatter: use 4 spaces for indent, max 120 chars per line, no semicolon, always single quote (incl html)
 - **Tech Improve**: try implement both a WebSocket adapter and an HttpRestAdapter, both should work to be "plugged in" without changing the code
 - **Tech Improve**: try if using <> works, or understand why it doesn't work
 
