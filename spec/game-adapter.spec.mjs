@@ -7,10 +7,9 @@ describe('Games', () => {
     const dummyTimer = { setTimeout: () => null, clearTimeout: () => null }
     const dummyQuizId = 'test'
     const dummyQuizRepo = { getById: async (quizId) => { return { questions: [] } } }
-    const dummyQuizEmitter = {}
 
     it('returns a new gameId of when hosting a game', () => {
-        const adapter = new Games(dummyTimer, dummyQuizRepo, dummyQuizEmitter)
+        const adapter = new Games(dummyTimer, dummyQuizRepo)
         const gameId1 = adapter.host(dummyQuizId)
         const gameId2 = adapter.host(dummyQuizId)
 
