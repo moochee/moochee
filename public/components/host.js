@@ -30,7 +30,7 @@ Gorilla.HostGame = function (props) {
 
     Gorilla.HostGame.QuestionAndAnswers = function (props) {
         return <div style={{ width: '60%', marginLeft: '20%' }}>
-            <Gorilla.Countdown seconds='20' />
+            <Gorilla.Countdown seconds={countDown} />
             <h1 style={{ textAlign: 'center', fontFamily: 'komika_textregular', fontSize: '3em', color: '#0070c0' }}>{props.question}</h1>
             <Gorilla.HostGame.Answers answers={props.answers} />
             <div id='footer' style={{ background: 'black', display: 'flex', justifyContent: 'center', flexDirection: 'row', width: '100%' }}>
@@ -74,7 +74,6 @@ Gorilla.HostGame = function (props) {
 
     Gorilla.HostGame.PodiumPage = function (props) {
         return <div style={{ height: '100%' }}>
-            <Gorilla.Countdown seconds='5' />
             <Gorilla.Podium players={props.players} />
             <ui5-button onClick={props.onNext} style={{ width: '100%' }}>Next</ui5-button>
         </div>
@@ -93,6 +92,7 @@ Gorilla.HostGame = function (props) {
     const [canStart, setCanStart] = React.useState(false)
     const [result, setResult] = React.useState(null)
     const [isFinal, setIsFinal] = React.useState(false)
+    const [countDown, setCountDown] = React.useState(0)
 
     const onPlayerJoined = (gameId, player) => {
         if (gameId === props.gameId) {
@@ -116,10 +116,11 @@ Gorilla.HostGame = function (props) {
         }
     }
 
-    const onRoundStarted = (gameId, newQuestion) => {
+    const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
         if (gameId === props.gameId) {
             setQuestion(newQuestion)
             setResult(null)
+            setCountDown(secondsToGuess)
         }
     }
 

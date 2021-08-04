@@ -39,10 +39,8 @@ export default function Games(timer, quizRepo, eventEmitter) {
     this.nextRound = (gameId) => {
         const game = games.find(g => g.id === gameId)
         const question = game.remainingQuestions.shift()
-        const timeToGuess = 20000
-        this.guessTimeoutId = timer.setTimeout(() => finishRound(gameId), timeToGuess)
-        timer.clearTimeout(this.nextRoundTimeoutId)
-        eventEmitter.publish('roundStarted', gameId, question, timeToGuess)
+        this.guessTimeoutId = timer.setTimeout(() => finishRound(gameId), timer.secondsToGuess * 1000)
+        eventEmitter.publish('roundStarted', gameId, question, timer.secondsToGuess)
     }
 
     this.guess = (gameId, questionId, playerName, answerId) => {
@@ -66,8 +64,6 @@ export default function Games(timer, quizRepo, eventEmitter) {
         result.sort((a, b) => b.score - a.score)
         if (game.remainingQuestions.length > 0) {
             eventEmitter.publish('roundFinished', gameId, result)
-            const timeToNextRound = 5000
-            this.nextRoundTimeoutId = timer.setTimeout(() => this.nextRound(gameId), timeToNextRound)
         } else {
             eventEmitter.publish('gameFinished', gameId, result)
         }
