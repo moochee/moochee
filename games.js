@@ -30,7 +30,7 @@ export default function Games(timer, quizRepo, eventEmitter) {
         if (game.players.find(p => p.name === name)) {
             throw new Error(`Player ${name} already exists!`)
         }
-        const avatar = avatars.splice(Math.random() * avatars.length, 1)
+        const avatar = avatars[Math.round(Math.random() * avatars.length)]
         const newPlayer = { name, avatar, score: 0, socketId }
         game.players.push(newPlayer)
         eventEmitter.publish('playerJoined', gameId, newPlayer)
