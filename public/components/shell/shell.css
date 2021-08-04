@@ -1,0 +1,48 @@
+.shell {
+    height: 100%;
+    width: 100%;
+}
+
+.shell-header,
+.shell-footer {
+    width: 100%;
+    position: fixed;
+    background: black;
+    color: white;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shell-header {
+    top: 0;
+}
+
+.shell-footer {
+    bottom: 0;
+    flex-direction: row;
+}
+
+.shell-footer-left,
+.shell-footer-right {
+    width: 50%;
+    height: 100%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.shell-footer-left {
+    background-image: url(cloud-curriculum.png);
+}
+
+.shell-footer-right {
+    background-image: url(acdc.png);
+}
+
+.shell-content {
+    width: 100%;
+    height: 80%;
+    margin-top: 10vh;
+}
