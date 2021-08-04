@@ -67,9 +67,9 @@ Gorilla.PlayGame = function (props) {
         props.adapter.subscribe('roundFinished', onRoundFinished)
         props.adapter.subscribe('gameFinished', onGameFinished)
         return () => {
-            props.adapter.unsubscribe(onRoundStarted)
-            props.adapter.unsubscribe(onRoundFinished)
-            props.adapter.unsubscribe(onGameFinished)
+            props.adapter.unsubscribe('roundStarted', onRoundStarted)
+            props.adapter.unsubscribe('roundFinished', onRoundFinished)
+            props.adapter.unsubscribe('gameFinished', onGameFinished)
         }
     }, [])
 

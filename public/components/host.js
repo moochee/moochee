@@ -155,11 +155,11 @@ Gorilla.HostGame = function (props) {
         props.adapter.subscribe('gameFinished', onGameFinished)
         props.adapter.subscribe('playerDisconnected', onPlayerDisconnected)
         return () => {
-            props.adapter.unsubscribe(onPlayerJoined)
-            props.adapter.unsubscribe(onRoundStarted)
-            props.adapter.unsubscribe(onRoundFinished)
-            props.adapter.unsubscribe(onGameFinished)
-            props.adapter.unsubscribe(onPlayerDisconnected)
+            props.adapter.unsubscribe('playerJoined', onPlayerJoined)
+            props.adapter.unsubscribe('roundStarted', onRoundStarted)
+            props.adapter.unsubscribe('roundFinished', onRoundFinished)
+            props.adapter.unsubscribe('gameFinished', onGameFinished)
+            props.adapter.unsubscribe('playerDisconnected', onPlayerDisconnected)
         }
     }, [])
 

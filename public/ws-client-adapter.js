@@ -6,10 +6,8 @@ export default function WsClientAdapter(socket) {
         socket.on(event, subscriber)
     }
 
-    // FIXME this somehow looks broken or incomplete (unused function argument 'subscriber')
-    // eslint-disable-next-line no-unused-vars
-    this.unsubscribe = (subscriber) => {
-        socket.removeAllListeners()
+    this.unsubscribe = (event, subscriber) => {
+        socket.off(event, subscriber)
     }
 
     this.getQuizzes = () => {
