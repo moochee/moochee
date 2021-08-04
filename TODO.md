@@ -5,7 +5,6 @@
 - **UX**: while joined player is waiting for quiz to start, should see the own avatar and the ones of the other players joining in
 - **DoD**: check animations etc. in chrome, edge, firefox, safari and on mobile device
 - **UX**: integrate stickies design in host + play screens (see test-layout-quiz-player.html)
-- **Tech Improve**: simple eslint + formatter: use 4 spaces for indent, max 120 chars per line, no semicolon, always single quote (incl html)
 - **Bugfix**: music not working on mobile device
 - **Feature**: consider the time to "scale" the score
 - **UX**: make host page nicer when waiting for players
@@ -18,6 +17,7 @@
 - **Tech Improve**: try if using <> works, or understand why it doesn't work
 
 # DONE
+- simple eslint + formatter: use 4 spaces for indent, max 120 chars per line, no semicolon, always single quote (incl html)
 - respond to roundStarted->roundFinished->...->gameFinished in the ui
 - remove auto-transition for now, keep only next button
 - timer/countdown
