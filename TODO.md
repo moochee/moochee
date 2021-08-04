@@ -1,23 +1,22 @@
 # TODO
-- unify background color podium + general
-- while joined player is waiting for quiz to start, should see the own avatar and the ones of the other players joining in
-- deploy to CF and test performance (initial load vs cached) and device responsiveness
-- simple eslint + formatter: use 4 spaces for indent, max 120 chars per line, no semicolon, always single quote (incl html)
-- fix music not working on mobile device
-- fix font sizes on post-its
-- fix resource handling, e.g. navigating to #/host/100003 or #/play/100003 should yield error if game doesn't exist
-- close/delete game when finished, or auto-close a game 30min after it was started
-- fix positioning of scaling of post-its and footer
-- positioning of avatars on intermediate podium
-- integrate stickies design in host + play screens (see test-layout-quiz-player.html)
-- respond to roundStarted->roundFinished->...->gameFinished in the ui
-- consider the time to "scale" the score
-- check animations etc. in chrome, edge, firefox, safari
-- should participants see the other players?
-- try implement both a WebSocket adapter and an HttpRestAdapter, both should work to be "plugged in" without changing the code
-- try if using <> works, or understand why it doesn't work
+- **UX**:unify background color podium + general
+- **UX**: while joined player is waiting for quiz to start, should see the own avatar and the ones of the other players joining in
+- **UX**: integrate stickies design in host + play screens (see test-layout-quiz-player.html)
+- **DoD**: deploy to CF and test performance (initial load vs cached) and device responsiveness
+- **DoD**: check animations etc. in chrome, edge, firefox, safari and on mobile device
+- **Bugfix**: music not working on mobile device
+- **Bugfix**: font sizes on post-its during quiz not scaling properly
+- **Bugfix**: navigating to #/host/{gameId} or #/play/{gameId} should yield error if game doesn't exist
+- **Bugfix**: close/delete game when finished, or auto-close a game 30min after it was started
+- **Bugfix**: incorrect positioning & scaling of post-its and footer during quiz
+- **Bugfix**: incorrect positioning of avatars on intermediate podium
+- **Feature**: consider the time to "scale" the score
+- **Tech Improve**: simple eslint + formatter: use 4 spaces for indent, max 120 chars per line, no semicolon, always single quote (incl html)
+- **Tech Improve**: try implement both a WebSocket adapter and an HttpRestAdapter, both should work to be "plugged in" without changing the code
+- **Tech Improve**: try if using <> works, or understand why it doesn't work
 
 # DONE
+- respond to roundStarted->roundFinished->...->gameFinished in the ui
 - remove auto-transition for now, keep only next button
 - timer/countdown
 - display non-animated podium when transitioning to next question
