@@ -65,7 +65,7 @@
 
         Gorilla.PlayGameWeb = function (props) {
             const { gameId, playerName } = ReactRouterDOM.useParams()
-            return <div>
+            return <div style={{ height: "100%" }}>
                 <Gorilla.PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
             </div>
         }

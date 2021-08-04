@@ -78,7 +78,7 @@ Gorilla.PlayGame = function (props) {
     const waitingBlock = waiting ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
 
-    return <div>
+    return <div style={{ height: '100%' }}>
         <ui5-title level='H1'>Game {props.gameId}</ui5-title>
         <ui5-title level='H2'>Playing as {props.playerName}</ui5-title>
         {questionBlock}
