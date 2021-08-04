@@ -1,31 +1,31 @@
 'use strict'
 
 Gorilla.PlayGame = function (props) {
-    function Answer(props) {
+    Gorilla.PlayGame.Answer = function (props) {
         return <Gorilla.StickyButton color={props.color} onClick={() => guess(props.answer.id)} text={props.answer.text} />
     }
 
-    function Answers(props) {
+    Gorilla.PlayGame.Answers = function (props) {
         return <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
-                <Answer color='green' answer={props.answers[0]} />
-                <Answer color='purple' answer={props.answers[1]} />
+                <Gorilla.PlayGame.Answer color='green' answer={props.answers[0]} />
+                <Gorilla.PlayGame.Answer color='purple' answer={props.answers[1]} />
             </div>
             <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
-                <Answer color='blue' answer={props.answers[2]} />
-                <Answer color='orange' answer={props.answers[3]} />
+                <Gorilla.PlayGame.Answer color='blue' answer={props.answers[2]} />
+                <Gorilla.PlayGame.Answer color='orange' answer={props.answers[3]} />
             </div>
         </div>
     }
 
-    function QuestionAndAnswers(props) {
+    Gorilla.PlayGame.QuestionAndAnswers = function (props) {
         return <div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <ui5-label>{props.question}</ui5-label>
                 <img width='80%' src={props.imageUrl} />
             </div>
 
-            <Answers answers={props.answers} />
+            <Gorilla.PlayGame.Answers answers={props.answers} />
         </div>
     }
 
@@ -73,8 +73,8 @@ Gorilla.PlayGame = function (props) {
         }
     }, [])
 
-    const questionBlock = question ? <QuestionAndAnswers question={question.text} imageUrl='' answers={question.answers} /> : ''
-    const podiumBlock = result && !isFinal ? <Podium players={result} /> : ''
+    const questionBlock = question ? <Gorilla.PlayGame.QuestionAndAnswers question={question.text} imageUrl='' answers={question.answers} /> : ''
+    const podiumBlock = result && !isFinal ? <Gorilla.Podium players={result} /> : ''
     const waitingBlock = waiting ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
 

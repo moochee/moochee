@@ -12,5 +12,8 @@
         "Gorilla": "readonly",
         "QRious": "readonly"
     },
-    "ignorePatterns": ["lib", "design-ideas"]
+    "ignorePatterns": [
+        "lib",
+        "design-ideas"
+    ]
 }
