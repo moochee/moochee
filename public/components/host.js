@@ -32,7 +32,7 @@ Gorilla.HostGame = function (props) {
         return <div style={{ width: '60%', marginLeft: '20%' }}>
             <Gorilla.Countdown seconds='20' />
             <h1 style={{ textAlign: 'center', fontFamily: 'komika_textregular', fontSize: '3em', color: '#0070c0' }}>{props.question}</h1>
-            <Answers answers={props.answers} />
+            <Gorilla.HostGame.Answers answers={props.answers} />
             <div id='footer' style={{ background: 'black', display: 'flex', justifyContent: 'center', flexDirection: 'row', width: '100%' }}>
                 <img style={{ width: '25%' }} src='ACDC-Logo_Neg.png' />
                 <img style={{ width: '25%' }} src='Cloud-Curriculum_Logo-with-Tagline_Neg.png' />
