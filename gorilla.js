@@ -33,11 +33,11 @@ io.on('connection', (socket) => {
 
     socket.on('join', (gameId, name, callback) => {
         try {
-            games.join(gameId, name, socket.id)
+            const avatar = games.join(gameId, name, socket.id)
             socket.join(gameId)
-            callback()
+            callback({ avatar })
         } catch (error) {
-            callback(error.message)
+            callback({ errorMessage: error.message })
         }
     })
 

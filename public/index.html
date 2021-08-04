@@ -66,7 +66,7 @@
         Gorilla.PlayGameWeb = function (props) {
             const { gameId, playerName } = ReactRouterDOM.useParams()
             return <div style={{ height: "100%" }}>
-                <Gorilla.PlayGame gameId={gameId} playerName={playerName} adapter={props.adapter} />
+                <Gorilla.PlayGame gameId={gameId} playerName={playerName} playerAvatar={props.avatar} adapter={props.adapter} />
             </div>
         }
 
@@ -81,8 +81,8 @@
             const join = async () => {
                 // TODO do we get avatar back? and if yes, what to do with it?
                 try {
-                    await props.adapter.join(gameId, playerName)
-                    props.onJoin(gameId, playerName)
+                    const playerAvatar = await props.adapter.join(gameId, playerName)
+                    props.onJoin(gameId, playerName, playerAvatar)
                 } catch (error) {
                     setErrorMessage(error.message)
                     errorToast.current.show()
@@ -99,10 +99,13 @@
         }
 
         Gorilla.WebApp = function (props) {
+            const [avatar, setAvatar] = React.useState('')
+
             const { HashRouter, Switch, Route } = ReactRouterDOM
 
-            const join = (gameId, playerName) => {
+            const join = (gameId, playerName, playerAvatar) => {
                 window.location = `#/play/${gameId}/${playerName}`
+                setAvatar(playerAvatar)
             }
 
             const host = (gameId) => {
@@ -116,7 +119,7 @@
                             <Gorilla.Entrance onHost={host} adapter={props.adapter} />
                         </Route>
                         <Route path="/play/:gameId/:playerName">
-                            <Gorilla.PlayGameWeb adapter={props.adapter} />
+                            <Gorilla.PlayGameWeb adapter={props.adapter} avatar={avatar} />
                         </Route>
                         <Route path="/play/:gameId">
                             <Gorilla.EnterGameWeb adapter={props.adapter} onJoin={join} />

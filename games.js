@@ -2,8 +2,9 @@
 
 export default function Games(timer, quizRepo, eventEmitter) {
     let nextGameId = 100000
-    let avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲')
     const games = []
+
+    this.avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲')
 
     this.getQuizzes = async () => {
         return await quizRepo.getAll()
@@ -30,10 +31,11 @@ export default function Games(timer, quizRepo, eventEmitter) {
         if (game.players.find(p => p.name === name)) {
             throw new Error(`Player ${name} already exists!`)
         }
-        const avatar = avatars[Math.round(Math.random() * avatars.length)]
+        const avatar = this.avatars.splice(Math.random() * this.avatars.length, 1)[0]
         const newPlayer = { name, avatar, score: 0, socketId }
         game.players.push(newPlayer)
         eventEmitter.publish('playerJoined', gameId, newPlayer)
+        return avatar
     }
 
     this.nextRound = (gameId) => {

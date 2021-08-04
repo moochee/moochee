@@ -22,13 +22,13 @@ export default function WsClientAdapter(socket) {
         })
     }
 
-    this.join = (gameId, name) => {
+    this.join = (gameId, playerName) => {
         return new Promise((resolve, reject) => {
-            socket.emit('join', gameId, name, (errorMessage) => {
-                if (errorMessage) {
-                    reject(new Error(errorMessage))
+            socket.emit('join', gameId, playerName, (result) => {
+                if (result.errorMessage) {
+                    reject(new Error(result.errorMessage))
                 } else {
-                    resolve()
+                    resolve(result.avatar)
                 }
             })
         })

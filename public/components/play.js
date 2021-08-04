@@ -80,7 +80,7 @@ Gorilla.PlayGame = function (props) {
 
     return <div style={{ height: '100%' }}>
         <ui5-title level='H1'>Game {props.gameId}</ui5-title>
-        <ui5-title level='H2'>Playing as {props.playerName}</ui5-title>
+        <ui5-title level='H2'>Playing as {props.playerName} {props.playerAvatar}</ui5-title>
         {questionBlock}
         {podiumBlock}
         {waitingBlock}
