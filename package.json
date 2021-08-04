@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "start": "node gorilla.js",
-    "test": "jasmine **/*.spec.mjs"
+    "test": "jasmine **/*.spec.mjs",
+    "prepare": "echo 'npm test' > .git/hooks/pre-commit"
   },
   "type": "module",
   "keywords": [],
