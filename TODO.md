@@ -1,5 +1,4 @@
 # TODO
-- **DoD**: the unit tests are still using the DemoAdapter?? Must test games.js!!
 - **Feature**: add real PPO quiz
 - **UX**:unify background color podium + general
 - **DoD**: deploy to CF (or even K8s?) and test performance (initial load vs cached) and device responsiveness
@@ -22,6 +21,7 @@
   - should then be able to remove the rule exlusions in public/.eslintrc
 
 # DONE
+- migrate unit tests to use games.js
 - simple eslint + formatter: use 4 spaces for indent, max 120 chars per line, no semicolon, always single quote (incl html)
 - respond to roundStarted->roundFinished->...->gameFinished in the ui
 - remove auto-transition for now, keep only next button

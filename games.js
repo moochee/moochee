@@ -20,6 +20,7 @@ export default function Games(timer, quizRepo, eventEmitter) {
             return { id: index + 1, rightAnswerId: q.rightAnswerId, guesses: [] }
         })
         games.push({ id: gameId, remainingQuestions, questionsAndGuesses, players: [] })
+        // REVISE only use async eventing, not sync returning
         return gameId
     }
 
@@ -35,6 +36,7 @@ export default function Games(timer, quizRepo, eventEmitter) {
         const newPlayer = { name, avatar, score: 0, socketId }
         game.players.push(newPlayer)
         eventEmitter.publish('playerJoined', gameId, newPlayer)
+        // REVISE only use async eventing, not sync returning
         return avatar
     }
 
