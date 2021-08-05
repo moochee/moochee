@@ -169,11 +169,11 @@ Gorilla.HostGame = function (props) {
     const podiumBlock = result && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
     const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} /> : ''
 
-    return <div style={{ height: '100%' }}>
+    return <Gorilla.Shell>
         {waitingToStartBlock}
         {startButton}
         {questionBlock}
         {podiumBlock}
         {podiumFinalBlock}
-    </div>
+    </Gorilla.Shell>
 }
