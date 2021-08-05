@@ -13,11 +13,11 @@ export default function Games(timer, quizRepo, eventEmitter) {
     this.host = async (quizId) => {
         const gameId = String(nextGameId++)
         const questions = (await quizRepo.getById(quizId)).questions
-        const remainingQuestions = questions.map((q) => {
-            return { id: q.id, text: q.text, answers: q.answers }
+        const remainingQuestions = questions.map((q, index) => {
+            return { id: index + 1, text: q.text, answers: q.answers }
         })
-        const questionsAndGuesses = questions.map(q => {
-            return { id: q.id, rightAnswerId: q.rightAnswerId, guesses: [] }
+        const questionsAndGuesses = questions.map((q, index) => {
+            return { id: index + 1, rightAnswerId: q.rightAnswerId, guesses: [] }
         })
         games.push({ id: gameId, remainingQuestions, questionsAndGuesses, players: [] })
         return gameId
@@ -41,8 +41,8 @@ export default function Games(timer, quizRepo, eventEmitter) {
     this.nextRound = (gameId) => {
         const game = games.find(g => g.id === gameId)
         const question = game.remainingQuestions.shift()
-        this.guessTimeoutId = timer.setTimeout(() => finishRound(gameId), timer.secondsToGuess * 1000)
         eventEmitter.publish('roundStarted', gameId, question, timer.secondsToGuess)
+        this.guessTimeoutId = timer.setTimeout(() => finishRound(gameId), timer.secondsToGuess * 1000)
     }
 
     this.guess = (gameId, questionId, playerName, answerId) => {

@@ -2,7 +2,6 @@
   "text": "Test",
   "questions": [
     {
-      "id": "Q1",
       "text": "Fake question 1?",
       "answers": [
         { "id": "A", "text": "answer1" },
@@ -13,7 +12,6 @@
       "rightAnswerId": "A"
     },
     {
-      "id": "Q2",
       "text": "Fake question 2?",
       "answers": [
         { "id": "A", "text": "answer1" },
@@ -24,7 +22,6 @@
       "rightAnswerId": "A"
     },
     {
-      "id": "Q3",
       "text": "Fake question 3?",
       "answers": [
         { "id": "A", "text": "answer1" },

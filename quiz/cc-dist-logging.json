@@ -2,7 +2,6 @@
   "text": "Cloud Development - Distributed Logging",
   "questions": [
     {
-      "id": "Q1",
       "text": "Scattered logs is the challenge of...",
       "answers": [
         { "id": "A", "text": "missing standardization of logs" },
@@ -13,7 +12,6 @@
       "rightAnswerId": "B"
     },
     {
-      "id": "Q2",
       "text": "What should you do to standardize your logs?",
       "answers": [
         { "id": "A", "text": "A: collect all the logs from different microservices into a single storage" },
