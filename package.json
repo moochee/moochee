@@ -4,10 +4,9 @@
   "description": "",
   "scripts": {
     "start": "node gorilla.js",
-    "esint": "eslint --init",
     "lint": "eslint *.js public spec/*.mjs",
     "test": "jasmine **/*.spec.mjs",
-    "prepare": "bash -c 'echo \"npm run lint\nnpm test\" > .git/hooks/pre-commit' && bash -c 'chmod +x .git/hooks/pre-commit'"
+    "prepare": "echo 'npm run lint\nnpm test' > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
   },
   "type": "module",
   "keywords": [],
