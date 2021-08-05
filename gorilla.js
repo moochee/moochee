@@ -35,6 +35,7 @@ io.on('connection', (socket) => {
         try {
             const avatar = games.join(gameId, name, socket.id)
             socket.join(gameId)
+            // REVISE check if we can consistently use the event emitter...
             callback({ avatar })
         } catch (error) {
             callback({ errorMessage: error.message })
