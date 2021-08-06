@@ -25,39 +25,38 @@ describe('Integration', () => {
             const client = new Client(`http://localhost:${port}`)
             client.on('connect', () => resolve(client))
         })
-        const getQuizzes = () => new Promise((resolve) => hostClient.emit('getQuizzes', resolve))
-        const host = (quizId) => new Promise((resolve) => hostClient.emit('host', quizId, resolve))
+        const send = (client, event, ...args) => new Promise((resolve) => {
+            client.emit(event, ...args, resolve)
+        })
 
         beforeEach(async () => hostClient = await connect())
 
         afterEach(() => hostClient.close())
 
         it('should have some quizzes', async () => {
-            const quizzes = await getQuizzes()
+            const quizzes = await send(hostClient, 'getQuizzes')
             expect(quizzes.length).toBeGreaterThan(0)
         })
 
         it('should be possible to host a quiz', async () => {
-            const quizzes = await getQuizzes()
-            const gameId = await host(quizzes[0].id)
+            const quizzes = await send(hostClient, 'getQuizzes')
+            const gameId = await send(hostClient, 'host', quizzes[0].id)
             expect(gameId).toEqual(jasmine.any(String))
         })
 
         describe('with 2 player clients', () => {
             let aliceClient, bobClient
 
-            const join = (client, gameId, name) => new Promise((resolve) => client.emit('join', gameId, name, resolve))
-
             beforeEach(async () => [aliceClient, bobClient] = [await connect(), await connect()])
 
             afterEach(() => [aliceClient.close(), bobClient.close()])
 
             it('should be possible to join a quiz', async () => {
-                const quizzes = await getQuizzes()
-                const gameId = await host(quizzes[0].id)
-                const alicePlayer = await join(aliceClient, gameId, 'alice')
+                const quizzes = await send(hostClient, 'getQuizzes')
+                const gameId = await send(hostClient, 'host', quizzes[0].id)
+                const alicePlayer = await send(aliceClient, 'join', gameId, 'alice')
                 expect(alicePlayer.avatar).toEqual(jasmine.any(String))
-                const bobPlayer = await join(bobClient, gameId, 'bob')
+                const bobPlayer = await send(bobClient, 'join', gameId, 'bob')
                 expect(bobPlayer.avatar).toEqual(jasmine.any(String))
             })
         })
