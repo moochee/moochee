@@ -149,6 +149,10 @@ Gorilla.HostGame = function (props) {
     }
 
     React.useEffect(() => {
+        // REVISE Right now my feeling is, it is maybe better to just have one subscriber and in the subscriber, switch along the event id, instead of having all the different subscribers.
+        //        On the server the event name is part of the message and not a separate 'channel', so anyway it got sent over the network already, so we don't significantly shrink performance/networking overhead here.
+        //        Furthermore, separating the channels along the gameId is the better choice anyway, cause games scale infinitely, while the events will probably always be limited to <10 per game, so the 'eventing overhead' is absolutely acceptable, the 'coding overhead' with all those registrations is a much bigger concern...
+
         props.adapter.subscribe('playerJoined', onPlayerJoined)
         props.adapter.subscribe('roundStarted', onRoundStarted)
         props.adapter.subscribe('roundFinished', onRoundFinished)
