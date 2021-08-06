@@ -6,7 +6,7 @@
     "start": "node gorilla.js",
     "lint": "eslint *.js public spec/*.mjs",
     "test": "jasmine **/*.spec.mjs",
-    "prepare": "echo 'npm run lint\nnpm test' > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
+    "prepare": "echo 'npm run lint && npm test' > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
   },
   "type": "module",
   "keywords": [],
@@ -19,7 +19,8 @@
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-plugin-jasmine": "^4.1.2",
-    "jasmine": "^3.8.0"
+    "jasmine": "^3.8.0",
+    "socket.io-client": "^4.1.3"
   },
   "engines": {
     "node": "14.17.x"
