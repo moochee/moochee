@@ -2,24 +2,72 @@
   "text": "Passionate Product Ownership",
   "questions": [
     {
-      "text": "Scattered logs is the challenge of...",
+      "text": "Are you in?",
       "answers": [
-        { "id": "A", "text": "missing standardization of logs" },
-        { "id": "B", "text": "the logs being distributed on different instances" },
-        { "id": "C", "text": "some logs being lost" },
-        { "id": "D", "text": "D: too many cluttered logs" }
+        { "id": "A", "text": "Yes" },
+        { "id": "B", "text": "No" },
+        { "id": "C", "text": "Maybe" },
+        { "id": "D", "text": "I don't know" }
       ],
-      "rightAnswerId": "B"
+      "rightAnswerId": "A"
     },
     {
-      "text": "What should you do to standardize your logs?",
+      "text": "What does PPO stand for?",
       "answers": [
-        { "id": "A", "text": "A: collect all the logs from different microservices into a single storage" },
-        { "id": "B", "text": "C: propagate context info through multiple microservices" },
-        { "id": "C", "text": "B: use a structured log format (e.g. JSON)" },
-        { "id": "D", "text": "D: use correlation IDs" }
+        { "id": "A", "text": "Product Passionate Ownership" },
+        { "id": "B", "text": "Private Product Ownership" },
+        { "id": "C", "text": "Passionate Product Ownership" },
+        { "id": "D", "text": "Potential Product Optimization" }
       ],
       "rightAnswerId": "C"
+    },
+    {
+      "text": "What is the fundamental principle of PPO?",
+      "answers": [
+        { "id": "A", "text": "Minimize Output - Minimize Outcome" },
+        { "id": "B", "text": "Maximize Output - Minimize Outcome" },
+        { "id": "C", "text": "Minimize Output - Maximize Outcome" },
+        { "id": "D", "text": "Maximize Output - Maximize Outcome" }
+      ],
+      "rightAnswerId":  "C"
+    },
+    {
+      "text": "PPO is meant to...",
+      "answers": [
+        { "id": "A", "text": "Enrich the Development Process" },
+        { "id": "B", "text": "Embrace the Development Approach" },
+        { "id": "C", "text": "Extend the Developers' Life" },
+        { "id": "D", "text": "Embrace the Developers' Vision"}
+      ],
+      "rightAnswerId": "A"
+    },
+    {
+      "text": "The Opportunity Canvas helps you to have...?",
+      "answers": [
+        { "id": "A", "text": "Careful Observation" },
+        { "id": "B", "text": "Candid Communication" },
+        { "id": "C", "text": "Collaborative Argumentation" },
+        { "id": "D", "text": "Comprehensive Conversation"}
+      ],
+      "rightAnswerId": "D"
+    },
+    {
+      "text": "Which element is not part of the Opportunity Canvas?",
+      "answers": [
+        { "id": "A", "text": "Users & Customers" },
+        { "id": "B", "text": "Solutions Today" },
+        { "id": "C", "text": "Satisfaction Rating" },
+        { "id": "D", "text": "Business Benefits & Metrics"}
+      ],
+      "rightAnswerId": "C"
+    },
+    {
+      "text": "Day 1 was great & I would like to continue with Day2!",
+      "answers": [
+        { "id": "A", "text": "True" },
+        { "id": "B", "text": "False"}
+      ],
+      "rightAnswerId":  "A"
     }
   ]
 }
