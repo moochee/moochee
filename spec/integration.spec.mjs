@@ -1,34 +1,37 @@
 'use strict'
 
 import { createServer } from 'http'
-import { Server } from 'socket.io'
 import { io as Client } from 'socket.io-client'
-// import quizSocketServer from '../quiz-socket-server.js'
+import quizSocketServer from '../quiz-socket-server.js'
 
 describe('Integration', () => {
-    let io, serverSocket, clientSocket
+    let server, port
 
-    beforeEach((done) => {
+    beforeEach(async () => {
         const httpServer = createServer()
-        io = new Server(httpServer)
-        httpServer.listen(() => {
-            const port = httpServer.address().port
-            clientSocket = new Client(`http://localhost:${port}`)
-            io.on('connection', (socket) => serverSocket = socket)
-            clientSocket.on('connect', done)
+        server = quizSocketServer()
+        server.attach(httpServer)
+        port = await new Promise((resolve) => {
+            httpServer.listen(() => resolve(httpServer.address().port))
         })
     })
 
-    afterEach(() => {
-        io.close()
-        clientSocket.close()
-    })
+    afterEach(() => server.close())
 
-    it('should work', (done) => {
-        clientSocket.on('hello', (arg) => {
-            expect(arg).toBe('world')
-            done()
+    describe('basic scenarios with one client', () => {
+        let client
+
+        beforeEach((done) => {
+            client = new Client(`http://localhost:${port}`).on('connect', done)
         })
-        serverSocket.emit('hello', 'world')
+
+        afterEach(() => client.close())
+
+        it('should return the quizzes', (done) => {
+            client.emit('getQuizzes', (quizzes) => {
+                expect(quizzes.length).toBeGreaterThan(0)
+                done()
+            })
+        })
     })
 })
