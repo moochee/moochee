@@ -18,20 +18,27 @@ describe('Integration', () => {
 
     afterEach(() => server.close())
 
-    describe('basic scenarios with one client', () => {
-        let client
+    describe('with host client', () => {
+        let hostClient
+
+        const getQuizzes = () => new Promise((resolve) => hostClient.emit('getQuizzes', resolve))
+        const host = (quizId) => new Promise((resolve) => hostClient.emit('host', quizId, resolve))
 
         beforeEach((done) => {
-            client = new Client(`http://localhost:${port}`).on('connect', done)
+            hostClient = new Client(`http://localhost:${port}`).on('connect', done)
         })
 
-        afterEach(() => client.close())
+        afterEach(() => hostClient.close())
 
-        it('should return the quizzes', (done) => {
-            client.emit('getQuizzes', (quizzes) => {
-                expect(quizzes.length).toBeGreaterThan(0)
-                done()
-            })
+        it('should have some quizzes', async () => {
+            const quizzes = await getQuizzes()
+            expect(quizzes.length).toBeGreaterThan(0)
+        })
+
+        it('should be possible to host a quiz', async () => {
+            const quizzes = await getQuizzes()
+            const gameId = await host(quizzes[0].id)
+            expect(gameId).toEqual(jasmine.any(String))
         })
     })
 })
