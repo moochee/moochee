@@ -19,7 +19,7 @@
 - **Tech Improve**: try find a clean way for importing the modules, see https://stackoverflow.com/questions/68648959/how-to-make-es6-modules-and-jsx-working-without-server-side-build
   - should then be able to remove the globals then in public/.eslintrc
   - should then be able to remove the rule exlusions in public/.eslintrc
-
+- **UX/Tech Improve**: do we really need an answer id defined by the quiz? We could just assign automatically based on the index...
 # DONE
 - migrate unit tests to use games.js
 - simple eslint + formatter: use 4 spaces for indent, max 120 chars per line, no semicolon, always single quote (incl html)
