@@ -75,14 +75,15 @@
             const [playerName, setPlayerName] = React.useState('')
             const updatePlayerName = (event) => setPlayerName(event.target.value)
             const [errorMessage, setErrorMessage] = React.useState('')
+            const history = ReactRouterDOM.useHistory()
 
             const errorToast = React.useRef(null)
 
             const join = async () => {
-                // TODO do we get avatar back? and if yes, what to do with it?
                 try {
                     const playerAvatar = await props.adapter.join(gameId, playerName)
                     props.onJoin(gameId, playerName, playerAvatar)
+                    history.push(`play/${gameId}/${playerName}`)
                 } catch (error) {
                     setErrorMessage(error.message)
                     errorToast.current.show()
