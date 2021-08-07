@@ -55,11 +55,7 @@ Gorilla.HostGame = function (props) {
         }
     }
 
-    const start = () => {
-        props.adapter.start(props.gameId)
-        setCanStart(false)
-    }
-
+    // REVISE I think in backend we always say 'next', here we always say 'start' - feels confusing
     const next = () => {
         props.adapter.start(props.gameId)
     }
@@ -79,33 +75,22 @@ Gorilla.HostGame = function (props) {
         }
     }, [])
 
-    const waitingToStartBlock = !question && !result ? <Gorilla.HostGame.WaitingToStart gameId={props.gameId} players={players} volume={volume}/> : ''
+    const waitingToStart = !question && !result
+    const waitingToStartBlock = waitingToStart ? <Gorilla.HostGame.WaitingToStart gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
     const questionBlock = question ? <Gorilla.HostGame.QuestionAndAnswers countDown={countDown} question={question.text} imageUrl='' answers={question.answers} /> : ''
-    const startButton = canStart ? <ui5-button onClick={start} style={{ width: '100%' }}>Start</ui5-button> : ''
     const podiumBlock = result && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
-    const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume}/> : ''
+    const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} /> : ''
 
-    return <Gorilla.Shell onVolume={setVolume}>
+    return <Gorilla.Shell info={`Game ${props.gameId}`} header='Passionate Product Ownership' onVolume={setVolume}>
         {waitingToStartBlock}
-        {startButton}
         {questionBlock}
         {podiumBlock}
         {podiumFinalBlock}
     </Gorilla.Shell>
 }
 
-Gorilla.HostGame.QRCode = function (props) {
-    const canvas = React.useRef(null)
-    React.useEffect(() => {
-        // REVISE is this "if" even needed? Is the "useEffect" even needed? I think the QR code is nothing which has a global stat/side effect, and anyway React won't re-render as long as its properties don't change, which should not happen
-        if (canvas != null && canvas.current != null) {
-            new QRious({ element: canvas.current, value: props.text, size: props.size })
-        }
-    }) // REVISE usually it closes with argument [], so that it only happens on enter, any particular reason why it's not the case here?
-    return (<canvas ref={canvas}></canvas>)
-}
-
 Gorilla.HostGame.Answer = function (props) {
+    // FIXME for host the buttons should not be clickable and also have no hover effect
     return <Gorilla.StickyButton color={props.color} onClick={() => null} text={props.answer.text} />
 }
 
@@ -134,47 +119,64 @@ Gorilla.HostGame.QuestionAndAnswers = function (props) {
     </div>
 }
 
-Gorilla.HostGame.Players = function (props) {
-    const players = props.players.length > 0
-        ? <div style={{ fontSize: '4em' }}>{props.players.map(p => p.avatar)}</div>
-        : <ui5-label>No players yet - invite people by sending them the join URL above</ui5-label>
-
-    return players
+Gorilla.HostGame.QRCode = function (props) {
+    const canvas = React.useRef(null)
+    React.useEffect(() => {
+        // REVISE is this "if" even needed? Is the "useEffect" even needed? I think the QR code is nothing which has a global stat/side effect, and anyway React won't re-render as long as its properties don't change, which should not happen
+        if (canvas != null && canvas.current != null) {
+            new QRious({ element: canvas.current, value: props.text, size: 200 })
+        }
+    }) // REVISE usually it closes with argument [], so that it only happens on enter, any particular reason why it's not the case here?
+    return (<canvas style={{ height: '100%' }} ref={canvas}></canvas>)
 }
 
+// TODO make page look bit nicer / layout responsive (esp. phone in portrait mode)
+// TODO font
 Gorilla.HostGame.WaitingToStart = function (props) {
     const joinUrl = `${window.location.origin}/#/play/${props.gameId}`
-    const urlCopiedToast = React.useRef(null)
     const music = React.useRef({})
+    const [copied, setCopied] = React.useState('')
     React.useEffect(() => music.current.play(), [])
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(joinUrl)
-        urlCopiedToast.current.show()
+        setCopied('copied!')
     }
+
+    const start = () => {
+        props.adapter.start(props.gameId)
+    }
+
+    const players = props.players.length > 0
+        ? <div style={{ fontSize: '8em' }}>{props.players.map(p => p.avatar)}</div>
+        : <div style={{ fontSize: '3em' }}>No players yet - let people scan the QR code or send them the join URL</div>
 
     music.current.volume = props.volume
 
-    return <div>
+    const startButton = props.canStart ? <Gorilla.StickyCard onClick={start} color='blue' text='Start' /> : ''
+
+    return <div style={{ height: '100%' }}>
         <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
-        <ui5-title level='H1'>Game {props.gameId}</ui5-title>
-        <p />
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <ui5-input style={{ 'width': '100%' }} readonly value={joinUrl}></ui5-input>
-            <ui5-button icon='copy' onClick={copyToClipboard}></ui5-button>
+        <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+            <Gorilla.HostGame.QRCode text={joinUrl} />
+            <div style={{ 'width': '100%', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <input style={{ 'width': '100%', 'marginRight': 'auto' }} readOnly value={joinUrl}></input>
+                    <span onClick={copyToClipboard} style={{ fontSize: '1.7em', cursor: 'pointer' }}>📋</span>
+                    <div>{copied}</div>
+                </div>
+                <h1 level='H2'>Players:</h1>
+                {players}
+                {startButton}
+            </div>
         </div>
-        <Gorilla.HostGame.QRCode text={joinUrl} size='200' />
-        <p />
-        <ui5-title level='H2'>Players:</ui5-title>
-        <Gorilla.HostGame.Players players={props.players} />
-        <ui5-toast ref={urlCopiedToast}>Join URL has been copied to clipboard!</ui5-toast>
     </div>
 }
 
 Gorilla.HostGame.PodiumPage = function (props) {
     return <div style={{ height: '100%' }}>
         <Gorilla.Podium players={props.players} />
-        <ui5-button onClick={props.onNext} style={{ width: '100%' }}>Next</ui5-button>
+        <button onClick={props.onNext} style={{ width: '100%' }}>Next</button>
     </div>
 }
 

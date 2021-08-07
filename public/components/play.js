@@ -83,7 +83,7 @@ Gorilla.PlayGame.Answers = function (props) {
 Gorilla.PlayGame.QuestionAndAnswers = function (props) {
     return <div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <ui5-label>{props.question}</ui5-label>
+            <div>{props.question}</div>
             <img width='80%' src={props.imageUrl} />
         </div>
 

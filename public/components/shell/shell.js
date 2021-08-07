@@ -5,7 +5,7 @@ Gorilla.Shell = function (props) {
     // TODO adjust font
     return <div className='shell'>
         <div className='shell-header'>
-            <div>{props.info}</div>
+            <div style={{ marginLeft: '1vw' }}>{props.info}</div>
             <div style={{ marginLeft: 'auto' }}>{props.header}</div>
             <div style={{ marginLeft: 'auto', marginRight: '1vw' }}><Gorilla.Shell.AudioControl onVolume={props.onVolume} /></div>
         </div>

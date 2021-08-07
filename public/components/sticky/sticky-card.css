@@ -9,7 +9,6 @@
     transform: scale(1.2);
 }
 
-
 .stickyThrowAway {
     animation-duration: 1s;
     animation-name: throwAway;

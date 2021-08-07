@@ -3,36 +3,34 @@
 
 <head>
     <title>Gorilla</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="HandheldFriendly" content="true">
-    <script type="application/javascript">
+    <meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='HandheldFriendly' content='true'>
+    <script type='application/javascript'>
         Gorilla = {}
     </script>
 
-    <link rel="icon" href="/favicon.svg" />
-    <link rel="stylesheet" type="text/css" href="font/komikatext_regular_macroman/stylesheet.css" />
-    <link rel="stylesheet" type="text/css" href="components/podium/podium.css" />
-    <script src="lib/jsxLoader.min.js"></script>
-    <script src="lib/react.development.js"></script>
-    <script src="lib/react-dom.development.js"></script>
-    <script src="lib/react-router-dom.js"></script>
-    <script src="lib/qrious.min.js"></script>
-    <script nomodule src="lib/bundle.es5.js"></script>
-    <script src="lib/bundle.esm.js" type="module"></script>
-    <link rel="stylesheet" type="text/css" href="components/shell/shell.css" />
-    <script src="components/shell/shell.js" type="text/babel"></script>
-    <script src="components/general.js" type="text/babel"></script>
-    <script src="components/entrance.js" type="text/babel"></script>
-    <script src="components/host.js" type="text/babel"></script>
-    <script src="components/play.js" type="text/babel"></script>
-    <script src="components/podium/podium.js" type="text/babel"></script>
-    <script src="components/podium/podium-final.js" type="text/babel"></script>
-    <link rel="stylesheet" type="text/css" href="components/sticky/sticky-button.css" />
-    <script src="components/sticky/sticky-button.js" type="text/babel"></script>
-    <link rel="stylesheet" type="text/css" href="components/sticky/sticky-card.css" />
-    <script src="components/sticky/sticky-card.js" type="text/babel"></script>
-    <script src="/socket.io/socket.io.js"></script>
+    <link rel='icon' href='/favicon.svg' />
+    <link rel='stylesheet' type='text/css' href='font/komikatext_regular_macroman/stylesheet.css' />
+    <link rel='stylesheet' type='text/css' href='components/podium/podium.css' />
+    <script src='lib/jsxLoader.min.js'></script>
+    <script src='lib/react.development.js'></script>
+    <script src='lib/react-dom.development.js'></script>
+    <script src='lib/react-router-dom.js'></script>
+    <script src='lib/qrious.min.js'></script>
+    <link rel='stylesheet' type='text/css' href='components/shell/shell.css' />
+    <script src='components/shell/shell.js' type='text/babel'></script>
+    <script src='components/general.js' type='text/babel'></script>
+    <script src='components/entrance.js' type='text/babel'></script>
+    <script src='components/host.js' type='text/babel'></script>
+    <script src='components/play.js' type='text/babel'></script>
+    <script src='components/podium/podium.js' type='text/babel'></script>
+    <script src='components/podium/podium-final.js' type='text/babel'></script>
+    <link rel='stylesheet' type='text/css' href='components/sticky/sticky-button.css' />
+    <script src='components/sticky/sticky-button.js' type='text/babel'></script>
+    <link rel='stylesheet' type='text/css' href='components/sticky/sticky-card.css' />
+    <script src='components/sticky/sticky-card.js' type='text/babel'></script>
+    <script src='/socket.io/socket.io.js'></script>
 
     <style>
         html,
@@ -41,31 +39,32 @@
             margin: 0;
             height: 100%;
         }
+
     </style>
 </head>
 
-<body id="content" class="sapUiBody">
-    <div id="react-root"></div>
+<body>
+    <div id='react-root'></div>
 
-    <script type="text/babel" data-type="module">
+    <script type='text/babel' data-type='module'>
         'use strict'
-        import WsClientAdapter from "./ws-client-adapter.js"
+        import WsClientAdapter from './ws-client-adapter.js'
 
         Gorilla.EntranceWeb = function (props) {
             const history = ReactRouterDOM.useHistory()
-            return <Gorilla.Entrance adapter={props.adapter} onHost={gameId => history.push(`host/${gameId}`)}/>
+            return <Gorilla.Entrance adapter={props.adapter} onHost={gameId => history.push(`host/${gameId}`)} />
         }
 
         Gorilla.HostGameWeb = function (props) {
             const { gameId } = ReactRouterDOM.useParams()
-            return <div style={{ height: "100%" }}>
+            return <div style={{ height: '100%' }}>
                 <Gorilla.HostGame gameId={gameId} adapter={props.adapter} />
             </div>
         }
 
         Gorilla.PlayGameWeb = function (props) {
             const { gameId, playerName } = ReactRouterDOM.useParams()
-            return <div style={{ height: "100%" }}>
+            return <div style={{ height: '100%' }}>
                 <Gorilla.PlayGame gameId={gameId} playerName={playerName} playerAvatar={props.avatar} adapter={props.adapter} />
             </div>
         }
@@ -77,8 +76,6 @@
             const [errorMessage, setErrorMessage] = React.useState('')
             const history = ReactRouterDOM.useHistory()
 
-            const errorToast = React.useRef(null)
-
             const join = async () => {
                 try {
                     const playerAvatar = await props.adapter.join(gameId, playerName)
@@ -86,16 +83,14 @@
                     history.push(`${gameId}/${playerName}`)
                 } catch (error) {
                     setErrorMessage(error.message)
-                    errorToast.current.show()
                 }
             }
 
-            return <div style={{ display: "flex", flexDirection: "column" }}>
-                <ui5-title level="H1">Game {gameId}</ui5-title>
-                <ui5-label for="playerName" required>Name</ui5-label>
-                <ui5-input style={{ width: "100%" }} id="playerName" placeholder="Enter your name" value={playerName} onInput={updatePlayerName}></ui5-input>
-                <ui5-button style={{ width: "100%" }} onClick={join}>Join</ui5-button>
-                <ui5-toast ref={errorToast}>{errorMessage}</ui5-toast>
+            return <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <h1>Game {gameId}</h1>
+                <input style={{ width: '100%' }} id='playerName' placeholder='Enter your name' value={playerName} onInput={updatePlayerName}></input>
+                <button style={{ width: '100%' }} onClick={join}>Join</button>
+                <div>{errorMessage}</div>
             </div>
         }
 
@@ -108,19 +103,19 @@
                 setAvatar(playerAvatar)
             }
 
-            return <div style={{ height: "100%", width: "100%" }}>
+            return <div style={{ height: '100%', width: '100%' }}>
                 <HashRouter>
                     <Switch>
-                        <Route exact path="/">
+                        <Route exact path='/'>
                             <Gorilla.EntranceWeb adapter={props.adapter} />
                         </Route>
-                        <Route path="/play/:gameId/:playerName">
+                        <Route path='/play/:gameId/:playerName'>
                             <Gorilla.PlayGameWeb adapter={props.adapter} avatar={avatar} />
                         </Route>
-                        <Route path="/play/:gameId">
+                        <Route path='/play/:gameId'>
                             <Gorilla.EnterGameWeb adapter={props.adapter} onJoin={join} />
                         </Route>
-                        <Route path="/host/:gameId">
+                        <Route path='/host/:gameId'>
                             <Gorilla.HostGameWeb adapter={props.adapter} />
                         </Route>
                     </Switch>
