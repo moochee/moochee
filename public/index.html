@@ -51,6 +51,11 @@
         'use strict'
         import WsClientAdapter from "./ws-client-adapter.js"
 
+        Gorilla.EntranceWeb = function (props) {
+            const history = ReactRouterDOM.useHistory()
+            return <Gorilla.Entrance adapter={props.adapter} onHost={gameId => history.push(`host/${gameId}`)}/>
+        }
+
         Gorilla.HostGameWeb = function (props) {
             React.useEffect(() => music.current.play(), [])
             const music = React.useRef({})
@@ -100,24 +105,19 @@
         }
 
         Gorilla.WebApp = function (props) {
-            const [avatar, setAvatar] = React.useState('')
-
             const { HashRouter, Switch, Route } = ReactRouterDOM
 
-            const join = (gameId, playerName, playerAvatar) => {
-                window.location = `#/play/${gameId}/${playerName}`
-                setAvatar(playerAvatar)
-            }
+            const [avatar, setAvatar] = React.useState('')
 
-            const host = (gameId) => {
-                window.location = `#/host/${gameId}`
+            const join = (gameId, playerName, playerAvatar) => {
+                setAvatar(playerAvatar)
             }
 
             return <div style={{ height: "100%", width: "100%" }}>
                 <HashRouter>
                     <Switch>
                         <Route exact path="/">
-                            <Gorilla.Entrance onHost={host} adapter={props.adapter} />
+                            <Gorilla.EntranceWeb adapter={props.adapter} />
                         </Route>
                         <Route path="/play/:gameId/:playerName">
                             <Gorilla.PlayGameWeb adapter={props.adapter} avatar={avatar} />
