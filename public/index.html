@@ -83,7 +83,7 @@
                 try {
                     const playerAvatar = await props.adapter.join(gameId, playerName)
                     props.onJoin(gameId, playerName, playerAvatar)
-                    history.push(`play/${gameId}/${playerName}`)
+                    history.push(`${gameId}/${playerName}`)
                 } catch (error) {
                     setErrorMessage(error.message)
                     errorToast.current.show()

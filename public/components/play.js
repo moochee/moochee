@@ -5,6 +5,9 @@ Gorilla.PlayGame = function (props) {
     const [result, setResult] = React.useState(null)
     const [waiting, setWaiting] = React.useState(false)
     const [isFinal, setIsFinal] = React.useState(false)
+    const [volume, setVolume] = React.useState(1)
+
+    console.log(volume)
 
     const onRoundStarted = (gameId, newQuestion) => {
         if (gameId === props.gameId) {
@@ -51,9 +54,7 @@ Gorilla.PlayGame = function (props) {
     const waitingBlock = waiting ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
 
-    return <Gorilla.Shell>
-        <ui5-title level='H1'>Game {props.gameId}</ui5-title>
-        <ui5-title level='H2'>Playing as {props.playerName} {props.playerAvatar}</ui5-title>
+    return <Gorilla.Shell onVolume={setVolume} info={`${props.playerName} ${props.playerAvatar}`}>
         {questionBlock}
         {podiumBlock}
         {waitingBlock}

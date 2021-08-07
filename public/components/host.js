@@ -10,6 +10,7 @@ Gorilla.HostGame = function (props) {
     const [volume, setVolume] = React.useState(1)
 
     const onPlayerJoined = (gameId, player) => {
+        // REVISE do we even need all these 'IFs' (also in the other handlers below)? I thought socket.io already uses the right 'channel'...
         if (gameId === props.gameId) {
             setPlayers((oldPlayers) => {
                 if (oldPlayers.length >= 1) {
@@ -82,7 +83,7 @@ Gorilla.HostGame = function (props) {
     const questionBlock = question ? <Gorilla.HostGame.QuestionAndAnswers countDown={countDown} question={question.text} imageUrl='' answers={question.answers} /> : ''
     const startButton = canStart ? <ui5-button onClick={start} style={{ width: '100%' }}>Start</ui5-button> : ''
     const podiumBlock = result && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
-    const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} /> : ''
+    const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume}/> : ''
 
     return <Gorilla.Shell onVolume={setVolume}>
         {waitingToStartBlock}
@@ -178,9 +179,8 @@ Gorilla.HostGame.PodiumPage = function (props) {
 }
 
 Gorilla.HostGame.PodiumFinalPage = function (props) {
-    const [volume, setVolume] = React.useState(1)
+    // REVISE can probably remove the surrounding div
     return <div style={{ height: '100%' }}>
-        <Gorilla.PodiumFinal players={props.players} volume={volume} />
-        <Gorilla.AudioControl onVolume={setVolume} />
+        <Gorilla.PodiumFinal players={props.players} volume={props.volume} />
     </div>
 }
