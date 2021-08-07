@@ -57,15 +57,9 @@
         }
 
         Gorilla.HostGameWeb = function (props) {
-            React.useEffect(() => music.current.play(), [])
-            const music = React.useRef({})
             const { gameId } = ReactRouterDOM.useParams()
-            const [volume, setVolume] = React.useState(1)
-            music.current.volume = volume
             return <div style={{ height: "100%" }}>
-                <Gorilla.HostGame gameId={gameId} adapter={props.adapter} volume={volume} />
-                <audio ref={music} loop src="components/positive-funny-background-music-for-video-games.mp3"></audio>
-                <Gorilla.AudioControl onVolume={setVolume} />
+                <Gorilla.HostGame gameId={gameId} adapter={props.adapter} />
             </div>
         }
 

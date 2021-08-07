@@ -1,34 +1,6 @@
 'use strict'
 
 Gorilla.PlayGame = function (props) {
-    Gorilla.PlayGame.Answer = function (props) {
-        return <Gorilla.StickyButton color={props.color} onClick={() => guess(props.answer.id)} text={props.answer.text} />
-    }
-
-    Gorilla.PlayGame.Answers = function (props) {
-        return <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
-                <Gorilla.PlayGame.Answer color='green' answer={props.answers[0]} />
-                <Gorilla.PlayGame.Answer color='purple' answer={props.answers[1]} />
-            </div>
-            <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
-                <Gorilla.PlayGame.Answer color='blue' answer={props.answers[2]} />
-                <Gorilla.PlayGame.Answer color='orange' answer={props.answers[3]} />
-            </div>
-        </div>
-    }
-
-    Gorilla.PlayGame.QuestionAndAnswers = function (props) {
-        return <div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <ui5-label>{props.question}</ui5-label>
-                <img width='80%' src={props.imageUrl} />
-            </div>
-
-            <Gorilla.PlayGame.Answers answers={props.answers} />
-        </div>
-    }
-
     const [question, setQuestion] = React.useState(null)
     const [result, setResult] = React.useState(null)
     const [waiting, setWaiting] = React.useState(false)
@@ -57,6 +29,7 @@ Gorilla.PlayGame = function (props) {
 
     const guess = (answerId) => {
         props.adapter.guess(props.gameId, question.id, props.playerName, answerId)
+        // REVISE I am not sure if it is even right to reset this things. Shouldn't it only be done on event from the server?
         setQuestion(null)
         setWaiting(true)
         setResult(null)
@@ -73,7 +46,7 @@ Gorilla.PlayGame = function (props) {
         }
     }, [])
 
-    const questionBlock = question ? <Gorilla.PlayGame.QuestionAndAnswers question={question.text} imageUrl='' answers={question.answers} /> : ''
+    const questionBlock = question ? <Gorilla.PlayGame.QuestionAndAnswers question={question.text} imageUrl='' answers={question.answers} onGuess={guess} /> : ''
     const podiumBlock = result && !isFinal ? <Gorilla.Podium players={result} /> : ''
     const waitingBlock = waiting ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
@@ -86,4 +59,33 @@ Gorilla.PlayGame = function (props) {
         {waitingBlock}
         {gameOverBlock}
     </Gorilla.Shell>
+}
+
+Gorilla.PlayGame.Answer = function (props) {
+    return <Gorilla.StickyButton color={props.color} onClick={() => props.onGuess(props.answer.id)} text={props.answer.text} />
+}
+
+// FIXME the stickies should be rendered dynamically, we have questions with less than 4 choices...
+Gorilla.PlayGame.Answers = function (props) {
+    return <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
+            <Gorilla.PlayGame.Answer color='green' answer={props.answers[0]} onGuess={props.onGuess} />
+            <Gorilla.PlayGame.Answer color='purple' answer={props.answers[1]} onGuess={props.onGuess} />
+        </div>
+        <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
+            <Gorilla.PlayGame.Answer color='blue' answer={props.answers[2]} onGuess={props.onGuess} />
+            <Gorilla.PlayGame.Answer color='orange' answer={props.answers[3]} onGuess={props.onGuess} />
+        </div>
+    </div>
+}
+
+Gorilla.PlayGame.QuestionAndAnswers = function (props) {
+    return <div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <ui5-label>{props.question}</ui5-label>
+            <img width='80%' src={props.imageUrl} />
+        </div>
+
+        <Gorilla.PlayGame.Answers answers={props.answers} onGuess={props.onGuess} />
+    </div>
 }
