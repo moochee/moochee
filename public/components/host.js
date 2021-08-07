@@ -94,6 +94,7 @@ Gorilla.HostGame.Answer = function (props) {
     return <Gorilla.StickyButton color={props.color} onClick={() => null} text={props.answer.text} />
 }
 
+// FIXME the stickies should be rendered dynamically, we have questions with less than 4 choices...
 Gorilla.HostGame.Answers = function (props) {
     return <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>

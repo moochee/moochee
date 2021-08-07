@@ -3,7 +3,6 @@
 import { readFile, readdir } from 'fs/promises'
 
 export default function QuizRepo() {
-
     const QUIZ_DIR = './quiz/'
 
     this.getById = async (quizId) => {
@@ -21,5 +20,4 @@ export default function QuizRepo() {
         }
         return quizzes
     }
-
 }
