@@ -6,7 +6,7 @@ Gorilla.HostGame = function (props) {
     const [canStart, setCanStart] = React.useState(false)
     const [result, setResult] = React.useState(null)
     const [isFinal, setIsFinal] = React.useState(false)
-    const [countDown, setCountDown] = React.useState(0)
+    const [countDown, setCountDown] = React.useState(null)
     const [volume, setVolume] = React.useState(1)
 
     const onPlayerJoined = (gameId, player) => {
@@ -44,6 +44,7 @@ Gorilla.HostGame = function (props) {
         if (gameId === props.gameId) {
             setQuestion(null)
             setResult(result)
+            setCountDown(null)
         }
     }
 
@@ -77,7 +78,7 @@ Gorilla.HostGame = function (props) {
 
     const waitingToStart = !question && !result
     const waitingToStartBlock = waitingToStart ? <Gorilla.HostGame.WaitingToStart gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
-    const questionBlock = question ? <Gorilla.HostGame.QuestionAndAnswers countDown={countDown} question={question.text} imageUrl='' answers={question.answers} /> : ''
+    const questionBlock = question && (countDown !== null) ? <Gorilla.HostGame.QuestionAndAnswers countDown={countDown} question={question.text} imageUrl='' answers={question.answers} /> : ''
     const podiumBlock = result && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
     const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} /> : ''
 
