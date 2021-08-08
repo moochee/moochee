@@ -119,12 +119,7 @@ Gorilla.HostGame.QuestionAndAnswers = function (props) {
 
 Gorilla.HostGame.QRCode = function (props) {
     const canvas = React.useRef(null)
-    React.useEffect(() => {
-        // REVISE is this "if" even needed? Is the "useEffect" even needed? I think the QR code is nothing which has a global stat/side effect, and anyway React won't re-render as long as its properties don't change, which should not happen
-        if (canvas != null && canvas.current != null) {
-            new QRious({ element: canvas.current, value: props.text, size: 200 })
-        }
-    }) // REVISE usually it closes with argument [], so that it only happens on enter, any particular reason why it's not the case here?
+    new QRious({ element: canvas.current, value: props.url, size: 200 })
     return (<canvas style={{ height: '100%' }} ref={canvas}></canvas>)
 }
 
@@ -156,7 +151,7 @@ Gorilla.HostGame.WaitingToStart = function (props) {
     return <div style={{ height: '100%' }}>
         <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
         <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
-            <Gorilla.HostGame.QRCode text={joinUrl} />
+            <Gorilla.HostGame.QRCode url={joinUrl} />
             <div style={{ 'width': '100%', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <input style={{ 'width': '100%', 'marginRight': 'auto' }} readOnly value={joinUrl}></input>
