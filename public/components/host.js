@@ -147,7 +147,7 @@ Gorilla.HostGame.WaitingToStart = function (props) {
 
     music.current.volume = props.volume
 
-    const startButton = props.canStart ? <Gorilla.StickyCard onClick={start} color='blue' text='Start' /> : ''
+    const startButton = props.canStart ? <Gorilla.StickyCard onClick={start} color='green' text='Start' /> : ''
 
     return <div style={{ height: '100%' }}>
         <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
@@ -170,7 +170,9 @@ Gorilla.HostGame.WaitingToStart = function (props) {
 Gorilla.HostGame.PodiumPage = function (props) {
     return <div style={{ height: '100%' }}>
         <Gorilla.Podium players={props.players} />
-        <button onClick={props.onNext} style={{ width: '100%' }}>Next</button>
+        <div style={{ position: 'absolute', top: '50vh', transform: 'translateY(-50%)', right: '5vw' }}>
+            <Gorilla.StickyCard onClick={props.onNext} color='blue' text='Next Question ➡' />
+        </div>
     </div>
 }
 
