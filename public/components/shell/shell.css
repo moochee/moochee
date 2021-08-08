@@ -1,3 +1,5 @@
+/* REVISE we use camel case for style classes */
+
 .shell {
     height: 100%;
     width: 100%;
@@ -42,9 +44,16 @@
     background-image: url(acdc.png);
 }
 
-.shell-content {
-    width: 100%;
+.shell-content-fit, .shell-content-fullscreen {
+    background: linear-gradient(to top, #aeccf0, #ffffff);
+}
+
+.shell-content-fullscreen {
+    height: 100%;
+    padding-top: 0vh;
+}
+
+.shell-content-fit {
     height: 80%;
     padding-top: 10vh;
-    background: linear-gradient(to top, #aeccf0, #ffffff);
 }

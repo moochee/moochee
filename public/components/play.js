@@ -54,7 +54,7 @@ Gorilla.PlayGame = function (props) {
     const waitingBlock = waiting ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
 
-    return <Gorilla.Shell onVolume={setVolume} info={`${props.playerName} ${props.playerAvatar}`}>
+    return <Gorilla.Shell onVolume={setVolume} info={`${props.playerName} ${props.playerAvatar}`} fullScreenContent={Boolean(result)}>
         {questionBlock}
         {podiumBlock}
         {waitingBlock}

@@ -11,8 +11,10 @@ Gorilla.Podium = function (props) {
 
     const podiumPlayersHtml = first3Players.map((p, index) => playerToRankHtml(p, index + 1))
 
-    return <div className='podium'>
-        <audio id='music' src='components/podium/arcade-game-music-loop.mp3'></audio>
-        {podiumPlayersHtml}
+    return <div className='podiumBackgroundWrapper'>
+        <div className='podium'>
+            <audio id='music' src='components/podium/arcade-game-music-loop.mp3'></audio>
+            {podiumPlayersHtml}
+        </div>
     </div>
 }

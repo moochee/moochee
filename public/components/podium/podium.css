@@ -6,6 +6,11 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
   => y-coordinates should be relative to viewport width * 9/16 (=actual height of podium) instead of relative to viewport height (=bigger than actual height of podium)
 */
 
+.podiumBackgroundWrapper {
+    height: 100%;
+    background: black;
+}
+
 .podium {
     height: 100%;
     background-image: url(pedestal-4762661_1920.jpg);
@@ -20,20 +25,20 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 @keyframes bounce {
-    from {        
-        transform: translateY(min(2vw, 3.55vh)) translateX(0px);
+    from {
+        transform: translateY(0px) translateX(0px);
     }
     25% {
-        transform: translateY(0px) translateX(min(1.5vw, 2.66vh)) rotate(1deg);
+        transform: translateY(max(-2vw, -3.55vh)) translateX(min(1.5vw, 2.66vh)) rotate(1deg);
     }
     50% {
-        transform: translateY(min(2vw, 3.55vh)) translateX(0px);
+        transform: translateY(0px) translateX(0px);
     }
     75% {
-        transform: translateY(0px) translateX(max(-1.5vw, -2.66vh)) rotate(-1deg);
+        transform: translateY(max(-2vw, -3.55vh)) translateX(max(-1.5vw, -2.66vh)) rotate(-1deg);
     }
     to {
-        transform: translateY(min(2vw, 3.55vh)) translateX(0px);
+        transform: translateY(0px) translateX(0px);
     }
 }
 
