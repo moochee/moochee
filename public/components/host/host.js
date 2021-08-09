@@ -153,7 +153,7 @@ Gorilla.HostGame.WaitingToStart = function (props) {
     return <div className='hostWaiting'>
         <audio ref={music} loop src='components/host/positive-funny-background-music-for-video-games.mp3'></audio>
         <div className='hostWaitingJoinUrl'>
-            <input readOnly value={joinUrl}></input>
+            <input readOnly value={joinUrl} onClick={copyToClipboard}></input>
             <button onClick={copyToClipboard}>📋</button>
             <div>{copied}</div>
         </div>
