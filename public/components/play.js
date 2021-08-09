@@ -81,9 +81,9 @@ Gorilla.PlayGame.Answers = function (props) {
 }
 
 Gorilla.PlayGame.QuestionAndAnswers = function (props) {
-    return <div>
+    return <div style={{ width: '60%', marginLeft: '20%' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div>{props.question}</div>
+            <h1 style={{ textAlign: 'center', fontSize: '3em', color: '#0070c0' }}>{props.question}</h1>
             <img width='80%' src={props.imageUrl} />
         </div>
 
