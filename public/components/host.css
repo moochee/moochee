@@ -42,6 +42,7 @@
     text-align: center;
     font-size: max(10vh, 10vw);
     overflow: scroll;
+    height: 100%;
 }
 
 .hostWaitingPlayerInfo.hostWaitingNoPlayersYet {
@@ -50,18 +51,20 @@
 
 .hostWaitingStart {
     position: absolute;
-    right: 10%;
+    right: 0;
     bottom: 10%;
+}
+
+.hostWaitingStart .stickyCard {
+    opacity: 0.9;
 }
 
 @media (orientation: landscape) {
     .hostWaitingSplitContainer {
         flex-direction: row;
     }
-    .hostWaitingPlayerInfo {
-        margin-left: 1em;
-    }
     .hostWaitingQrCode {
+        margin-right: 1em;
         height: 100%;
         width: calc(80vh - 6em);
     }
@@ -71,10 +74,8 @@
     .hostWaitingSplitContainer {
         flex-direction: column;
     }
-    .hostWaitingPlayerInfo {
-        margin-top: .5em;
-    }
     .hostWaitingQrCode {
         height: calc(min(40vh, 100vw - 2em));
+        margin-bottom: 1em;
     }
 }

@@ -158,8 +158,8 @@ Gorilla.HostGame.WaitingToStart = function (props) {
         <div className='hostWaitingSplitContainer'>
             <Gorilla.HostGame.QRCode url={joinUrl} />
             {players}
-            <div className='hostWaitingStart'>{startButton}</div>
         </div>
+        <div className='hostWaitingStart'>{startButton}</div>
     </div>
 }
 
