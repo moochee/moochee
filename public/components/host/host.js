@@ -148,7 +148,7 @@ Gorilla.HostGame.WaitingToStart = function (props) {
 
     music.current.volume = props.volume
 
-    const startButton = props.canStart ? <Gorilla.StickyCard onClick={start} color='green' text='Start' /> : ''
+    const startButton = props.canStart ? <Gorilla.StickyCard onClick={start} color='blue' text='Start' /> : ''
 
     return <div className='hostWaiting'>
         <audio ref={music} loop src='components/host/positive-funny-background-music-for-video-games.mp3'></audio>
