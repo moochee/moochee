@@ -20,5 +20,5 @@ Gorilla.Countdown = function (props) {
         return () => clearInterval(interval)
     }, [])
 
-    return <h2>Counting down {secondsLeft}</h2>
+    return <h2>{secondsLeft}</h2>
 }
