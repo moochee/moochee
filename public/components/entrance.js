@@ -11,13 +11,13 @@ Gorilla.Entrance = function (props) {
         setQuizzes(list)
     }, [])
 
-    const host = async (quizId) => {
+    const host = async (quizId, quizTitle) => {
         const gameId = await props.adapter.host(quizId)
-        props.onHost(gameId)
+        props.onHost(gameId, quizTitle)
     }
 
     const quizList = quizzes.map((q) => {
-        return <Gorilla.StickyCard key={q.id} onClick={() => host(q.id)} text={q.text} color={q.color} />
+        return <Gorilla.StickyCard key={q.id} onClick={() => host(q.id, q.text)} text={q.text} color={q.color} />
     })
 
     return <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>

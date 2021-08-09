@@ -2,13 +2,15 @@
 
 Gorilla.EntranceWeb = function (props) {
     const history = ReactRouterDOM.useHistory()
-    return <Gorilla.Entrance adapter={props.adapter} onHost={gameId => history.push(`host/${gameId}`)} />
+    return <Gorilla.Entrance adapter={props.adapter}
+        onHost={(gameId, quizTitle) => history.push({ pathname: `host/${gameId}`, query: { quizTitle } })} />
 }
 
 Gorilla.HostGameWeb = function (props) {
     const { gameId } = ReactRouterDOM.useParams()
+    const location = ReactRouterDOM.useLocation()
     return <div style={{ height: '100%' }}>
-        <Gorilla.HostGame gameId={gameId} adapter={props.adapter} />
+        <Gorilla.HostGame gameId={gameId} adapter={props.adapter} quizTitle={location.query.quizTitle} />
     </div>
 }
 

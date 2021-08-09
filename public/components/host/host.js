@@ -83,7 +83,7 @@ Gorilla.HostGame = function (props) {
     const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} /> : ''
 
     // TODO display quiz title from server
-    return <Gorilla.Shell info={`Game ${props.gameId}`} header='Passionate Product Ownership' onVolume={setVolume} fullScreenContent={Boolean(result)}>
+    return <Gorilla.Shell info={`Game ${props.gameId}`} header={props.quizTitle} onVolume={setVolume} fullScreenContent={Boolean(result)}>
         {waitingToStartBlock}
         {questionBlock}
         {podiumBlock}
