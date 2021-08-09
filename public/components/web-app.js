@@ -9,8 +9,10 @@ Gorilla.EntranceWeb = function (props) {
 Gorilla.HostGameWeb = function (props) {
     const { gameId } = ReactRouterDOM.useParams()
     const location = ReactRouterDOM.useLocation()
+    const history = ReactRouterDOM.useHistory()
     return <div style={{ height: '100%' }}>
-        <Gorilla.HostGame gameId={gameId} adapter={props.adapter} quizTitle={location.query.quizTitle} />
+        <Gorilla.HostGame gameId={gameId} adapter={props.adapter} quizTitle={location.query.quizTitle}
+            onReplay={() => history.push('/')} />
     </div>
 }
 

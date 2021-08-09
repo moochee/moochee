@@ -80,7 +80,7 @@ Gorilla.HostGame = function (props) {
     const waitingToStartBlock = waitingToStart ? <Gorilla.HostGame.WaitingToStart gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
     const questionBlock = question && (countDown !== null) ? <Gorilla.HostGame.QuestionAndAnswers countDown={countDown} question={question.text} imageUrl='' answers={question.answers} /> : ''
     const podiumBlock = result && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
-    const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} /> : ''
+    const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} onReplay={props.onReplay} /> : ''
 
     // TODO display quiz title from server
     return <Gorilla.Shell info={`Game ${props.gameId}`} header={props.quizTitle} onVolume={setVolume} fullScreenContent={Boolean(result)}>
@@ -175,5 +175,10 @@ Gorilla.HostGame.PodiumPage = function (props) {
 }
 
 Gorilla.HostGame.PodiumFinalPage = function (props) {
-    return <Gorilla.PodiumFinal players={props.players} volume={props.volume} />
+    return <div style={{ height: '100%' }}>
+        <Gorilla.PodiumFinal players={props.players} volume={props.volume} />
+        <div style={{ position: 'absolute', top: '50vh', transform: 'translateY(-50%)', right: '5vw' }}>
+            <Gorilla.StickyButton onClick={props.onReplay} color='blue' text='Replay 🔥' />
+        </div>
+    </div>
 }
