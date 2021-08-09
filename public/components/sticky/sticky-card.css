@@ -1,33 +1,7 @@
 .stickyCard {
     position: relative;
     width: max(20vw, 25.56vh);
-    cursor: pointer;
     transition: all 400ms cubic-bezier(.47, 1.64, .41, .8);
-}
-
-.stickyCard:hover {
-    transform: scale(1.2);
-}
-
-.stickyThrowAway {
-    animation-duration: 1s;
-    animation-name: throwAway;
-    visibility: visible;
-    animation-fill-mode: forwards;
-}
-
-@-webkit-keyframes throwAway {
-    to {
-        transform: scale(.1) translate(200%, -100%) rotate(720deg);
-        opacity: 0;
-    }
-}
-
-@keyframes throwAway {
-    to {
-        transform: scale(.1) translate(200%, -100%) rotate(720deg);
-        opacity: 0;
-    }
 }
 
 .stickyCard .textField {

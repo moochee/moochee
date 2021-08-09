@@ -93,7 +93,7 @@ Gorilla.HostGame = function (props) {
 
 Gorilla.HostGame.Answer = function (props) {
     // FIXME for host the buttons should not be clickable and also have no hover effect
-    return <Gorilla.StickyButton color={props.color} onClick={() => null} text={props.answer.text} />
+    return <Gorilla.StickyCard color={props.color} text={props.answer.text} />
 }
 
 // FIXME the stickies should be rendered dynamically, we have questions with less than 4 choices...
@@ -148,7 +148,7 @@ Gorilla.HostGame.WaitingToStart = function (props) {
 
     music.current.volume = props.volume
 
-    const startButton = props.canStart ? <Gorilla.StickyCard onClick={start} color='blue' text='Start' /> : ''
+    const startButton = props.canStart ? <Gorilla.StickyButton onClick={start} color='blue' text='Start' /> : ''
 
     return <div className='hostWaiting'>
         <audio ref={music} loop src='components/host/positive-funny-background-music-for-video-games.mp3'></audio>
@@ -169,7 +169,7 @@ Gorilla.HostGame.PodiumPage = function (props) {
     return <div style={{ height: '100%' }}>
         <Gorilla.Podium players={props.players} />
         <div style={{ position: 'absolute', top: '50vh', transform: 'translateY(-50%)', right: '5vw' }}>
-            <Gorilla.StickyCard onClick={props.onNext} color='blue' text='Next Question ➡' />
+            <Gorilla.StickyButton onClick={props.onNext} color='blue' text='Next Question ➡' />
         </div>
     </div>
 }
