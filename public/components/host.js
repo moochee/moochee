@@ -119,9 +119,8 @@ Gorilla.HostGame.QuestionAndAnswers = function (props) {
 }
 
 Gorilla.HostGame.QRCode = function (props) {
-    const canvas = React.useRef(null)
-    new QRious({ element: canvas.current, value: props.url, size: 200 })
-    return (<canvas className='hostWaitingQrCode' ref={canvas}></canvas>)
+    const appendQr = (el) => new QRious({ element: el, value: props.url, size: 1024 })
+    return <canvas className='hostWaitingQrCode' ref={appendQr} />
 }
 
 // TODO make page look bit nicer / layout responsive (esp. phone in portrait mode)
@@ -142,29 +141,24 @@ Gorilla.HostGame.WaitingToStart = function (props) {
     }
 
     const players = props.players.length > 0
-        ? <div style={{ fontSize: '8em' }}>{props.players.map(p => p.avatar)}</div>
-        : <div style={{ fontSize: '3em' }}>No players yet - let people scan the QR code or send them the join URL</div>
+        ? <div className='hostWaitingPlayerInfo'>{props.players.map(p => p.avatar)}</div>
+        : <div className='hostWaitingPlayerInfo hostWaitingNoPlayersYet'>No players yet - let people scan the QR code or send them the join URL</div>
 
     music.current.volume = props.volume
 
     const startButton = props.canStart ? <Gorilla.StickyCard onClick={start} color='green' text='Start' /> : ''
 
-    return <div style={{ height: '100%', display: 'flex', alignItems: 'center' }}>
+    return <div className='hostWaiting'>
         <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
-        <div className='hostWaitingMain'>
-            <div className='hostWaitingSplitContainer'>
-                <Gorilla.HostGame.QRCode url={joinUrl} />
-            </div>
-            <div className='hostWaitingSplitContainer'>
-                <div className='hostWaitingJoinUrl'>
-                    <input readOnly value={joinUrl}></input>
-                    <button onClick={copyToClipboard}>📋</button>
-                    <div>{copied}</div>
-                </div>
-                <h1 level='H2'>Players:</h1>
-                {players}
-                {startButton}
-            </div>
+        <div className='hostWaitingJoinUrl'>
+            <input readOnly value={joinUrl}></input>
+            <button onClick={copyToClipboard}>📋</button>
+            <div>{copied}</div>
+        </div>
+        <div className='hostWaitingSplitContainer'>
+            <Gorilla.HostGame.QRCode url={joinUrl} />
+            {players}
+            <div className='hostWaitingStart'>{startButton}</div>
         </div>
     </div>
 }

@@ -1,23 +1,25 @@
-.hostWaitingMain {
+.hostWaiting {
+    height: 100%;
+    padding: 1em;
+    box-sizing: border-box;
     display: flex;
-}
-
-.hostWaitingSplitContainer {
-    margin: 1em 1em;
+    flex-direction: column;
 }
 
 .hostWaitingJoinUrl {
     display: flex;
     flex-direction: row;
+    height: 3em;
 }
 
 .hostWaitingJoinUrl input {
+    font-size: 1em;
     width: 100%;
     margin-right: auto;
 }
 
 .hostWaitingJoinUrl button {
-    font-size: 1.7em;
+    font-size: 2em;
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -28,25 +30,51 @@
     align-items: center;
 }
 
+.hostWaitingSplitContainer {
+    display: flex;
+    align-items: center;
+    height: calc(100% - 3em);
+    padding-top: 1em;
+    box-sizing: border-box;
+}
+
+.hostWaitingPlayerInfo {
+    text-align: center;
+    font-size: max(10vh, 10vw);
+    overflow: scroll;
+}
+
+.hostWaitingPlayerInfo.hostWaitingNoPlayersYet {
+    font-size: 2em;
+}
+
+.hostWaitingStart {
+    position: absolute;
+    right: 10%;
+    bottom: 10%;
+}
+
 @media (orientation: landscape) {
-    .hostWaitingMain {
+    .hostWaitingSplitContainer {
         flex-direction: row;
-        height: 80%;
-        width: 100%;
+    }
+    .hostWaitingPlayerInfo {
+        margin-left: 1em;
     }
     .hostWaitingQrCode {
         height: 100%;
+        width: calc(80vh - 6em);
     }
 }
 
 @media (orientation: portrait) {
-    .hostWaitingMain {
+    .hostWaitingSplitContainer {
         flex-direction: column;
-        height: 95%;
-        width: 100%;
+    }
+    .hostWaitingPlayerInfo {
+        margin-top: .5em;
     }
     .hostWaitingQrCode {
-        width: 60%;
-        margin-left: 20%;
+        height: calc(min(40vh, 100vw - 2em));
     }
 }
