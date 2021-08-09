@@ -47,7 +47,7 @@ Gorilla.Shell.AudioControl = function (props) {
         props.onVolume(volumeSlider.current.value)
     }
 
-    // TODO the slider should not appear on iPhone since users manage volume through the hardware buttons and iPhone disallows setting it through software - maybe even don't show the slider on all mobile devices
+    // TODO the slider should not appear on small screens, anyway on a phone users manage volume through the hardware buttons, iPhone even disallows setting it through software
     // REVISE move styling to css
     return <div style={{ cursor: 'pointer', whiteSpace: 'nowrap' }}>
         <span style={{ fontSize: '1em' }} onClick={toggleMute}>{muted ? '🔇' : '🔈'}</span>
