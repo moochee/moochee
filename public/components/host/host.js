@@ -149,7 +149,7 @@ Gorilla.HostGame.WaitingToStart = function (props) {
     const startButton = props.canStart ? <Gorilla.StickyCard onClick={start} color='green' text='Start' /> : ''
 
     return <div className='hostWaiting'>
-        <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
+        <audio ref={music} loop src='components/host/positive-funny-background-music-for-video-games.mp3'></audio>
         <div className='hostWaitingJoinUrl'>
             <input readOnly value={joinUrl}></input>
             <button onClick={copyToClipboard}>📋</button>
