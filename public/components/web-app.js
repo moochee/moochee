@@ -21,37 +21,19 @@ Gorilla.PlayGameWeb = function (props) {
 
 Gorilla.EnterGameWeb = function (props) {
     const { gameId } = ReactRouterDOM.useParams()
-    const [playerName, setPlayerName] = React.useState('')
-    const updatePlayerName = (event) => setPlayerName(event.target.value)
-    const [errorMessage, setErrorMessage] = React.useState('')
     const history = ReactRouterDOM.useHistory()
 
-    const join = async () => {
-        try {
-            const playerAvatar = await props.adapter.join(gameId, playerName)
-            props.onJoin(gameId, playerName, playerAvatar)
-            history.push(`${gameId}/${playerName}`)
-        } catch (error) {
-            setErrorMessage(error.message)
-        }
+    const join = (playerName, avatar) => {
+        history.push(`${gameId}/${playerName}`)
+        props.onJoin(avatar)
     }
 
-    return <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h1>Game {gameId}</h1>
-        <input style={{ width: '100%' }} id='playerName' placeholder='Enter your name' value={playerName} onInput={updatePlayerName}></input>
-        <button style={{ width: '100%' }} onClick={join}>Join</button>
-        <div>{errorMessage}</div>
-    </div>
+    return <Gorilla.JoinGame gameId={gameId} adapter={props.adapter} onJoin={join} />
 }
 
 Gorilla.WebApp = function (props) {
     const { HashRouter, Switch, Route } = ReactRouterDOM
-
     const [avatar, setAvatar] = React.useState('')
-
-    const join = (gameId, playerName, playerAvatar) => {
-        setAvatar(playerAvatar)
-    }
 
     return <div style={{ height: '100%', width: '100%' }}>
         <HashRouter>
@@ -63,7 +45,7 @@ Gorilla.WebApp = function (props) {
                     <Gorilla.PlayGameWeb adapter={props.adapter} avatar={avatar} />
                 </Route>
                 <Route path='/play/:gameId'>
-                    <Gorilla.EnterGameWeb adapter={props.adapter} onJoin={join} />
+                    <Gorilla.EnterGameWeb adapter={props.adapter} onJoin={setAvatar} />
                 </Route>
                 <Route path='/host/:gameId'>
                     <Gorilla.HostGameWeb adapter={props.adapter} />
