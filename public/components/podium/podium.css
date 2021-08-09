@@ -43,7 +43,6 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
 }
 
 .podium > div {
-    font-family: komika_textregular;
     font-size: min(3.5vw, 6.22vh);
     color: white;
     position: absolute;

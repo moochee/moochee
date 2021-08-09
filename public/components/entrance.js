@@ -20,7 +20,7 @@ Gorilla.Entrance = function (props) {
         return <Gorilla.StickyCard key={q.id} onClick={() => host(q.id)} text={q.text} color={q.color} />
     })
 
-    return <div style={{ fontFamily: 'komika_textregular', alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
+    return <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
         <h1>Welcome to the 🦍 Quiz App!</h1>
         <h2>Select a quiz below to host a new game</h2>
         <p />
