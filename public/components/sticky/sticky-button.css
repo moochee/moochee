@@ -2,8 +2,9 @@
     position: relative;
     width: 40%;
     cursor: pointer;
-    transition: all 400ms cubic-bezier(.47,1.64,.41,.8);
+    transition: all 400ms cubic-bezier(.47, 1.64, .41, .8);
 }
+
 .stickyButton:hover {
     transform: scale(1.2);
 }
@@ -41,5 +42,5 @@
 }
 
 .stickyButton img {
-     width: 100%;
+    width: 100%;
 }

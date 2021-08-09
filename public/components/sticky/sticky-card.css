@@ -32,7 +32,7 @@
 
 .stickyCard .textField {
     font-family: komika_textregular;
-    font-size: max(2vw, 2.56vh);;
+    font-size: max(2vw, 2.56vh);
     color: white;
     position: absolute;
     left: 15%;
