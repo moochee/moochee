@@ -175,10 +175,18 @@ Gorilla.HostGame.PodiumPage = function (props) {
 }
 
 Gorilla.HostGame.PodiumFinalPage = function (props) {
+    const [canReplay, setCanReplay] = React.useState(false)
+
+    React.useEffect(() => {
+        setTimeout(() => setCanReplay(true), 20000)
+    }, [])
+
+    const replayButton = canReplay ? <div style={{ position: 'absolute', top: '50vh', transform: 'translateY(-50%)', right: '5vw' }}>
+        <Gorilla.StickyButton onClick={props.onReplay} color='blue' text='Replay 🔥' />
+    </div> : ''
+
     return <div style={{ height: '100%' }}>
         <Gorilla.PodiumFinal players={props.players} volume={props.volume} />
-        <div style={{ position: 'absolute', top: '50vh', transform: 'translateY(-50%)', right: '5vw' }}>
-            <Gorilla.StickyButton onClick={props.onReplay} color='blue' text='Replay 🔥' />
-        </div>
+        {replayButton}
     </div>
 }
