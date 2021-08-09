@@ -121,7 +121,7 @@ Gorilla.HostGame.QuestionAndAnswers = function (props) {
 Gorilla.HostGame.QRCode = function (props) {
     const canvas = React.useRef(null)
     new QRious({ element: canvas.current, value: props.url, size: 200 })
-    return (<canvas style={{ height: '100%' }} ref={canvas}></canvas>)
+    return (<canvas className='hostWaitingQrCode' ref={canvas}></canvas>)
 }
 
 // TODO make page look bit nicer / layout responsive (esp. phone in portrait mode)
@@ -149,14 +149,16 @@ Gorilla.HostGame.WaitingToStart = function (props) {
 
     const startButton = props.canStart ? <Gorilla.StickyCard onClick={start} color='green' text='Start' /> : ''
 
-    return <div style={{ height: '100%' }}>
+    return <div style={{ height: '100%', display: 'flex', alignItems: 'center' }}>
         <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
-        <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
-            <Gorilla.HostGame.QRCode url={joinUrl} />
-            <div style={{ 'width': '100%', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    <input style={{ 'width': '100%', 'marginRight': 'auto' }} readOnly value={joinUrl}></input>
-                    <span onClick={copyToClipboard} style={{ fontSize: '1.7em', cursor: 'pointer' }}>📋</span>
+        <div className='hostWaitingMain'>
+            <div className='hostWaitingSplitContainer'>
+                <Gorilla.HostGame.QRCode url={joinUrl} />
+            </div>
+            <div className='hostWaitingSplitContainer'>
+                <div className='hostWaitingJoinUrl'>
+                    <input readOnly value={joinUrl}></input>
+                    <button onClick={copyToClipboard}>📋</button>
                     <div>{copied}</div>
                 </div>
                 <h1 level='H2'>Players:</h1>
@@ -171,14 +173,11 @@ Gorilla.HostGame.PodiumPage = function (props) {
     return <div style={{ height: '100%' }}>
         <Gorilla.Podium players={props.players} />
         <div style={{ position: 'absolute', top: '50vh', transform: 'translateY(-50%)', right: '5vw' }}>
-            <Gorilla.StickyCard onClick={props.onNext} color='blue' text='Next Question ➡' />
+            <Gorilla.StickyCard onClick={props.onNext} color='blue' text='NextWonderulBigSuperNICEQuestion ➡' />
         </div>
     </div>
 }
 
 Gorilla.HostGame.PodiumFinalPage = function (props) {
-    // REVISE can probably remove the surrounding div
-    return <div style={{ height: '100%' }}>
-        <Gorilla.PodiumFinal players={props.players} volume={props.volume} />
-    </div>
+    return <Gorilla.PodiumFinal players={props.players} volume={props.volume} />
 }

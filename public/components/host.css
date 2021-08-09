@@ -1,0 +1,52 @@
+.hostWaitingMain {
+    display: flex;
+}
+
+.hostWaitingSplitContainer {
+    margin: 1em 1em;
+}
+
+.hostWaitingJoinUrl {
+    display: flex;
+    flex-direction: row;
+}
+
+.hostWaitingJoinUrl input {
+    width: 100%;
+    margin-right: auto;
+}
+
+.hostWaitingJoinUrl button {
+    font-size: 1.7em;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.hostWaitingJoinUrl div {
+    display: flex;
+    align-items: center;
+}
+
+@media (orientation: landscape) {
+    .hostWaitingMain {
+        flex-direction: row;
+        height: 80%;
+        width: 100%;
+    }
+    .hostWaitingQrCode {
+        height: 100%;
+    }
+}
+
+@media (orientation: portrait) {
+    .hostWaitingMain {
+        flex-direction: column;
+        height: 95%;
+        width: 100%;
+    }
+    .hostWaitingQrCode {
+        width: 60%;
+        margin-left: 20%;
+    }
+}
