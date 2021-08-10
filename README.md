@@ -2,4 +2,13 @@
 
 A quiz app: https://acdc-tools-quiz.cfapps.sap.hana.ondemand.com/
 
-The name is to honor the [first computer game of which I looked and debugged into the source code](https://archive.org/details/GorillasQbasic).
+The name is to honor the [first computer game of which one of the authors looked and debugged into the source code](https://archive.org/details/GorillasQbasic).
+
+## Dev How-To
+
+After cloning you can:
+- Run the tests: `npm test`
+- Start the server: `npm start`
+- Push the app to CF: `cf push`
+
+Besides Node.js, no extra tools are needed.
