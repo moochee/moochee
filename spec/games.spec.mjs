@@ -74,7 +74,7 @@ describe('Games', () => {
         expect(eventEmitter.receivedArgs).toEqual(['gameFinished', gameId, []]) // no players, so the ranking is empty
     })
 
-    it('assigns 100 points to a player who guessed the right answer', async () => {
+    it('assigns some points to a player who guessed the right answer', async () => {
         quizRepo.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }]
         let finishRound
         timer.setTimeout = (callback) => finishRound = callback
@@ -88,7 +88,7 @@ describe('Games', () => {
         finishRound()
         const expectedRanking = [
             // REVISE once we got the socketId out of the games, we don't need jasmine.objectContaining any longer
-            jasmine.objectContaining({ name: 'alice', avatar: jasmine.any(String), score: 100 }),
+            jasmine.objectContaining({ name: 'alice', avatar: jasmine.any(String), score: jasmine.any(Number) }),
             jasmine.objectContaining({ name: 'bob', avatar: jasmine.any(String), score: 0 })
         ]
         expect(eventEmitter.receivedArgs).toEqual(['gameFinished', gameId, expectedRanking])
