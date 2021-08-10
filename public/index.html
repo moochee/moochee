@@ -54,9 +54,9 @@
 
     <script type='text/babel' data-type='module'>
         'use strict'
-        import WsClientAdapter from './ws-client-adapter.js'
+        import QuizSocketClient from './quiz-socket-client.js'
 
-        ReactDOM.render(<Gorilla.WebApp adapter={new WsClientAdapter(io())} />, document.querySelector('#react-root'))
+        ReactDOM.render(<Gorilla.WebApp adapter={new QuizSocketClient(io())} />, document.querySelector('#react-root'))
     </script>
 </body>
 

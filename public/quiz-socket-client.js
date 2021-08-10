@@ -1,6 +1,6 @@
 'use strict'
 
-export default function WsClientAdapter(socket) {
+export default function QuizSocketClient(socket) {
 
     this.subscribe = (event, subscriber) => {
         socket.on(event, subscriber)
