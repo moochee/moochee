@@ -9,6 +9,9 @@ Gorilla.HostGame = function (props) {
     const [countDown, setCountDown] = React.useState(null)
     const [volume, setVolume] = React.useState(1)
 
+    const music = React.useRef({})
+    music.current.volume = volume
+
     const onPlayerJoined = (gameId, player) => {
         // REVISE do we even need all these 'IFs' (also in the other handlers below)? I thought socket.io already uses the right 'channel'...
         if (gameId === props.gameId) {
@@ -62,6 +65,7 @@ Gorilla.HostGame = function (props) {
     }
 
     React.useEffect(() => {
+        music.current.play()
         props.adapter.subscribe('playerJoined', onPlayerJoined)
         props.adapter.subscribe('roundStarted', onRoundStarted)
         props.adapter.subscribe('roundFinished', onRoundFinished)
@@ -84,6 +88,7 @@ Gorilla.HostGame = function (props) {
 
     // TODO display quiz title from server
     return <Gorilla.Shell info={`Game ${props.gameId}`} header={props.quizTitle} onVolume={setVolume} fullScreenContent={Boolean(result)}>
+        <audio ref={music} loop src='components/host/positive-funny-background-music-for-video-games.mp3'></audio>
         {waitingToStartBlock}
         {questionBlock}
         {podiumBlock}
@@ -124,9 +129,7 @@ Gorilla.HostGame.QRCode = function (props) {
 // TODO font
 Gorilla.HostGame.WaitingToStart = function (props) {
     const joinUrl = `${window.location.origin}/#/play/${props.gameId}`
-    const music = React.useRef({})
     const [copied, setCopied] = React.useState('')
-    React.useEffect(() => music.current.play(), [])
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(joinUrl)
@@ -141,12 +144,9 @@ Gorilla.HostGame.WaitingToStart = function (props) {
         ? <div className='hostWaitingPlayerInfo'>{props.players.map((p, i) => <div key={i} className='hostWaitingPlayer'>{p.avatar}</div>)}</div>
         : <div className='hostWaitingPlayerInfo hostWaitingNoPlayersYet'>No players yet - let people scan the QR code or send them the join URL</div>
 
-    music.current.volume = props.volume
-
     const startButton = props.canStart ? <Gorilla.StickyButton onClick={start} color='blue' text='Start' /> : ''
 
     return <div className='hostWaiting'>
-        <audio ref={music} loop src='components/host/positive-funny-background-music-for-video-games.mp3'></audio>
         <div className='hostWaitingJoinUrl'>
             <input readOnly value={joinUrl} onClick={copyToClipboard}></input>
             <button onClick={copyToClipboard}>📋</button>
