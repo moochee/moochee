@@ -66,7 +66,7 @@ export default function Games(timer, quizRepo, eventEmitter) {
 
     const finishRound = (gameId) => {
         const game = games.find((g) => g.id === gameId)
-        // TODO implement "player is on fire", e.g. when climbed 3 times, or guessed right 3 times, or ...
+        // TODO implement 'player is on fire', e.g. when climbed 3 times, or guessed right 3 times, or ...
         const result = [...game.players]
         result.sort((a, b) => b.score - a.score)
         if (game.remainingQuestions.length > 0) {
