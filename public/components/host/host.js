@@ -95,22 +95,18 @@ Gorilla.HostGame.Answer = function (props) {
     return <Gorilla.StickyCard color={props.color} text={props.answer.text} />
 }
 
-// FIXME the stickies should be rendered dynamically, we have questions with less than 4 choices...
 Gorilla.HostGame.Answers = function (props) {
-    return <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
-            <Gorilla.HostGame.Answer color='green' answer={props.answers[0]} />
-            <Gorilla.HostGame.Answer color='purple' answer={props.answers[1]} />
-        </div>
-        <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
-            <Gorilla.HostGame.Answer color='blue' answer={props.answers[2]} />
-            <Gorilla.HostGame.Answer color='orange' answer={props.answers[3]} />
-        </div>
+    const colors = ['green', 'purple', 'blue', 'orange']
+    const answersBlock = props.answers.map((answer, index) => {
+        return < Gorilla.HostGame.Answer key={index} color={colors[index]} answer={answer} />
+    })
+    return <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
+        {answersBlock}
     </div>
 }
 
 Gorilla.HostGame.QuestionAndAnswers = function (props) {
-    return <div style={{ width: '60%', marginLeft: '20%' }}>
+    return <div style={{ width: '50%', marginLeft: '25%' }}>
         <div style={{ position: 'fixed', top: '7vh', right: '4vw', fontSize: '3em' }}>
             <Gorilla.Countdown seconds={props.countDown} />
         </div>

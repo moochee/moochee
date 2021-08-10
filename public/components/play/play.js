@@ -66,24 +66,20 @@ Gorilla.PlayGame.Answer = function (props) {
     return <Gorilla.StickyButton color={props.color} onClick={() => props.onGuess(props.answer.id)} text={props.answer.text} />
 }
 
-// FIXME the stickies should be rendered dynamically, we have questions with less than 4 choices...
 Gorilla.PlayGame.Answers = function (props) {
-    return <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
-            <Gorilla.PlayGame.Answer color='green' answer={props.answers[0]} onGuess={props.onGuess} />
-            <Gorilla.PlayGame.Answer color='purple' answer={props.answers[1]} onGuess={props.onGuess} />
-        </div>
-        <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
-            <Gorilla.PlayGame.Answer color='blue' answer={props.answers[2]} onGuess={props.onGuess} />
-            <Gorilla.PlayGame.Answer color='orange' answer={props.answers[3]} onGuess={props.onGuess} />
-        </div>
+    const colors = ['green', 'purple', 'blue', 'orange']
+    const answersBlock = props.answers.map((answer, index) => {
+        return < Gorilla.PlayGame.Answer key={index} color={colors[index]} answer={answer} onGuess={props.onGuess} />
+    })
+    return <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
+        {answersBlock}
     </div>
 }
 
 Gorilla.PlayGame.QuestionAndAnswers = function (props) {
-    return <div style={{ width: '60%', marginLeft: '20%' }}>
+    return <div className='playQuestionAnswers'>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h1 style={{ textAlign: 'center', fontSize: '3em', color: '#0070c0' }}>{props.question}</h1>
+            <h1 style={{ textAlign: 'center', fontFamily: 'komika_textregular', fontSize: '4vh', color: '#0070c0' }}>{props.question}</h1>
             <img width='80%' src={props.imageUrl} />
         </div>
 
