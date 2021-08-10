@@ -92,7 +92,6 @@ Gorilla.HostGame = function (props) {
 }
 
 Gorilla.HostGame.Answer = function (props) {
-    // FIXME for host the buttons should not be clickable and also have no hover effect
     return <Gorilla.StickyCard color={props.color} text={props.answer.text} />
 }
 
