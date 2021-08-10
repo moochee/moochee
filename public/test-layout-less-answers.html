@@ -14,11 +14,15 @@
     </script>
     <link rel='stylesheet' type='text/css' href='components/shell/shell.css' />
     <script src='components/shell/shell.js' type='text/babel'></script>
+    <link rel='stylesheet' type='text/css' href='components/host/host.css' />
+    <script src='components/host/host.js' type='text/babel'></script>
     <link rel='stylesheet' type='text/css' href='components/play/play.css' />
     <script src='components/play/play.js' type='text/babel'></script>
     <script src='components/general.js' type='text/babel'></script>
     <link rel='stylesheet' type='text/css' href='components/sticky/sticky-button.css' />
     <script src='components/sticky/sticky-button.js' type='text/babel'></script>
+    <link rel='stylesheet' type='text/css' href='components/sticky/sticky-card.css' />
+    <script src='components/sticky/sticky-card.js' type='text/babel'></script>
     <style>
         html,
         body,
@@ -29,6 +33,7 @@
 
         html {
             background: black;
+            font-family: komika_textregular;
         }
     </style>
 </head>
@@ -49,7 +54,7 @@
             const [volume, setVolume] = React.useState(1)
 
             return <Gorilla.Shell onVolume={setVolume} fullScreenContent={false}>
-                <Gorilla.PlayGame.QuestionAndAnswers countDown='1' question='Test' answers={answers} />
+                <Gorilla.HostGame.QuestionAndAnswers countDown='1' question='Test' answers={answers} />
             </Gorilla.Shell>
         }
         ReactDOM.render(<Page />, document.querySelector('#react-root'))

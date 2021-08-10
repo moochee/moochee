@@ -107,10 +107,10 @@ Gorilla.HostGame.Answers = function (props) {
 
 Gorilla.HostGame.QuestionAndAnswers = function (props) {
     return <div style={{ width: '50%', marginLeft: '25%' }}>
-        <div style={{ position: 'fixed', top: '7vh', right: '4vw', fontSize: '3em' }}>
+        <div style={{ position: 'absolute', top: '6vh', right: '6vh', fontSize: '4vh' }}>
             <Gorilla.Countdown seconds={props.countDown} />
         </div>
-        <h1 style={{ textAlign: 'center', fontSize: '3em', color: '#0070c0' }}>{props.question}</h1>
+        <h1 style={{ textAlign: 'center', fontSize: '4vh', color: '#0070c0' }}>{props.question}</h1>
         <Gorilla.HostGame.Answers answers={props.answers} />
     </div>
 }
