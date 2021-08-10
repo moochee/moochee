@@ -48,7 +48,7 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
     color: white;
     position: absolute;
     left: 50vw;
-    top: 50vh;
+    top: 50%;
     text-align: center;
 }
 

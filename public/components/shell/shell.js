@@ -3,7 +3,7 @@
 Gorilla.Shell = function (props) {
     // REVISE move styling to css
     // TODO adjust font
-
+    // REVISE maybe we don't need the fullScreenContent hack any more since we can now position the podium players in % and not vh/vw...
     const contentClass = props.fullScreenContent ? 'shell-content-fullscreen' : 'shell-content-fit'
 
     return <div className='shell'>
