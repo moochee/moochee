@@ -3,7 +3,7 @@
 Gorilla.PlayGame = function (props) {
     const [question, setQuestion] = React.useState(null)
     const [result, setResult] = React.useState(null)
-    const [waiting, setWaiting] = React.useState(false)
+    const [waiting, setWaiting] = React.useState(true)
     const [isFinal, setIsFinal] = React.useState(false)
     const [volume, setVolume] = React.useState(1)
 
