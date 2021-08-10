@@ -1,18 +1,21 @@
 'use strict'
 
+// REVISE merge those things together, cause anyway there is state in the transition
 Gorilla.EntranceWeb = function (props) {
     const history = ReactRouterDOM.useHistory()
-    return <Gorilla.Entrance adapter={props.adapter}
-        onHost={(gameId, quizTitle) => history.push({ pathname: `host/${gameId}`, query: { quizTitle } })} />
+    const host = (gameId, quizTitle) => {
+        props.onHost(quizTitle)
+        history.push(`host/${gameId}`)
+    }
+    return <Gorilla.Entrance adapter={props.adapter} onHost={host} />
 }
 
 Gorilla.HostGameWeb = function (props) {
     const { gameId } = ReactRouterDOM.useParams()
-    const location = ReactRouterDOM.useLocation()
     const history = ReactRouterDOM.useHistory()
+    // REVISE check if can find a better name for onReplay - basically it is sending the host back to the home page to be able to host another quiz if he/she wants to
     return <div style={{ height: '100%' }}>
-        <Gorilla.HostGame gameId={gameId} adapter={props.adapter} quizTitle={location.query.quizTitle}
-            onReplay={() => history.push('/')} />
+        <Gorilla.HostGame gameId={gameId} adapter={props.adapter} quizTitle={props.quizTitle} onReplay={() => history.push('/')} />
     </div>
 }
 
@@ -38,12 +41,15 @@ Gorilla.EnterGameWeb = function (props) {
 Gorilla.WebApp = function (props) {
     const { HashRouter, Switch, Route } = ReactRouterDOM
     const [avatar, setAvatar] = React.useState('')
+    const [quizTitle, setQuizTitle] = React.useState('')
 
+    // REVISE merge entrance/entranceweb with hostgame/hostgameweb and entergame/entergameweb with playgame/playgameweb
+    //        by this, we won't need the title and avatar bubbling all the way up and down any more
     return <div style={{ height: '100%', width: '100%' }}>
         <HashRouter>
             <Switch>
                 <Route exact path='/'>
-                    <Gorilla.EntranceWeb adapter={props.adapter} />
+                    <Gorilla.EntranceWeb adapter={props.adapter} onHost={setQuizTitle} />
                 </Route>
                 <Route path='/play/:gameId/:playerName'>
                     <Gorilla.PlayGameWeb adapter={props.adapter} avatar={avatar} />
@@ -52,7 +58,7 @@ Gorilla.WebApp = function (props) {
                     <Gorilla.EnterGameWeb adapter={props.adapter} onJoin={setAvatar} />
                 </Route>
                 <Route path='/host/:gameId'>
-                    <Gorilla.HostGameWeb adapter={props.adapter} />
+                    <Gorilla.HostGameWeb adapter={props.adapter} quizTitle={quizTitle}/>
                 </Route>
             </Switch>
         </HashRouter>
