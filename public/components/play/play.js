@@ -52,9 +52,9 @@ Gorilla.PlayGame = function (props) {
     const questionBlock = question ? <Gorilla.PlayGame.QuestionAndAnswers question={question.text} imageUrl='' answers={question.answers} onGuess={guess} /> : ''
     const podiumBlock = result && !isFinal ? <Gorilla.Podium players={result} /> : ''
     const waitingBlock = waiting ? <h2>Waiting for other players...</h2> : ''
-    const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
+    const gameOverBlock = isFinal ? <h2>Game over!</h2> : ''
 
-    return <Gorilla.Shell onVolume={setVolume} info={`${props.playerAvatar} ${props.playerName}`} fullScreenContent={Boolean(result)}>
+    return <Gorilla.Shell onVolume={setVolume} info={`${props.playerAvatar} ${props.playerName}`} fullScreenContent={Boolean(result && !isFinal)}>
         {questionBlock}
         {podiumBlock}
         {waitingBlock}
