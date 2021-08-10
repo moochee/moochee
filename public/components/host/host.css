@@ -67,7 +67,6 @@
     .hostWaitingQrCode {
         margin-right: 1em;
         height: 100%;
-        width: calc(80vh - 6em);
     }
 }
 
