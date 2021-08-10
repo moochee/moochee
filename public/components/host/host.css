@@ -40,9 +40,12 @@
 }
 
 .hostWaitingPlayerInfo {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     text-align: center;
     font-size: max(10vh, 10vw);
-    overflow: scroll;
+    overflow-y: scroll;
     height: 100%;
 }
 
@@ -79,3 +82,16 @@
         margin-bottom: 1em;
     }
 }
+
+.hostWaitingPlayer {
+    animation: hostWaitingPlayerAppear 2s;
+}
+
+@keyframes hostWaitingPlayerAppear { 
+    from { opacity: 0; }
+    30% { opacity: 0; }
+    20%, 50%, 80%, 100% {transform: translateY(0);} 
+    40% {transform: translateY(-.5em);} 
+    60% {transform: translateY(-.25em);} 
+    99% { opacity: 1; }
+ }

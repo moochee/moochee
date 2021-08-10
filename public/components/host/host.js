@@ -143,7 +143,7 @@ Gorilla.HostGame.WaitingToStart = function (props) {
     }
 
     const players = props.players.length > 0
-        ? <div className='hostWaitingPlayerInfo'>{props.players.map(p => p.avatar)}</div>
+        ? <div className='hostWaitingPlayerInfo'>{props.players.map(p => <div className='hostWaitingPlayer'>{p.avatar}</div>)}</div>
         : <div className='hostWaitingPlayerInfo hostWaitingNoPlayersYet'>No players yet - let people scan the QR code or send them the join URL</div>
 
     music.current.volume = props.volume
