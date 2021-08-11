@@ -1,7 +1,7 @@
 applications:
   - name: quiz-app
     routes:
-      - route: acdc-tools-quiz.cfapps.sap.hana.ondemand.com
+      - route: acdc-gorilla.cfapps.sap.hana.ondemand.com
     path: ./
     buildpacks:
       - https://github.com/cloudfoundry/nodejs-buildpack.git#v1.7.56
