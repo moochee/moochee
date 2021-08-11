@@ -5,7 +5,7 @@ export default function Games(timer, quizRepo, eventEmitter) {
     const games = []
 
     // FIXME this should not be a global across multiple games - otherwise players in one game take away the avatars from players in another game :-D
-    this.avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🦉🐴🦄🐝🐛🦋🐌🐞🐜🦂🐢🐍🦎🦖🐙🦀🐠🐬🐳🦈🦭🐊🦧🦍🦣🐘🦏🐫🦒🦬🐿🦔🦡🐲')
+    this.avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🐙🐲🦉🦋🐴🦄🐿🐝🐌🐢🦀🐠🐬🐳🐍🦎🦖🦭🐊🦧🦣🦏🐫🦒🦔🦡🦩🦢🦥🦜')
 
     this.getQuizzes = async () => {
         return await quizRepo.getAll()
