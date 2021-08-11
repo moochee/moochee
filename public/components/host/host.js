@@ -87,8 +87,7 @@ Gorilla.HostGame = function (props) {
     const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} onReplay={props.onReplay} /> : ''
     const audioControl = <Gorilla.AudioControl onVolume={setVolume} />
 
-    // TODO display quiz title from server
-    return <Gorilla.Shell info={`Game ${props.gameId}`} header={props.quizTitle} headerRight={audioControl} fullScreenContent={Boolean(result)}>
+    return <Gorilla.Shell headerLeft={`Game ${props.gameId}`} headerCenter={props.quizTitle} headerRight={audioControl} fullScreenContent={Boolean(result)}>
         <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
         {waitingToStartBlock}
         {questionBlock}

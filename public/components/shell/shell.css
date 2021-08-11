@@ -1,11 +1,9 @@
-/* REVISE we use camel case for style classes */
-
 .shell {
     height: 100%;
     width: 100%;
 }
 
-.shell-header, .shell-footer {
+.shellHeader, .shellFooter {
     font-size: 5vh;
     width: 100%;
     position: fixed;
@@ -17,16 +15,29 @@
     justify-content: center;
 }
 
-.shell-header {
+.shellHeaderLeft {
+    margin-left: 1vw;
+}
+
+.shellHeaderCenter {
+    margin-left: auto;
+}
+
+.shellHeaderRight {
+    margin-left: auto;
+    margin-right: 1vw;
+}
+
+.shellHeader {
     top: 0;
 }
 
-.shell-footer {
+.shellFooter {
     bottom: 0;
     flex-direction: row;
 }
 
-.shell-footer-left, .shell-footer-right {
+.shellFooterLeft, .shellFooterRight {
     width: 50%;
     height: 100%;
     background-position: center;
@@ -34,24 +45,24 @@
     background-repeat: no-repeat;
 }
 
-.shell-footer-left {
+.shellFooterLeft {
     background-image: url(cloud-curriculum.png);
 }
 
-.shell-footer-right {
+.shellFooterRight {
     background-image: url(acdc.png);
 }
 
-.shell-content-fit, .shell-content-fullscreen {
+.shellContentFit, .shellContentFullscreen {
     background: linear-gradient(to top, #aeccf0, #ffffff);
 }
 
-.shell-content-fullscreen {
+.shellContentFullscreen {
     height: 100%;
     padding-top: 0vh;
 }
 
-.shell-content-fit {
+.shellContentFit {
     height: 80%;
     padding-top: 10vh;
 }

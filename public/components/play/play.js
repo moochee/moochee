@@ -76,7 +76,7 @@ Gorilla.PlayGame = function (props) {
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
     const audioControl = <Gorilla.AudioControl onVolume={setVolume} />
 
-    return <Gorilla.Shell info={`${props.playerAvatar} ${props.playerName}`} headerRight={audioControl} fullScreenContent={Boolean(result && !isFinal)}>
+    return <Gorilla.Shell headerLeft={`${props.playerAvatar} ${props.playerName}`} headerRight={audioControl} fullScreenContent={Boolean(result && !isFinal)}>
         <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
         {waitingToStartBlock}
         {questionBlock}
