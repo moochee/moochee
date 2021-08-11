@@ -30,7 +30,7 @@ Gorilla.HostGame = function (props) {
                 if (oldPlayers.length <= 2) {
                     setCanStart(false)
                 }
-                return oldPlayers.filter(p => p.name != player)
+                return oldPlayers.filter(p => p != player)
             })
         }
     }
@@ -141,7 +141,7 @@ Gorilla.HostGame.WaitingToStart = function (props) {
     }
 
     const players = props.players.length > 0
-        ? <div className='hostWaitingPlayerInfo'>{props.players.map((p, i) => <div key={i} className='hostWaitingPlayer'>{p.avatar}</div>)}</div>
+        ? <div className='hostWaitingPlayerInfo'>{props.players.map(p => <div key={p} className='hostWaitingBounceIn'>{p}</div>)}</div>
         : <div className='hostWaitingPlayerInfo hostWaitingNoPlayersYet'>No players yet - let people scan the QR code or send them the join URL</div>
 
     const startButton = props.canStart ? <Gorilla.StickyButton onClick={start} color='blue' text='Start' /> : ''

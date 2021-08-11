@@ -21,7 +21,6 @@ export default function Games(timer, quizRepo, eventEmitter) {
             return { id: index + 1, rightAnswerId: q.rightAnswerId, guesses: [] }
         })
         games.push({ id: gameId, remainingQuestions, questionsAndGuesses, players: [] })
-        // REVISE only use async eventing, not sync returning
         return gameId
     }
 
@@ -36,9 +35,8 @@ export default function Games(timer, quizRepo, eventEmitter) {
         const avatar = this.avatars.splice(Math.random() * this.avatars.length, 1)[0]
         const newPlayer = { name, avatar, score: 0, socketId }
         game.players.push(newPlayer)
-        eventEmitter.publish('playerJoined', gameId, newPlayer)
-        // REVISE only use async eventing, not sync returning
-        return avatar
+        eventEmitter.publish('playerJoined', gameId, newPlayer.avatar)
+        return { avatar: newPlayer.avatar, score: newPlayer.score, otherPlayers: game.players.filter(p => p.name !== name).map(p => p.avatar) }
     }
 
     this.nextRound = (gameId) => {

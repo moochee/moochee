@@ -26,10 +26,9 @@ export default function create() {
 
         socket.on('join', (gameId, name, callback) => {
             try {
-                const avatar = games.join(gameId, name, socket.id)
+                const joinResponse = games.join(gameId, name, socket.id)
                 socket.join(gameId)
-                // REVISE check if we can consistently use the event emitter...
-                callback({ avatar })
+                callback(joinResponse)
             } catch (error) {
                 callback({ errorMessage: error.message })
             }

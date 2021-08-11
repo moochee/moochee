@@ -1,3 +1,5 @@
+'use strict'
+
 Gorilla.JoinGame = function (props) {
     const [playerName, setPlayerName] = React.useState('')
     const updatePlayerName = (event) => setPlayerName(event.target.value)
@@ -5,8 +7,8 @@ Gorilla.JoinGame = function (props) {
 
     const join = async () => {
         try {
-            const playerAvatar = await props.adapter.join(props.gameId, playerName)
-            props.onJoin(playerName, playerAvatar)
+            const joinResponse = await props.adapter.join(props.gameId, playerName)
+            props.onJoin(playerName, joinResponse.avatar, joinResponse.otherPlayers)
         } catch (error) {
             setErrorMessage(error.message)
         }

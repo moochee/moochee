@@ -22,9 +22,9 @@ describe('Games', () => {
 
     it('sets score and avatar when player joins a game', async () => {
         const gameId = await games.host()
-        games.join(gameId, 'alice', null)
-        const expectedPlayer = { name: 'alice', score: 0, avatar: jasmine.any(String), socketId: null }
-        expect(eventEmitter.receivedArgs).toEqual(['playerJoined', gameId, expectedPlayer])
+        const joinResponse = games.join(gameId, 'alice', null)
+        expect(eventEmitter.receivedArgs).toEqual(['playerJoined', gameId, jasmine.any(String)])
+        expect(joinResponse).toEqual({ avatar: jasmine.any(String), score: 0, otherPlayers: [] })
     })
 
     it('is not ok when joining with a player name that is already taken in this game', async () => {
@@ -93,4 +93,6 @@ describe('Games', () => {
         ]
         expect(eventEmitter.receivedArgs).toEqual(['gameFinished', gameId, expectedRanking])
     })
+
+    // TODO shouldn't we have a test for increasing the score based on faster response time?
 })

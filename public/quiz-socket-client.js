@@ -28,7 +28,7 @@ export default function QuizSocketClient(socket) {
                 if (result.errorMessage) {
                     reject(new Error(result.errorMessage))
                 } else {
-                    resolve(result.avatar)
+                    resolve(result)
                 }
             })
         })
