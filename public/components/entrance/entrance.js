@@ -17,14 +17,13 @@ Gorilla.Entrance = function (props) {
     }
 
     const quizList = quizzes.map((q) => {
-        return <Gorilla.StickyButton key={q.id} onClick={() => host(q.id, q.text)} text={q.text} color={q.color} />
+        return <div className='entranceQuiz'><Gorilla.StickyButton key={q.id} onClick={() => host(q.id, q.text)} text={q.text} color={q.color} /></div>
     })
 
     return <Gorilla.Shell headerCenter='Welcome to the 🦍 Quiz App!'>
-        <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-            <h1>Select a quiz below to host a new game</h1>
-            <p />
-            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+        <div className='entrance'>
+            <h1 className='entranceTitle'>Select a quiz to host a new game</h1>
+            <div className='entranceQuizzes'>
                 {quizList}
             </div>
         </div>

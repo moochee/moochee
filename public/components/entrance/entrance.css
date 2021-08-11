@@ -1,0 +1,25 @@
+.entrance {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.entranceTitle {
+    font-size: min(4vw, 7.11vh); 
+}
+
+.entranceQuizzes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.entranceQuiz .stickyButton {
+    width: min(40vw, 35vh)
+}
+
+.entranceQuiz .stickyButton .textField {
+    font-size: min(4vw, 3.5vh);
+}
