@@ -14,7 +14,7 @@ Gorilla.JoinGame = function (props) {
         }
     }
 
-    return <Gorilla.Shell headerCenter='Welcome to the 🦍 Quiz App!'>
+    return <Gorilla.Shell headerCenter='Welcome to the 🦍 Quiz'>
         <div style={{ display: 'flex', flexDirection: 'column', height: '80%', alignItems: 'center', justifyContent: 'center' }}>
             <h1>Join Game {props.gameId}</h1>
             <input style={{ width: '10em', height: '3em', textAlign: 'center', fontFamily: 'inherit', fontSize: 'inherit' }}
