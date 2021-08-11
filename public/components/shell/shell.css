@@ -55,6 +55,10 @@
 
 .shellContentFit, .shellContentFullscreen {
     background: linear-gradient(to top, #aeccf0, #ffffff);
+    overflow: hidden;
+    /* seems without position:fixed and width:100% it automatically becomes scrollable on mobile phone, even if the content is not overflowing */
+    position: fixed;
+    width: 100%;
 }
 
 .shellContentFullscreen {
