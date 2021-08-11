@@ -84,7 +84,7 @@ Gorilla.HostGame = function (props) {
     const waitingToStartBlock = waitingToStart ? <Gorilla.HostGame.WaitingToStart gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
     const questionBlock = question && (countDown !== null) ? <Gorilla.HostGame.QuestionAndAnswers countDown={countDown} question={question.text} imageUrl='' answers={question.answers} /> : ''
     const podiumBlock = result && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
-    const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} onReplay={props.onReplay} /> : ''
+    const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} onBackHome={props.onBackHome} /> : ''
     const audioControl = <Gorilla.AudioControl onVolume={setVolume} />
 
     return <Gorilla.Shell headerLeft={`Game ${props.gameId}`} headerCenter={props.quizTitle} headerRight={audioControl} fullScreenContent={Boolean(result)}>
@@ -171,18 +171,18 @@ Gorilla.HostGame.PodiumPage = function (props) {
 }
 
 Gorilla.HostGame.PodiumFinalPage = function (props) {
-    const [canReplay, setCanReplay] = React.useState(false)
+    const [canBackHome, setCanBackHome] = React.useState(false)
 
     React.useEffect(() => {
-        setTimeout(() => setCanReplay(true), 20000)
+        setTimeout(() => setCanBackHome(true), 20000)
     }, [])
 
-    const replayButton = canReplay ? <div style={{ position: 'absolute', top: '50vh', transform: 'translateY(-50%)', right: '5vw' }}>
-        <Gorilla.StickyButton onClick={props.onReplay} color='blue' text='Replay 🔥' />
+    const backHomeButton = canBackHome ? <div style={{ position: 'absolute', top: '50vh', transform: 'translateY(-50%)', right: '5vw' }}>
+        <Gorilla.StickyButton onClick={props.onBackHome} color='blue' text='Back Home 🔥' />
     </div> : ''
 
     return <div style={{ height: '100%' }}>
         <Gorilla.PodiumFinal players={props.players} volume={props.volume} />
-        {replayButton}
+        {backHomeButton}
     </div>
 }

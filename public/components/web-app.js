@@ -1,7 +1,6 @@
 'use strict'
 
 Gorilla.HostGameWeb = function (props) {
-    const history = ReactRouterDOM.useHistory()
     const [atEntrance, setAtEntrance] = React.useState(true)
     const [gameId, setGameId] = React.useState('')
     const [quizTitle, setQuizTitle] = React.useState('')
@@ -12,10 +11,11 @@ Gorilla.HostGameWeb = function (props) {
         setAtEntrance(false)
     }
 
-    // REVISE check if can find a better name for onReplay - basically it is sending the host back to the home page to be able to host another quiz if he/she wants to
+    const home = () => setAtEntrance(true)
+
     return atEntrance ?
         <Gorilla.Entrance adapter={props.adapter} onHost={host} /> :
-        <Gorilla.HostGame gameId={gameId} adapter={props.adapter} quizTitle={quizTitle} onReplay={() => history.push('/')} />
+        <Gorilla.HostGame gameId={gameId} adapter={props.adapter} quizTitle={quizTitle} onBackHome={home} />
 }
 
 Gorilla.PlayGameWeb = function (props) {
