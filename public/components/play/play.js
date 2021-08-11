@@ -86,7 +86,7 @@ Gorilla.PlayGame = function (props) {
     </Gorilla.Shell>
 }
 
-Gorilla.PlayGame.WaitingToStart = function(props) {
+Gorilla.PlayGame.WaitingToStart = function (props) {
     const label = props.otherPlayers.length === 0 ? <h2>Waiting for other players...</h2> : <h2>You are up against:</h2>
 
     const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingBounceIn'>{p}</div>)
@@ -103,7 +103,7 @@ Gorilla.PlayGame.Answer = function (props) {
 Gorilla.PlayGame.Answers = function (props) {
     const colors = ['green', 'purple', 'blue', 'orange']
     const answersBlock = props.answers.map((answer, index) => {
-        return < Gorilla.PlayGame.Answer key={index} color={colors[index]} answer={answer} onGuess={props.onGuess} />
+        return <Gorilla.PlayGame.Answer key={index} color={colors[index]} answer={answer} onGuess={props.onGuess} />
     })
     return <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
         {answersBlock}

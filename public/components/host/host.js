@@ -103,7 +103,7 @@ Gorilla.HostGame.Answer = function (props) {
 Gorilla.HostGame.Answers = function (props) {
     const colors = ['green', 'purple', 'blue', 'orange']
     const answersBlock = props.answers.map((answer, index) => {
-        return < Gorilla.HostGame.Answer key={index} color={colors[index]} answer={answer} />
+        return <Gorilla.HostGame.Answer key={index} color={colors[index]} answer={answer} />
     })
     return <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
         {answersBlock}
