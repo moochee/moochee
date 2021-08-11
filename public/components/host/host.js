@@ -160,10 +160,11 @@ Gorilla.HostGame.WaitingToStart = function (props) {
     </div>
 }
 
+// REVISE move all styling to css file
 Gorilla.HostGame.PodiumPage = function (props) {
     return <div style={{ height: '100%' }}>
         <Gorilla.Podium players={props.players} />
-        <div style={{ position: 'absolute', top: '50vh', transform: 'translateY(-50%)', right: '5vw' }}>
+        <div style={{ position: 'absolute', bottom: '0vh', transform: 'translateY(-50%)', right: '5vw' }}>
             <Gorilla.StickyButton onClick={props.onNext} color='blue' text='Next Question ➡' />
         </div>
     </div>
