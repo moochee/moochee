@@ -8,6 +8,9 @@ Gorilla.PlayGame = function (props) {
     const [isFinal, setIsFinal] = React.useState(false)
     const [volume, setVolume] = React.useState(1)
 
+    const music = React.useRef({})
+    music.current.volume = volume
+
     const onPlayerJoined = (gameId, player) => {
         // REVISE do we even need all these 'IFs' (also in the other handlers below)? I thought socket.io already uses the right 'channel'...
         if (gameId === props.gameId) {
@@ -51,6 +54,7 @@ Gorilla.PlayGame = function (props) {
     }
 
     React.useEffect(() => {
+        music.current.play()
         props.adapter.subscribe('playerJoined', onPlayerJoined)
         props.adapter.subscribe('roundStarted', onRoundStarted)
         props.adapter.subscribe('roundFinished', onRoundFinished)
@@ -65,13 +69,15 @@ Gorilla.PlayGame = function (props) {
         }
     }, [])
 
-    const waitingToStartBlock = waitingToStart ? <Gorilla.PlayGame.WaitingToStart otherPlayers={props.otherPlayers} volume={volume} /> : ''
+    const waitingToStartBlock = waitingToStart ? <Gorilla.PlayGame.WaitingToStart otherPlayers={props.otherPlayers} /> : ''
     const questionBlock = question ? <Gorilla.PlayGame.QuestionAndAnswers question={question.text} imageUrl='' answers={question.answers} onGuess={guess} /> : ''
     const podiumBlock = result && !isFinal ? <Gorilla.Podium players={result} /> : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
+    const audioControl = <Gorilla.AudioControl onVolume={setVolume} />
 
-    return <Gorilla.Shell onVolume={setVolume} info={`${props.playerAvatar} ${props.playerName}`} fullScreenContent={Boolean(result && !isFinal)}>
+    return <Gorilla.Shell info={`${props.playerAvatar} ${props.playerName}`} headerRight={audioControl} fullScreenContent={Boolean(result && !isFinal)}>
+        <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
         {waitingToStartBlock}
         {questionBlock}
         {podiumBlock}
@@ -81,14 +87,10 @@ Gorilla.PlayGame = function (props) {
 }
 
 Gorilla.PlayGame.WaitingToStart = function(props) {
-    const music = React.useRef({})
-
     const label = props.otherPlayers.length === 0 ? <h2>Waiting for other players...</h2> : <h2>You are up against:</h2>
-    music.current.volume = props.volume
 
     const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingBounceIn'>{p}</div>)
     return <div>
-        <audio ref={music} loop src='components/host/positive-funny-background-music-for-video-games.mp3'></audio>
         {label}
         <div className='hostWaitingPlayerInfo'>{otherPlayers}</div>
     </div>

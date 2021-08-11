@@ -21,16 +21,6 @@
     top: 0;
 }
 
-@media not all and (min-resolution:.001dpcm) {
-    @supports (-webkit-appearance: none) {
-        /* seems otherwise the slider does not display on Safari on black background - the slider is ugly, but at least appears with this, 
-           and I don't want to add more CSS to work around obvious bugs from a browser vendor who has enough money to pay an army of developers to just fix it */
-        .shell input[type=range]::-webkit-slider-runnable-track {
-            background: gray;
-        }
-    }
-}
-
 .shell-footer {
     bottom: 0;
     flex-direction: row;
