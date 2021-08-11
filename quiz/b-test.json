@@ -1,0 +1,22 @@
+{
+  "text": "Test Quiz (2 Questions)",
+  "questions": [
+    {
+      "text": "Fake question 1?",
+      "answers": [
+        { "id": "A", "text": "answer1" },
+        { "id": "B", "text": "answer2" }
+      ],
+      "rightAnswerId": "A"
+    },
+    {
+      "text": "Fake question 2?",
+      "answers": [
+        { "id": "A", "text": "answer1" },
+        { "id": "B", "text": "answer2" },
+        { "id": "C", "text": "answer3" }
+      ],
+      "rightAnswerId": "A"
+    }
+  ]
+}

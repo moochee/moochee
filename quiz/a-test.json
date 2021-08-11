@@ -1,30 +1,11 @@
 {
-  "text": "Test",
+  "text": "Test Quiz (1 Question)",
   "questions": [
     {
       "text": "Fake question 1?",
       "answers": [
         { "id": "A", "text": "answer1" },
         { "id": "B", "text": "answer2" }
-      ],
-      "rightAnswerId": "A"
-    },
-    {
-      "text": "Fake question 2?",
-      "answers": [
-        { "id": "A", "text": "answer1" },
-        { "id": "B", "text": "answer2" },
-        { "id": "C", "text": "answer3" }
-      ],
-      "rightAnswerId": "A"
-    },
-    {
-      "text": "Fake question 3?",
-      "answers": [
-        { "id": "A", "text": "answer1" },
-        { "id": "B", "text": "answer2" },
-        { "id": "C", "text": "answer3" },
-        { "id": "D", "text": "answer4" }
       ],
       "rightAnswerId": "A"
     }
