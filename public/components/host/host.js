@@ -166,7 +166,7 @@ Gorilla.HostGame.PodiumPage = function (props) {
     return <div style={{ height: '100%' }}>
         <Gorilla.Podium players={props.players} />
         <div style={{ position: 'absolute', bottom: '0vh', transform: 'translateY(-50%)', right: '5vw' }}>
-            <Gorilla.StickyButton onClick={props.onNext} color='blue' text='Next Question ➡' />
+            <Gorilla.StickyButton onClick={props.onNext} color='blue' text='Next Question' />
         </div>
     </div>
 }
