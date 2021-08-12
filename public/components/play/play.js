@@ -105,14 +105,14 @@ Gorilla.PlayGame.Answers = function (props) {
     const answersBlock = props.answers.map((answer, index) => {
         return <Gorilla.PlayGame.Answer key={index} color={colors[index]} answer={answer} onGuess={props.onGuess} />
     })
-    return <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
+    return <div className='playAnswers'>
         {answersBlock}
     </div>
 }
 
 Gorilla.PlayGame.QuestionAndAnswers = function (props) {
-    return <div className='playQuestionAnswers'>
-        <h1 style={{ textAlign: 'center', fontSize: '4vh', color: '#0070c0' }}>{props.question}</h1>
+    return <div>
+        <h1 className='playQuestion'>{props.question}</h1>
         <Gorilla.PlayGame.Answers answers={props.answers} onGuess={props.onGuess} />
     </div>
 }
