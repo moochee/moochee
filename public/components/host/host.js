@@ -59,8 +59,8 @@ Gorilla.HostGame = function (props) {
         }
     }
 
-    // REVISE I think in backend we always say 'next', here we always say 'start' - feels confusing
     const next = () => {
+        // REVISE I think in backend we always say 'next', here we always say 'start' - feels confusing
         props.adapter.start(props.gameId)
     }
 
@@ -80,14 +80,16 @@ Gorilla.HostGame = function (props) {
         }
     }, [])
 
+    const showPodium = Boolean(result)
     const waitingToStart = !question && !result
     const waitingToStartBlock = waitingToStart ? <Gorilla.HostGame.WaitingToStart gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
     const questionBlock = question && (countDown !== null) ? <Gorilla.HostGame.QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} /> : ''
-    const podiumBlock = result && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
-    const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} onBackHome={props.onBackHome} /> : ''
-    const audioControl = <Gorilla.AudioControl onVolume={setVolume} />
+    const podiumBlock = showPodium && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
+    const podiumFinalBlock = showPodium && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} onBackHome={props.onBackHome} /> : ''
+    const isIos = navigator.userAgent.match(/ipad|iphone/i)
+    const audioControl = isIos ? '' : <Gorilla.AudioControl onVolume={setVolume} />
 
-    return <Gorilla.Shell headerLeft={`Game ${props.gameId}`} headerCenter={props.quizTitle} headerRight={audioControl} fullScreenContent={Boolean(result)}>
+    return <Gorilla.Shell headerLeft={props.quizTitle} headerRight={audioControl} footerLeft={`#${props.gameId}`} fullScreenContent={showPodium}>
         <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
         {waitingToStartBlock}
         {questionBlock}
@@ -159,7 +161,7 @@ Gorilla.HostGame.WaitingToStart = function (props) {
 
     const players = props.players.length > 0
         ? <div className='hostWaitingPlayerInfo'>{props.players.map(p => <div key={p} className='hostWaitingBounceIn'>{p}</div>)}</div>
-        : <div className='hostWaitingPlayerInfo hostWaitingNoPlayersYet'>No players yet - let people scan the QR code or send them the join URL</div>
+        : <div className='hostWaitingPlayerInfo hostWaitingNoPlayersYet'>Let people scan the QR code or send them the join URL</div>
 
     const startButton = props.canStart ? <Gorilla.StickyButton onClick={start} color='blue' text='Start' /> : ''
 

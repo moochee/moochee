@@ -24,12 +24,8 @@ export default function QuizSocketClient(socket) {
 
     this.join = (gameId, playerName) => {
         return new Promise((resolve, reject) => {
-            socket.emit('join', gameId, playerName, (result) => {
-                if (result.errorMessage) {
-                    reject(new Error(result.errorMessage))
-                } else {
-                    resolve(result)
-                }
+            socket.emit('join', gameId, playerName, (response) => {
+                return response.errorMessage ? reject(new Error(response.errorMessage)) : resolve(response)
             })
         })
     }

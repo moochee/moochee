@@ -24,13 +24,16 @@ Gorilla.PlayGameWeb = function (props) {
     const [playerName, setPlayerName] = React.useState('')
     const [playerAvatar, setPlayerAvatar] = React.useState('')
     const [otherPlayers, setOtherPlayers] = React.useState([])
+    const [quizTitle, setQuizTitle] = React.useState('')
 
-    const join = (playerName, playerAvatar, otherPlayers) => {
+    const join = (quizTitle, playerName, playerAvatar, otherPlayers) => {
         setAtJoinGame(false)
         setPlayerName(playerName)
         setPlayerAvatar(playerAvatar)
         setOtherPlayers(otherPlayers)
+        setQuizTitle(quizTitle)
     }
+
     const addPlayer = (otherPlayer) => {
         setOtherPlayers((oldOtherPlayers) => [...oldOtherPlayers, otherPlayer])
     }
@@ -40,7 +43,7 @@ Gorilla.PlayGameWeb = function (props) {
     }
     return atJoinGame ?
         <Gorilla.JoinGame gameId={gameId} adapter={props.adapter} onJoin={join} /> :
-        <Gorilla.PlayGame gameId={gameId} adapter={props.adapter}
+        <Gorilla.PlayGame gameId={gameId} adapter={props.adapter} quizTitle={quizTitle}
             playerName={playerName} playerAvatar={playerAvatar} otherPlayers={otherPlayers}
             onPlayerJoined={addPlayer} onPlayerDisconnected={removePlayer} />
 }

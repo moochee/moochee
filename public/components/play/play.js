@@ -8,6 +8,7 @@ Gorilla.PlayGame = function (props) {
     const [isFinal, setIsFinal] = React.useState(false)
     const [countDown, setCountDown] = React.useState(null)
     const [volume, setVolume] = React.useState(1)
+    const [score, setScore] = React.useState(0)
 
     const music = React.useRef({})
     music.current.volume = volume
@@ -41,6 +42,7 @@ Gorilla.PlayGame = function (props) {
             setWaitingForOtherResponses(false)
             setResult(result)
             setCountDown(null)
+            setScore(result.find(r => r.avatar === props.playerAvatar).score)
         }
     }
 
@@ -72,14 +74,16 @@ Gorilla.PlayGame = function (props) {
         }
     }, [])
 
+    const showPodium = Boolean(result) && !isFinal
     const waitingToStartBlock = waitingToStart ? <Gorilla.PlayGame.WaitingToStart otherPlayers={props.otherPlayers} /> : ''
     const questionBlock = question && (countDown !== null) ? <Gorilla.PlayGame.QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} onGuess={guess} /> : ''
-    const podiumBlock = result && !isFinal ? <Gorilla.Podium players={result} /> : ''
+    const podiumBlock = showPodium ? <Gorilla.Podium players={result} /> : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
-    const audioControl = <Gorilla.AudioControl onVolume={setVolume} />
+    const isIos = navigator.userAgent.match(/ipad|iphone/i)
+    const audioControl = isIos ? '' : <Gorilla.AudioControl onVolume={setVolume} />
 
-    return <Gorilla.Shell headerLeft={`${props.playerAvatar} ${props.playerName}`} headerRight={audioControl} fullScreenContent={Boolean(result && !isFinal)}>
+    return <Gorilla.Shell headerLeft={props.quizTitle} headerRight={audioControl} footerLeft={`${props.playerAvatar} ${props.playerName}`} footerRight={`Score: ${score}`} fullScreenContent={showPodium}>
         <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
         {waitingToStartBlock}
         {questionBlock}

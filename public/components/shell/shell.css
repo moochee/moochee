@@ -4,7 +4,7 @@
 }
 
 .shellHeader, .shellFooter {
-    font-size: 5vh;
+    font-size: min(5vw, 5vh);
     width: 100%;
     position: fixed;
     background: black;

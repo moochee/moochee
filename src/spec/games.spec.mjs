@@ -95,4 +95,6 @@ describe('Games', () => {
     })
 
     // TODO shouldn't we have a test for increasing the score based on faster response time?
+
+    // TODO add a test for the intermediate results - server should NOT present the player names
 })
