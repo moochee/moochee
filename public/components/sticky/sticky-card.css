@@ -1,12 +1,10 @@
 .stickyCard {
     position: relative;
-    width: max(20vw, 25.56vh);
-    transition: all 400ms cubic-bezier(.47, 1.64, .41, .8);
+    width: min(40vw, 35vh);
 }
 
 .stickyCard .textField {
-    font-family: komika_textregular;
-    font-size: max(2vw, 2.56vh);
+    font-size: min(4vw, 3.5vh);
     color: white;
     position: absolute;
     left: 15%;

@@ -16,11 +16,3 @@
     overflow-y: scroll;
     justify-content: center;
 }
-
-.entranceQuiz .stickyButton {
-    width: min(40vw, 35vh)
-}
-
-.entranceQuiz .stickyButton .textField {
-    font-size: min(4vw, 3.5vh);
-}
