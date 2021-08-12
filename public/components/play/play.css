@@ -2,13 +2,22 @@
     animation: playWaitingBounceIn 2s;
 }
 
-@keyframes playWaitingBounceIn { 
-    from { opacity: 0; }
-    30% { opacity: 0; }
-    20%, 50%, 80%, 100% {transform: translateY(0);} 
-    40% {transform: translateY(-.5em);} 
-    60% {transform: translateY(-.25em);} 
-    99% { opacity: 1; }
+@keyframes playWaitingBounceIn {
+    0%, 30% {
+        opacity: 0;
+    }
+    20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-.5em);
+    }
+    60% {
+        transform: translateY(-.25em);
+    }
+    99% {
+        opacity: 1;
+    }
 }
 
 .playAnswers {

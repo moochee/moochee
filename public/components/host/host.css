@@ -88,10 +88,39 @@
 }
 
 @keyframes hostWaitingBounceIn {
-    from { opacity: 0; }
-    30% { opacity: 0; }
-    20%, 50%, 80%, 100% {transform: translateY(0);} 
-    40% {transform: translateY(-.5em);} 
-    60% {transform: translateY(-.25em);} 
-    99% { opacity: 1; }
+    0%, 30% {
+        opacity: 0;
+    }
+    20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-.5em);
+    }
+    60% {
+        transform: translateY(-.25em);
+    }
+    99% {
+        opacity: 1;
+    }
+}
+
+.hostAnswers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hostQuestion {
+    text-align: center;
+    font-size: 4vh;
+    color: #0070c0;
+}
+
+.hostCountdown {
+    position: absolute;
+    bottom: 10vh;
+    right: 5vh;
+    font-size: 4vh;
 }

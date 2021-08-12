@@ -82,7 +82,7 @@ Gorilla.HostGame = function (props) {
 
     const waitingToStart = !question && !result
     const waitingToStartBlock = waitingToStart ? <Gorilla.HostGame.WaitingToStart gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
-    const questionBlock = question && (countDown !== null) ? <Gorilla.HostGame.QuestionAndAnswers countDown={countDown} question={question.text} imageUrl='' answers={question.answers} /> : ''
+    const questionBlock = question && (countDown !== null) ? <Gorilla.HostGame.QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} /> : ''
     const podiumBlock = result && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
     const podiumFinalBlock = result && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} onBackHome={props.onBackHome} /> : ''
     const audioControl = <Gorilla.AudioControl onVolume={setVolume} />
@@ -105,18 +105,19 @@ Gorilla.HostGame.Answers = function (props) {
     const answersBlock = props.answers.map((answer, index) => {
         return <Gorilla.HostGame.Answer key={index} color={colors[index]} answer={answer} />
     })
-    return <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
+    return <div className='hostAnswers'>
         {answersBlock}
     </div>
 }
 
 Gorilla.HostGame.QuestionAndAnswers = function (props) {
-    return <div style={{ width: '50%', marginLeft: '25%' }}>
-        <div style={{ position: 'absolute', top: '6vh', right: '6vh', fontSize: '4vh' }}>
+    return <div>
+        <h1 className='hostQuestion'>{props.question}</h1>
+        <Gorilla.HostGame.Answers answers={props.answers} />
+
+        <div className='hostCountdown'>
             <Gorilla.Countdown seconds={props.countDown} />
         </div>
-        <h1 style={{ textAlign: 'center', fontSize: '4vh', color: '#0070c0' }}>{props.question}</h1>
-        <Gorilla.HostGame.Answers answers={props.answers} />
     </div>
 }
 
