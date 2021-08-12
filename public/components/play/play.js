@@ -70,7 +70,7 @@ Gorilla.PlayGame = function (props) {
     }, [])
 
     const waitingToStartBlock = waitingToStart ? <Gorilla.PlayGame.WaitingToStart otherPlayers={props.otherPlayers} /> : ''
-    const questionBlock = question ? <Gorilla.PlayGame.QuestionAndAnswers question={question.text} imageUrl='' answers={question.answers} onGuess={guess} /> : ''
+    const questionBlock = question ? <Gorilla.PlayGame.QuestionAndAnswers question={question.text} answers={question.answers} onGuess={guess} /> : ''
     const podiumBlock = result && !isFinal ? <Gorilla.Podium players={result} /> : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
@@ -114,7 +114,6 @@ Gorilla.PlayGame.QuestionAndAnswers = function (props) {
     return <div className='playQuestionAnswers'>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h1 style={{ textAlign: 'center', fontSize: '4vh', color: '#0070c0' }}>{props.question}</h1>
-            <img width='80%' src={props.imageUrl} />
         </div>
 
         <Gorilla.PlayGame.Answers answers={props.answers} onGuess={props.onGuess} />
