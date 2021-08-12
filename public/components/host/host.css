@@ -50,7 +50,7 @@
 }
 
 .hostWaitingPlayerInfo.hostWaitingNoPlayersYet {
-    font-size: 2em;
+    font-size: min(6vh, 6vw);
 }
 
 .hostWaitingStart {
@@ -78,7 +78,7 @@
         flex-direction: column;
     }
     .hostWaitingQrCode {
-        height: calc(min(40vh, 100vw - 2em));
+        height: calc(min(35vh, 100vw - 2em));
         margin-bottom: 1em;
     }
 }
@@ -120,7 +120,7 @@
 
 .hostCountdown {
     position: absolute;
-    bottom: 5vh;
+    bottom: 2vh;
     right: 5vh;
     font-size: 4vh;
 }
