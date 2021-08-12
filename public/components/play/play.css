@@ -32,3 +32,10 @@
     font-size: 4vh;
     color: #0070c0;
 }
+
+.playCountdown {
+    position: absolute;
+    bottom: 5vh;
+    right: 5vh;
+    font-size: 4vh;
+}

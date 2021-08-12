@@ -6,6 +6,7 @@ Gorilla.PlayGame = function (props) {
     const [waitingForOtherResponses, setWaitingForOtherResponses] = React.useState(false)
     const [waitingToStart, setWaitingToStart] = React.useState(true)
     const [isFinal, setIsFinal] = React.useState(false)
+    const [countDown, setCountDown] = React.useState(null)
     const [volume, setVolume] = React.useState(1)
 
     const music = React.useRef({})
@@ -24,12 +25,13 @@ Gorilla.PlayGame = function (props) {
         }
     }
 
-    const onRoundStarted = (gameId, newQuestion) => {
+    const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
         if (gameId === props.gameId) {
             setQuestion(newQuestion)
             setWaitingForOtherResponses(false)
             setResult(null)
             setWaitingToStart(false)
+            setCountDown(secondsToGuess)
         }
     }
 
@@ -38,6 +40,7 @@ Gorilla.PlayGame = function (props) {
             setQuestion(null)
             setWaitingForOtherResponses(false)
             setResult(result)
+            setCountDown(null)
         }
     }
 
@@ -70,7 +73,7 @@ Gorilla.PlayGame = function (props) {
     }, [])
 
     const waitingToStartBlock = waitingToStart ? <Gorilla.PlayGame.WaitingToStart otherPlayers={props.otherPlayers} /> : ''
-    const questionBlock = question ? <Gorilla.PlayGame.QuestionAndAnswers question={question.text} answers={question.answers} onGuess={guess} /> : ''
+    const questionBlock = question && (countDown !== null) ? <Gorilla.PlayGame.QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} onGuess={guess} /> : ''
     const podiumBlock = result && !isFinal ? <Gorilla.Podium players={result} /> : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
@@ -114,5 +117,9 @@ Gorilla.PlayGame.QuestionAndAnswers = function (props) {
     return <div>
         <h1 className='playQuestion'>{props.question}</h1>
         <Gorilla.PlayGame.Answers answers={props.answers} onGuess={props.onGuess} />
+    
+        <div className='playCountdown'>
+            <Gorilla.Countdown seconds={props.countDown} />
+        </div>
     </div>
 }
