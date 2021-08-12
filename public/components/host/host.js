@@ -131,9 +131,25 @@ Gorilla.HostGame.QRCode = function (props) {
 Gorilla.HostGame.WaitingToStart = function (props) {
     const joinUrl = `${window.location.origin}/#/play/${props.gameId}`
     const [copied, setCopied] = React.useState('')
+    const joinUrlInput = React.useRef()
+
+    function iosCopyToClipboard(el) {
+        const range = document.createRange()
+        range.selectNodeContents(el)
+        const s = window.getSelection()
+        s.removeAllRanges()
+        s.addRange(range)
+        el.setSelectionRange(0, el.value.length)
+        document.execCommand('copy')
+        el.setSelectionRange(-1, -1)
+    }
 
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(joinUrl)
+        if (navigator.userAgent.match(/ipad|iphone/i)) {
+            iosCopyToClipboard(joinUrlInput.current)
+        } else {
+            navigator.clipboard.writeText(joinUrl)
+        }
         setCopied('copied!')
     }
 
@@ -149,7 +165,7 @@ Gorilla.HostGame.WaitingToStart = function (props) {
 
     return <div className='hostWaiting'>
         <div className='hostWaitingJoinUrl'>
-            <input readOnly value={joinUrl} onClick={copyToClipboard}></input>
+            <input ref={joinUrlInput} readOnly value={joinUrl} onClick={copyToClipboard}></input>
             <button onClick={copyToClipboard}>📋</button>
             <div>{copied}</div>
         </div>
