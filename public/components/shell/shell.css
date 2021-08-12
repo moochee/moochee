@@ -15,7 +15,8 @@
     justify-content: center;
 }
 
-.shellHeaderLeft {
+.shellHeaderLeft, .shellFooterLeft {
+    margin-left: 1vw;
     margin-left: 1vw;
 }
 
@@ -23,7 +24,7 @@
     margin-left: auto;
 }
 
-.shellHeaderRight {
+.shellHeaderRight, .shellFooterRight {
     margin-left: auto;
     margin-right: 1vw;
 }
@@ -34,10 +35,9 @@
 
 .shellFooter {
     bottom: 0;
-    flex-direction: row;
 }
 
-.shellFooterLeft, .shellFooterRight {
+.shellFooterLeft.shellLogo, .shellFooterRight.shellLogo {
     width: 50%;
     height: 100%;
     background-position: center;
@@ -45,11 +45,11 @@
     background-repeat: no-repeat;
 }
 
-.shellFooterLeft {
+.shellFooterLeft.shellLogo {
     background-image: url(cloud-curriculum.png);
 }
 
-.shellFooterRight {
+.shellFooterRight.shellLogo {
     background-image: url(acdc.png);
 }
 

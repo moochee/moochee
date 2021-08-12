@@ -2,7 +2,9 @@
 
 Gorilla.Shell = function (props) {
     const contentClass = props.fullScreenContent ? 'shellContentFullscreen' : 'shellContentFit'
-
+    const footerLeftClass = props.footerLeft ? 'shellFooterLeft' : 'shellFooterLeft shellLogo'
+    const footerRightClass = props.footerRight ? 'shellFooterRight' : 'shellFooterRight shellLogo'
+    
     return <div className='shell'>
         <div className={contentClass}>
             {props.children}
@@ -13,8 +15,8 @@ Gorilla.Shell = function (props) {
             <div className='shellHeaderRight'>{props.headerRight}</div>
         </div>
         <div className='shellFooter'>
-            <div className='shellFooterLeft'></div>
-            <div className='shellFooterRight'></div>
+            <div className={footerLeftClass}>{props.footerLeft}</div>
+            <div className={footerRightClass}>{props.footerRight}</div>
         </div>
     </div>
 }
