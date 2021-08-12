@@ -48,16 +48,14 @@ Gorilla.PlayGameWeb = function (props) {
 Gorilla.WebApp = function (props) {
     const { HashRouter, Switch, Route } = ReactRouterDOM
 
-    return <div style={{ height: '100%', width: '100%' }}>
-        <HashRouter>
-            <Switch>
-                <Route exact path='/'>
-                    <Gorilla.HostGameWeb adapter={props.adapter} />
-                </Route>
-                <Route path='/play/:gameId'>
-                    <Gorilla.PlayGameWeb adapter={props.adapter} />
-                </Route>
-            </Switch>
-        </HashRouter>
-    </div>
+    return <HashRouter>
+        <Switch>
+            <Route exact path='/'>
+                <Gorilla.HostGameWeb adapter={props.adapter} />
+            </Route>
+            <Route path='/play/:gameId'>
+                <Gorilla.PlayGameWeb adapter={props.adapter} />
+            </Route>
+        </Switch>
+    </HashRouter>
 }
