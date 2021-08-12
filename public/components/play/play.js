@@ -112,10 +112,7 @@ Gorilla.PlayGame.Answers = function (props) {
 
 Gorilla.PlayGame.QuestionAndAnswers = function (props) {
     return <div className='playQuestionAnswers'>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h1 style={{ textAlign: 'center', fontSize: '4vh', color: '#0070c0' }}>{props.question}</h1>
-        </div>
-
+        <h1 style={{ textAlign: 'center', fontSize: '4vh', color: '#0070c0' }}>{props.question}</h1>
         <Gorilla.PlayGame.Answers answers={props.answers} onGuess={props.onGuess} />
     </div>
 }
