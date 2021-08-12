@@ -86,7 +86,7 @@ export default function Games(timer, quizRepo, eventEmitter) {
         }
         if (game && game.players) {
             game.players = game.players.filter(p => p.socketId != socketId)
-            eventEmitter.publish('playerDisconnected', game.id, player.name)
+            eventEmitter.publish('playerDisconnected', game.id, player.avatar)
         }
     }
 }
