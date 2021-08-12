@@ -7,7 +7,7 @@ describe('Games', () => {
 
     beforeEach(() => {
         timer = { setTimeout: () => null, clearTimeout: () => null, secondsToGuess: null }
-        quizRepo = { questions: [], getById: function () { return { questions: this.questions } } }
+        quizRepo = { questions: [], getById: function () { return { text: 'sample quiz', questions: this.questions } } }
         eventEmitter = { publish: function (...args) { this.receivedArgs = args } }
         games = new Games(timer, quizRepo, eventEmitter)
     })
@@ -20,11 +20,11 @@ describe('Games', () => {
         expect(gameId1).not.toEqual(gameId2)
     })
 
-    it('sets score and avatar when player joins a game', async () => {
+    it('sets score and avatar and presents quiz title when player joins a game', async () => {
         const gameId = await games.host()
         const joinResponse = games.join(gameId, 'alice', null)
         expect(eventEmitter.receivedArgs).toEqual(['playerJoined', gameId, jasmine.any(String)])
-        expect(joinResponse).toEqual({ avatar: jasmine.any(String), score: 0, otherPlayers: [] })
+        expect(joinResponse).toEqual({ quizTitle: 'sample quiz', avatar: jasmine.any(String), score: 0, otherPlayers: [] })
     })
 
     it('is not ok when joining with a player name that is already taken in this game', async () => {
