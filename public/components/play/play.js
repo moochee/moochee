@@ -14,36 +14,27 @@ Gorilla.PlayGame = function (props) {
     music.current.volume = volume
 
     const onPlayerJoined = (gameId, player) => {
-        // REVISE do we even need all these 'IFs' (also in the other handlers below)? I thought socket.io already uses the right 'channel'...
-        if (gameId === props.gameId) {
-            props.onPlayerJoined(player)
-        }
+        props.onPlayerJoined(player)
     }
 
     const onPlayerDisconnected = (gameId, player) => {
-        if (gameId === props.gameId) {
-            props.onPlayerDisconnected(player)
-        }
+        props.onPlayerDisconnected(player)
     }
 
     const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
-        if (gameId === props.gameId) {
-            setQuestion(newQuestion)
-            setWaitingForOtherResponses(false)
-            setResult(null)
-            setWaitingToStart(false)
-            setCountDown(secondsToGuess)
-        }
+        setQuestion(newQuestion)
+        setWaitingForOtherResponses(false)
+        setResult(null)
+        setWaitingToStart(false)
+        setCountDown(secondsToGuess)
     }
 
     const onRoundFinished = (gameId, result) => {
-        if (gameId === props.gameId) {
-            setQuestion(null)
-            setWaitingForOtherResponses(false)
-            setResult(result)
-            setCountDown(null)
-            setScore(result.find(r => r.avatar === props.playerAvatar).score)
-        }
+        setQuestion(null)
+        setWaitingForOtherResponses(false)
+        setResult(result)
+        setCountDown(null)
+        setScore(result.find(r => r.avatar === props.playerAvatar).score)
     }
 
     const onGameFinished = (gameId, result) => {
@@ -121,7 +112,7 @@ Gorilla.PlayGame.QuestionAndAnswers = function (props) {
     return <div>
         <h1 className='playQuestion'>{props.question}</h1>
         <Gorilla.PlayGame.Answers answers={props.answers} onGuess={props.onGuess} />
-    
+
         <div className='playCountdown'>
             <Gorilla.Countdown seconds={props.countDown} />
         </div>

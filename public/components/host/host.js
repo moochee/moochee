@@ -13,50 +13,39 @@ Gorilla.HostGame = function (props) {
     music.current.volume = volume
 
     const onPlayerJoined = (gameId, player) => {
-        // REVISE do we even need all these 'IFs' (also in the other handlers below)? I thought socket.io already uses the right 'channel'...
-        if (gameId === props.gameId) {
-            setPlayers((oldPlayers) => {
-                if (oldPlayers.length >= 1) {
-                    setCanStart(true)
-                }
-                return [...oldPlayers, player]
-            })
-        }
+        setPlayers((oldPlayers) => {
+            if (oldPlayers.length >= 1) {
+                setCanStart(true)
+            }
+            return [...oldPlayers, player]
+        })
     }
 
     const onPlayerDisconnected = (gameId, player) => {
-        if (gameId === props.gameId) {
-            setPlayers((oldPlayers) => {
-                if (oldPlayers.length <= 2) {
-                    setCanStart(false)
-                }
-                return oldPlayers.filter(p => p != player)
-            })
-        }
+        setPlayers((oldPlayers) => {
+            if (oldPlayers.length <= 2) {
+                setCanStart(false)
+            }
+            return oldPlayers.filter(p => p != player)
+        })
     }
 
     const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
-        if (gameId === props.gameId) {
-            setQuestion(newQuestion)
-            setResult(null)
-            setCountDown(secondsToGuess)
-        }
+        setQuestion(newQuestion)
+        setResult(null)
+        setCountDown(secondsToGuess)
     }
 
     const onRoundFinished = (gameId, result) => {
-        if (gameId === props.gameId) {
-            setQuestion(null)
-            setResult(result)
-            setCountDown(null)
-        }
+        setQuestion(null)
+        setResult(result)
+        setCountDown(null)
     }
 
     const onGameFinished = (gameId, result) => {
-        if (gameId === props.gameId) {
-            setQuestion(null)
-            setResult(result)
-            setIsFinal(true)
-        }
+        setQuestion(null)
+        setResult(result)
+        setIsFinal(true)
     }
 
     const next = () => {
