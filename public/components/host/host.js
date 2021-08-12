@@ -164,14 +164,14 @@ Gorilla.HostGame.WaitingToStart = function (props) {
             <Gorilla.HostGame.QRCode url={joinUrl} />
             {players}
         </div>
-        <div className='hostWaitingStart'>{startButton}</div>
+        <div className='hostStartButton'>{startButton}</div>
     </div>
 }
 
 Gorilla.HostGame.PodiumPage = function (props) {
     return <div className='hostPodium'>
         <Gorilla.Podium players={props.players} />
-        <div className='hostNextButton'>
+        <div className='hostNextQuestionButton'>
             <Gorilla.StickyButton onClick={props.onNext} color='blue' text='Next Question' />
         </div>
     </div>

@@ -1,3 +1,28 @@
+.playWaiting {
+    height: 100%;
+    padding: 1em;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.playWaitingOtherPlayers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    justify-content: center;
+}
+
+.playWaitingLabel {
+    font-size: min(6vh, 6vw);
+}
+
+.playWaitingAvatar {
+    font-size: min(15vh, 15vw)
+}
+
 .playWaitingBounceIn {
     animation: playWaitingBounceIn 2s;
 }

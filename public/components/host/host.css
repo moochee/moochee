@@ -41,26 +41,28 @@
 
 .hostWaitingPlayerInfo {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: row;
-    text-align: center;
+    flex-wrap: wrap;
     font-size: max(10vh, 10vw);
     overflow-y: scroll;
-    height: 100%;
+    justify-content: center;
 }
 
 .hostWaitingPlayerInfo.hostWaitingNoPlayersYet {
     font-size: min(6vh, 6vw);
 }
 
-.hostWaitingStart {
+.hostStartButton {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    opacity: 0.9;
+}
+
+.hostNextQuestionButton, .hostBackHomeButton {
     position: absolute;
     right: 0;
     bottom: 10%;
-}
-
-.hostWaitingStart .stickyButton {
-    opacity: 0.9;
 }
 
 @media (orientation: landscape) {
@@ -69,6 +71,9 @@
     }
     .hostWaitingQrCode {
         margin-right: 1em;
+        height: 100%;
+    }
+    .hostWaitingPlayerInfo {
         height: 100%;
     }
 }
@@ -127,11 +132,4 @@
 
 .hostPodium {
     height: 100%;
-}
-
-.hostNextButton, .hostBackHomeButton {
-    position: absolute;
-    bottom: 0vh;
-    transform: translateY(-50%);
-    right: 5vw;
 }

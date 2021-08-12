@@ -66,7 +66,7 @@ Gorilla.PlayGame = function (props) {
     }, [])
 
     const showPodium = Boolean(result) && !isFinal
-    const waitingToStartBlock = waitingToStart ? <Gorilla.PlayGame.WaitingToStart otherPlayers={props.otherPlayers} /> : ''
+    const waitingToStartBlock = waitingToStart ? <Gorilla.PlayGame.WaitingToStart avatar={props.playerAvatar} otherPlayers={props.otherPlayers} /> : ''
     const questionBlock = question && (countDown !== null) ? <Gorilla.PlayGame.QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} onGuess={guess} /> : ''
     const podiumBlock = showPodium ? <Gorilla.Podium players={result} /> : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? <h2>Waiting for other players...</h2> : ''
@@ -85,12 +85,19 @@ Gorilla.PlayGame = function (props) {
 }
 
 Gorilla.PlayGame.WaitingToStart = function (props) {
-    const label = props.otherPlayers.length === 0 ? <h2>Waiting for other players...</h2> : <h2>You are up against:</h2>
+    const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingAvatar playWaitingBounceIn'>{p}</div>)
+    const otherPlayersInfo = props.otherPlayers.length > 0
+        ? otherPlayers
+        : <div className='playWaitingLabel'>Waiting for other players...</div>
 
-    const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingBounceIn'>{p}</div>)
-    return <div>
-        {label}
-        <div className='hostWaitingPlayerInfo'>{otherPlayers}</div>
+    // const otherPlayersInfo = props.otherPlayers.length === 0 ? <h2>Waiting for other players...</h2> : <h2>You are up against:</h2>
+    // const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingBounceIn'>{p}</div>)
+
+    return <div className='playWaiting'>
+        <div className='playWaitingLabel'>You are playing as:</div>
+        <div className='playWaitingAvatar'>{props.avatar}</div>
+        <div className='playWaitingLabel'>You are up against:</div>
+        <div className='playWaitingOtherPlayers'>{otherPlayersInfo}</div>
     </div>
 }
 
