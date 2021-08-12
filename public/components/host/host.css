@@ -124,3 +124,14 @@
     right: 5vh;
     font-size: 4vh;
 }
+
+.hostPodium {
+    height: 100%;
+}
+
+.hostNextButton, .hostBackHomeButton {
+    position: absolute;
+    bottom: 0vh;
+    transform: translateY(-50%);
+    right: 5vw;
+}
