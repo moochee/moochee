@@ -1,7 +1,7 @@
 'use strict'
 
 Gorilla.AudioControl = function (props) {
-    const volumeSlider = React.useRef(false)
+    const volumeSlider = React.useRef()
     const [muted, setMuted] = React.useState(false)
 
     React.useEffect(() => {
