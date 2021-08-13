@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src='lib/react.development.js'></script>
+    <script src='lib/react-dom.development.js'></script>
+
+    <script type="application/javascript">
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js', { scope: './' })
+                .then((reg) => {
+                    // REVISE 1000ms is of course random and not nice - need to find a way to load as soon as the service worker got active
+                    setTimeout(() => {
+                        const script = document.createElement('script')
+                        script.setAttribute('src', 'components/main.js')
+                        script.type = 'module'
+                        document.head.appendChild(script)
+                    }, 1000)
+
+                    console.log('Registration succeeded. Scope is ' + reg.scope)
+                }).catch((error) => {
+                    console.log('Registration failed with ' + error)
+                })
+        }
+
+    </script>
+</head>
+
+<body>
+<div id="react-root">
+
+</div>
+</body>
+
+</html>
