@@ -15,7 +15,8 @@ self.addEventListener('fetch', (event) => {
     if (event.request.url.indexOf('main.js') > -1) {
         console.log('compile & serve')
         event.respondWith(fetch(event.request).then(res => res.text()).then(text => {
-            return new Response(Babel.transform(text, { presets: ['react'] }).code, {
+            const compiledCode = Babel.transform(text, { presets: ['react'] }).code
+            return new Response(compiledCode, {
                 status: 200,
                 statusText: 'OK',
                 headers: {'Content-Type': 'application/javascript'}
