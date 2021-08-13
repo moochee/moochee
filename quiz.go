@@ -9,8 +9,8 @@ type QuizQuestion struct {
 type Quiz struct {
 	currentQuestion QuizQuestion
 	// REVISE try a map instead of an array
-	playerList      [25]Player
-	numberOfPlayers int
+	playerList                    []Player
+	numberOfplayersWhoHaveGuessed int
 }
 
 type Player struct {
@@ -88,6 +88,15 @@ func (q *Quiz) Guess(playerName string, givenAnswer string) {
 	}
 }
 
+func GoNextIfAllGuessed() {
+	// Option 1: we have a new property hasGuessedInCurrentRound" as part of the Player class,
+	//           when a player guesses, we set it to true
+	//           then we can go next if all players in playerList have hasGuessedInCurrentRound being true
+	// Option 2: we have a new property numberOfPlayersWhoHaveGuessed as part of the Quiz class,
+	//           when a player guesses, we increment it by one
+	//           then we can go next if the numberOfPlayersWhoHaveGuessed is same than number of players in the playerList
+}
+
 func (q *Quiz) GuessByIndex(playerIndex int, givenAnswer string) {
 	player := &q.playerList[playerIndex]
 	if givenAnswer == q.currentQuestion.rightAnswer {
@@ -96,8 +105,6 @@ func (q *Quiz) GuessByIndex(playerIndex int, givenAnswer string) {
 }
 
 func (q *Quiz) Join(playerName string) {
-	// REVISE try using append and then we don't need the numberOfPlayers variable any longer
 	newPlayer := Player{name: playerName, score: 0}
-	q.playerList[q.numberOfPlayers] = newPlayer
-	q.numberOfPlayers++
+	q.playerList = append(q.playerList, newPlayer)
 }

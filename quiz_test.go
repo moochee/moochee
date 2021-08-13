@@ -1,13 +1,14 @@
 package main
 
 // TODO
-// points are accumulated during the quiz
+// transition to next question
 // quiz is over when no more questions
 // every second of response time reduces the points by 10%, e.g. after 4 seconds it's 65 seconds (100 * .9 ^ 4)
 // response time is limited to 20 seconds
 // the "leaderboard" can be inspected, e.g. who are the top 3 participants
 // changes to the leaderboard can be tracked, e.g. "peter is on a fire" if he climbed consistently during the last questions
 // DONE
+// points are accumulated during the quiz
 // #3.1 more questions
 // players can join the game
 
@@ -55,8 +56,19 @@ func TestQuiz(test *testing.T) {
 	}
 
 	// guess right another time => 100 points more, so 200 in total
+	quiz.Start()
 	quiz.Guess("Bob", "Yes")
 	if quiz.playerList[1].score != 200 {
 		test.Error("expected 200 points")
 	}
+
+	// all players guessed => show next question
+	quiz.Start()
+	quiz.Guess("Alice", "Yes")
+	quiz.Guess("Bob", "Yes")
+	if quiz.currentQuestion.question != "What does PPO stand for?" {
+		test.Error("expected the second question")
+	}
+
+	// REVISE maybe it is better to have one function per test - check if this is also common practice in Golang
 }
