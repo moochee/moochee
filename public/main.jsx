@@ -6,3 +6,5 @@
 import QuizSocketClient from './quiz-socket-client.js'
 
 ReactDOM.render(<div>hello world</div>, document.querySelector('#react-root'))
+
+console.log(QuizSocketClient)

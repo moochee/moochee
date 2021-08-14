@@ -21,6 +21,8 @@ self.addEventListener('fetch', (event) => {
     }
 })
 
+// REVISE I'm pretty sure there is a way to also attach the original jsx as source for debugging
+//        But is it even needed? The compiled js looks good as it really seems to only replace the xml and not do any further funny crap
 const jsxToJs = async (resp) => {
     const text = await resp.text()
     // eslint-disable-next-line no-undef
