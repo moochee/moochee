@@ -6,15 +6,17 @@
     <script src='lib/react-dom.development.js'></script>
 
     <script type="application/javascript">
-        navigator.serviceWorker.register('./sw.js', { scope: './' })
+        navigator.serviceWorker.register('./sw.js')
 
-        // FIXME for some reason this resolves too early
-        //       https://stackoverflow.com/questions/68781638/service-worker-serviceworker-ready-event-waituntil-not-orchestrating-as-expec
         navigator.serviceWorker.ready.then((registration) => {
-            script = document.createElement('script')
-            script.setAttribute('src', 'main.jsx')
-            script.type = 'module'
-            document.head.appendChild(script)
+            // FIXME for some reason the ready promises resolves too early, below setTimeout is a really stupid hack, delaying 10ms likely still fails on slower devices
+            //       https://stackoverflow.com/questions/68781638/service-worker-serviceworker-ready-event-waituntil-not-orchestrating-as-expec
+            setTimeout(() => {
+                script = document.createElement('script')
+                script.setAttribute('src', 'main.jsx')
+                script.type = 'module'
+                document.head.appendChild(script)
+            }, 10)
         })
     </script>
 </head>
