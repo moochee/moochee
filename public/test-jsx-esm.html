@@ -12,7 +12,7 @@
                     // REVISE 1000ms is of course random and not nice - need to find a way to load as soon as the service worker got active
                     setTimeout(() => {
                         const script = document.createElement('script')
-                        script.setAttribute('src', 'components/main.js')
+                        script.setAttribute('src', 'main.jsx')
                         script.type = 'module'
                         document.head.appendChild(script)
                     }, 1000)
