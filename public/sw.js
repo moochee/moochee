@@ -27,11 +27,11 @@ self.addEventListener('fetch', (event) => {
 
 // REVISE I'm pretty sure there is a way to also attach the original jsx as source for debugging
 //        But is it even needed? The compiled js looks good as it really seems to only replace the xml and not do any further funny crap
-const jsxToJs = async (resp) => {
-    const text = await resp.text()
+const jsxToJsResponse = async (jsxResp) => {
+    const text = await jsxResp.text()
     // eslint-disable-next-line no-undef
     const compiledCode = Babel.transform(text, { presets: ['react'] }).code
-    const headers = new Headers(resp.headers)
+    const headers = new Headers(jsxResp.headers)
     headers.set('Content-Type', 'application/javascript; charset=UTF-8')
     return new Response(compiledCode, { status: 200, statusText: 'OK', headers })
 }
@@ -40,7 +40,8 @@ const fetchAndUpdateCacheIfOnline = async (request, cache) => {
     if (navigator.onLine) {
         try {
             let resp = await fetch(request)
-            resp = (resp.headers.get('content-type').indexOf('text/jsx') > -1) ? await jsxToJs(resp) : resp
+            const isJsx = (resp.headers.get('content-type').indexOf('text/jsx') > -1)
+            resp = isJsx ? await jsxToJsResponse(resp) : resp
             // TODO update cache only if status = 2XX
             await cache.put(request, resp.clone())
             return resp
