@@ -56,6 +56,7 @@ _For the second reason, we compiled a list of our learnings here!_
 - It's a bit tricky to get Service Worker configured correctly
   - If you have something like a compilation of JSX, that requires your application to bootstrap really only once the Service Worker is active - see https://stackoverflow.com/questions/68781638/service-worker-serviceworker-ready-event-waituntil-not-orchestrating-as-expec
   - When you're online, you probably want to update your cached resources in the Service Worker, consider deferring that a bit as otherwise it might delay the connection to your server for the data loading. _If you get that right your app can be rendering the UI AND data in less than 50ms_.
+- Regular ES6 import has the drawback that it doesn't allow for lazy loading
 - UI5 Web Components work really nice, and if you don't like server-side build tools you can load it as a [single-file bundle](https://sap.github.io/ui5-webcomponents/assets/js/ui5-webcomponents/bundle.es5.js (so if you're developing a Java app, you can use UI5 Web Components without being needed to use Node.js), and at least together with React we didn't even feel a need for using the extra UI5 Web Component - React wrapper.
 - You can do zero-downtime deployment also if your app is stateful, and it's actually not complicated using sticky sessions ([also supported by CF](https://docs.cloudfoundry.org/concepts/http-routing.html#sessions)), if your app does gracefully shutdown correctly
 - Golang has really some nice and interesting concepts like the way structs/classes are done
