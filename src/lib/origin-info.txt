@@ -1,0 +1,4 @@
+jsxLoader is from https://github.com/dataformsjs/dataformsjs, MIT license
+
+https://github.com/dataformsjs/dataformsjs/blob/5d05ec3be36970b969b9cf396c9bb2084f23baa3/js/react/jsxLoader.js
+https://github.com/dataformsjs/dataformsjs/blob/5a9001bedbc57babbb63ffd6bc21b00fe4e9c54a/docs/jsx-loader.md

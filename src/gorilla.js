@@ -3,7 +3,7 @@
 import express from 'express'
 import http from 'http'
 import quizSocketServer from './quiz-socket-server.js'
-import jsx from './jsx.cjs'
+import jsx from './jsx.js'
 
 const app = express()
 

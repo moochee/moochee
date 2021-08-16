@@ -1,9 +1,9 @@
 'use strict'
 
-const { jsxLoader } = require('./lib/jsxLoader.min.cjs')
-const fs = require('fs').promises
+import { jsxLoader } from './lib/jsxLoader.min.cjs'
+import { promises as fs } from 'fs'
 
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
     if (req.path.indexOf('.jsx') > -1) {
         try {
             const jsxContent = await fs.readFile(`public${req.path}`)
