@@ -39,7 +39,7 @@
     <script src='components/audio/audio-control.js' type='text/babel'></script>
     <link rel='stylesheet' type='text/css' href='components/shell/shell.css' />
     <script src='components/shell/shell.js' type='text/babel'></script>
-    <script src='components/general.js' type='text/babel'></script>
+    <script src='components/general.jsx' type='text/babel'></script>
     <script src='components/join-game.js' type='text/babel'></script>
     <link rel='stylesheet' type='text/css' href='components/entrance/entrance.css' />
     <script src='components/entrance/entrance.js' type='text/babel'></script>
@@ -72,12 +72,7 @@
 <body>
     <div id='react-root'></div>
 
-    <script type='text/babel' data-type='module'>
-        'use strict'
-        import QuizSocketClient from './quiz-socket-client.js'
-
-        ReactDOM.render(<Gorilla.WebApp adapter={new QuizSocketClient(io())} />, document.querySelector('#react-root'))
-    </script>
+    <script src='main.jsx' type='module'></script>
 </body>
 
 </html>
