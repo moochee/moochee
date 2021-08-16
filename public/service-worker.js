@@ -10,8 +10,9 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     const intercept = async () => {
         const cache = await caches.open('static-v1')
+        const remoteResponse = fetchAndUpdateCacheIfOnline(event.request, cache)
         const cacheResponse = await cache.match(event.request)
-        return cacheResponse || fetchAndUpdateCacheIfOnline(event.request, cache)
+        return cacheResponse || remoteResponse
     }
 
     // filter funny stuff like chrome-extension:// extensions etc.
@@ -45,7 +46,7 @@ const fetchAndUpdateCacheIfOnline = async (request, cache) => {
             await cache.put(request, resp.clone())
             return resp
         } catch (error) {
-            console.error(`error on ${event.request.url}`)
+            console.error(`error on ${request.url}`)
             console.error(error)
         }
     }
