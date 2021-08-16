@@ -6,6 +6,21 @@
     <meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
     <meta name='HandheldFriendly' content='true'>
+
+    <link rel='icon' href='/favicon.svg' />
+    <script type='application/javascript'>
+        navigator.serviceWorker.register('./service-worker.js')
+
+        navigator.serviceWorker.ready.then((registration) => {
+            // FIXME for some reason the ready promises resolves too early, below setTimeout is a really stupid hack, delaying 10ms likely still fails on slower devices
+            //       https://stackoverflow.com/questions/68781638/service-worker-serviceworker-ready-event-waituntil-not-orchestrating-as-expec
+            setTimeout(() => {
+                console.log('service worker ready, bootstrapping')
+                // TODO bootstrap application here
+            }, 10)
+        })
+    </script>
+
     <script type='application/javascript'>
         Gorilla = {}
     </script>
