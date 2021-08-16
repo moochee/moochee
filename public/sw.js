@@ -10,9 +10,8 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     const intercept = async () => {
         const cache = await caches.open('static-v1')
-        const remoteResponse = fetchAndUpdateCacheIfOnline(event.request, cache)
         const cacheResponse = await cache.match(event.request)
-        return cacheResponse || remoteResponse
+        return cacheResponse || fetchAndUpdateCacheIfOnline(event.request, cache)
     }
 
     // filter funny stuff like chrome-extension:// extensions etc.

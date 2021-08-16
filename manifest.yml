@@ -1,9 +1,0 @@
-applications:
-  - name: quiz-app
-    routes:
-      - route: acdc-gorilla.cfapps.sap.hana.ondemand.com
-    path: ./
-    buildpacks:
-      - https://github.com/cloudfoundry/nodejs-buildpack.git#v1.7.56
-    memory: 1024M
-    timeout: 90
