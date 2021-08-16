@@ -36,6 +36,7 @@ _For the second reason, we compiled a list of our learnings here!_
 **Things we're still trying out or want to try out**
 - Golang as alternative server implementation
 - Zero-Downtime deployment of a stateful app
+- CD pipeline with bare shell script and without extra tools, can try Github Actions or even do our own CD server
 
 **Our findings**
 - Most of the technology vendor try to sell you their tools as necessary to keep things simple or performant. They try to sell you that things are hard to do yourself, and therefore you need their stuff to do "magic". None of it is true.
