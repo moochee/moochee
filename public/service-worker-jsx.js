@@ -1,5 +1,7 @@
 'use strict'
 
+// IMPORTANT: this version of the service worker does a JSX compilation, and it is currently NOT used due to an unresolved glitch: https://stackoverflow.com/questions/68781638/service-worker-serviceworker-ready-event-waituntil-not-orchestrating-as-expec
+
 self.addEventListener('install', () => {
     self.skipWaiting()
     self.importScripts('./lib/babel.min.js')
@@ -27,10 +29,22 @@ self.addEventListener('fetch', (event) => {
     }
 })
 
+// REVISE Add source mapping for debugging - or should we just leave it? The compiled js is maybe suitable for debugging since it doesn't do minification etc
+const jsxToJsResponse = async (jsxResp) => {
+    const text = await jsxResp.text()
+    // eslint-disable-next-line no-undef
+    const compiledCode = Babel.transform(text, { presets: ['react'] }).code
+    const headers = new Headers(jsxResp.headers)
+    headers.set('Content-Type', 'application/javascript; charset=UTF-8')
+    return new Response(compiledCode, { status: 200, statusText: 'OK', headers })
+}
+
 const fetchAndUpdateCacheIfOnline = async (request, cache) => {
     if (navigator.onLine) {
         try {
-            const resp = await fetch(request)
+            let resp = await fetch(request)
+            const isJsx = (resp.headers.get('content-type').indexOf('text/jsx') > -1)
+            resp = isJsx ? await jsxToJsResponse(resp) : resp
             // TODO update cache only if status = 2XX
             await cache.put(request, resp.clone())
             return resp
