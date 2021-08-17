@@ -1,10 +1,10 @@
 'use strict'
 
-Gorilla.Shell = function (props) {
+export default function Shell(props) {
     const contentClass = props.fullScreenContent ? 'shellContentFullscreen' : 'shellContentFit'
     const footerLeftClass = props.footerLeft ? 'shellFooterLeft' : 'shellFooterLeft shellLogo'
     const footerRightClass = props.footerRight ? 'shellFooterRight' : 'shellFooterRight shellLogo'
-    
+
     return <div className='shell'>
         <div className={contentClass}>
             {props.children}

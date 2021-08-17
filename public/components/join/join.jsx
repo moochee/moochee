@@ -1,5 +1,7 @@
 'use strict'
 
+import Shell from '../shell/shell.jsx'
+
 export default function Join(props) {
     const [playerName, setPlayerName] = React.useState('')
     const updatePlayerName = (event) => setPlayerName(event.target.value)
@@ -14,7 +16,7 @@ export default function Join(props) {
         }
     }
 
-    return <Gorilla.Shell headerCenter='Welcome to the 🦍 Quiz'>
+    return <Shell headerCenter='Welcome to the 🦍 Quiz'>
         <div className='join'>
             <h1>Join Game {props.gameId}</h1>
             <input id='playerName' placeholder='Enter your name' autoFocus={true} value={playerName}
@@ -22,5 +24,5 @@ export default function Join(props) {
             <button onClick={join}>Join</button>
             <div>{errorMessage}</div>
         </div>
-    </Gorilla.Shell>
+    </Shell>
 }
