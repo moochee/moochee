@@ -2,6 +2,7 @@
 
 import Entrance from './entrance/entrance.jsx'
 import Host from './host/host.jsx'
+import Join from './join/join.jsx'
 
 const HostGameWeb = function (props) {
     const [atEntrance, setAtEntrance] = React.useState(true)
@@ -45,7 +46,7 @@ const PlayGameWeb = function (props) {
         setOtherPlayers((oldPlayers) => oldPlayers.filter(p => p != player))
     }
     return atJoinGame ?
-        <Gorilla.Join gameId={gameId} adapter={props.adapter} onJoin={join} /> :
+        <Join gameId={gameId} adapter={props.adapter} onJoin={join} /> :
         <Gorilla.PlayGame gameId={gameId} adapter={props.adapter} quizTitle={quizTitle}
             playerName={playerName} playerAvatar={playerAvatar} otherPlayers={otherPlayers}
             onPlayerJoined={addPlayer} onPlayerDisconnected={removePlayer} />

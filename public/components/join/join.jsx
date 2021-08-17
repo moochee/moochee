@@ -1,6 +1,6 @@
 'use strict'
 
-Gorilla.Join = function (props) {
+export default function Join(props) {
     const [playerName, setPlayerName] = React.useState('')
     const updatePlayerName = (event) => setPlayerName(event.target.value)
     const [errorMessage, setErrorMessage] = React.useState('')
