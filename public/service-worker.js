@@ -1,3 +1,5 @@
+'use strict'
+
 self.addEventListener('install', () => {
     self.skipWaiting()
     self.importScripts('./lib/babel.min.js')
@@ -17,16 +19,15 @@ self.addEventListener('fetch', (event) => {
 
     // filter funny stuff like chrome-extension:// extensions etc.
     // TODO check if service worker even considers foreign origins, e.g. if we load stuff from unpkg, and if so, if we want to also consider these (I think yes)
-    // TODO check that we don't intercept API requests, hopefully it's fine since we're using web sockets, but since service worker seems to also intercept other protocols like chrome-extension://, we better double-check...
     const url = new URL(event.request.url)
     const isSocketReq = (url.pathname.indexOf('socket.io') > -1) && (url.pathname.indexOf('socket.io.min.js') === -1)
-    if (['http:', 'https:'].includes(url.protocol) && !isSocketReq) {
+    const isRangeReq = event.request.headers.has('range')
+    if (['http:', 'https:'].includes(url.protocol) && !isSocketReq && !isRangeReq) {
         event.respondWith(intercept())
     }
 })
 
-// REVISE I'm pretty sure there is a way to also attach the original jsx as source for debugging
-//        But is it even needed? The compiled js looks good as it really seems to only replace the xml and not do any further funny crap
+// REVISE Add source mapping for debugging - or should we just leave it? The compiled js is maybe suitable for debugging since it doesn't do minification etc
 const jsxToJsResponse = async (jsxResp) => {
     const text = await jsxResp.text()
     // eslint-disable-next-line no-undef
