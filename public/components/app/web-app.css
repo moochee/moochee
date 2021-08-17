@@ -1,0 +1,8 @@
+html, body, #react-root {
+    margin: 0;
+    height: 100%;
+}
+
+html {
+    font-family: komika_textregular;
+}

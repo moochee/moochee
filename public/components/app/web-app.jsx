@@ -1,9 +1,9 @@
 'use strict'
 
-import Entrance from './entrance/entrance.jsx'
-import Host from './host/host.jsx'
-import Join from './join/join.jsx'
-import Play from './play/play.jsx'
+import Entrance from '../entrance/entrance.jsx'
+import Host from '../host/host.jsx'
+import Join from '../join/join.jsx'
+import Play from '../play/play.jsx'
 
 const HostGameWeb = function (props) {
     const [atEntrance, setAtEntrance] = React.useState(true)

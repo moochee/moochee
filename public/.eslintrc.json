@@ -1,25 +1,26 @@
 {
-    "overrides": [{
-        "files": "**/*.jsx",
-        "parserOptions": {
-            "ecmaFeatures": {
-                "jsx": true
+    "overrides": [
+        {
+            "files": "**/*.jsx",
+            "parserOptions": {
+                "ecmaFeatures": {
+                    "jsx": true
+                }
+            },
+            "plugins": [
+                "react"
+            ],
+            "globals": {
+                "React": "readonly",
+                "ReactDOM": "readonly",
+                "ReactRouterDOM": "readonly",
+                "QRious": "readonly"
+            },
+            "rules": {
+                "react/jsx-uses-vars": "error"
             }
-        },
-        "plugins": [
-            "react"
-        ],
-        "globals": {
-            "React": "readonly",
-            "ReactDOM": "readonly",
-            "ReactRouterDOM": "readonly",
-            "Gorilla": "readonly",
-            "QRious": "readonly"
-        },
-        "rules": {
-            "react/jsx-uses-vars": "error"
         }
-    }],
+    ],
     "env": {
         "browser": true
     },
