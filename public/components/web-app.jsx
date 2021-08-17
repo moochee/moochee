@@ -45,7 +45,7 @@ const PlayGameWeb = function (props) {
         setOtherPlayers((oldPlayers) => oldPlayers.filter(p => p != player))
     }
     return atJoinGame ?
-        <Gorilla.JoinGame gameId={gameId} adapter={props.adapter} onJoin={join} /> :
+        <Gorilla.Join gameId={gameId} adapter={props.adapter} onJoin={join} /> :
         <Gorilla.PlayGame gameId={gameId} adapter={props.adapter} quizTitle={quizTitle}
             playerName={playerName} playerAvatar={playerAvatar} otherPlayers={otherPlayers}
             onPlayerJoined={addPlayer} onPlayerDisconnected={removePlayer} />

@@ -1,0 +1,22 @@
+.join {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+}
+
+.join input {
+    width: 10em;
+    height: 3em;
+    text-align: center;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.join button {
+    width: 10.5em;
+    height: 3em;
+    font-family: inherit;
+    font-size: inherit;
+}
