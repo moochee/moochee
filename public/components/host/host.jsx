@@ -1,25 +1,23 @@
 'use strict'
 
-Gorilla.HostGame = {}
-
-Gorilla.HostGame.Answer = function (props) {
+const Answer = function (props) {
     return <Gorilla.StickyCard color={props.color} text={props.answer.text} />
 }
 
-Gorilla.HostGame.Answers = function (props) {
+const Answers = function (props) {
     const colors = ['green', 'purple', 'blue', 'orange']
     const answersBlock = props.answers.map((answer, index) => {
-        return <Gorilla.HostGame.Answer key={index} color={colors[index]} answer={answer} />
+        return <Answer key={index} color={colors[index]} answer={answer} />
     })
     return <div className='hostAnswers'>
         {answersBlock}
     </div>
 }
 
-Gorilla.HostGame.QuestionAndAnswers = function (props) {
+const QuestionAndAnswers = function (props) {
     return <div>
         <h1 className='hostQuestion'>{props.question}</h1>
-        <Gorilla.HostGame.Answers answers={props.answers} />
+        <Answers answers={props.answers} />
 
         <div className='hostCountdown'>
             <Gorilla.Countdown seconds={props.countDown} />
@@ -27,14 +25,12 @@ Gorilla.HostGame.QuestionAndAnswers = function (props) {
     </div>
 }
 
-Gorilla.HostGame.QRCode = function (props) {
+const QRCode = function (props) {
     const appendQr = (el) => new QRious({ element: el, value: props.url, size: 1024 })
     return <canvas className='hostWaitingQrCode' ref={appendQr} />
 }
 
-// TODO make page look bit nicer / layout responsive (esp. phone in portrait mode)
-// TODO font
-Gorilla.HostGame.WaitingToStart = function (props) {
+const WaitingToStart = function (props) {
     const joinUrl = `${window.location.origin}/#/play/${props.gameId}`
     const [copied, setCopied] = React.useState('')
     const joinUrlInput = React.useRef()
@@ -76,14 +72,14 @@ Gorilla.HostGame.WaitingToStart = function (props) {
             <div>{copied}</div>
         </div>
         <div className='hostWaitingSplitContainer'>
-            <Gorilla.HostGame.QRCode url={joinUrl} />
+            <QRCode url={joinUrl} />
             {players}
         </div>
         <div className='hostStartButton'>{startButton}</div>
     </div>
 }
 
-Gorilla.HostGame.PodiumPage = function (props) {
+const PodiumPage = function (props) {
     return <div className='hostPodium'>
         <Gorilla.Podium players={props.players} />
         <div className='hostNextQuestionButton'>
@@ -92,7 +88,7 @@ Gorilla.HostGame.PodiumPage = function (props) {
     </div>
 }
 
-Gorilla.HostGame.PodiumFinalPage = function (props) {
+const PodiumFinalPage = function (props) {
     const [canBackHome, setCanBackHome] = React.useState(false)
 
     React.useEffect(() => {
@@ -180,10 +176,10 @@ export default function Host (props) {
 
     const showPodium = Boolean(result)
     const waitingToStart = !question && !result
-    const waitingToStartBlock = waitingToStart ? <Gorilla.HostGame.WaitingToStart gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
-    const questionBlock = question && (countDown !== null) ? <Gorilla.HostGame.QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} /> : ''
-    const podiumBlock = showPodium && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
-    const podiumFinalBlock = showPodium && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} onBackHome={props.onBackHome} /> : ''
+    const waitingToStartBlock = waitingToStart ? <WaitingToStart gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
+    const questionBlock = question && (countDown !== null) ? <QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} /> : ''
+    const podiumBlock = showPodium && !isFinal ? <PodiumPage players={result} onNext={next} /> : ''
+    const podiumFinalBlock = showPodium && isFinal ? <PodiumFinalPage players={result} volume={volume} onBackHome={props.onBackHome} /> : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : <Gorilla.AudioControl onVolume={setVolume} />
 
