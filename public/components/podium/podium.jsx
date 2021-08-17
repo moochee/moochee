@@ -1,6 +1,6 @@
 'use strict'
 
-Gorilla.Podium = function (props) {
+export default function Podium (props) {
     const playerToRankHtml = (player, rank) => {
         return <div key={player.name} className={`podiumRank${rank}`}>
             <div>{player.score}</div>

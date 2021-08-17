@@ -3,6 +3,8 @@
 import AudioControl from '../audio/audio-control.jsx'
 import Shell from '../shell/shell.jsx'
 import Countdown from '../countdown.jsx'
+import Podium from '../podium/podium.jsx'
+import PodiumFinal from '../podium/podium-final.jsx'
 
 const Answer = function (props) {
     return <Gorilla.StickyCard color={props.color} text={props.answer.text} />
@@ -85,7 +87,7 @@ const WaitingToStart = function (props) {
 
 const PodiumPage = function (props) {
     return <div className='hostPodium'>
-        <Gorilla.Podium players={props.players} />
+        <Podium players={props.players} />
         <div className='hostNextQuestionButton'>
             <Gorilla.StickyButton onClick={props.onNext} color='blue' text='Next Question' />
         </div>
@@ -104,7 +106,7 @@ const PodiumFinalPage = function (props) {
     </div> : ''
 
     return <div className='hostPodium'>
-        <Gorilla.PodiumFinal players={props.players} volume={props.volume} />
+        <PodiumFinal players={props.players} volume={props.volume} />
         {backHomeButton}
     </div>
 }

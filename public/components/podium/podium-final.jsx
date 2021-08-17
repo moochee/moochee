@@ -1,6 +1,6 @@
 'use strict'
 
-Gorilla.PodiumFinal = function (props) {
+export default function PodiumFinal (props) {
     const music = React.useRef({})
     const fireworks = React.useRef({})
 

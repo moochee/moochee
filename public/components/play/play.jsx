@@ -3,6 +3,7 @@
 import AudioControl from '../audio/audio-control.jsx'
 import Shell from '../shell/shell.jsx'
 import Countdown from '../countdown.jsx'
+import Podium from '../podium/podium.jsx'
 
 const WaitingToStart = function (props) {
     const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingAvatar playWaitingBounceIn'>{p}</div>)
@@ -114,7 +115,7 @@ export default function Play(props) {
     const showPodium = Boolean(result) && !isFinal
     const waitingToStartBlock = waitingToStart ? <WaitingToStart avatar={props.playerAvatar} otherPlayers={props.otherPlayers} /> : ''
     const questionBlock = question && (countDown !== null) ? <QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} onGuess={guess} /> : ''
-    const podiumBlock = showPodium ? <Gorilla.Podium players={result} /> : ''
+    const podiumBlock = showPodium ? <Podium players={result} /> : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
