@@ -48,7 +48,7 @@ Gorilla.PlayGameWeb = function (props) {
             onPlayerJoined={addPlayer} onPlayerDisconnected={removePlayer} />
 }
 
-Gorilla.WebApp = function (props) {
+export default function WebApp(props) {
     const { HashRouter, Switch, Route } = ReactRouterDOM
 
     return <HashRouter>
