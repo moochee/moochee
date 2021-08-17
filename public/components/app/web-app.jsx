@@ -32,11 +32,11 @@ const PlayGameWeb = function (props) {
     const [quizTitle, setQuizTitle] = React.useState('')
 
     const join = (quizTitle, playerName, playerAvatar, otherPlayers) => {
-        setAtJoinGame(false)
         setPlayerName(playerName)
         setPlayerAvatar(playerAvatar)
         setOtherPlayers(otherPlayers)
         setQuizTitle(quizTitle)
+        setAtJoinGame(false)
     }
 
     const addPlayer = (otherPlayer) => {
