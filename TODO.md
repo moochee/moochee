@@ -1,4 +1,5 @@
 # TODO
+- **Bugfix**: score is 0 on player's screen
 - **UX**:unify background color podium + general
 - **DoD**: deploy to CF (or even K8s?) and test performance (initial load vs cached) and device responsiveness
 - **UX**: while joined player is waiting for quiz to start, should see the own avatar and the ones of the other players joining in
