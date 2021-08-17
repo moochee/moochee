@@ -5,9 +5,11 @@ import Shell from '../shell/shell.jsx'
 import Countdown from '../countdown.jsx'
 import Podium from '../podium/podium.jsx'
 import PodiumFinal from '../podium/podium-final.jsx'
+import StickyCard from '../sticky/sticky-card.jsx'
+import StickyButton from '../sticky/sticky-button.jsx'
 
 const Answer = function (props) {
-    return <Gorilla.StickyCard color={props.color} text={props.answer.text} />
+    return <StickyCard color={props.color} text={props.answer.text} />
 }
 
 const Answers = function (props) {
@@ -69,7 +71,7 @@ const WaitingToStart = function (props) {
         ? <div className='hostWaitingPlayerInfo'>{props.players.map(p => <div key={p} className='hostWaitingBounceIn'>{p}</div>)}</div>
         : <div className='hostWaitingPlayerInfo hostWaitingNoPlayersYet'>Let people scan the QR code or send them the join URL</div>
 
-    const startButton = props.canStart ? <Gorilla.StickyButton onClick={start} color='blue' text='Start' /> : ''
+    const startButton = props.canStart ? <StickyButton onClick={start} color='blue' text='Start' /> : ''
 
     return <div className='hostWaiting'>
         <div className='hostWaitingJoinUrl'>
@@ -89,7 +91,7 @@ const PodiumPage = function (props) {
     return <div className='hostPodium'>
         <Podium players={props.players} />
         <div className='hostNextQuestionButton'>
-            <Gorilla.StickyButton onClick={props.onNext} color='blue' text='Next Question' />
+            <StickyButton onClick={props.onNext} color='blue' text='Next Question' />
         </div>
     </div>
 }
@@ -102,7 +104,7 @@ const PodiumFinalPage = function (props) {
     }, [])
 
     const backHomeButton = canBackHome ? <div className='hostBackHomeButton'>
-        <Gorilla.StickyButton onClick={props.onBackHome} color='blue' text='Back Home 🔥' />
+        <StickyButton onClick={props.onBackHome} color='blue' text='Back Home 🔥' />
     </div> : ''
 
     return <div className='hostPodium'>

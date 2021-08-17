@@ -1,6 +1,6 @@
 'use strict'
 
-Gorilla.StickyButton = function (props) {
+export default function StickyButton (props) {
     const [stickyClass, setStickyClass] = React.useState('stickyButton')
 
     const click = () => {

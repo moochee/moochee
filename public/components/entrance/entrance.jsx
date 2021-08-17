@@ -1,6 +1,7 @@
 'use strict'
 
 import Shell from '../shell/shell.jsx'
+import StickyButton from '../sticky/sticky-button.jsx'
 
 export default function Entrance(props) {
     const [quizzes, setQuizzes] = React.useState([])
@@ -19,7 +20,7 @@ export default function Entrance(props) {
     }
 
     const quizList = quizzes.map((q) => {
-        return <div className='entranceQuiz'><Gorilla.StickyButton key={q.id} onClick={() => host(q.id, q.text)} text={q.text} color={q.color} /></div>
+        return <div className='entranceQuiz'><StickyButton key={q.id} onClick={() => host(q.id, q.text)} text={q.text} color={q.color} /></div>
     })
 
     return <Shell headerCenter='Welcome to the 🦍 Quiz'>

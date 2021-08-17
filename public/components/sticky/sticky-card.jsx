@@ -1,6 +1,6 @@
 'use strict'
 
-Gorilla.StickyCard = function (props) {
+export default function StickyCard (props) {
     const img = `components/sticky/sticky-${props.color}.svg`
 
     return <div className='stickyCard' >

@@ -4,6 +4,7 @@ import AudioControl from '../audio/audio-control.jsx'
 import Shell from '../shell/shell.jsx'
 import Countdown from '../countdown.jsx'
 import Podium from '../podium/podium.jsx'
+import StickyButton from '../sticky/sticky-button.jsx'
 
 const WaitingToStart = function (props) {
     const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingAvatar playWaitingBounceIn'>{p}</div>)
@@ -23,7 +24,7 @@ const WaitingToStart = function (props) {
 }
 
 const Answer = function (props) {
-    return <Gorilla.StickyButton color={props.color} onClick={() => props.onGuess(props.answer.id)} text={props.answer.text} />
+    return <StickyButton color={props.color} onClick={() => props.onGuess(props.answer.id)} text={props.answer.text} />
 }
 
 const Answers = function (props) {
