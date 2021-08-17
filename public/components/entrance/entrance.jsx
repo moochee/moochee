@@ -1,6 +1,6 @@
 'use strict'
 
-Gorilla.Entrance = function (props) {
+export default function Entrance(props) {
     const [quizzes, setQuizzes] = React.useState([])
 
     const colors = ['green', 'blue', 'orange', 'purple']

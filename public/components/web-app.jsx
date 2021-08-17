@@ -1,6 +1,8 @@
 'use strict'
 
-Gorilla.HostGameWeb = function (props) {
+import Entrance from './entrance/entrance.jsx'
+
+const HostGameWeb = function (props) {
     const [atEntrance, setAtEntrance] = React.useState(true)
     const [gameId, setGameId] = React.useState('')
     const [quizTitle, setQuizTitle] = React.useState('')
@@ -14,11 +16,11 @@ Gorilla.HostGameWeb = function (props) {
     const home = () => setAtEntrance(true)
 
     return atEntrance ?
-        <Gorilla.Entrance adapter={props.adapter} onHost={host} /> :
+        <Entrance adapter={props.adapter} onHost={host} /> :
         <Gorilla.HostGame gameId={gameId} adapter={props.adapter} quizTitle={quizTitle} onBackHome={home} />
 }
 
-Gorilla.PlayGameWeb = function (props) {
+const PlayGameWeb = function (props) {
     const { gameId } = ReactRouterDOM.useParams()
     const [atJoinGame, setAtJoinGame] = React.useState(true)
     const [playerName, setPlayerName] = React.useState('')
@@ -54,10 +56,10 @@ export default function WebApp(props) {
     return <HashRouter>
         <Switch>
             <Route exact path='/'>
-                <Gorilla.HostGameWeb adapter={props.adapter} />
+                <HostGameWeb adapter={props.adapter} />
             </Route>
             <Route path='/play/:gameId'>
-                <Gorilla.PlayGameWeb adapter={props.adapter} />
+                <PlayGameWeb adapter={props.adapter} />
             </Route>
         </Switch>
     </HashRouter>
