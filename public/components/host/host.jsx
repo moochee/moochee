@@ -1,5 +1,7 @@
 'use strict'
 
+import AudioControl from '../audio/audio-control.jsx'
+
 const Answer = function (props) {
     return <Gorilla.StickyCard color={props.color} text={props.answer.text} />
 }
@@ -181,7 +183,7 @@ export default function Host (props) {
     const podiumBlock = showPodium && !isFinal ? <PodiumPage players={result} onNext={next} /> : ''
     const podiumFinalBlock = showPodium && isFinal ? <PodiumFinalPage players={result} volume={volume} onBackHome={props.onBackHome} /> : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
-    const audioControl = isIos ? '' : <Gorilla.AudioControl onVolume={setVolume} />
+    const audioControl = isIos ? '' : <AudioControl onVolume={setVolume} />
 
     return <Gorilla.Shell headerLeft={props.quizTitle} headerRight={audioControl} footerLeft={`#${props.gameId}`} fullScreenContent={showPodium}>
         <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>

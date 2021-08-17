@@ -1,5 +1,7 @@
 'use strict'
 
+import AudioControl from '../audio/audio-control.jsx'
+
 const WaitingToStart = function (props) {
     const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingAvatar playWaitingBounceIn'>{p}</div>)
     const otherPlayersInfo = props.otherPlayers.length > 0
@@ -114,7 +116,7 @@ export default function Play(props) {
     const waitingBlockForOtherResponses = waitingForOtherResponses ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
-    const audioControl = isIos ? '' : <Gorilla.AudioControl onVolume={setVolume} />
+    const audioControl = isIos ? '' : <AudioControl onVolume={setVolume} />
 
     return <Gorilla.Shell headerLeft={props.quizTitle} headerRight={audioControl} footerLeft={`${props.playerAvatar} ${props.playerName}`} footerRight={`Score: ${score}`} fullScreenContent={showPodium}>
         <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>

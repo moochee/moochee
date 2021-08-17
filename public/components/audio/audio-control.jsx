@@ -1,6 +1,6 @@
 'use strict'
 
-Gorilla.AudioControl = function (props) {
+export default function AudioControl(props) {
     const volumeSlider = React.useRef()
     const [muted, setMuted] = React.useState(false)
 
