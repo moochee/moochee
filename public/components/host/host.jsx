@@ -1,91 +1,6 @@
 'use strict'
 
-Gorilla.HostGame = function (props) {
-    const [players, setPlayers] = React.useState([])
-    const [question, setQuestion] = React.useState(null)
-    const [canStart, setCanStart] = React.useState(false)
-    const [result, setResult] = React.useState(null)
-    const [isFinal, setIsFinal] = React.useState(false)
-    const [countDown, setCountDown] = React.useState(null)
-    const [volume, setVolume] = React.useState(1)
-
-    const music = React.useRef({})
-    music.current.volume = volume
-
-    const onPlayerJoined = (gameId, player) => {
-        setPlayers((oldPlayers) => {
-            if (oldPlayers.length >= 1) {
-                setCanStart(true)
-            }
-            return [...oldPlayers, player]
-        })
-    }
-
-    const onPlayerDisconnected = (gameId, player) => {
-        setPlayers((oldPlayers) => {
-            if (oldPlayers.length <= 2) {
-                setCanStart(false)
-            }
-            return oldPlayers.filter(p => p != player)
-        })
-    }
-
-    const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
-        setQuestion(newQuestion)
-        setResult(null)
-        setCountDown(secondsToGuess)
-    }
-
-    const onRoundFinished = (gameId, result) => {
-        setQuestion(null)
-        setResult(result)
-        setCountDown(null)
-    }
-
-    const onGameFinished = (gameId, result) => {
-        setQuestion(null)
-        setResult(result)
-        setIsFinal(true)
-    }
-
-    const next = () => {
-        // REVISE I think in backend we always say 'next', here we always say 'start' - feels confusing
-        props.adapter.start(props.gameId)
-    }
-
-    React.useEffect(() => {
-        music.current.play()
-        props.adapter.subscribe('playerJoined', onPlayerJoined)
-        props.adapter.subscribe('roundStarted', onRoundStarted)
-        props.adapter.subscribe('roundFinished', onRoundFinished)
-        props.adapter.subscribe('gameFinished', onGameFinished)
-        props.adapter.subscribe('playerDisconnected', onPlayerDisconnected)
-        return () => {
-            props.adapter.unsubscribe('playerJoined', onPlayerJoined)
-            props.adapter.unsubscribe('roundStarted', onRoundStarted)
-            props.adapter.unsubscribe('roundFinished', onRoundFinished)
-            props.adapter.unsubscribe('gameFinished', onGameFinished)
-            props.adapter.unsubscribe('playerDisconnected', onPlayerDisconnected)
-        }
-    }, [])
-
-    const showPodium = Boolean(result)
-    const waitingToStart = !question && !result
-    const waitingToStartBlock = waitingToStart ? <Gorilla.HostGame.WaitingToStart gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
-    const questionBlock = question && (countDown !== null) ? <Gorilla.HostGame.QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} /> : ''
-    const podiumBlock = showPodium && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
-    const podiumFinalBlock = showPodium && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} onBackHome={props.onBackHome} /> : ''
-    const isIos = navigator.userAgent.match(/ipad|iphone/i)
-    const audioControl = isIos ? '' : <Gorilla.AudioControl onVolume={setVolume} />
-
-    return <Gorilla.Shell headerLeft={props.quizTitle} headerRight={audioControl} footerLeft={`#${props.gameId}`} fullScreenContent={showPodium}>
-        <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
-        {waitingToStartBlock}
-        {questionBlock}
-        {podiumBlock}
-        {podiumFinalBlock}
-    </Gorilla.Shell>
-}
+Gorilla.HostGame = {}
 
 Gorilla.HostGame.Answer = function (props) {
     return <Gorilla.StickyCard color={props.color} text={props.answer.text} />
@@ -192,4 +107,91 @@ Gorilla.HostGame.PodiumFinalPage = function (props) {
         <Gorilla.PodiumFinal players={props.players} volume={props.volume} />
         {backHomeButton}
     </div>
+}
+
+export default function Host (props) {
+    const [players, setPlayers] = React.useState([])
+    const [question, setQuestion] = React.useState(null)
+    const [canStart, setCanStart] = React.useState(false)
+    const [result, setResult] = React.useState(null)
+    const [isFinal, setIsFinal] = React.useState(false)
+    const [countDown, setCountDown] = React.useState(null)
+    const [volume, setVolume] = React.useState(1)
+
+    const music = React.useRef({})
+    music.current.volume = volume
+
+    const onPlayerJoined = (gameId, player) => {
+        setPlayers((oldPlayers) => {
+            if (oldPlayers.length >= 1) {
+                setCanStart(true)
+            }
+            return [...oldPlayers, player]
+        })
+    }
+
+    const onPlayerDisconnected = (gameId, player) => {
+        setPlayers((oldPlayers) => {
+            if (oldPlayers.length <= 2) {
+                setCanStart(false)
+            }
+            return oldPlayers.filter(p => p != player)
+        })
+    }
+
+    const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
+        setQuestion(newQuestion)
+        setResult(null)
+        setCountDown(secondsToGuess)
+    }
+
+    const onRoundFinished = (gameId, result) => {
+        setQuestion(null)
+        setResult(result)
+        setCountDown(null)
+    }
+
+    const onGameFinished = (gameId, result) => {
+        setQuestion(null)
+        setResult(result)
+        setIsFinal(true)
+    }
+
+    const next = () => {
+        // REVISE I think in backend we always say 'next', here we always say 'start' - feels confusing
+        props.adapter.start(props.gameId)
+    }
+
+    React.useEffect(() => {
+        music.current.play()
+        props.adapter.subscribe('playerJoined', onPlayerJoined)
+        props.adapter.subscribe('roundStarted', onRoundStarted)
+        props.adapter.subscribe('roundFinished', onRoundFinished)
+        props.adapter.subscribe('gameFinished', onGameFinished)
+        props.adapter.subscribe('playerDisconnected', onPlayerDisconnected)
+        return () => {
+            props.adapter.unsubscribe('playerJoined', onPlayerJoined)
+            props.adapter.unsubscribe('roundStarted', onRoundStarted)
+            props.adapter.unsubscribe('roundFinished', onRoundFinished)
+            props.adapter.unsubscribe('gameFinished', onGameFinished)
+            props.adapter.unsubscribe('playerDisconnected', onPlayerDisconnected)
+        }
+    }, [])
+
+    const showPodium = Boolean(result)
+    const waitingToStart = !question && !result
+    const waitingToStartBlock = waitingToStart ? <Gorilla.HostGame.WaitingToStart gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
+    const questionBlock = question && (countDown !== null) ? <Gorilla.HostGame.QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} /> : ''
+    const podiumBlock = showPodium && !isFinal ? <Gorilla.HostGame.PodiumPage players={result} onNext={next} /> : ''
+    const podiumFinalBlock = showPodium && isFinal ? <Gorilla.HostGame.PodiumFinalPage players={result} volume={volume} onBackHome={props.onBackHome} /> : ''
+    const isIos = navigator.userAgent.match(/ipad|iphone/i)
+    const audioControl = isIos ? '' : <Gorilla.AudioControl onVolume={setVolume} />
+
+    return <Gorilla.Shell headerLeft={props.quizTitle} headerRight={audioControl} footerLeft={`#${props.gameId}`} fullScreenContent={showPodium}>
+        <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
+        {waitingToStartBlock}
+        {questionBlock}
+        {podiumBlock}
+        {podiumFinalBlock}
+    </Gorilla.Shell>
 }

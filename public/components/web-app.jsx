@@ -1,6 +1,7 @@
 'use strict'
 
 import Entrance from './entrance/entrance.jsx'
+import Host from './host/host.jsx'
 
 const HostGameWeb = function (props) {
     const [atEntrance, setAtEntrance] = React.useState(true)
@@ -17,7 +18,7 @@ const HostGameWeb = function (props) {
 
     return atEntrance ?
         <Entrance adapter={props.adapter} onHost={host} /> :
-        <Gorilla.HostGame gameId={gameId} adapter={props.adapter} quizTitle={quizTitle} onBackHome={home} />
+        <Host gameId={gameId} adapter={props.adapter} quizTitle={quizTitle} onBackHome={home} />
 }
 
 const PlayGameWeb = function (props) {
