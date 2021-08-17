@@ -4,7 +4,7 @@
 //        - solution idea 1: periodically sync time with server (probably does bear problems as also here there can be network delay)
 //        - solution idea 2: the server always gives 5 extra seconds max, during which it waits for the clients to confirm they have timed out (or still send a response)
 //        - right now I prefer idea 2 - any other solutions?
-Gorilla.Countdown = function (props) {
+export default function Countdown (props) {
     const [secondsLeft, setSecondsLeft] = React.useState(props.seconds)
 
     const tick = () => {

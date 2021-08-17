@@ -2,6 +2,7 @@
 
 import AudioControl from '../audio/audio-control.jsx'
 import Shell from '../shell/shell.jsx'
+import Countdown from '../countdown.jsx'
 
 const WaitingToStart = function (props) {
     const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingAvatar playWaitingBounceIn'>{p}</div>)
@@ -40,7 +41,7 @@ const QuestionAndAnswers = function (props) {
         <Answers answers={props.answers} onGuess={props.onGuess} />
 
         <div className='playCountdown'>
-            <Gorilla.Countdown seconds={props.countDown} />
+            <Countdown seconds={props.countDown} />
         </div>
     </div>
 }

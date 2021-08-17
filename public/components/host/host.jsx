@@ -2,6 +2,7 @@
 
 import AudioControl from '../audio/audio-control.jsx'
 import Shell from '../shell/shell.jsx'
+import Countdown from '../countdown.jsx'
 
 const Answer = function (props) {
     return <Gorilla.StickyCard color={props.color} text={props.answer.text} />
@@ -23,7 +24,7 @@ const QuestionAndAnswers = function (props) {
         <Answers answers={props.answers} />
 
         <div className='hostCountdown'>
-            <Gorilla.Countdown seconds={props.countDown} />
+            <Countdown seconds={props.countDown} />
         </div>
     </div>
 }
