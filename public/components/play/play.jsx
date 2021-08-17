@@ -1,6 +1,48 @@
 'use strict'
 
-Gorilla.PlayGame = function (props) {
+const WaitingToStart = function (props) {
+    const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingAvatar playWaitingBounceIn'>{p}</div>)
+    const otherPlayersInfo = props.otherPlayers.length > 0
+        ? otherPlayers
+        : <div className='playWaitingLabel'>Waiting for other players...</div>
+
+    // const otherPlayersInfo = props.otherPlayers.length === 0 ? <h2>Waiting for other players...</h2> : <h2>You are up against:</h2>
+    // const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingBounceIn'>{p}</div>)
+
+    return <div className='playWaiting'>
+        <div className='playWaitingLabel'>You are playing as:</div>
+        <div className='playWaitingAvatar'>{props.avatar}</div>
+        <div className='playWaitingLabel'>You are up against:</div>
+        <div className='playWaitingOtherPlayers'>{otherPlayersInfo}</div>
+    </div>
+}
+
+const Answer = function (props) {
+    return <Gorilla.StickyButton color={props.color} onClick={() => props.onGuess(props.answer.id)} text={props.answer.text} />
+}
+
+const Answers = function (props) {
+    const colors = ['green', 'purple', 'blue', 'orange']
+    const answersBlock = props.answers.map((answer, index) => {
+        return <Answer key={index} color={colors[index]} answer={answer} onGuess={props.onGuess} />
+    })
+    return <div className='playAnswers'>
+        {answersBlock}
+    </div>
+}
+
+const QuestionAndAnswers = function (props) {
+    return <div>
+        <h1 className='playQuestion'>{props.question}</h1>
+        <Answers answers={props.answers} onGuess={props.onGuess} />
+
+        <div className='playCountdown'>
+            <Gorilla.Countdown seconds={props.countDown} />
+        </div>
+    </div>
+}
+
+export default function Play(props) {
     const [question, setQuestion] = React.useState(null)
     const [result, setResult] = React.useState(null)
     const [waitingForOtherResponses, setWaitingForOtherResponses] = React.useState(false)
@@ -66,8 +108,8 @@ Gorilla.PlayGame = function (props) {
     }, [])
 
     const showPodium = Boolean(result) && !isFinal
-    const waitingToStartBlock = waitingToStart ? <Gorilla.PlayGame.WaitingToStart avatar={props.playerAvatar} otherPlayers={props.otherPlayers} /> : ''
-    const questionBlock = question && (countDown !== null) ? <Gorilla.PlayGame.QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} onGuess={guess} /> : ''
+    const waitingToStartBlock = waitingToStart ? <WaitingToStart avatar={props.playerAvatar} otherPlayers={props.otherPlayers} /> : ''
+    const questionBlock = question && (countDown !== null) ? <QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} onGuess={guess} /> : ''
     const podiumBlock = showPodium ? <Gorilla.Podium players={result} /> : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? <h2>Waiting for other players...</h2> : ''
     const gameOverBlock = isFinal ? <h2>Game is over!</h2> : ''
@@ -84,44 +126,3 @@ Gorilla.PlayGame = function (props) {
     </Gorilla.Shell>
 }
 
-Gorilla.PlayGame.WaitingToStart = function (props) {
-    const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingAvatar playWaitingBounceIn'>{p}</div>)
-    const otherPlayersInfo = props.otherPlayers.length > 0
-        ? otherPlayers
-        : <div className='playWaitingLabel'>Waiting for other players...</div>
-
-    // const otherPlayersInfo = props.otherPlayers.length === 0 ? <h2>Waiting for other players...</h2> : <h2>You are up against:</h2>
-    // const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingBounceIn'>{p}</div>)
-
-    return <div className='playWaiting'>
-        <div className='playWaitingLabel'>You are playing as:</div>
-        <div className='playWaitingAvatar'>{props.avatar}</div>
-        <div className='playWaitingLabel'>You are up against:</div>
-        <div className='playWaitingOtherPlayers'>{otherPlayersInfo}</div>
-    </div>
-}
-
-Gorilla.PlayGame.Answer = function (props) {
-    return <Gorilla.StickyButton color={props.color} onClick={() => props.onGuess(props.answer.id)} text={props.answer.text} />
-}
-
-Gorilla.PlayGame.Answers = function (props) {
-    const colors = ['green', 'purple', 'blue', 'orange']
-    const answersBlock = props.answers.map((answer, index) => {
-        return <Gorilla.PlayGame.Answer key={index} color={colors[index]} answer={answer} onGuess={props.onGuess} />
-    })
-    return <div className='playAnswers'>
-        {answersBlock}
-    </div>
-}
-
-Gorilla.PlayGame.QuestionAndAnswers = function (props) {
-    return <div>
-        <h1 className='playQuestion'>{props.question}</h1>
-        <Gorilla.PlayGame.Answers answers={props.answers} onGuess={props.onGuess} />
-
-        <div className='playCountdown'>
-            <Gorilla.Countdown seconds={props.countDown} />
-        </div>
-    </div>
-}
