@@ -16,13 +16,6 @@
     animation-fill-mode: forwards;
 }
 
-@-webkit-keyframes throwAway {
-    to {
-        transform: scale(.1) translate(200%, -100%) rotate(720deg);
-        opacity: 0;
-    }
-}
-
 @keyframes throwAway {
     to {
         transform: scale(.1) translate(200%, -100%) rotate(720deg);
