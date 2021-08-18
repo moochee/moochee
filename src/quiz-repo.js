@@ -15,8 +15,12 @@ export default function QuizRepo() {
         let quizzes = []
         for (let file of files) {
             // REVISE I feel 'title' or 'name' might be a more appropriate name than 'text'
-            const quizText = (await this.getById(file)).text
-            quizzes.push({ id: file, text: quizText })
+            try {
+                const quizText = (await this.getById(file)).text
+                quizzes.push({ id: file, text: quizText })
+            } catch (error) {
+                console.error(file, error)
+            }
         }
         return quizzes
     }
