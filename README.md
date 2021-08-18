@@ -4,6 +4,10 @@ A quiz app: https://acdc-gorilla.cfapps.sap.hana.ondemand.com/
 
 The name is to honor the [first computer game of which one of the authors looked and debugged into the source code](https://archive.org/details/GorillasQbasic).
 
+## Add New Quiz?
+
+All quizzes are located in [/quiz](https://github.tools.sap/acdc/gorilla/tree/master/quiz) folder as JSON file. New quiz can be added by [sending a pull request](https://github.tools.sap/acdc/gorilla/new/master/quiz). 
+
 ## Dev How-To
 
 After cloning you can:
