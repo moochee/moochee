@@ -12,6 +12,7 @@
 - **Tech Improve**: try implement both a WebSocket adapter and an HttpRestAdapter, both should work to be "plugged in" without changing the code
 - **Tech Improve**: try if using <> works, or understand why it doesn't work
 - **UX/Tech Improve**: do we really need an answer id defined by the quiz? We could just assign automatically based on the index...
+- **Feature**: define secondsToGuess per quiz and per question in quiz json
 
 # DONE
 - be able to use jsx+es6 imports in combination, and clean the related messes in the global namespace
