@@ -37,6 +37,7 @@ const QuestionAndAnswers = function (props) {
 }
 
 const QRCode = function (props) {
+    // eslint-disable-next-line no-undef
     const appendQr = (el) => new QRious({ element: el, value: props.url, size: 1024 })
     return <canvas className='hostWaitingQrCode' ref={appendQr} />
 }

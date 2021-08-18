@@ -28,6 +28,7 @@ const HostGameWeb = function (props) {
 }
 
 const PlayGameWeb = function (props) {
+    // eslint-disable-next-line no-undef
     const { gameId } = ReactRouterDOM.useParams()
     const [atJoinGame, setAtJoinGame] = React.useState(true)
     const [playerName, setPlayerName] = React.useState('')
@@ -58,6 +59,7 @@ const PlayGameWeb = function (props) {
 }
 
 export default function WebApp(props) {
+    // eslint-disable-next-line no-undef
     const { HashRouter, Switch, Route } = ReactRouterDOM
 
     return <HashRouter>

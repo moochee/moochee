@@ -11,10 +11,7 @@
                 "react"
             ],
             "globals": {
-                "React": "readonly",
-                "ReactDOM": "readonly",
-                "ReactRouterDOM": "readonly",
-                "QRious": "readonly"
+                "React": "readonly"
             },
             "rules": {
                 "react/jsx-uses-vars": "error"
@@ -27,23 +24,5 @@
     "ignorePatterns": [
         "lib",
         "design-ideas"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    },
-    "plugins": [
-        "react"
-    ],
-    "globals": {
-        "React": "readonly",
-        "ReactDOM": "readonly",
-        "ReactRouterDOM": "readonly",
-        "Gorilla": "readonly",
-        "QRious": "readonly"
-    },
-    "rules": {
-        "react/jsx-uses-vars": "error"
-    }
+    ]
 }

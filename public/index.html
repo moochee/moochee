@@ -8,27 +8,16 @@
     <meta name='HandheldFriendly' content='true'>
 
     <link rel='icon' href='/favicon.svg' />
-
-    <script type='application/javascript'>
-        navigator.serviceWorker.register('./service-worker.js')
-    </script>
-
-    <link rel='icon' href='/favicon.svg' />
     <script src='lib/react.production.min.js'></script>
     <script src='lib/react-dom.production.min.js'></script>
     <script src='lib/react-router-dom.min.js'></script>
     <script src='lib/qrious.min.js'></script>
     <script src='/socket.io/socket.io.min.js'></script>
+    <script src='main.jsx' type='module'></script>
 </head>
 
 <body>
-    <div>
-        <style>
-            
-        </style>
-    </div>
     <div id='react-root'></div>
-    <script src='main.jsx' type='module'></script>
 </body>
 
 </html>
