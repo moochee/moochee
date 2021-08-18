@@ -1,31 +1,29 @@
 # TODO
-- **Bugfix**: score is 0 on player's screen
-- **UX**:unify background color podium + general
 - **DoD**: deploy to CF (or even K8s?) and test performance (initial load vs cached) and device responsiveness
-- **UX**: while joined player is waiting for quiz to start, should see the own avatar and the ones of the other players joining in
 - **DoD**: check animations etc. in chrome, edge, firefox, safari and on mobile device
-- **UX**: integrate stickies design in host + play screens (see test-layout-quiz-player.html)
 - **Bugfix**: music not working on Safari (incl iPhone) - need to use history.pushState (done already for host, not yet for players) _AND_ make sure the .play is triggered synchronously on a user interaction; right now there's multiple things making it async: a) we have an animation when clicking the sticky and b) we first call the backend to get the gameId before we enter the room. Possible solution: start the music immediately on click, but keep it muted, and unmute only once the "room" is entered successfully. Can there be other solutions? Related articles:
   - Maybe noteOn helps?? https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/PlayingandSynthesizingSounds/PlayingandSynthesizingSounds.html#//apple_ref/doc/uid/TP40009523-CH6-SW1
   - https://developer.apple.com/forums/thread/94522
   - https://stackoverflow.com/questions/31776548/why-cant-javascript-play-audio-files-on-iphone-safari
   - https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html
-  - 
-- **Feature**: consider the time to "scale" the score
-- **UX**: make host page nicer when waiting for players
 - **Bugfix**: font sizes on post-its during quiz not scaling properly
 - **Bugfix**: navigating to #/host/{gameId} or #/play/{gameId} should yield error if game doesn't exist
 - **Bugfix**: close/delete game when finished, or auto-close a game 30min after it was started
-- **Bugfix**: incorrect positioning & scaling of post-its and footer during quiz
-- **Bugfix**: incorrect positioning of avatars on intermediate podium
 - **Tech Improve**: try implement both a WebSocket adapter and an HttpRestAdapter, both should work to be "plugged in" without changing the code
 - **Tech Improve**: try if using <> works, or understand why it doesn't work
-- **Tech Improve**: try to remove "browser" env from eslint, we probably don't need any DOM APIs etc.
-- **Tech Improve**: try find a clean way for importing the modules, see https://stackoverflow.com/questions/68648959/how-to-make-es6-modules-and-jsx-working-without-server-side-build
-  - should then be able to remove the globals then in public/.eslintrc
-  - should then be able to remove the rule exlusions in public/.eslintrc
 - **UX/Tech Improve**: do we really need an answer id defined by the quiz? We could just assign automatically based on the index...
+
 # DONE
+- be able to use jsx+es6 imports in combination, and clean the related messes in the global namespace
+- integrate stickies design in host + play screens (see test-layout-quiz-player.html)
+- while joined player is waiting for quiz to start, should see the own avatar and the ones of the other players joining in
+- unify background color podium + general
+- try to remove "browser" env from eslint, we probably don't need any DOM APIs etc.
+- incorrect positioning & scaling of post-its and footer during quiz
+- incorrect positioning of avatars on intermediate podium
+- make host page nicer when waiting for players
+- consider the time to "scale" the score
+- score is 0 on player's screen
 - add real PPO quiz
 - migrate unit tests to use games.js
 - simple eslint + formatter: use 4 spaces for indent, max 120 chars per line, no semicolon, always single quote (incl html)
