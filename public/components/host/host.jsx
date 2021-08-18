@@ -104,6 +104,7 @@ const PodiumFinalPage = function (props) {
     const [canBackHome, setCanBackHome] = React.useState(false)
 
     React.useEffect(() => {
+        props.stopMusic()
         setTimeout(() => setCanBackHome(true), 20000)
     }, [])
 
@@ -170,6 +171,10 @@ export default function Host(props) {
         props.adapter.start(props.gameId)
     }
 
+    const stopMusic = () => {
+        music.current.pause()
+    }
+
     React.useEffect(() => {
         music.current.play()
         props.adapter.subscribe('playerJoined', onPlayerJoined)
@@ -191,7 +196,7 @@ export default function Host(props) {
     const waitingToStartBlock = waitingToStart ? <WaitingToStart gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
     const questionBlock = question && (countDown !== null) ? <QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} /> : ''
     const podiumBlock = showPodium && !isFinal ? <PodiumPage players={result} onNext={next} /> : ''
-    const podiumFinalBlock = showPodium && isFinal ? <PodiumFinalPage players={result} volume={volume} onBackHome={props.onBackHome} /> : ''
+    const podiumFinalBlock = showPodium && isFinal ? <PodiumFinalPage players={result} volume={volume} onBackHome={props.onBackHome} stopMusic={stopMusic}/> : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : <AudioControl onVolume={setVolume} />
 
