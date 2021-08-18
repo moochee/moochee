@@ -4,9 +4,9 @@ node {
         deleteDir()
         checkout scm
     }
-    stage('Test') {
-        sh 'npm i && npm test'
-    }
+    // stage('Test') {
+    //     sh 'npm i && npm test'
+    // }
     stage('Deploy') {
         withCredentials([
             usernamePassword(credentialsId: 'cfdeploy', passwordVariable: 'password', usernameVariable: 'username')
