@@ -1,6 +1,10 @@
 'use strict'
 
-export default function PodiumFinal (props) {
+import loadCss from '../../load-css.js'
+
+loadCss('components/podium/podium.css')
+
+export default function PodiumFinal(props) {
     const music = React.useRef({})
     const fireworks = React.useRef({})
 

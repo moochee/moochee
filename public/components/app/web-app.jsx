@@ -1,9 +1,13 @@
 'use strict'
 
+import loadCss from '../../load-css.js'
 import Entrance from '../entrance/entrance.jsx'
 import Host from '../host/host.jsx'
 import Join from '../join/join.jsx'
 import Play from '../play/play.jsx'
+
+loadCss('components/app/web-app.css')
+loadCss('font/komikatext_regular_macroman/stylesheet.css')
 
 const HostGameWeb = function (props) {
     const [atEntrance, setAtEntrance] = React.useState(true)

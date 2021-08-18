@@ -1,5 +1,9 @@
 'use strict'
 
+import loadCss from '../../load-css.js'
+
+loadCss('components/shell/shell.css')
+
 export default function Shell(props) {
     const contentClass = props.fullScreenContent ? 'shellContentFullscreen' : 'shellContentFit'
     const footerLeftClass = props.footerLeft ? 'shellFooterLeft' : 'shellFooterLeft shellLogo'

@@ -1,10 +1,13 @@
 'use strict'
 
+import loadCss from '../../load-css.js'
 import AudioControl from '../audio/audio-control.jsx'
 import Shell from '../shell/shell.jsx'
 import Countdown from '../countdown.jsx'
 import Podium from '../podium/podium.jsx'
 import StickyButton from '../sticky/sticky-button.jsx'
+
+loadCss('components/play/play.css')
 
 const WaitingToStart = function (props) {
     const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingAvatar playWaitingBounceIn'>{p}</div>)

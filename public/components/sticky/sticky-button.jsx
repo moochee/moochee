@@ -1,6 +1,10 @@
 'use strict'
 
-export default function StickyButton (props) {
+import loadCss from '../../load-css.js'
+
+loadCss('components/sticky/sticky-button.css')
+
+export default function StickyButton(props) {
     const [stickyClass, setStickyClass] = React.useState('stickyButton')
 
     const click = () => {

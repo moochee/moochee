@@ -1,6 +1,10 @@
 'use strict'
 
-export default function Podium (props) {
+import loadCss from '../../load-css.js'
+
+loadCss('components/podium/podium.css')
+
+export default function Podium(props) {
     const playerToRankHtml = (player, rank) => {
         return <div key={player.name} className={`podiumRank${rank}`}>
             <div>{player.score}</div>

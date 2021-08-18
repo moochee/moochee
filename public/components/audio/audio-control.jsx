@@ -1,5 +1,9 @@
 'use strict'
 
+import loadCss from '../../load-css.js'
+
+loadCss('components/audio/audio-control.css')
+
 export default function AudioControl(props) {
     const volumeSlider = React.useRef()
     const [muted, setMuted] = React.useState(false)

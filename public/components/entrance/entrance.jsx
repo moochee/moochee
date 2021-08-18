@@ -1,7 +1,10 @@
 'use strict'
 
+import loadCss from '../../load-css.js'
 import Shell from '../shell/shell.jsx'
 import StickyButton from '../sticky/sticky-button.jsx'
+
+loadCss('components/entrance/entrance.css')
 
 export default function Entrance(props) {
     const [quizzes, setQuizzes] = React.useState([])
@@ -20,7 +23,9 @@ export default function Entrance(props) {
     }
 
     const quizList = quizzes.map((q) => {
-        return <div className='entranceQuiz'><StickyButton key={q.id} onClick={() => host(q.id, q.text)} text={q.text} color={q.color} /></div>
+        return <div className='entranceQuiz'>
+            <StickyButton key={q.id} onClick={() => host(q.id, q.text)} text={q.text} color={q.color} />
+        </div>
     })
 
     return <Shell headerCenter='Welcome to the 🦍 Quiz'>

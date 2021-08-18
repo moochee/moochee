@@ -1,6 +1,9 @@
 'use strict'
 
+import loadCss from '../../load-css.js'
 import Shell from '../shell/shell.jsx'
+
+loadCss('components/join/join.css')
 
 export default function Join(props) {
     const [playerName, setPlayerName] = React.useState('')

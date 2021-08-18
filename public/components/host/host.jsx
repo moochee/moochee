@@ -1,5 +1,6 @@
 'use strict'
 
+import loadCss from '../../load-css.js'
 import AudioControl from '../audio/audio-control.jsx'
 import Shell from '../shell/shell.jsx'
 import Countdown from '../countdown.jsx'
@@ -7,6 +8,8 @@ import Podium from '../podium/podium.jsx'
 import PodiumFinal from '../podium/podium-final.jsx'
 import StickyCard from '../sticky/sticky-card.jsx'
 import StickyButton from '../sticky/sticky-button.jsx'
+
+loadCss('components/host/host.css')
 
 const Answer = function (props) {
     return <StickyCard color={props.color} text={props.answer.text} />
@@ -113,7 +116,7 @@ const PodiumFinalPage = function (props) {
     </div>
 }
 
-export default function Host (props) {
+export default function Host(props) {
     const [players, setPlayers] = React.useState([])
     const [question, setQuestion] = React.useState(null)
     const [canStart, setCanStart] = React.useState(false)
