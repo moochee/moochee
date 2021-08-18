@@ -12,7 +12,7 @@ node {
             usernamePassword(credentialsId: 'cfdeploy', passwordVariable: 'password', usernameVariable: 'username')
         ]) {
             sh '''
-                cf login -u '${username}' -p '${password}' -a https://api.cf.sap.hana.ondemand.com -o cc-acdc-tools -s gorilla-quiz
+                cf login -u $username -p $password -a https://api.cf.sap.hana.ondemand.com -o cc-acdc-tools -s gorilla-quiz
                 ./deploy.sh
             '''
         }
