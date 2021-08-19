@@ -200,7 +200,7 @@ export default function Host(props) {
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : <AudioControl onVolume={setVolume} />
 
-    return <Shell headerLeft={props.quizTitle} headerRight={audioControl} footerLeft={`#${props.gameId}`} fullScreenContent={showPodium}>
+    return <Shell headerLeft={props.quizTitle} headerRight={audioControl} footerLeft={`#${props.gameId}`} footerRight={`${players.length} Players`} fullScreenContent={showPodium}>
         <audio ref={music} loop src='components/positive-funny-background-music-for-video-games.mp3'></audio>
         {waitingToStartBlock}
         {questionBlock}
