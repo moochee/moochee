@@ -7,7 +7,7 @@ loadCss('components/join/join.css')
 
 export default function Join(props) {
     const [playerName, setPlayerName] = React.useState('')
-    const updatePlayerName = (event) => setPlayerName(event.target.value)
+    const updatePlayerName = (event) => setPlayerName(event.target.value.trim())
     const [errorMessage, setErrorMessage] = React.useState('')
 
     const join = async () => {
@@ -22,7 +22,7 @@ export default function Join(props) {
     return <Shell headerCenter='Welcome to the 🦍 Quiz'>
         <div className='join'>
             <h1>Join Game {props.gameId}</h1>
-            <input id='playerName' placeholder='Enter your name' autoFocus={true} value={playerName}
+            <input id='playerName' placeholder='Enter your name' autoFocus={true} maxLength='30' value={playerName}
                 onInput={updatePlayerName} onKeyPress={e => e.code === 'Enter' ? join() : null}></input>
             <button onClick={join}>Join</button>
             <div>{errorMessage}</div>
