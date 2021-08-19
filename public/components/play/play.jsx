@@ -11,9 +11,10 @@ loadCss('components/play/play.css')
 
 const WaitingToStart = function (props) {
     const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingAvatar playWaitingBounceIn'>{p}</div>)
-    const otherPlayersInfo = props.otherPlayers.length > 0
-        ? otherPlayers
+    const waitingLabel = props.otherPlayers.length > 0
+        ? <div className='playWaitingLabel'>You are up against:</div>
         : <div className='playWaitingLabel'>Waiting for other players...</div>
+    const otherPlayersInfo = props.otherPlayers.length > 0 ? otherPlayers : null
 
     // const otherPlayersInfo = props.otherPlayers.length === 0 ? <h2>Waiting for other players...</h2> : <h2>You are up against:</h2>
     // const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingBounceIn'>{p}</div>)
@@ -21,7 +22,7 @@ const WaitingToStart = function (props) {
     return <div className='playWaiting'>
         <div className='playWaitingLabel'>You are playing as:</div>
         <div className='playWaitingAvatar'>{props.avatar}</div>
-        <div className='playWaitingLabel'>You are up against:</div>
+        <div className='playWaitingLabel'>{waitingLabel}</div>
         <div className='playWaitingOtherPlayers'>{otherPlayersInfo}</div>
     </div>
 }
