@@ -1,8 +1,15 @@
 'use strict'
+
+if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('./service-worker.js')
+}
+
+import loadCss from '../../load-css.js'
 import QuizSocketClient from './quiz-socket-client.js'
 import WebApp from './components/app/web-app.jsx'
 
-navigator.serviceWorker.register('./service-worker.js')
+loadCss('./font/komikatext_regular_macroman/stylesheet.css')
+loadCss('./style.css')
 
 // REVISE don't use jsx here so the linter rules can be cleaned up
 // REVISE check if ES6 module import is possible for socket.io
