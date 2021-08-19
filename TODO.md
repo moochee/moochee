@@ -1,4 +1,5 @@
 # TODO
+- **Feedback**: show number of players
 - **Feedback**: show who answered what and the correct answer as intermediate result. keep current podium?
 - **Feedback**: too many things are moving around in final podium, at least stage shall be still 
 - **DoD**: deploy to CF (or even K8s?) and test performance (initial load vs cached) and device responsiveness
