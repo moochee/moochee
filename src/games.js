@@ -4,7 +4,6 @@ export default function Games(timer, quizRepo, eventEmitter) {
     let nextGameId = 100000
     const games = []
 
-    // FIXME this should not be a global across multiple games - otherwise players in one game take away the avatars from players in another game :-D
     this.avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🐙🐲🦉🦋🐴🦄🐿🐝🐌🐢🦀🐠🐬🐳🐍🦎🦖🦭🐊🦧🦣🦏🐫🦒🦔🦡🦩🦢🦥🦜')
 
     this.getQuizzes = async () => {
@@ -32,6 +31,9 @@ export default function Games(timer, quizRepo, eventEmitter) {
         }
         if (game.players.find(p => p.name === name)) {
             throw new Error(`Player ${name} already exists!`)
+        }
+        if (this.avatars.length === 0) {
+            throw new Error(`Game reached max. number of players(${game.players.length})!`)
         }
         const avatar = this.avatars.splice(Math.random() * this.avatars.length, 1)[0]
         const newPlayer = { name, avatar, score: 0, socketId }
