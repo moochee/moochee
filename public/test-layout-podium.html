@@ -2,47 +2,36 @@
 <html>
 
 <head>
-	<title>Gorilla</title>
-	<link rel='icon' type='image/png' href='icons8-harambe-the-gorilla-50.png' />
-	<link rel='stylesheet' type='text/css' href='font/komikatext_regular_macroman/stylesheet.css' />
-    <script src='lib/jsxLoader.min.js'></script>
-	<script src='lib/react.development.js'></script>
-	<script src='lib/react-dom.development.js'></script>
-	<script src='lib/react-router-dom.js'></script>
-	<script>
-		Gorilla = {}
-	</script>
-	<link rel='stylesheet' type='text/css' href='components/shell/shell.css' />
-	<script src='components/shell/shell.js' type='text/babel'></script>
-	<link rel='stylesheet' type='text/css' href='components/podium/podium.css' />
-	<script src='components/podium/podium.js' type='text/babel'></script>
-	<script src='components/podium/podium-final.js' type='text/babel'></script>
-	<style>
-		html,
-		body,
-		#react-root {
-			margin: 0;
-			height: 100%;
-		}
+	<title>Test</title>
+	<meta name='viewport'
+		content='width=device-width,height=device-height,initial-scale=1,maximum-scale=1,user-scalable=no'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='HandheldFriendly' content='true'>
 
-		html {
-			background: black;
-		}
-	</style>
+	<script src='lib/react.development.js' type='application/javascript'></script>
+	<script src='lib/react-dom.development.js' type='application/javascript'></script>
+	<script src='lib/jsxLoader.min.js' type='application/javascript'></script>
 </head>
 
 <body>
-
 	<div id='react-root'>
 	</div>
 	<script type='text/babel' data-type='module'>
 		'use strict'
+		loadCss('./font/komikatext_regular_macroman/stylesheet.css')
+		loadCss('./style.css')
+
+		import loadCss from './load-css.js'
+		import Shell from './components/shell/shell.jsx'
+		import PodiumFinal from './components/podium/podium-final.jsx'
+
 		const players = [{ name: 'Alice', avatar: '🐰', score: '100 points' }, { name: 'Bob Marley', avatar: '🦁', score: '80 points' }, { name: 'Cindy', avatar: '🐵', score: '70 points' }]
 		const Page = function () {
 			const [volume, setVolume] = React.useState(1)
-			return <Gorilla.Shell onVolume={setVolume} fullScreenContent={true}>
-				<Gorilla.Podium players={players} volume={volume} />
-			</Gorilla.Shell>
+			return <Shell onVolume={() => null} fullScreenContent={true}>
+				<PodiumFinal players={players} volume={0} />
+				<div style={{ color: 'red', position: 'absolute', left: '50vw', top: '50vh' }}>A</div>
+			</Shell>
 		}
 		ReactDOM.render(<Page />, document.querySelector('#react-root'))
 	</script>
