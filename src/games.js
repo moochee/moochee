@@ -3,8 +3,7 @@
 export default function Games(timer, quizRepo, eventEmitter) {
     let nextGameId = 100000
     const games = []
-
-    this.avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🐙🐲🦉🦋🐴🦄🐿🐝🐌🐢🦀🐠🐬🐳🐍🦎🦖🦭🐊🦧🦣🦏🐫🦒🦔🦡🦩🦢🦥🦜')
+    const avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🐙🐲🦉🦋🐴🦄🐿🐝🐌🐢🦀🐠🐬🐳🐍🦎🦖🦭🐊🦧🦣🦏🐫🦒🦔🦡🦩🦢🦥🦜')
 
     this.getQuizzes = async () => {
         return await quizRepo.getAll()
@@ -20,7 +19,7 @@ export default function Games(timer, quizRepo, eventEmitter) {
         const questionsAndGuesses = questions.map((q, index) => {
             return { id: index + 1, rightAnswerId: q.rightAnswerId, guesses: [] }
         })
-        games.push({ id: gameId, quizTitle: quiz.text, remainingQuestions, questionsAndGuesses, players: [] })
+        games.push({ id: gameId, quizTitle: quiz.text, remainingQuestions, questionsAndGuesses, players: [], avatars: [...avatars] })
         return gameId
     }
 
@@ -32,10 +31,10 @@ export default function Games(timer, quizRepo, eventEmitter) {
         if (game.players.find(p => p.name === name)) {
             throw new Error(`Player ${name} already exists!`)
         }
-        if (this.avatars.length === 0) {
+        if (game.avatars.length === 0) {
             throw new Error(`Game reached max. number of players(${game.players.length})!`)
         }
-        const avatar = this.avatars.splice(Math.random() * this.avatars.length, 1)[0]
+        const avatar = game.avatars.splice(Math.random() * game.avatars.length, 1)[0]
         const newPlayer = { name, avatar, score: 0, socketId }
         game.players.push(newPlayer)
         eventEmitter.publish('playerJoined', gameId, newPlayer.avatar)
