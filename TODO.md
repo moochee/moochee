@@ -1,4 +1,5 @@
 # TODO
+- **UX**: center the stickies on the y-axis, consider both quiz stickies on entrance and answer stickies on play/host
 - **Feedback**: show number of players
 - **Feedback**: show who answered what and the correct answer as intermediate result. keep current podium?
 - **Feedback**: too many things are moving around in final podium, at least stage shall be still 
