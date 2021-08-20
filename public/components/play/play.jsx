@@ -16,9 +16,6 @@ const WaitingToStart = function (props) {
         : <div className='playWaitingLabel'>Waiting for other players...</div>
     const otherPlayersInfo = props.otherPlayers.length > 0 ? otherPlayers : null
 
-    // const otherPlayersInfo = props.otherPlayers.length === 0 ? <h2>Waiting for other players...</h2> : <h2>You are up against:</h2>
-    // const otherPlayers = props.otherPlayers.map(p => <div key={p} className='playWaitingBounceIn'>{p}</div>)
-
     return <div className='playWaiting'>
         <div className='playWaitingLabel'>You are playing as:</div>
         <div className='playWaitingAvatar'>{props.avatar}</div>
@@ -27,24 +24,18 @@ const WaitingToStart = function (props) {
     </div>
 }
 
-const Answer = function (props) {
-    return <StickyButton color={props.color} onClick={() => props.onGuess(props.answer.id)} text={props.answer.text} />
-}
-
-const Answers = function (props) {
-    const colors = ['green', 'purple', 'blue', 'orange']
-    const answersBlock = props.answers.map((answer, index) => {
-        return <Answer key={index} color={colors[index]} answer={answer} onGuess={props.onGuess} />
-    })
-    return <div className='playAnswers'>
-        {answersBlock}
-    </div>
-}
-
 const QuestionAndAnswers = function (props) {
+    const colors = ['green', 'purple', 'blue', 'orange']
+
+    const answersBlock = props.answers.map((answer, index) => {
+        return <StickyButton key={answer.id} color={colors[index]} onClick={() => props.onGuess(answer.id)} text={answer.text} />
+    })
+
     return <div>
         <h1 className='playQuestion'>{props.question}</h1>
-        <Answers answers={props.answers} onGuess={props.onGuess} />
+        <div className='playAnswers'>
+            {answersBlock}
+        </div>
 
         <div className='playCountdown'>
             <Countdown seconds={props.countDown} />
@@ -135,4 +126,3 @@ export default function Play(props) {
         {gameOverBlock}
     </Shell>
 }
-
