@@ -18,19 +18,18 @@
 	</div>
 	<script type='text/babel' data-type='module'>
 		'use strict'
+		import loadCss from './load-css.js'
+		import Shell from './components/shell/shell.jsx'
+		import Podium from './components/podium/podium-final.jsx'
+
 		loadCss('./font/komikatext_regular_macroman/stylesheet.css')
 		loadCss('./style.css')
 
-		import loadCss from './load-css.js'
-		import Shell from './components/shell/shell.jsx'
-		import PodiumFinal from './components/podium/podium-final.jsx'
-
-		const players = [{ name: 'Alice', avatar: '🐰', score: '100 points' }, { name: 'Bob Marley', avatar: '🦁', score: '80 points' }, { name: 'Cindy', avatar: '🐵', score: '70 points' }]
+		const players = [{ name: 'Alice', avatar: '🐰', score: '10000000 dausendpoints' }, { name: 'Bob Marley', avatar: '🦁', score: '80 points' }, { name: 'Cindy', avatar: '🐵', score: '70 points' }]
 		const Page = function () {
 			const [volume, setVolume] = React.useState(1)
-			return <Shell onVolume={() => null} fullScreenContent={true}>
-				<PodiumFinal players={players} volume={0} />
-				<div style={{ color: 'red', position: 'absolute', left: '50vw', top: '50vh' }}>A</div>
+			return <Shell headerCenter='test' onVolume={() => null} fullScreenContent={true}>
+				<Podium players={players} volume={0} />
 			</Shell>
 		}
 		ReactDOM.render(<Page />, document.querySelector('#react-root'))

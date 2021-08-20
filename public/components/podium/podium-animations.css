@@ -1,0 +1,100 @@
+.podiumAnimated .podiumAvatar {
+    animation: bounce .9s linear infinite;
+}
+
+.podiumAnimated .podiumRank1, .podiumAnimated .podiumRank2, .podiumAnimated .podiumRank3 {
+    animation: flyIn 1s linear forwards;
+    transform: translateX(-50%) scale(0) rotate(720deg);
+}
+
+.podiumAnimated .podiumRank1 {
+    animation-delay: 13s;
+}
+
+.podiumAnimated .podiumRank1>.podiumAvatar {
+    animation-delay: 14s;
+}
+
+.podiumAnimated .podiumRank2 {
+    animation-delay: 8s;
+}
+
+.podiumAnimated .podiumRank2>.podiumAvatar {
+    animation-delay: 9s;
+}
+
+.podiumAnimated .podiumRank3 {
+    animation-delay: 3s;
+}
+
+.podiumAnimated .podiumRank3>.podiumAvatar {
+    animation-delay: 4s;
+}
+
+@keyframes flyIn {
+    0% {
+        transform: translateX(-50%) scale(0) rotate(720deg);
+    }
+    25% {
+        transform: translateX(-50%) translateX(max(-10vw, -17.78vh)) scale(0) rotate(540deg);
+    }
+    50% {
+        transform: translateX(-50%) translateX(max(-20vw, -35.56vh)) scale(0.33) rotate(360deg);
+    }
+    75% {
+        transform: translateX(-50%) translateX(max(-10vw, -17.78vh)) scale(0.67) rotate(180deg);
+    }
+    to {
+        transform: translateX(-50%) scale(1) rotate(0deg);
+    }
+}
+
+@keyframes bounce {
+    from {
+        transform: translate(0px, 0px);
+    }
+    25% {
+        transform: translate(min(2vw, 3.55vh), max(-2vw, -3.55vh)) rotate(20deg);
+    }
+    50% {
+        transform: translate(0px, 0px);
+    }
+    75% {
+        transform: translate(max(-2vw, -3.55vh), max(-2vw, -3.55vh)) rotate(-20deg);
+    }
+    to {
+        transform: translate(0px, 0px);
+    }
+}
+
+.firework1, .firework2, .firework3 {
+    width: calc(16 * var(--width) * 1px);
+    position: absolute;
+    animation: firework 1.3s linear infinite;
+    --base-delay: 14s;
+    transform: scale(0);
+}
+
+.firework1 {
+    left: calc(50% - (45 * var(--width) * 1px));
+    top: calc(50% - (30 * var(--height) * 1px));
+    animation-delay: calc(var(--base-delay) + 0s);
+}
+
+.firework2 {
+    left: calc(50% + (20 * var(--width) * 1px));
+    top: calc(50% - (30 * var(--height) * 1px));
+    animation-delay: calc(var(--base-delay) + 0.3s);
+}
+
+.firework3 {
+    left: calc(50% - (20 * var(--width) * 1px));
+    top: calc(50% - (45 * var(--height) * 1px));
+    animation-delay: calc(var(--base-delay) + 0.7s);
+}
+
+@keyframes firework {
+    to {
+        transform: scale(1);
+    }
+}

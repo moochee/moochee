@@ -1,17 +1,7 @@
-/* 
-The positioning must be relative to the podium picture, which has a 16:9 aspect ration - here's how it's done:
-- when the viewport gets wider than 16:9, the podium takes full height and its width won't increase further
-  => x-coordinates should be relative to viewport height * 16/9 (=actual width of podium) instead of relative to viewport width (=bigger than actual width of podium)
-- when the viewport gets more narrow than 16:9, the podium takes full width and its height won't increase further
-  => y-coordinates should be relative to viewport width * 9/16 (=actual height of podium) instead of relative to viewport height (=bigger than actual height of podium)
-*/
-
-.podiumBackgroundWrapper {
-    height: 100%;
-    background: black;
-}
+/* Positioning must be relative to the podium. We set --height / --width in our js code on resize to use it here */
 
 .podium {
+    background: black;
     height: 100%;
     background-image: url(pedestal-4762661_1920.jpg);
     background-repeat: no-repeat;
@@ -20,195 +10,35 @@ The positioning must be relative to the podium picture, which has a 16:9 aspect 
     background-position: center;
 }
 
-.podiumAnimated {
-    animation: bounce 1.2s linear infinite;
-}
-
-@keyframes bounce {
-    from {
-        transform: translateY(0px) translateX(0px);
-    }
-    25% {
-        transform: translateY(max(-2vw, -3.55vh)) translateX(min(1.5vw, 2.66vh)) rotate(1deg);
-    }
-    50% {
-        transform: translateY(0px) translateX(0px);
-    }
-    75% {
-        transform: translateY(max(-2vw, -3.55vh)) translateX(max(-1.5vw, -2.66vh)) rotate(-1deg);
-    }
-    to {
-        transform: translateY(0px) translateX(0px);
-    }
-}
+/* REVISE feels a bit weird that this element has no dedicated style class while the avatar has */
 
 .podium>div {
     font-family: komika_textregular;
-    font-size: min(3.5vw, 6.22vh);
+    font-size: calc(3 * var(--width) * 1px);
     color: white;
     position: absolute;
-    left: 50vw;
-    top: 50%;
     text-align: center;
-}
-
-.podiumRank1 {
-    transform: translateX(-50%) translateY(-100%) translateY(min(0.7vw, 1.24vh));
-}
-
-.podiumRank1Animated {
-    transform: scale(0) translateX(-50%) translateX(max(-30vw, -53.33vh)) translateY(-100%) translateY(min(0.7vw, 1.24vh))rotate(720deg);
-    animation: flyIn1 1s linear forwards;
-    animation-delay: 13s;
-}
-
-@keyframes flyIn1 {
-    50% {
-        transform: scale(.5) translateX(-50%) translateX(max(-30vw, -53.33vh)) translateY(-100%) translateY(min(0.7vw, 1.24vh)) rotate(360deg);
-    }
-    to {
-        transform: scale(1) translateX(-50%) translateY(-100%) translateY(min(0.7vw, 1.24vh));
-    }
-}
-
-.podiumRank2 {
-    transform: translateX(-50%) translateX(max(-14.5vw, -25.78vh)) translateY(-100%) translateY(min(7.31vw, 13vh));
-}
-
-.podiumRank2Animated {
-    transform: scale(0) translateX(-50%) translateX(max(-14.5vw, -25.78vh)) translateY(-100%) translateY(min(7.31vw, 13vh)) rotate(720deg);
-    animation: flyIn2 1s linear forwards;
-    animation-delay: 8s;
-}
-
-@keyframes flyIn2 {
-    50% {
-        transform: scale(.5) translateX(-50%) translateX(max(-30vw, -53.33vh)) translateY(-100%) translateY(min(7.31vw, 13vh)) rotate(360deg);
-    }
-    to {
-        transform: scale(1) translateX(-50%) translateX(max(-14.5vw, -25.78vh)) translateY(-100%) translateY(min(7.31vw, 13vh));
-    }
-}
-
-.podiumRank3 {
-    transform: translateX(-50%) translateX(min(14.5vw, 25.78vh)) translateY(-100%) translateY(min(10.69vw, 19vh));
-}
-
-.podiumRank3Animated {
-    transform: scale(0) translateX(-50%) translateX(min(14.5vw, 25.78vh)) translateY(-100%) translateY(min(10.69vw, 19vh)) rotate(720deg);
-    animation: flyIn3 1s linear forwards;
-    animation-delay: 3s;
-}
-
-@keyframes flyIn3 {
-    50% {
-        transform: scale(.5) translateX(-50%) translateX(min(30vw, 53.33vh)) translateY(-100%) translateY(min(10.69vw, 19vh)) rotate(360deg);
-    }
-    to {
-        transform: scale(1) translateX(-50%) translateX(min(14.5vw, 25.78vh)) translateY(-100%) translateY(min(10.69vw, 19vh));
-    }
 }
 
 .podiumAvatar {
     font-size: 3em;
 }
 
-.podiumAvatar1 {
-    animation: jumpSomersault 2s linear infinite;
-    animation-delay: 14s;
+.podiumRank1, .podiumRank2, .podiumRank3 {
+    transform: translateX(-50%);
 }
 
-.podiumAvatar2 {
-    animation: jumpWhip .9s linear infinite;
-    animation-delay: 9s;
+.podiumRank1 {
+    top: calc(50% - (28 * var(--height) * 1px));
+    left: 50%;
 }
 
-.podiumAvatar3 {
-    animation: jump .5s linear infinite;
-    animation-delay: 4s;
+.podiumRank2 {
+    top: calc(50% - (16 * var(--height) * 1px));
+    left: calc(50% - (14 * var(--width) * 1px));
 }
 
-@keyframes jump {
-    from {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(max(-2.81vw, -5vh));
-    }
-    to {
-        transform: translateY(0px);
-    }
-}
-
-@keyframes jumpWhip {
-    from {
-        transform: translateY(0px) translateX(0px);
-    }
-    25% {
-        transform: translateY(max(-2.81vw, -5vh)) translateX(min(2vw, 3.55vh)) rotate(20deg);
-    }
-    50% {
-        transform: translateY(0px) translateX(0px);
-    }
-    75% {
-        transform: translateY(max(-2.81vw, -5vh)) translateX(max(-2vw, -3.55vh)) rotate(-20deg);
-    }
-    to {
-        transform: translateY(0px) translateX(0px);
-    }
-}
-
-@keyframes jumpSomersault {
-    5% {
-        transform: translateY(max(-1vw, -1.78vh)) rotate(0deg);
-    }
-    25% {
-        transform: translateY(max(-2.81vw, -5vh)) rotate(180deg);
-    }
-    45% {
-        transform: translateY(max(-1vw, -1.78vh)) rotate(360deg);
-    }
-    50% {
-        transform: translateY(0px) rotate(360deg);
-    }
-    55% {
-        transform: translateY(max(-1vw, -1.78vh)) rotate(360deg);
-    }
-    75% {
-        transform: translateY(max(-2.81vw, -5vh)) rotate(180deg);
-    }
-    95% {
-        transform: translateY(max(-1vw, -1.78vh)) rotate(0deg);
-    }
-}
-
-.firework {
-    width: min(20vw, 35.56vh);
-    position: absolute;
-    animation: firework 1.3s linear infinite;
-    transform: scale(0)
-}
-
-.firework1 {
-    left: calc(50vw - min(35vw, 62.22vh));
-    top: calc(50vh - min(24.31vw, 45vh));
-    animation-delay: 14.0s
-}
-
-.firework2 {
-    left: calc(50vw + min(15vw, 26.66vh));
-    top: calc(50vh - min(19.69vw, 35vh));
-    animation-delay: 14.3s
-}
-
-.firework3 {
-    left: calc(50vw + min(1vw, 1.78vh));
-    top: calc(50vh - min(28.13vw, 50vh));
-    animation-delay: 14.7s
-}
-
-@keyframes firework {
-    to {
-        transform: scale(1);
-    }
+.podiumRank3 {
+    top: calc(50% - (10 * var(--height) * 1px));
+    left: calc(50% + (14.5 * var(--width) * 1px));
 }
