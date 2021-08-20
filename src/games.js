@@ -54,8 +54,10 @@ export default function Games(timer, quizRepo, eventEmitter) {
         const question = game.questionsAndGuesses.find(q => q.id === questionId)
         question.guesses.push({ playerName, answerId })
 
-        const responseTime = new Date() - this.roundStart
-        const score = question.rightAnswerId === answerId ? Math.round(100 * 1000 / responseTime) : 0
+        const stickyAnimationTime = 1000
+        const networkDelayTime = 1000
+        const responseTime = (new Date() - this.roundStart) - stickyAnimationTime - networkDelayTime
+        const score = question.rightAnswerId === answerId ? Math.round(1000 * Math.pow(0.9, responseTime / 1000)) : 0
         game.players.find(p => p.name === playerName).score += score
 
         if (question.guesses.length === game.players.length) {
