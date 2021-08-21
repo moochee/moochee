@@ -12,24 +12,18 @@ import Waiting from './waiting.jsx'
 
 loadCss('components/host/host.css')
 
-const Answer = function (props) {
-    return <StickyCard color={props.color} text={props.answer.text} />
-}
-
-const Answers = function (props) {
-    const colors = ['green', 'purple', 'blue', 'orange']
-    const answersBlock = props.answers.map((answer, index) => {
-        return <Answer key={index} color={colors[index]} answer={answer} />
-    })
-    return <div className='hostAnswers'>
-        {answersBlock}
-    </div>
-}
-
 const QuestionAndAnswers = function (props) {
+    const colors = ['green', 'purple', 'blue', 'orange']
+
+    const answersBlock = props.answers.map((answer, index) => {
+        return <StickyCard key={index} color={colors[index]} text={answer.text} />
+    })
+
     return <div>
         <h1 className='hostQuestion'>{props.question}</h1>
-        <Answers answers={props.answers} />
+        <div className='hostAnswers'>
+            {answersBlock}
+        </div>
 
         <div className='hostCountdown'>
             <Countdown seconds={props.countDown} />

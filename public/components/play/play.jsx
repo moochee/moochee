@@ -28,7 +28,7 @@ const QuestionAndAnswers = function (props) {
     const colors = ['green', 'purple', 'blue', 'orange']
 
     const answersBlock = props.answers.map((answer, index) => {
-        return <StickyButton key={answer.id} color={colors[index]} onClick={() => props.onGuess(answer.id)} text={answer.text} />
+        return <StickyButton key={index} color={colors[index]} onClick={() => props.onGuess(answer.id)} text={answer.text} />
     })
 
     return <div>
