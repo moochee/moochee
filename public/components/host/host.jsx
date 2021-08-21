@@ -8,6 +8,7 @@ import Podium from '../podium/podium.jsx'
 import PodiumFinal from '../podium/podium-final.jsx'
 import StickyCard from '../sticky/sticky-card.jsx'
 import StickyButton from '../sticky/sticky-button.jsx'
+import Waiting from './waiting.jsx'
 
 loadCss('components/host/host.css')
 
@@ -33,61 +34,6 @@ const QuestionAndAnswers = function (props) {
         <div className='hostCountdown'>
             <Countdown seconds={props.countDown} />
         </div>
-    </div>
-}
-
-const QRCode = function (props) {
-    // eslint-disable-next-line no-undef
-    const appendQr = (el) => new QRious({ element: el, value: props.url, size: 1024 })
-    return <canvas className='hostWaitingQrCode' ref={appendQr} />
-}
-
-const WaitingToStart = function (props) {
-    const joinUrl = `${window.location.origin}/#/play/${props.gameId}`
-    const [copied, setCopied] = React.useState('')
-    const joinUrlInput = React.useRef()
-
-    function iosCopyToClipboard(el) {
-        const range = document.createRange()
-        range.selectNodeContents(el)
-        const s = window.getSelection()
-        s.removeAllRanges()
-        s.addRange(range)
-        el.setSelectionRange(0, el.value.length)
-        document.execCommand('copy')
-        el.setSelectionRange(-1, -1)
-    }
-
-    const copyToClipboard = () => {
-        if (navigator.userAgent.match(/ipad|iphone/i)) {
-            iosCopyToClipboard(joinUrlInput.current)
-        } else {
-            navigator.clipboard.writeText(joinUrl)
-        }
-        setCopied('copied!')
-    }
-
-    const start = () => {
-        props.adapter.start(props.gameId)
-    }
-
-    const players = props.players.length > 0
-        ? <div className='hostWaitingPlayerInfo'>{props.players.map(p => <div key={p} className='hostWaitingBounceIn'>{p}</div>)}</div>
-        : <div className='hostWaitingPlayerInfo hostWaitingNoPlayersYet'>Let people scan the QR code or send them the join URL</div>
-
-    const startButton = props.canStart ? <StickyButton onClick={start} color='blue' text='Start' /> : ''
-
-    return <div className='hostWaiting'>
-        <div className='hostWaitingJoinUrl'>
-            <input ref={joinUrlInput} readOnly value={joinUrl} onClick={copyToClipboard}></input>
-            <button onClick={copyToClipboard}>📋</button>
-            <div>{copied}</div>
-        </div>
-        <div className='hostWaitingSplitContainer'>
-            <QRCode url={joinUrl} />
-            {players}
-        </div>
-        <div className='hostStartButton'>{startButton}</div>
     </div>
 }
 
@@ -193,7 +139,7 @@ export default function Host(props) {
 
     const showPodium = Boolean(result)
     const waitingToStart = !question && !result
-    const waitingToStartBlock = waitingToStart ? <WaitingToStart gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
+    const waitingToStartBlock = waitingToStart ? <Waiting gameId={props.gameId} players={players} volume={volume} canStart={canStart} adapter={props.adapter} /> : ''
     const questionBlock = question && (countDown !== null) ? <QuestionAndAnswers countDown={countDown} question={question.text} answers={question.answers} /> : ''
     const podiumBlock = showPodium && !isFinal ? <PodiumPage players={result} onNext={next} /> : ''
     const podiumFinalBlock = showPodium && isFinal ? <PodiumFinalPage players={result} volume={volume} onBackHome={props.onBackHome} stopMusic={stopMusic}/> : ''
