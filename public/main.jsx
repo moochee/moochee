@@ -11,8 +11,6 @@ import WebApp from './components/app/web-app.jsx'
 loadCss('./font/komikatext_regular_macroman/stylesheet.css')
 loadCss('./style.css')
 
-// REVISE don't use jsx here so the linter rules can be cleaned up
-// REVISE check if ES6 module import is possible for socket.io
 // eslint-disable-next-line no-undef
 const socket = io()
 
