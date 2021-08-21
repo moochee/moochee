@@ -2,7 +2,6 @@
 - **UX**: center the stickies on the y-axis, consider both quiz stickies on entrance and answer stickies on play/host
 - **Feature**: show progress on host/player side, current question and total number of questions
 - **Feature**: show who answered what and the correct answer as intermediate result. keep current podium?
-- **UX**: too many things are moving around in final podium, at least stage shall be still 
 - **DoD**: deploy to CF (or even K8s?) and test performance (initial load vs cached) and device responsiveness
 - **DoD**: check animations etc. in chrome, edge, firefox, safari and on mobile device
 - **Bugfix**: music not working on Safari (incl iPhone) - need to use history.pushState (done already for host, not yet for players) _AND_ make sure the .play is triggered synchronously on a user interaction; right now there's multiple things making it async: a) we have an animation when clicking the sticky and b) we first call the backend to get the gameId before we enter the room. Possible solution: start the music immediately on click, but keep it muted, and unmute only once the "room" is entered successfully. Can there be other solutions? Related articles:
@@ -20,6 +19,7 @@
 
 # DONE
 - show number of players
+- too many things are moving around in final podium, at least stage shall be still 
 - be able to use jsx+es6 imports in combination, and clean the related messes in the global namespace
 - integrate stickies design in host + play screens (see test-layout-quiz-player.html)
 - while joined player is waiting for quiz to start, should see the own avatar and the ones of the other players joining in
