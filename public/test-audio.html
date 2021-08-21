@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test</title>
+    <meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='HandheldFriendly' content='true'>
+
+    <link rel='icon' href='/favicon.svg' />
+</head>
+
+<body>
+    <script type='application/javascript'>
+        // TODO below prototype works on iOS - now build an audio control from it
+        //      - should bind to some 'phase' like lobby, quiz start, intermediate solution, final podium, ...
+        //      - depending on the phase, it plays nicely fitting music
+        //      - later we can make it configurable, e.g. add your own theme :-)
+        async function play() {
+            document.getElementById('audioChannel1').play()
+            document.getElementById('audioChannel1').muted = false
+            document.getElementById('audioChannel2').play()
+
+            setTimeout(() => {
+                document.getElementById('audioChannel1').src = 'components/podium/arcade-game-music-loop.mp3'
+                document.getElementById('audioChannel1').muted = false
+                document.getElementById('audioChannel1').play()
+
+                document.getElementById('audioChannel2').src = 'components/podium/sounds-of-fireworks-exploding.mp3'
+                document.getElementById('audioChannel2').muted = false
+                // document.getElementById('audioChannel2').loop = true
+                document.getElementById('audioChannel2').play()
+            }, 4000)
+        }
+    </script>
+    <div>
+        <audio id='audioChannel1' muted src='components/positive-funny-background-music-for-video-games.mp3'></audio>
+        <audio id='audioChannel2' muted></audio>
+        <button onclick='play()'>Play</button>
+    </div>
+</body>
+
+</html>
