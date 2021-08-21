@@ -25,6 +25,9 @@ export default function Games(timer, quizRepo, eventEmitter) {
 
     this.join = (gameId, name, socketId) => {
         const game = games.find(g => g.id === gameId)
+        if (!game) {
+            throw new Error('Game does not exist!')
+        }
         if (!name) {
             throw new Error('Player name is empty!')
         }

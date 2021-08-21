@@ -27,7 +27,7 @@ describe('Games', () => {
         expect(joinResponse).toEqual({ quizTitle: 'sample quiz', avatar: jasmine.any(String), score: 0, otherPlayers: [] })
     })
 
-    it('is not ok when joining with a player name that is already taken in this game', async () => {
+    it('is not possible to join with a player name that is already taken in this game', async () => {
         const gameId = await games.host()
         games.join(gameId, 'alice')
         // TODO 'bob' should be able to join if the name is only taken in another game
@@ -37,6 +37,10 @@ describe('Games', () => {
         } catch (error) {
             expect(error.message).toMatch(/alice.*exists/u)
         }
+    })
+
+    it('is an error if the game does not exist', async () => {
+        expect(() => games.join(42, 'alice')).toThrowError(/not exist/)
     })
 
     it('presents the first question and seconds to guess when a new round starts', async () => {
