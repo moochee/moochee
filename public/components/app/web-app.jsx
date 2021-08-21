@@ -24,6 +24,7 @@ const HostGameWeb = function (props) {
 }
 
 const PlayGameWeb = function (props) {
+    // Exception for linter, cause generally we want to restrict usage of ReactRouterDOM
     // eslint-disable-next-line no-undef
     const { gameId } = ReactRouterDOM.useParams()
     const [atJoinGame, setAtJoinGame] = React.useState(true)
@@ -47,6 +48,7 @@ const PlayGameWeb = function (props) {
     const removePlayer = (player) => {
         setOtherPlayers((oldPlayers) => oldPlayers.filter(p => p != player))
     }
+
     return atJoinGame ?
         <Join gameId={gameId} adapter={props.adapter} onJoin={join} /> :
         <Play gameId={gameId} adapter={props.adapter} quizTitle={quizTitle}
@@ -55,6 +57,7 @@ const PlayGameWeb = function (props) {
 }
 
 export default function WebApp(props) {
+    // Exception for linter, cause generally we want to restrict usage of ReactRouterDOM
     // eslint-disable-next-line no-undef
     const { HashRouter, Switch, Route } = ReactRouterDOM
 

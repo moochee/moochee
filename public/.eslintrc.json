@@ -14,7 +14,9 @@
                 "React": "readonly"
             },
             "rules": {
-                "react/jsx-uses-vars": "error"
+                "react/jsx-uses-vars": "error",
+                "react/jsx-no-undef": "error",
+                "react/jsx-key": "error"
             }
         }
     ],
