@@ -35,7 +35,7 @@ _For the second reason, we compiled a list of our learnings here!_
 - UI5 Web Components (worked really we, discarded later just because we wanted to try making our own widgets)
 - Git hooks
 - QR codes for URLs
-- **The most important one:** be _absolutely minimalistic regarding tools_ - and demonstrate things are super performant while and ultra simple & elegant at the same time
+- **The most important one:** be _absolutely minimalistic regarding tools_ - and demonstrate things are super performant while still ultra simple & elegant at the same time
 
 **Things we're still trying out or want to try out**
 - Preact with HTM (tagged template strings) to replace React and JSX
