@@ -12,11 +12,9 @@ export default function StickyButton(props) {
         setStickyClass('stickyButton stickyThrowAway')
     }
 
-    const img = `components/sticky/sticky-${props.color}.svg`
-
-    return html`<div onAnimationEnd=${props.onClick} onClick=${click} className=${stickyClass} >
-        <img src=${img}></img>
-        <div className='textField'>
+    return html`<div onAnimationEnd=${props.onClick} onClick=${click} class=${stickyClass}>
+        <img src=components/sticky/sticky-${props.color}.svg></img>
+        <div class=textField>
             ${props.text}
         </div>
     </div>`
