@@ -38,6 +38,7 @@ _For the second reason, we compiled a list of our learnings here!_
 - **The most important one:** be _absolutely minimalistic regarding tools_ - and demonstrate things are super performant while and ultra simple & elegant at the same time
 
 **Things we're still trying out or want to try out**
+- Preact with HTM (tagged template strings) to replace React and JSX
 - Golang as alternative server implementation
 - Zero-Downtime deployment of a stateful app
 - CD pipeline with bare shell script and without extra tools, can try Github Actions or even do our own CD server
