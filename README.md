@@ -64,5 +64,7 @@ _For the second reason, we compiled a list of our learnings here!_
 - Regular ES6 import has the drawback that it doesn't allow for lazy loading
 - UI5 Web Components work really nice, and if you don't like server-side build tools you can load it as a [single-file bundle](https://sap.github.io/ui5-webcomponents/assets/js/ui5-webcomponents/bundle.es5.js (so if you're developing a Java app, you can use UI5 Web Components without being needed to use Node.js), and at least together with React we didn't even feel a need for using the extra UI5 Web Component - React wrapper.
 - You can do zero-downtime deployment also if your app is stateful, and it's actually not complicated using sticky sessions ([also supported by CF](https://docs.cloudfoundry.org/concepts/http-routing.html#sessions)), if your app does gracefully shutdown correctly
+- Preact and HTM are awesome, especially if you look for something really simple, it can be used with build tools or completely client-standalone
+- Doing routing yourself is a pretty simple thing in React, you may be able to do well without a thirdparty lib like (p)react-router
 - Golang has really some nice and interesting concepts like the way structs/classes are done
 - Golang does not have try/catch, so error handling is really different
