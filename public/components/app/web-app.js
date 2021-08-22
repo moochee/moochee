@@ -57,7 +57,6 @@ const PlayGameWeb = function (props) {
 export default function WebApp(props) {
     const [hash, setHash] = useState(window.location.hash)
     const hashChanged = () => {
-        console.log('jus')
         setHash(window.location.hash)
     }
     useEffect(() => {
