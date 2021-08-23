@@ -13,6 +13,6 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    overflow-y: scroll;
+    overflow-y: auto;
     justify-content: center;
 }

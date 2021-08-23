@@ -44,7 +44,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     font-size: max(10vh, 10vw);
-    overflow-y: scroll;
+    overflow-y: auto;
     justify-content: center;
 }
 
