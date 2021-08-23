@@ -98,12 +98,33 @@ describe('Games', () => {
         expect(eventEmitter.receivedArgs).toEqual(['gameFinished', gameId, expectedRanking])
     })
 
-    it('should fire finishRound only once if the last player answers after the timeout', async () => {
+    it('should fire finishRound only once if all players guessed before timeout', async () => {
         let finishRound
         timer.setTimeout = (callback) => finishRound = callback
+        timer.clearTimeout = () => finishRound = () => null
         quizRepo.questions = [{ text: 'question1', answers: [] }, { text: 'question2', answers: [] }]
-        eventEmitter.finishRoundCalled = 0
-        eventEmitter.publish = function (...args) { if (args[0] === 'roundFinished') this.finishRoundCalled += 1 }
+        eventEmitter.publish = function (...args) {
+            if (args[0] === 'roundFinished') this.finishRoundCalled = this.finishRoundCalled || 0 + 1
+        }
+
+        const gameId = await games.host()
+        games.join(gameId, 'alice')
+        games.join(gameId, 'bob')
+        games.nextRound(gameId)
+        games.guess(gameId, 1, 'alice', 0)
+        games.guess(gameId, 1, 'bob', 1)
+        finishRound()
+        expect(eventEmitter.finishRoundCalled).toEqual(1)
+    })
+
+    it('should fire finishRound only once if the last player answered after timeout', async () => {
+        let finishRound
+        timer.setTimeout = (callback) => finishRound = callback
+        timer.clearTimeout = () => finishRound = () => null
+        quizRepo.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }, { text: 'question2', answers: [] }]
+        eventEmitter.publish = function (...args) {
+            if (args[0] === 'roundFinished') this.finishRoundCalled = (this.finishRoundCalled || 0) + 1
+        }
 
         const gameId = await games.host()
         games.join(gameId, 'alice')
@@ -111,9 +132,33 @@ describe('Games', () => {
         games.nextRound(gameId)
         games.guess(gameId, 1, 'alice', 0)
         finishRound()
-        games.guess(gameId, 1, 'bob', 1)
+        games.guess(gameId, 1, 'bob', 0)
         expect(eventEmitter.finishRoundCalled).toEqual(1)
     })
+
+    it('should get zero score if the last player answered correctly after timeout', async () => {
+        let finishRound
+        timer.setTimeout = (callback) => finishRound = callback
+        timer.clearTimeout = () => finishRound = () => null
+        quizRepo.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }, { text: 'question2', answers: [] }]
+        eventEmitter.publish = function (...args) { this.receivedArgs = args }
+
+        const gameId = await games.host()
+        games.join(gameId, 'alice')
+        games.join(gameId, 'bob')
+        games.nextRound(gameId)
+        games.guess(gameId, 1, 'alice', 0)
+        finishRound()
+        games.guess(gameId, 1, 'bob', 0)
+        const expectedRanking = [
+            // REVISE once we got the socketId out of the games, we don't need jasmine.objectContaining any longer
+            jasmine.objectContaining({ name: 'alice', avatar: jasmine.any(String), score: jasmine.any(Number) }),
+            jasmine.objectContaining({ name: 'bob', avatar: jasmine.any(String), score: 0 })
+        ]
+        expect(eventEmitter.receivedArgs).toEqual(['roundFinished', gameId, expectedRanking])
+    })
+
+
 
     // TODO shouldn't we have a test for increasing the score based on faster response time?
 
