@@ -53,6 +53,8 @@ export default function Games(timer, quizRepo, eventEmitter) {
 
     this.guess = (gameId, questionId, playerName, answerId) => {
         const game = games.find(g => g.id === gameId)
+        const roundFinished = !game.roundStart
+        if (roundFinished) return
         const question = game.questionsAndGuesses.find(q => q.id === questionId)
         question.guesses.push({ playerName, answerId })
 
@@ -70,6 +72,7 @@ export default function Games(timer, quizRepo, eventEmitter) {
 
     const finishRound = (gameId) => {
         const game = games.find((g) => g.id === gameId)
+        game.roundStart = null
         const result = [...game.players]
         result.sort((a, b) => b.score - a.score)
         if (game.remainingQuestions.length > 0) {

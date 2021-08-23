@@ -98,6 +98,23 @@ describe('Games', () => {
         expect(eventEmitter.receivedArgs).toEqual(['gameFinished', gameId, expectedRanking])
     })
 
+    it('should fire finishRound only once if the last player answers after the timeout', async () => {
+        let finishRound
+        timer.setTimeout = (callback) => finishRound = callback
+        quizRepo.questions = [{ text: 'question1', answers: [] }, { text: 'question2', answers: [] }]
+        eventEmitter.finishRoundCalled = 0
+        eventEmitter.publish = function (...args) { if (args[0] === 'roundFinished') this.finishRoundCalled += 1 }
+
+        const gameId = await games.host()
+        games.join(gameId, 'alice')
+        games.join(gameId, 'bob')
+        games.nextRound(gameId)
+        games.guess(gameId, 1, 'alice', 0)
+        finishRound()
+        games.guess(gameId, 1, 'bob', 1)
+        expect(eventEmitter.finishRoundCalled).toEqual(1)
+    })
+
     // TODO shouldn't we have a test for increasing the score based on faster response time?
 
     // TODO add a test for the intermediate results - server should NOT present the player names
