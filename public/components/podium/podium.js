@@ -1,9 +1,9 @@
 'use strict'
 
-import { html, useEffect, useRef } from 'https://unpkg.com/htm/preact/standalone.module.js'
-import loadCss from '../../load-css.js'
+import { html, useEffect, useRef } from '/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/load-css.js'
 
-loadCss('components/podium/podium.css')
+loadCss('/components/podium/podium.css')
 
 export default function Podium(props) {
     const podium = useRef()

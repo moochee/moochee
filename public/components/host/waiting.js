@@ -1,8 +1,8 @@
 'use strict'
 
-import { html, useState, useRef } from 'https://unpkg.com/htm/preact/standalone.module.js'
-import loadCss from '../../load-css.js'
-import StickyButton from '../sticky/sticky-button.js'
+import { html, useState, useRef } from '/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/load-css.js'
+import StickyButton from '/components/sticky/sticky-button.js'
 
 loadCss('components/host/waiting.css')
 

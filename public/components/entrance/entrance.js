@@ -1,11 +1,11 @@
 'use strict'
 
-import { html, useEffect, useState } from 'https://unpkg.com/htm/preact/standalone.module.js'
-import loadCss from '../../load-css.js'
-import Shell from '../shell/shell.js'
-import StickyButton from '../sticky/sticky-button.js'
+import { html, useEffect, useState } from '/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/load-css.js'
+import Shell from '/components/shell/shell.js'
+import StickyButton from '/components/sticky/sticky-button.js'
 
-loadCss('components/entrance/entrance.css')
+loadCss('/components/entrance/entrance.css')
 
 export default function Entrance(props) {
     const [quizzes, setQuizzes] = useState([])

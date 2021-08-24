@@ -1,6 +1,6 @@
 'use strict'
 
-import { html, useState, useEffect } from 'https://unpkg.com/htm/preact/standalone.module.js'
+import { html, useState, useEffect } from '/lib/preact-3.1.0.standalone.module.js'
 
 // REVISE depending on network delay this can get a bit out of sync, i.e. the server has already started ticking 5 seconds earlier, so the round might finish although the player still sees 5 seconds remaining
 //        - solution idea 1: periodically sync time with server (probably does bear problems as also here there can be network delay)

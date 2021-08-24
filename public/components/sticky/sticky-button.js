@@ -1,9 +1,9 @@
 'use strict'
 
-import { html, useState } from 'https://unpkg.com/htm/preact/standalone.module.js'
-import loadCss from '../../load-css.js'
+import { html, useState } from '/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/load-css.js'
 
-loadCss('components/sticky/sticky-button.css')
+loadCss('/components/sticky/sticky-button.css')
 
 export default function StickyButton(props) {
     const [stickyClass, setStickyClass] = useState('stickyButton')

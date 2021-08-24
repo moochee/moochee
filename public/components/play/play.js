@@ -1,12 +1,12 @@
 'use strict'
 
-import { html, useState, useEffect, useRef } from 'https://unpkg.com/htm/preact/standalone.module.js'
-import loadCss from '../../load-css.js'
-import AudioControl from '../audio/audio-control.js'
-import Shell from '../shell/shell.js'
-import Countdown from '../countdown.js'
-import Podium from '../podium/podium.js'
-import StickyButton from '../sticky/sticky-button.js'
+import { html, useState, useEffect, useRef } from '/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/load-css.js'
+import AudioControl from '/components/audio/audio-control.js'
+import Shell from '/components/shell/shell.js'
+import Countdown from '/components/countdown.js'
+import Podium from '/components/podium/podium.js'
+import StickyButton from '/components/sticky/sticky-button.js'
 
 loadCss('components/play/play.css')
 

@@ -3,11 +3,8 @@
 import express from 'express'
 import http from 'http'
 import quizSocketServer from './quiz-socket-server.js'
-import jsx from './jsx.js'
 
 const app = express()
-
-app.use(jsx)
 
 app.use(express.static('public'))
 

@@ -1,9 +1,9 @@
 'use strict'
 
-import { html, useState, useEffect, useRef } from 'https://unpkg.com/htm/preact/standalone.module.js'
-import loadCss from '../../load-css.js'
+import { html, useState, useEffect, useRef } from '/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/load-css.js'
 
-loadCss('components/audio/audio-control.css')
+loadCss('/components/audio/audio-control.css')
 
 export default function AudioControl(props) {
     const volumeSlider = useRef()

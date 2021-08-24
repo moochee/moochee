@@ -1,10 +1,10 @@
 'use strict'
 
-import { html, useState, useEffect } from 'https://unpkg.com/htm/preact/standalone.module.js'
-import Entrance from '../entrance/entrance.js'
-import Host from '../host/host.js'
-import Join from '../join/join.js'
-import Play from '../play/play.js'
+import { html, useState, useEffect } from '/lib/preact-3.1.0.standalone.module.js'
+import Entrance from '/components/entrance/entrance.js'
+import Host from '/components/host/host.js'
+import Join from '/components/join/join.js'
+import Play from '/components/play/play.js'
 
 const HostGameWeb = function (props) {
     const [atEntrance, setAtEntrance] = useState(true)

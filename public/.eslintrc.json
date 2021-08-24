@@ -1,24 +1,6 @@
 {
-    "overrides": [
-        {
-            "files": "**/*.jsx",
-            "parserOptions": {
-                "ecmaFeatures": {
-                    "jsx": true
-                }
-            },
-            "plugins": [
-                "react"
-            ],
-            "globals": {
-                "React": "readonly"
-            },
-            "rules": {
-                "react/jsx-uses-vars": "error",
-                "react/jsx-no-undef": "error",
-                "react/jsx-key": "error"
-            }
-        }
+    "plugins": [
+        "react"
     ],
     "env": {
         "browser": true

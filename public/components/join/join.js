@@ -1,8 +1,8 @@
 'use strict'
 
-import { html, useState } from 'https://unpkg.com/htm/preact/standalone.module.js'
-import loadCss from '../../load-css.js'
-import Shell from '../shell/shell.js'
+import { html, useState } from '/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/load-css.js'
+import Shell from '/components/shell/shell.js'
 
 loadCss('components/join/join.css')
 

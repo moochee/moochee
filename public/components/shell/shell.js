@@ -1,9 +1,9 @@
 'use strict'
 
-import { html } from 'https://unpkg.com/htm/preact/standalone.module.js'
-import loadCss from '../../load-css.js'
+import { html } from '/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/load-css.js'
 
-loadCss('components/shell/shell.css')
+loadCss('/components/shell/shell.css')
 
 export default function Shell(props) {
     const contentClass = props.fullScreenContent ? 'shellContentFullscreen' : 'shellContentFit'
