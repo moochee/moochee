@@ -17,6 +17,11 @@ describe('Avatars', () => {
         expect(avatars.size()).toEqual(jasmine.any(Number))
     })
 
+    it('should create an instance with own pools', () => {
+        avatars = new Avatars([[]])
+        expect(avatars.size()).toEqual(0)
+    })
+
     it('should pick one avatar at a time', () => {
         expect(avatars.pick()).toEqual(jasmine.any(String))
     })
@@ -28,13 +33,13 @@ describe('Avatars', () => {
     })
 
     it('should pick from higher pool first', () => {
-        avatars.priorityPools = [[1], [2]]
-        expect(avatars.pick()).toEqual(1)
+        avatars = new Avatars([['x'], ['y']])
+        expect(avatars.pick()).toEqual('x')
     })
 
     it('should pick from next pool if higher pool is empty', () => {
-        avatars.priorityPools = [[], [2]]
-        expect(avatars.pick()).toEqual(2)
+        avatars = new Avatars([[], ['y']])
+        expect(avatars.pick()).toEqual('y')
     })
 
     it('should reduce the size after picking', () => {
@@ -45,13 +50,13 @@ describe('Avatars', () => {
     })
 
     it('should throw error if no avatar to pick', () => {
-        avatars.priorityPools = [[]]
+        avatars = new Avatars([[]])
         expect(() => avatars.pick()).toThrow()
     })
 
     it('should have no duplicates', () => {
         const size = avatars.size()
-        const sizeNoDuplication = new Set(avatars.priorityPools.flat()).size
+        const sizeNoDuplication = avatars.size(true)
         expect(size).toEqual(sizeNoDuplication)
     })
 })

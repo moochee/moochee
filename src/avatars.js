@@ -1,14 +1,18 @@
 'use strict'
 
-export default function Avatars() {
-    this.priorityPools = [
+export default function Avatars(pools) {
+    this.priorityPools = pools || [
         Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🐙🐲🦉🦋🐴🦄🐿🐝🐌🐢🦀🐠🐬🐳🐍🦎🦖🦭🐊🦧🦣🦏🐫🦒🦔🦡🦩🦢🦥🦜🦘🐘'),
         Array.from('🍏🍎🍐🍊🍋🍌🍉🍇🍓🫐🍈🍒🍑🥭🍍🥥🥝🍅🍆🥑🥦🥬🥒🌶🫑🌽🥕🫒🧄🧅🥔🍠🥐🥯🍞🥖🥨🧇🥓🍗🌭🍔🍟🍕🥪🎂🍭🍿🍩🥮')
     ]
 
-    this.size = () => {
+    this.size = (noDuplication) => {
         let size = 0
-        this.priorityPools.forEach((pool) => size += pool.length)
+        if (noDuplication) {
+            size = new Set(this.priorityPools.flat()).size
+        } else {
+            this.priorityPools.forEach((pool) => size += pool.length)
+        }
         return size
     }
 
