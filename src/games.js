@@ -47,7 +47,8 @@ export default function Games(timer, quizRepo, eventEmitter) {
         const game = games.find(g => g.id === gameId)
         const question = game.remainingQuestions.shift()
         eventEmitter.publish('roundStarted', gameId, question, timer.secondsToGuess)
-        game.guessTimeoutId = timer.setTimeout(() => finishRound(gameId), timer.secondsToGuess * 1000)
+        const secondsOfNetworkDelay = 2
+        game.guessTimeoutId = timer.setTimeout(() => finishRound(gameId), (timer.secondsToGuess + secondsOfNetworkDelay) * 1000)
         game.roundStart = new Date()
     }
 
