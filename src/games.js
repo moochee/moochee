@@ -4,6 +4,8 @@ export default function Games(timer, quizRepo, eventEmitter) {
     let nextGameId = 100000
     const games = []
     const avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐔🐧🐤🐙🐲🦉🦋🐴🦄🐿🐝🐌🐢🦀🐠🐬🐳🐍🦎🦖🦭🐊🦧🦣🦏🐫🦒🦔🦡🦩🦢🦥🦜🦣🐘')
+    const secondsOfNetworkDelay = 2
+
     this.getQuizzes = async () => {
         return await quizRepo.getAll()
     }
@@ -47,20 +49,19 @@ export default function Games(timer, quizRepo, eventEmitter) {
         const game = games.find(g => g.id === gameId)
         const question = game.remainingQuestions.shift()
         eventEmitter.publish('roundStarted', gameId, question, timer.secondsToGuess)
-        const secondsOfNetworkDelay = 2
+
         game.guessTimeoutId = timer.setTimeout(() => finishRound(gameId), (timer.secondsToGuess + secondsOfNetworkDelay) * 1000)
-        game.roundStart = new Date()
+        game.roundStartTime = new Date()
     }
 
     this.guess = (gameId, questionId, playerName, answerId) => {
         const game = games.find(g => g.id === gameId)
-        const roundFinished = !game.roundStart
+        const roundFinished = !game.roundStartTime
         if (roundFinished) return
         const question = game.questionsAndGuesses.find(q => q.id === questionId)
         question.guesses.push({ playerName, answerId })
 
-        const networkDelayTime = 2000
-        const responseTime = (new Date() - game.roundStart) - networkDelayTime
+        const responseTime = (new Date() - game.roundStartTime) - secondsOfNetworkDelay * 1000
         const score = question.rightAnswerId === answerId ? Math.round(1000 * Math.pow(0.9, responseTime / 1000)) : 0
         game.players.find(p => p.name === playerName).score += score
 
@@ -72,7 +73,7 @@ export default function Games(timer, quizRepo, eventEmitter) {
 
     const finishRound = (gameId) => {
         const game = games.find((g) => g.id === gameId)
-        game.roundStart = null
+        game.roundStartTime = null
         const result = [...game.players]
         result.sort((a, b) => b.score - a.score)
         if (game.remainingQuestions.length > 0) {
