@@ -2,7 +2,7 @@
 
 import Avatars from './avatars.js'
 
-export default function Games(timer, quizRepo, eventEmitter) {
+export default function Games(timer, quizRepo, events) {
     let nextGameId = 100000
     const games = []
     const secondsOfNetworkDelay = 2
@@ -42,14 +42,14 @@ export default function Games(timer, quizRepo, eventEmitter) {
         const avatar = game.avatars.pick()
         const newPlayer = { name, avatar, score: 0, socketId }
         game.players.push(newPlayer)
-        eventEmitter.publish('playerJoined', gameId, newPlayer.avatar)
+        events.publish('playerJoined', gameId, newPlayer.avatar)
         return { quizTitle: game.quizTitle, avatar: newPlayer.avatar, score: newPlayer.score, otherPlayers: game.players.filter(p => p.name !== name).map(p => p.avatar) }
     }
 
     this.nextRound = (gameId) => {
         const game = games.find(g => g.id === gameId)
         const question = game.remainingQuestions.shift()
-        eventEmitter.publish('roundStarted', gameId, question, timer.secondsToGuess)
+        events.publish('roundStarted', gameId, question, timer.secondsToGuess)
 
         game.guessTimeoutId = timer.setTimeout(() => finishRound(gameId), (timer.secondsToGuess + secondsOfNetworkDelay) * 1000)
         game.roundStartTime = new Date()
@@ -78,9 +78,9 @@ export default function Games(timer, quizRepo, eventEmitter) {
         const result = [...game.players]
         result.sort((a, b) => b.score - a.score)
         if (game.remainingQuestions.length > 0) {
-            eventEmitter.publish('roundFinished', gameId, result)
+            events.publish('roundFinished', gameId, result)
         } else {
-            eventEmitter.publish('gameFinished', gameId, result)
+            events.publish('gameFinished', gameId, result)
         }
     }
 
@@ -95,7 +95,7 @@ export default function Games(timer, quizRepo, eventEmitter) {
         }
         if (game && game.players) {
             game.players = game.players.filter(p => p.socketId != socketId)
-            eventEmitter.publish('playerDisconnected', game.id, player.avatar)
+            events.publish('playerDisconnected', game.id, player.avatar)
         }
     }
 }

@@ -3,13 +3,13 @@
 import Games from '../games.js'
 
 describe('Games', () => {
-    let timer, quizRepo, eventEmitter, games
+    let timer, quizRepo, events, games
 
     beforeEach(() => {
         timer = { setTimeout: () => null, clearTimeout: () => null, secondsToGuess: null }
         quizRepo = { questions: [], getById: function () { return { text: 'sample quiz', questions: this.questions } } }
-        eventEmitter = { publish: function (...args) { this.receivedArgs = args } }
-        games = new Games(timer, quizRepo, eventEmitter)
+        events = { publish: function (...args) { this.receivedArgs = args } }
+        games = new Games(timer, quizRepo, events)
     })
 
     it('returns a new gameId when hosting a game', () => {
@@ -23,7 +23,7 @@ describe('Games', () => {
     it('sets score and avatar and presents quiz title when player joins a game', async () => {
         const gameId = await games.host()
         const joinResponse = games.join(gameId, 'alice', null)
-        expect(eventEmitter.receivedArgs).toEqual(['playerJoined', gameId, jasmine.any(String)])
+        expect(events.receivedArgs).toEqual(['playerJoined', gameId, jasmine.any(String)])
         expect(joinResponse).toEqual({ quizTitle: 'sample quiz', avatar: jasmine.any(String), score: 0, otherPlayers: [] })
     })
 
@@ -49,7 +49,7 @@ describe('Games', () => {
         const gameId = await games.host()
         games.nextRound(gameId)
         const expectedQuestion = { id: 1, text: 'question1', answers: [] }
-        expect(eventEmitter.receivedArgs).toEqual(['roundStarted', gameId, expectedQuestion, 10])
+        expect(events.receivedArgs).toEqual(['roundStarted', gameId, expectedQuestion, 10])
     })
 
     it('presents the ranking when a round is finished', async () => {
@@ -57,7 +57,7 @@ describe('Games', () => {
         timer.setTimeout = (callback) => callback() //instantly invoke callback -> finish round right after start
         const gameId = await games.host()
         games.nextRound(gameId)
-        expect(eventEmitter.receivedArgs).toEqual(['roundFinished', gameId, []]) // no players, so the ranking is empty
+        expect(events.receivedArgs).toEqual(['roundFinished', gameId, []]) // no players, so the ranking is empty
     })
 
     it('presents the second question when the next round is started', async () => {
@@ -67,7 +67,7 @@ describe('Games', () => {
         games.nextRound(gameId)
         games.nextRound(gameId)
         const expectedQuestion = { id: 2, text: 'question2', answers: [] }
-        expect(eventEmitter.receivedArgs).toEqual(['roundStarted', gameId, expectedQuestion, 10])
+        expect(events.receivedArgs).toEqual(['roundStarted', gameId, expectedQuestion, 10])
     })
 
     it('finishes the game when there are no more questions', async () => {
@@ -75,7 +75,7 @@ describe('Games', () => {
         timer.setTimeout = (callback) => callback() //instantly invoke callback -> finish round right after start
         const gameId = await games.host()
         games.nextRound(gameId)
-        expect(eventEmitter.receivedArgs).toEqual(['gameFinished', gameId, []]) // no players, so the ranking is empty
+        expect(events.receivedArgs).toEqual(['gameFinished', gameId, []]) // no players, so the ranking is empty
     })
 
     it('assigns some points to a player who guessed the right answer', async () => {
@@ -95,7 +95,7 @@ describe('Games', () => {
             jasmine.objectContaining({ name: 'alice', avatar: jasmine.any(String), score: jasmine.any(Number) }),
             jasmine.objectContaining({ name: 'bob', avatar: jasmine.any(String), score: 0 })
         ]
-        expect(eventEmitter.receivedArgs).toEqual(['gameFinished', gameId, expectedRanking])
+        expect(events.receivedArgs).toEqual(['gameFinished', gameId, expectedRanking])
     })
 
     it('should fire finishRound only once if all players guessed before timeout', async () => {
@@ -103,7 +103,7 @@ describe('Games', () => {
         timer.setTimeout = (callback) => finishRound = callback
         timer.clearTimeout = () => finishRound = () => null
         quizRepo.questions = [{ text: 'question1', answers: [] }, { text: 'question2', answers: [] }]
-        eventEmitter.publish = function (...args) {
+        events.publish = function (...args) {
             if (args[0] === 'roundFinished') this.finishRoundCalled = this.finishRoundCalled || 0 + 1
         }
 
@@ -114,7 +114,7 @@ describe('Games', () => {
         games.guess(gameId, 1, 'alice', 0)
         games.guess(gameId, 1, 'bob', 1)
         finishRound()
-        expect(eventEmitter.finishRoundCalled).toEqual(1)
+        expect(events.finishRoundCalled).toEqual(1)
     })
 
     it('should fire finishRound only once if the last player answered after timeout', async () => {
@@ -122,7 +122,7 @@ describe('Games', () => {
         timer.setTimeout = (callback) => finishRound = callback
         timer.clearTimeout = () => finishRound = () => null
         quizRepo.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }, { text: 'question2', answers: [] }]
-        eventEmitter.publish = function (...args) {
+        events.publish = function (...args) {
             if (args[0] === 'roundFinished') this.finishRoundCalled = (this.finishRoundCalled || 0) + 1
         }
 
@@ -133,7 +133,7 @@ describe('Games', () => {
         games.guess(gameId, 1, 'alice', 0)
         finishRound()
         games.guess(gameId, 1, 'bob', 0)
-        expect(eventEmitter.finishRoundCalled).toEqual(1)
+        expect(events.finishRoundCalled).toEqual(1)
     })
 
     it('should get zero score if the last player answered correctly after timeout', async () => {
@@ -141,7 +141,7 @@ describe('Games', () => {
         timer.setTimeout = (callback) => finishRound = callback
         timer.clearTimeout = () => finishRound = () => null
         quizRepo.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }, { text: 'question2', answers: [] }]
-        eventEmitter.publish = function (...args) { this.receivedArgs = args }
+        events.publish = function (...args) { this.receivedArgs = args }
 
         const gameId = await games.host()
         games.join(gameId, 'alice')
@@ -155,7 +155,7 @@ describe('Games', () => {
             jasmine.objectContaining({ name: 'alice', avatar: jasmine.any(String), score: jasmine.any(Number) }),
             jasmine.objectContaining({ name: 'bob', avatar: jasmine.any(String), score: 0 })
         ]
-        expect(eventEmitter.receivedArgs).toEqual(['roundFinished', gameId, expectedRanking])
+        expect(events.receivedArgs).toEqual(['roundFinished', gameId, expectedRanking])
     })
 
 
