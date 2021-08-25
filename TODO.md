@@ -4,14 +4,11 @@
 - **Feature**: show who answered what and the correct answer as intermediate result. keep current podium?
 - **Feature** implement 'player is on fire', e.g. when climbed 3 times, or guessed right 3 times, or ...
 - **DoD**: deploy to CF (or even K8s?) and test performance (initial load vs cached) and device responsiveness
-- **DoD**: check animations etc. in chrome, edge, firefox, safari and on mobile device
 - **Bugfix**: music not working on Safari (incl iPhone) - need to use history.pushState (done already for host, not yet for players) _AND_ make sure the .play is triggered synchronously on a user interaction; right now there's multiple things making it async: a) we have an animation when clicking the sticky and b) we first call the backend to get the gameId before we enter the room. Possible solution: start the music immediately on click, but keep it muted, and unmute only once the "room" is entered successfully. Can there be other solutions? Related articles:
   - Maybe noteOn helps?? https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/PlayingandSynthesizingSounds/PlayingandSynthesizingSounds.html#//apple_ref/doc/uid/TP40009523-CH6-SW1
   - https://developer.apple.com/forums/thread/94522
   - https://stackoverflow.com/questions/31776548/why-cant-javascript-play-audio-files-on-iphone-safari
   - https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html
-- **Bugfix**: font sizes on post-its during quiz not scaling properly
-- **Bugfix**: navigating to #/host/{gameId} or #/play/{gameId} should yield error if game doesn't exist
 - **Bugfix**: close/delete game when finished, or auto-close a game 30min after it was started
 - **Tech Improve**: try implement both a WebSocket adapter and an HttpRestAdapter, both should work to be "plugged in" without changing the code
 - **Tech Improve**: try if using <> works, or understand why it doesn't work
@@ -19,6 +16,9 @@
 - **Feature**: define secondsToGuess per quiz and per question in quiz json
 
 # DONE
+- navigating to #/host/{gameId} or #/play/{gameId} should yield error if game doesn't exist
+- font sizes on post-its during quiz not scaling properly
+- check animations etc. in chrome, edge, firefox, safari and on mobile device
 - show number of players
 - too many things are moving around in final podium, at least stage shall be still 
 - be able to use jsx+es6 imports in combination, and clean the related messes in the global namespace
