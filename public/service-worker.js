@@ -17,7 +17,6 @@ self.addEventListener('fetch', (event) => {
     }
 
     // filter funny stuff like chrome-extension:// extensions etc.
-    // TODO check if service worker even considers foreign origins, e.g. if we load stuff from unpkg, and if so, if we want to also consider these (I think yes)
     const url = new URL(event.request.url)
     const isSocketReq = (url.pathname.indexOf('socket.io') > -1) && (url.pathname.indexOf('socket.io.min.js') === -1)
     const isRangeReq = event.request.headers.has('range')
@@ -30,8 +29,9 @@ const fetchAndUpdateCacheIfOnline = async (request, cache) => {
     if (navigator.onLine) {
         try {
             const resp = await fetch(request)
-            // TODO update cache only if status = 2XX
-            await cache.put(request, resp.clone())
+            if (resp.status === 200) {
+                await cache.put(request, resp.clone())
+            }
             return resp
         } catch (error) {
             console.error(`error on ${request.url}`)
