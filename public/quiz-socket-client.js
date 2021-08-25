@@ -34,10 +34,6 @@ export default function QuizSocketClient(socket) {
         socket.emit('nextRound', gameId)
     }
 
-    this.start = (gameId) => {
-        this.nextRound(gameId)
-    }
-
     this.guess = (gameId, questionId, playerName, answerId) => {
         socket.emit('guess', gameId, questionId, playerName, answerId)
     }

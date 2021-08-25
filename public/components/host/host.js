@@ -108,9 +108,8 @@ export default function Host(props) {
         setIsFinal(true)
     }
 
-    const next = () => {
-        // REVISE I think in backend we always say 'next', here we always say 'start' - feels confusing
-        props.adapter.start(props.gameId)
+    const nextRound = () => {
+        props.adapter.nextRound(props.gameId)
     }
 
     const stopMusic = () => {
@@ -137,7 +136,7 @@ export default function Host(props) {
     const waitingToStart = !question && !result
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} volume=${volume} canStart=${canStart} adapter=${props.adapter} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question.text} answers=${question.answers} />`: ''
-    const podiumBlock = showPodium && !isFinal ? html`<${PodiumPage} players=${result} onNext=${next} />` : ''
+    const podiumBlock = showPodium && !isFinal ? html`<${PodiumPage} players=${result} onNext=${nextRound} />` : ''
     const podiumFinalBlock = showPodium && isFinal ? html`<${PodiumFinalPage} players=${result} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`

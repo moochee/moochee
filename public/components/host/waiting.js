@@ -38,7 +38,7 @@ export default function Waiting(props) {
     }
 
     const start = () => {
-        props.adapter.start(props.gameId)
+        props.adapter.nextRound(props.gameId)
     }
 
     const playerInfo = props.players.map(p => html`<div key=${p} class=hostWaitingBounceIn>${p}</div>`)
