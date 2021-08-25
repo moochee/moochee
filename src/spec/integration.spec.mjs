@@ -3,6 +3,7 @@
 import { createServer } from 'http'
 import { io as Client } from 'socket.io-client'
 import quizSocketServer from '../quiz-socket-server.js'
+import QuizSocketClient from '../../public/quiz-socket-client.js'
 
 describe('Integration', () => {
     let server, port, hostClient, aliceClient, bobClient
@@ -33,6 +34,14 @@ describe('Integration', () => {
         aliceClient.close()
         bobClient.close()
         server.close()
+    })
+
+    it('displays quizzes with title and id', async () => {
+        const quizClient = new QuizSocketClient(hostClient)
+        const quizzes = await quizClient.getQuizzes()
+        expect(quizzes.length).toBeGreaterThan(0)
+        expect(quizzes[0].title).toEqual(jasmine.any(String))
+        expect(quizzes[0].title).not.toEqual('')
     })
 
     it('should be possible to join a game', async () => {
