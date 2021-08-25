@@ -25,7 +25,7 @@ export default function Entrance(props) {
 
     const quizList = quizzes.map((q) => {
         return html`<div key=${q.id} class=entranceQuiz>
-            <${StickyButton} onClick=${() => host(q.id, q.text)} text=${q.text} color=${q.color} />
+            <${StickyButton} onClick=${() => host(q.id, q.title)} text=${q.title} color=${q.color} />
         </div>`
     })
 

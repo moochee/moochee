@@ -7,7 +7,7 @@ describe('Games', () => {
 
     beforeEach(() => {
         timer = { setTimeout: () => null, clearTimeout: () => null, secondsToGuess: null }
-        quizRepo = { questions: [], getById: function () { return { text: 'sample quiz', questions: this.questions } } }
+        quizRepo = { questions: [], getById: function () { return { title: 'sample quiz', questions: this.questions } } }
         events = { publish: function (...args) { this.receivedArgs = args } }
         games = new Games(timer, quizRepo, events)
     })

@@ -14,10 +14,9 @@ export default function QuizRepo() {
         const files = await readdir(QUIZ_DIR)
         let quizzes = []
         for (let file of files) {
-            // REVISE I feel 'title' or 'name' might be a more appropriate name than 'text'
             try {
-                const quizText = (await this.getById(file)).text
-                quizzes.push({ id: file, text: quizText })
+                const quizTitle = (await this.getById(file)).title
+                quizzes.push({ id: file, title: quizTitle })
             } catch (error) {
                 console.error(file, error)
             }

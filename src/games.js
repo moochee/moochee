@@ -21,7 +21,7 @@ export default function Games(timer, quizRepo, events) {
         const questionsAndGuesses = questions.map((q, index) => {
             return { id: index + 1, rightAnswerId: q.rightAnswerId, guesses: [] }
         })
-        games.push({ id: gameId, quizTitle: quiz.text, remainingQuestions, questionsAndGuesses, players: [], avatars: new Avatars() })
+        games.push({ id: gameId, quizTitle: quiz.title, remainingQuestions, questionsAndGuesses, players: [], avatars: new Avatars() })
         return gameId
     }
 

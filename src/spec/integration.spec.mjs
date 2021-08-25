@@ -48,4 +48,7 @@ describe('Integration', () => {
         const bobPlayer = await send(bobClient, 'join', gameId, 'bob')
         expect(bobPlayer.avatar).toEqual(jasmine.any(String))
     })
+
+    // TODO add integration test that verifies properties contain values, and ideally even that the UI binds to it correctly
+    //      Rationale: when I renamed the quiz.text to quiz.title, I noticed that there were a lot of places to be adjusted, all the way up to the UI, and none of these was caught by a test
 })
