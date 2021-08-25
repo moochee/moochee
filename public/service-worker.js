@@ -2,7 +2,6 @@
 
 self.addEventListener('install', () => {
     self.skipWaiting()
-    self.importScripts('./lib/babel.min.js')
 })
 
 self.addEventListener('activate', (event) => {
