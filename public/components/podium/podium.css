@@ -10,9 +10,8 @@
     background-position: center;
 }
 
-/* REVISE feels a bit weird that this element has no dedicated style class while the avatar has */
-
-.podium>div {
+.podiumRank1, .podiumRank2, .podiumRank3 {
+    transform: translateX(-50%);
     font-family: komika_textregular;
     font-size: calc(3 * var(--width) * 1px);
     color: white;
@@ -22,10 +21,6 @@
 
 .podiumAvatar {
     font-size: 3em;
-}
-
-.podiumRank1, .podiumRank2, .podiumRank3 {
-    transform: translateX(-50%);
 }
 
 .podiumRank1 {
