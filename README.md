@@ -36,9 +36,9 @@ _For the second reason, we compiled a list of our learnings here!_
 - Git hooks
 - QR codes for URLs
 - **The most important one:** be _absolutely minimalistic regarding tools_ - and demonstrate things are super performant while still ultra simple & elegant at the same time
+- Preact with HTM (tagged template strings) to replace React and JSX
 
 **Things we're still trying out or want to try out**
-- Preact with HTM (tagged template strings) to replace React and JSX
 - Golang as alternative server implementation
 - Zero-Downtime deployment of a stateful app
 - CD pipeline with bare shell script and without extra tools, can try Github Actions or even do our own CD server
@@ -66,5 +66,7 @@ _For the second reason, we compiled a list of our learnings here!_
 - You can do zero-downtime deployment also if your app is stateful, and it's actually not complicated using sticky sessions ([also supported by CF](https://docs.cloudfoundry.org/concepts/http-routing.html#sessions)), if your app does gracefully shutdown correctly
 - Preact and HTM are awesome, especially if you look for something really simple, it can be used with build tools or completely client-standalone
 - Doing routing yourself is a pretty simple thing in React, you may be able to do well without a thirdparty lib like (p)react-router
+- Never try to argue against writing a test :-P
+- Monospace font does apply for emojis
 - Golang has really some nice and interesting concepts like the way structs/classes are done
 - Golang does not have try/catch, so error handling is really different
