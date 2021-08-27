@@ -31,6 +31,14 @@ const PlayGameWeb = function (props) {
     const [otherPlayers, setOtherPlayers] = useState([])
     const [quizTitle, setQuizTitle] = useState('')
 
+    const hashChanged = () => {
+        setAtJoinGame(true)
+    }
+    useEffect(() => {
+        addEventListener('hashchange', hashChanged)
+        return () => removeEventListener('hashchange', hashChanged)
+    })
+
     const join = (quizTitle, playerName, playerAvatar, otherPlayers) => {
         setPlayerName(playerName)
         setPlayerAvatar(playerAvatar)
@@ -69,4 +77,3 @@ export default function WebApp(props) {
         ? html`<${PlayGameWeb} gameId=${gameId} adapter=${props.adapter} />`
         : html`<${HostGameWeb} adapter=${props.adapter} />`
 }
- 
