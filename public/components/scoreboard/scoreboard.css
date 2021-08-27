@@ -1,0 +1,23 @@
+@keyframes rankingMove {
+    to {
+        transform: translateY(calc(var(--positions) * 100 * 1%));
+    }
+}
+
+/* @keyframes moveDown {
+    to {
+        transform: translateY(+200%);
+    }
+} */
+
+.rankingMove {
+    animation: rankingMove 1s linear forwards;
+}
+
+/* .moveDown {
+    animation: moveDown 1s linear forwards;
+} */
+
+.rankingInvisible {
+    opacity: 0;
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gorilla</title>
+    <meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='HandheldFriendly' content='true'>
+
+    <link rel='icon' href='/favicon.svg' />
+</head>
+
+<body>
+    <script type='module'>
+        import { html, render, useEffect, useState, useRef } from '/lib/preact-3.1.0.standalone.module.js'
+        import Scoreboard from '/scoreboard.js'
+        import loadCss from '/load-css.js'
+        loadCss('/style.css')
+        loadCss('/font/komikatext_regular_macroman/stylesheet.css')
+
+        render(html`<${Scoreboard} />`, document.body)
+    </script>
+</body>
+
+</html>
