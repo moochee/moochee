@@ -1,8 +1,12 @@
+/* TODO @media to display a frame in landscape mode */
+
+/* TODO should we make it bounce? */
 @keyframes rankingMove {
     to {
         transform: translateY(calc(var(--positions) * 100 * 1%));
     }
 }
+
 
 /* @keyframes moveDown {
     to {
