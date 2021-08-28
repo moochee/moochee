@@ -17,7 +17,7 @@
 
 .shellHeaderLeft, .shellFooterLeft {
     margin-left: 1vw;
-    margin-left: 1vw;
+    margin-right: 1vw;
 }
 
 .shellHeaderCenter {
@@ -46,11 +46,11 @@
 }
 
 .shellFooterLeft.shellLogo {
-    background-image: url(cloud-curriculum.png);
+    background-image: url(cloud-curriculum.svg);
 }
 
 .shellFooterRight.shellLogo {
-    background-image: url(acdc.png);
+    background-image: url(acdc.svg);
 }
 
 .shellContentFit, .shellContentFullscreen {
