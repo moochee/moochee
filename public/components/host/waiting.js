@@ -1,14 +1,15 @@
 'use strict'
 
-import { html, useState, useRef } from '/lib/preact-3.1.0.standalone.module.js'
+import { html, useState, useRef, useEffect } from '/lib/preact-3.1.0.standalone.module.js'
 import loadCss from '/load-css.js'
 import StickyButton from '/components/sticky/sticky-button.js'
+import QrCreator from '/lib/qr-creator.es6.min.js'
 
 loadCss('components/host/waiting.css')
 
 const QRCode = function (props) {
-    // eslint-disable-next-line no-undef
-    const appendQr = (el) => new QRious({ element: el, value: props.url, size: 1024 })
+    const appendQr = useRef(null)
+    useEffect(() => { QrCreator.render({ text: props.url, background: '#ffffff', size: 1024 }, appendQr.current) })
     return html`<canvas class=hostWaitingQrCode ref=${appendQr} />`
 }
 
