@@ -8,13 +8,15 @@ loadCss('components/join/join.css')
 
 export default function Join(props) {
     const [playerName, setPlayerName] = useState('')
-    const updatePlayerName = (event) => setPlayerName(event.target.value.trim())
+    const updatePlayerName = (event) => setPlayerName(event.target.value)
     const [errorMessage, setErrorMessage] = useState('')
 
     const join = async () => {
         try {
-            const joinResponse = await props.adapter.join(props.gameId, playerName)
-            props.onJoin(joinResponse.quizTitle, playerName, joinResponse.avatar, joinResponse.otherPlayers)
+            const name = playerName.trim()
+            console.log(name.length)
+            const joinResponse = await props.adapter.join(props.gameId, name)
+            props.onJoin(joinResponse.quizTitle, name, joinResponse.avatar, joinResponse.otherPlayers)
         } catch (error) {
             setErrorMessage(error.message)
         }
