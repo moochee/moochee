@@ -14,7 +14,6 @@ export default function Join(props) {
     const join = async () => {
         try {
             const name = playerName.trim()
-            console.log(name.length)
             const joinResponse = await props.adapter.join(props.gameId, name)
             props.onJoin(joinResponse.quizTitle, name, joinResponse.avatar, joinResponse.otherPlayers)
         } catch (error) {
