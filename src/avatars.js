@@ -2,7 +2,7 @@
 
 export default function Avatars(pools) {
 
-    this.priorityPools = pools || [
+    const priorityPools = pools || [
         Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐲🐙🦋🐞🦀'),
         Array.from('🐔🐧🦆🦅🦉🦇🐺🐴🦄🐝🐛🐌🐜🐢🐍🦎🐠🐬🐳🐊'),
         Array.from('🐦🐤🦂🐗🐽🙉🙊🐒🐣🐥🦑🦐🐡🐟🐋🦈🐅🐆🦍🐘🦏🐪🐫🐃🐎🐖🐏🐑🐐🦌🐕🐩🐈🦃🐇🐁🐀🐉👹👺🤡👻👽👾🤖🎃😺👮👷🤶🎅🌞🌝')
@@ -11,16 +11,16 @@ export default function Avatars(pools) {
     this.size = (noDuplication) => {
         let size = 0
         if (noDuplication) {
-            size = new Set(this.priorityPools.flat()).size
+            size = new Set(priorityPools.flat()).size
         } else {
-            this.priorityPools.forEach((pool) => size += pool.length)
+            priorityPools.forEach((pool) => size += pool.length)
         }
         return size
     }
 
     this.pick = () => {
         let avatar = null
-        for (let pool of this.priorityPools) {
+        for (let pool of priorityPools) {
             avatar = pool.splice(Math.random() * pool.length, 1)[0]
             if (avatar) break
         }
