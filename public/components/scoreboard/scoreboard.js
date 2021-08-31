@@ -38,17 +38,17 @@ export default function Scoreboard() {
         { avatar: '🐹', oldScore: 400, newScore: 100, oldRank: 4, newRank: 4 },
         { avatar: '🐰', oldScore: 500, newScore: 100, oldRank: 3, newRank: 5 },
         { avatar: '🦊', oldScore: 600, newScore: 100, oldRank: 2, newRank: 6 },
-        { avatar: '🐻', oldScore: 20000000000, newScore: 100, oldRank: 1, newRank: 7 }
+        { avatar: '🐻', oldScore: 20000, newScore: 100, oldRank: 1, newRank: 7 }
     ]
 
     ranking.sort((a, b) => a.oldRank - b.oldRank)
 
     const entries = ranking.map((e, index) => index <= 4
         ? html`
-            <div key=${e.avatar} style='background-color: white;'>
+            <div key=${e.avatar}>
                 <div class=${rankingClasses[index]} style='display: flex; align-items: center;'>
-                    <div style='font-size: 2em;'>${e.avatar}</div>
-                    <div>${e.oldScore} points</div>
+                    <div style='margin-right: 0.5em; font-size: 2em;'>${e.avatar}</div>
+                    <div style='white-space: nowrap;'>${e.oldScore} points</div>
                 </div>
             </div>`
         : ''
@@ -56,10 +56,15 @@ export default function Scoreboard() {
 
     return html`
         <${Shell} headerCenter='Score Board'>
-            <div ref=${rankingRef}
-                style='border: 1px solid; box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 4vh;'>
-                ${entries}
+            <div style='height: 100%; display: flex; align-items: center;'>
+                <div
+                    style='background-color: white; box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); margin-left: 20%; width: 60%; font-size: 4vh; display: flex; flex-direction: column; align-items: center;'>
+                    <!-- style='border: 1px solid; box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 4vh;'> -->
+                    <div ref=${rankingRef}>
+                        ${entries}
+                    </div>
+                </div>
             </div>
-        <//>
+            </ />
     `
 }
