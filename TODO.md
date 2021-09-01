@@ -1,9 +1,7 @@
 # TODO
 - **UX**: center the stickies on the y-axis, consider both quiz stickies on entrance and answer stickies on play/host
-- **Feature**: show progress on host/player side, current question and total number of questions
-- **Feature**: show who answered what and the correct answer as intermediate result. keep current podium?
+- **Feature**: show answer distribution and the correct answer as intermediate result
 - **Feature** implement 'player is on fire', e.g. when climbed 3 times, or guessed right 3 times, or ...
-- **DoD**: deploy to CF (or even K8s?) and test performance (initial load vs cached) and device responsiveness
 - **Bugfix**: music not working on Safari (incl iPhone) - need to use history.pushState (done already for host, not yet for players) _AND_ make sure the .play is triggered synchronously on a user interaction; right now there's multiple things making it async: a) we have an animation when clicking the sticky and b) we first call the backend to get the gameId before we enter the room. Possible solution: start the music immediately on click, but keep it muted, and unmute only once the "room" is entered successfully. Can there be other solutions? Related articles:
   - Maybe noteOn helps?? https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/PlayingandSynthesizingSounds/PlayingandSynthesizingSounds.html#//apple_ref/doc/uid/TP40009523-CH6-SW1
   - https://developer.apple.com/forums/thread/94522
@@ -11,11 +9,12 @@
   - https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html
 - **Bugfix**: close/delete game when finished, or auto-close a game 30min after it was started
 - **Tech Improve**: try implement both a WebSocket adapter and an HttpRestAdapter, both should work to be "plugged in" without changing the code
-- **Tech Improve**: try if using <> works, or understand why it doesn't work
 - **UX/Tech Improve**: do we really need an answer id defined by the quiz? We could just assign automatically based on the index...
 - **Feature**: define secondsToGuess per quiz and per question in quiz json
 
 # DONE
+- deploy to CF (or even K8s?) and test performance (initial load vs cached) and device responsiveness
+- show progress on host/player side, current question and total number of questions
 - navigating to #/host/{gameId} or #/play/{gameId} should yield error if game doesn't exist
 - font sizes on post-its during quiz not scaling properly
 - check animations etc. in chrome, edge, firefox, safari and on mobile device
