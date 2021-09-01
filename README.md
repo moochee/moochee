@@ -13,7 +13,6 @@ All quizzes are located in [/quiz](https://github.tools.sap/acdc/gorilla/tree/ma
 After cloning you can:
 - Run the tests: `npm test`
 - Start the server: `npm start`
-- Push the app to CF: `cf push`
 
 Besides Node.js, no extra tools are needed, cause big toolchains suck.
 
