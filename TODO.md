@@ -9,7 +9,6 @@
   - https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html
 - **Bugfix**: close/delete game when finished, or auto-close a game 30min after it was started
 - **Tech Improve**: try implement both a WebSocket adapter and an HttpRestAdapter, both should work to be "plugged in" without changing the code
-- **UX/Tech Improve**: do we really need an answer id defined by the quiz? We could just assign automatically based on the index...
 - **Feature**: define secondsToGuess per quiz and per question in quiz json
 
 # DONE
