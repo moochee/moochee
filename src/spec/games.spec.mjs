@@ -48,7 +48,7 @@ describe('Games', () => {
         timer.secondsToGuess = 10
         const gameId = await games.host()
         games.nextRound(gameId)
-        const expectedQuestion = { id: 1, text: 'question1', answers: [] }
+        const expectedQuestion = { id: 1, text: 'question1', answers: [], totalQuestions: 1 }
         expect(events.receivedArgs).toEqual(['roundStarted', gameId, expectedQuestion, 10])
     })
 
@@ -66,7 +66,7 @@ describe('Games', () => {
         const gameId = await games.host()
         games.nextRound(gameId)
         games.nextRound(gameId)
-        const expectedQuestion = { id: 2, text: 'question2', answers: [] }
+        const expectedQuestion = { id: 2, text: 'question2', answers: [], totalQuestions: 2 }
         expect(events.receivedArgs).toEqual(['roundStarted', gameId, expectedQuestion, 10])
     })
 

@@ -17,12 +17,14 @@ loadCss('components/host/host.css')
 const QuestionAndAnswers = function (props) {
     const colors = ['green', 'purple', 'blue', 'orange']
 
-    const answersBlock = props.answers.map((answer, index) => {
+    const answersBlock = props.question.answers.map((answer, index) => {
         return html`<${StickyCard} key=${index} color=${colors[index]} text=${answer.text} />`
     })
 
+    const progress = `(${props.question.id}/${props.question.totalQuestions})`
+
     return html`<div>
-        <h1 class=hostQuestion>${props.question}</h1>
+        <h1 class=hostQuestion>${progress} ${props.question.text}</h1>
         <div class=hostAnswers>
             ${answersBlock}
         </div>
@@ -135,7 +137,7 @@ export default function Host(props) {
     const showPodium = Boolean(result)
     const waitingToStart = !question && !result
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} volume=${volume} canStart=${canStart} adapter=${props.adapter} />` : ''
-    const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question.text} answers=${question.answers} />`: ''
+    const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />`: ''
     const podiumBlock = showPodium && !isFinal ? html`<${PodiumPage} players=${result} onNext=${nextRound} />` : ''
     const podiumFinalBlock = showPodium && isFinal ? html`<${PodiumFinalPage} players=${result} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)

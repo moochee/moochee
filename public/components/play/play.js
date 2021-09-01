@@ -28,12 +28,14 @@ const WaitingToStart = function (props) {
 const QuestionAndAnswers = function (props) {
     const colors = ['green', 'purple', 'blue', 'orange']
 
-    const answersBlock = props.answers.map((answer, index) => {
+    const answersBlock = props.question.answers.map((answer, index) => {
         return html`<${StickyButton} key=${index} color=${colors[index]} onClick=${() => props.onGuess(answer.id)} text=${answer.text} />`
     })
 
+    const progress = `(${props.question.id}/${props.question.totalQuestions})`
+
     return html`<div>
-        <h1 class=playQuestion>${props.question}</h1>
+        <h1 class=playQuestion>${progress} ${props.question.text}</h1>
         <div class=playAnswers>
             ${answersBlock}
         </div>
@@ -111,7 +113,7 @@ export default function Play(props) {
 
     const showPodium = Boolean(result) && !isFinal
     const waitingToStartBlock = waitingToStart ? html`<${WaitingToStart} avatar=${props.playerAvatar} otherPlayers=${props.otherPlayers} />` : ''
-    const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question.text} answers=${question.answers} onGuess=${guess} />` : ''
+    const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} onGuess=${guess} />` : ''
     const podiumBlock = showPodium ? html`<${Podium} players=${result} />` : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
     const gameOverBlock = isFinal ? html`<h2>Game is over!</h2>` : ''

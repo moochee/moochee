@@ -14,12 +14,11 @@ export default function Games(timer, quizRepo, events) {
     this.host = async (quizId) => {
         const gameId = String(nextGameId++)
         const quiz = await quizRepo.getById(quizId)
-        const questions = quiz.questions
-        const remainingQuestions = questions.map((q, index) => {
-            return { id: index + 1, text: q.text, answers: q.answers }
+        const remainingQuestions = quiz.questions.map((q, index) => {
+            return { id: index + 1, text: q.text, answers: q.answers, totalQuestions: quiz.questions.length}
         })
-        const questionsAndGuesses = questions.map((q, index) => {
-            return { id: index + 1, rightAnswerId: q.rightAnswerId, guesses: [] }
+        const questionsAndGuesses = quiz.questions.map((q, index) => {
+            return { id: index + 1, rightAnswerId: q.rightAnswerId, guesses: [], totalQuestions: quiz.questions.length }
         })
         games.push({ id: gameId, quizTitle: quiz.title, remainingQuestions, questionsAndGuesses, players: [], avatars: new Avatars() })
         return gameId
