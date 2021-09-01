@@ -1,0 +1,65 @@
+{
+    "title": "China Mid-Autumn Festival @ SAP California",
+    "questions": [
+        {
+            "text": "When is Mid-Autumn Festival?",
+            "answers": [
+                { "id": "A", "text": "1st day of 8th luna month" },
+                { "id": "B", "text": "8th day of 8th lunar month" },
+                { "id": "C", "text": "15th day of 8th lunar month" },
+                { "id": "D", "text": "22nd day of 8th lunar month" }
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "The Mid-Autumn Festival has become a fixed holiday since which dynasty?",
+            "answers": [
+                { "id": "A", "text": "Tang Dynasty" },
+                { "id": "B", "text": "Song Dynasty" },
+                { "id": "C", "text": "Yuan Dynasty" },
+                { "id": "D", "text": "Qing Dynasty" }
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "Which of the following is not mentioned in fairy tales related to the Mid-Autumn Festival?",
+            "answers": [
+                { "id": "A", "text": "Chang’e, the goddess of the moon" },
+                { "id": "B", "text": "Pied magpie" },
+                { "id": "C", "text": "Osmanthus tree" },
+                { "id": "D", "text": "Jade Rabbit" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "Who lives on the moon in fairy tales?",
+            "answers": [
+                { "id": "A", "text": "Chang’e, the goddess of the moon" },
+                { "id": "B", "text": "Monkey King" },
+                { "id": "C", "text": "Unicorn" },
+                { "id": "D", "text": "Dragon" }
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "How do people celebrate the Mid-Autumn festival?",
+            "answers": [
+                { "id": "A", "text": "Drink beers" },
+                { "id": "B", "text": "Eat dinner and moon cakes under the full moon" },
+                { "id": "C", "text": "Drink white wine" },
+                { "id": "D", "text": "Play games" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "What were the mooncakes originally used for?",
+            "answers": [
+                { "id": "A", "text": "Local snacks" },
+                { "id": "B", "text": "Gifts for friends and relatives" },
+                { "id": "C", "text": "Sacrificial offerings for the goodness of the moon" },
+                { "id": "D", "text": "Festival dishes" }
+            ],
+            "rightAnswerId": "C"
+        }
+    ]
+}

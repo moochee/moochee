@@ -1,0 +1,65 @@
+{
+    "title": "Chinese Culture 2 @ SAP California",
+    "questions": [
+        {
+            "text": "What's the most common payment method in China?",
+            "answers": [
+                { "id": "A", "text": "Credit Card" },
+                { "id": "B", "text": "Check" },
+                { "id": "C", "text": "Cash" },
+                { "id": "D", "text": "Mobile Payment" }
+            ],
+            "rightAnswerId": "D"
+        },
+        {
+            "text": "In which Chinese classical masterpiece is Monkey King the main character?",
+            "answers": [
+                { "id": "A", "text": "A dream in red mansions" },
+                { "id": "B", "text": "Journey to the west" },
+                { "id": "C", "text": "Water margin" },
+                { "id": "D", "text": "Romance of the three kingdoms" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "Which number is commonly disliked by Chinese?",
+            "answers": [
+                { "id": "A", "text": "1" },
+                { "id": "B", "text": "13" },
+                { "id": "C", "text": "9" },
+                { "id": "D", "text": "4" }
+            ],
+            "rightAnswerId": "D"
+        },
+        {
+            "text": "Which temple is famous for Chinese martial arts?",
+            "answers": [
+                { "id": "A", "text": "Wu Dang" },
+                { "id": "B", "text": "Shao Lin" },
+                { "id": "C", "text": "Hua Shan" },
+                { "id": "D", "text": "Kun Lun" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "What is the name of the currency used in China?",
+            "answers": [
+                { "id": "A", "text": "Yen" },
+                { "id": "B", "text": "Yee" },
+                { "id": "C", "text": "Yuan" },
+                { "id": "D", "text": "Yak" }
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "Which are the lucky numbers in Chinese culture?",
+            "answers": [
+                { "id": "A", "text": "6 and 8" },
+                { "id": "B", "text": "7 and 9" },
+                { "id": "C", "text": "3 and 4" },
+                { "id": "D", "text": "13 and 29" }
+            ],
+            "rightAnswerId": "A"
+        } 
+    ]
+}

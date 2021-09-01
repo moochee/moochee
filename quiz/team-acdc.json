@@ -4,132 +4,60 @@
         {
             "text": "When did we start Cloud Curriculum?",
             "answers": [
-                {
-                    "id": "A",
-                    "text": "2013"
-                },
-                {
-                    "id": "B",
-                    "text": "2014"
-                },
-                {
-                    "id": "C",
-                    "text": "2015"
-                },
-                {
-                    "id": "D",
-                    "text": "2016"
-                }
+                { "id": "A", "text": "2013" },
+                { "id": "B", "text": "2014" },
+                { "id": "C", "text": "2015" },
+                { "id": "D", "text": "2016" }
             ],
             "rightAnswerId": "C"
         },
         {
             "text": "How many unique learners have we reached in Cloud Curriculum?",
             "answers": [
-                {
-                    "id": "A",
-                    "text": "5000"
-                },
-                {
-                    "id": "B",
-                    "text": "10000"
-                },
-                {
-                    "id": "C",
-                    "text": "15000"
-                },
-                {
-                    "id": "D",
-                    "text": "50000"
-                }
+                { "id": "A", "text": "5000" },
+                { "id": "B", "text": "10000" },
+                { "id": "C", "text": "15000" },
+                { "id": "D", "text": "50000" }
             ],
             "rightAnswerId": "C"
         },
         {
             "text": "How many members have joined the team in 2018?",
             "answers": [
-                {
-                    "id": "A",
-                    "text": "4"
-                },
-                {
-                    "id": "B",
-                    "text": "5"
-                },
-                {
-                    "id": "C",
-                    "text": "6"
-                },
-                {
-                    "id": "D",
-                    "text": "9"
-                }
+                { "id": "A", "text": "4" },
+                { "id": "B", "text": "5" },
+                { "id": "C", "text": "6" },
+                { "id": "D", "text": "9" }
             ],
             "rightAnswerId": "C"
         },
         {
             "text": "Which cloud product team is based in Palo Alto?",
             "answers": [
-                {
-                    "id": "A",
-                    "text": "Concur"
-                },
-                {
-                    "id": "B",
-                    "text": "SuccessFactors"
-                },
-                {
-                    "id": "C",
-                    "text": "Fieldglass"
-                },
-                {
-                    "id": "D",
-                    "text": "CallidusCloud"
-                }
+                { "id": "A", "text": "Concur" },
+                { "id": "B", "text": "SuccessFactors" },
+                { "id": "C", "text": "Fieldglass" },
+                { "id": "D", "text": "CallidusCloud" }
             ],
             "rightAnswerId": "B"
         },
         {
             "text": "How many board members have we reported to in last 8 years?",
             "answers": [
-                {
-                    "id": "A",
-                    "text": "1"
-                },
-                {
-                    "id": "B",
-                    "text": "2"
-                },
-                {
-                    "id": "C",
-                    "text": "3"
-                },
-                {
-                    "id": "D",
-                    "text": "4"
-                }
+                { "id": "A", "text": "1" },
+                { "id": "B", "text": "2" },
+                { "id": "C", "text": "3" },
+                { "id": "D", "text": "4" }
             ],
             "rightAnswerId": "C"
         },
         {
             "text": "Which course was not created by ACDC team?",
             "answers": [
-                {
-                    "id": "A",
-                    "text": "Lead to Agility"
-                },
-                {
-                    "id": "B",
-                    "text": "Cloud Development Fundamentals"
-                },
-                {
-                    "id": "C",
-                    "text": "Docker & Kubernetes Fundamentals"
-                },
-                {
-                    "id": "D",
-                    "text": "Agile Software Engineering in Java"
-                }
+                { "id": "A", "text": "Lead to Agility" },
+                { "id": "B", "text": "Cloud Development Fundamentals" },
+                { "id": "C", "text": "Docker & Kubernetes Fundamentals" },
+                { "id": "D", "text": "Agile Software Engineering in Java" }
             ],
             "rightAnswerId": "C"
         }

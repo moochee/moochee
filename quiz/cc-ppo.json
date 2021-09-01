@@ -1,73 +1,73 @@
 {
-  "title": "Passionate Product Ownership",
-  "questions": [
-    {
-      "text": "Are you in?",
-      "answers": [
-        { "id": "A", "text": "Yes" },
-        { "id": "B", "text": "No" },
-        { "id": "C", "text": "Maybe" },
-        { "id": "D", "text": "I don't know" }
-      ],
-      "rightAnswerId": "A"
-    },
-    {
-      "text": "What does PPO stand for?",
-      "answers": [
-        { "id": "A", "text": "Product Passionate Ownership" },
-        { "id": "B", "text": "Private Product Ownership" },
-        { "id": "C", "text": "Passionate Product Ownership" },
-        { "id": "D", "text": "Potential Product Optimization" }
-      ],
-      "rightAnswerId": "C"
-    },
-    {
-      "text": "What is the fundamental principle of PPO?",
-      "answers": [
-        { "id": "A", "text": "Minimize Output - Minimize Outcome" },
-        { "id": "B", "text": "Maximize Output - Minimize Outcome" },
-        { "id": "C", "text": "Minimize Output - Maximize Outcome" },
-        { "id": "D", "text": "Maximize Output - Maximize Outcome" }
-      ],
-      "rightAnswerId":  "C"
-    },
-    {
-      "text": "PPO is meant to...",
-      "answers": [
-        { "id": "A", "text": "Enrich the Development Process" },
-        { "id": "B", "text": "Embrace the Development Approach" },
-        { "id": "C", "text": "Extend the Developers' Life" },
-        { "id": "D", "text": "Embrace the Developers' Vision"}
-      ],
-      "rightAnswerId": "A"
-    },
-    {
-      "text": "The Opportunity Canvas helps you to have...?",
-      "answers": [
-        { "id": "A", "text": "Careful Observation" },
-        { "id": "B", "text": "Candid Communication" },
-        { "id": "C", "text": "Collaborative Argumentation" },
-        { "id": "D", "text": "Comprehensive Conversation"}
-      ],
-      "rightAnswerId": "D"
-    },
-    {
-      "text": "Which element is not part of the Opportunity Canvas?",
-      "answers": [
-        { "id": "A", "text": "Users & Customers" },
-        { "id": "B", "text": "Solutions Today" },
-        { "id": "C", "text": "Satisfaction Rating" },
-        { "id": "D", "text": "Business Benefits & Metrics"}
-      ],
-      "rightAnswerId": "C"
-    },
-    {
-      "text": "Day 1 was great & I would like to continue with Day2!",
-      "answers": [
-        { "id": "A", "text": "True" },
-        { "id": "B", "text": "False"}
-      ],
-      "rightAnswerId":  "A"
-    }
-  ]
+    "title": "Passionate Product Ownership",
+    "questions": [
+        {
+            "text": "Are you in?",
+            "answers": [
+                { "id": "A", "text": "Yes" },
+                { "id": "B", "text": "No" },
+                { "id": "C", "text": "Maybe" },
+                { "id": "D", "text": "I don't know" }
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "What does PPO stand for?",
+            "answers": [
+                { "id": "A", "text": "Product Passionate Ownership" },
+                { "id": "B", "text": "Private Product Ownership" },
+                { "id": "C", "text": "Passionate Product Ownership" },
+                { "id": "D", "text": "Potential Product Optimization" }
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "What is the fundamental principle of PPO?",
+            "answers": [
+                { "id": "A", "text": "Minimize Output - Minimize Outcome" },
+                { "id": "B", "text": "Maximize Output - Minimize Outcome" },
+                { "id": "C", "text": "Minimize Output - Maximize Outcome" },
+                { "id": "D", "text": "Maximize Output - Maximize Outcome" }
+            ],
+            "rightAnswerId":  "C"
+        },
+        {
+            "text": "PPO is meant to...",
+            "answers": [
+                { "id": "A", "text": "Enrich the Development Process" },
+                { "id": "B", "text": "Embrace the Development Approach" },
+                { "id": "C", "text": "Extend the Developers' Life" },
+                { "id": "D", "text": "Embrace the Developers' Vision"}
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "The Opportunity Canvas helps you to have...?",
+            "answers": [
+                { "id": "A", "text": "Careful Observation" },
+                { "id": "B", "text": "Candid Communication" },
+                { "id": "C", "text": "Collaborative Argumentation" },
+                { "id": "D", "text": "Comprehensive Conversation"}
+            ],
+            "rightAnswerId": "D"
+        },
+        {
+            "text": "Which element is not part of the Opportunity Canvas?",
+            "answers": [
+                { "id": "A", "text": "Users & Customers" },
+                { "id": "B", "text": "Solutions Today" },
+                { "id": "C", "text": "Satisfaction Rating" },
+                { "id": "D", "text": "Business Benefits & Metrics"}
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "Day 1 was great & I would like to continue with Day2!",
+            "answers": [
+                { "id": "A", "text": "True" },
+                { "id": "B", "text": "False"}
+            ],
+            "rightAnswerId":  "A"
+        }
+    ]
 }

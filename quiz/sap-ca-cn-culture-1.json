@@ -1,0 +1,65 @@
+{
+    "title": "Chinese Culture 1 @ SAP California",
+    "questions": [
+        {
+            "text": "What is the zodiac sign for 2021 in Chinese culture?",
+            "answers": [
+                { "id": "A", "text": "Horse" },
+                { "id": "B", "text": "Rooster" },
+                { "id": "C", "text": "Ox" },
+                { "id": "D", "text": "Rabbit" }
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "How many ethnic groups does China have?",
+            "answers": [
+                { "id": "A", "text": "56" },
+                { "id": "B", "text": "32" },
+                { "id": "C", "text": "64" },
+                { "id": "D", "text": "208" }
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "Which ethnic group is the largest one in China?",
+            "answers": [
+                { "id": "A", "text": "Meng" },
+                { "id": "B", "text": "Han" },
+                { "id": "C", "text": "Zhuang" },
+                { "id": "D", "text": "Hui" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "Which city is the capital of China?",
+            "answers": [
+                { "id": "A", "text": "Shanghai" },
+                { "id": "B", "text": "Guangzhou" },
+                { "id": "C", "text": "Beijing" },
+                { "id": "D", "text": "Hongkong" }
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "what is the population of China?",
+            "answers": [
+                { "id": "A", "text": "1.3 billion" },
+                { "id": "B", "text": "1.8 billion" },
+                { "id": "C", "text": "20 million" },
+                { "id": "D", "text": "3 billion" }
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "Which river is the longest one in China?",
+            "answers": [
+                { "id": "A", "text": "Yellow River" },
+                { "id": "B", "text": "Yangtze River" },
+                { "id": "C", "text": "Pearl River" },
+                { "id": "D", "text": "Danube River" }
+            ],
+            "rightAnswerId": "B"
+        }
+    ]
+}

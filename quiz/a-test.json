@@ -1,13 +1,13 @@
 {
-  "title": "Test Quiz (1 Question)",
-  "questions": [
-    {
-      "text": "Fake question 1?",
-      "answers": [
-        { "id": "A", "text": "answer1" },
-        { "id": "B", "text": "answer2" }
-      ],
-      "rightAnswerId": "A"
-    }
-  ]
+    "title": "Test Quiz (1 Question)",
+    "questions": [
+        {
+            "text": "Fake question 1?",
+            "answers": [
+                { "id": "A", "text": "answer1" },
+                { "id": "B", "text": "answer2" }
+            ],
+            "rightAnswerId": "A"
+        }
+    ]
 }

@@ -1,0 +1,65 @@
+{
+    "title": "Chinese Culture 3 @ SAP California",
+    "questions": [
+        {
+            "text": "Which one of the following holidays does NOT relate to family?",
+            "answers": [
+                { "id": "A", "text": "Spring Festival" },
+                { "id": "B", "text": "Mid-autumn Festival" },
+                { "id": "C", "text": "National Holiday" },
+                { "id": "D", "text": "Tomb-Sweeping Day" }
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "Which one of the following social apps is the most popular one in China?",
+            "answers": [
+                { "id": "A", "text": "Instagram" },
+                { "id": "B", "text": "Wechat" },
+                { "id": "C", "text": "Facebook" },
+                { "id": "D", "text": "Weibo" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "Which are the two most popular mobile payment apps in China?",
+            "answers": [
+                { "id": "A", "text": "Wechat and Unionpay" },
+                { "id": "B", "text": "Wechat and Apple Pay" },
+                { "id": "C", "text": "Wechat and Alipay" },
+                { "id": "D", "text": "Wechat and Paypal" }
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "Which river can be called the Mother River of China?",
+            "answers": [
+                { "id": "A", "text": "Yangtze River" },
+                { "id": "B", "text": "Yellow River" },
+                { "id": "C", "text": "Nile River" },
+                { "id": "D", "text": "Amazon river" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "Which ocean is next to China?",
+            "answers": [
+                { "id": "A", "text": "The Atlantic Ocean" },
+                { "id": "B", "text": "The Indian Ocean" },
+                { "id": "C", "text": "The Pacific Ocean" },
+                { "id": "D", "text": "The Arctic Ocean" }
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "How many stars are on the national flag of China?",
+            "answers": [
+                { "id": "A", "text": "6" },
+                { "id": "B", "text": "8" },
+                { "id": "C", "text": "3" },
+                { "id": "D", "text": "5" }
+            ],
+            "rightAnswerId": "D"
+        } 
+    ]
+}

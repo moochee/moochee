@@ -1,25 +1,25 @@
 {
-  "title": "Cloud Development - Distributed Logging",
-  "questions": [
-    {
-      "text": "Scattered logs is the challenge of...",
-      "answers": [
-        { "id": "A", "text": "missing standardization of logs" },
-        { "id": "B", "text": "the logs being distributed on different instances" },
-        { "id": "C", "text": "some logs being lost" },
-        { "id": "D", "text": "D: too many cluttered logs" }
-      ],
-      "rightAnswerId": "B"
-    },
-    {
-      "text": "What should you do to standardize your logs?",
-      "answers": [
-        { "id": "A", "text": "collect all the logs from different microservices into a single storage" },
-        { "id": "B", "text": "propagate context info through multiple microservices" },
-        { "id": "C", "text": "use a structured log format (e.g. JSON)" },
-        { "id": "D", "text": "use correlation IDs" }
-      ],
-      "rightAnswerId": "C"
-    }
-  ]
+    "title": "Cloud Development - Distributed Logging",
+    "questions": [
+        {
+            "text": "Scattered logs is the challenge of...",
+            "answers": [
+                { "id": "A", "text": "missing standardization of logs" },
+                { "id": "B", "text": "the logs being distributed on different instances" },
+                { "id": "C", "text": "some logs being lost" },
+                { "id": "D", "text": "D: too many cluttered logs" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "What should you do to standardize your logs?",
+            "answers": [
+                { "id": "A", "text": "collect all the logs from different microservices into a single storage" },
+                { "id": "B", "text": "propagate context info through multiple microservices" },
+                { "id": "C", "text": "use a structured log format (e.g. JSON)" },
+                { "id": "D", "text": "use correlation IDs" }
+            ],
+            "rightAnswerId": "C"
+        }
+    ]
 }
