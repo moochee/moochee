@@ -34,7 +34,7 @@ const QuestionAndAnswers = function (props) {
 
     const progress = `(${props.question.id}/${props.question.totalQuestions})`
 
-    return html`<div>
+    return html`<div class=playQuestionAndAnswers>
         <h1 class=playQuestion>${progress} ${props.question.text}</h1>
         <div class=playAnswers>
             ${answersBlock}

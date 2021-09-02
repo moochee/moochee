@@ -1,3 +1,7 @@
+.hostQuestionAndAnswers {
+    margin-top: 10%;
+}
+
 .hostNextQuestionButton, .hostBackHomeButton {
     position: absolute;
     right: 0;

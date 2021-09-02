@@ -23,7 +23,7 @@ const QuestionAndAnswers = function (props) {
 
     const progress = `(${props.question.id}/${props.question.totalQuestions})`
 
-    return html`<div>
+    return html`<div class=hostQuestionAndAnswers>
         <h1 class=hostQuestion>${progress} ${props.question.text}</h1>
         <div class=hostAnswers>
             ${answersBlock}
@@ -137,7 +137,7 @@ export default function Host(props) {
     const showPodium = Boolean(result)
     const waitingToStart = !question && !result
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} volume=${volume} canStart=${canStart} adapter=${props.adapter} />` : ''
-    const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />`: ''
+    const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />` : ''
     const podiumBlock = showPodium && !isFinal ? html`<${PodiumPage} players=${result} onNext=${nextRound} />` : ''
     const podiumFinalBlock = showPodium && isFinal ? html`<${PodiumFinalPage} players=${result} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)

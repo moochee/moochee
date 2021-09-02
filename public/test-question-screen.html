@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gorilla</title>
+    <meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='HandheldFriendly' content='true'>
+
+    <link rel='icon' href='/favicon.svg' />
+</head>
+
+<body>
+    <script type='module'>
+        import { html, render, useEffect, useState, useRef } from '/lib/preact-3.1.0.standalone.module.js'
+        import loadCss from '/load-css.js'
+        loadCss('/style.css')
+        loadCss('/font/komikatext_regular_macroman/stylesheet.css')
+        import StickyCard from '/components/sticky/sticky-card.js'
+        import Countdown from '/components/countdown.js'
+        import Shell from '/components/shell/shell.js'
+        loadCss('/components/host/host.css')
+        loadCss('/components/sticky/sticky-card.css')
+        loadCss('/components/shell/shell.css')
+
+
+        const question = {
+            id: 1, text: 'Test question?', answers: [
+                { id: 1, text: 'Answer 1' },
+                { id: 2, text: 'Answer 2' },
+                { id: 3, text: 'Answer 3' },
+                { id: 4, text: 'Answer 4' }
+            ],
+            totalQuestions: 1
+        }
+
+        const QuestionAndAnswers = function (props) {
+            const colors = ['green', 'purple', 'blue', 'orange']
+
+            const answersBlock = props.question.answers.map((answer, index) => {
+                return html`<${StickyCard} key=${index} color=${colors[index]} text=${answer.text} />`
+            })
+
+            const progress = `(${props.question.id}/${props.question.totalQuestions})`
+
+            return html`<div class=hostQuestionAndAnswers>
+                <h1 class=hostQuestion>${progress} ${props.question.text}</h1>
+                <div class=hostAnswers>
+                    ${answersBlock}
+                </div>
+
+                <div class=hostCountdown>
+                    <${Countdown} seconds=${props.countDown} />
+                </div>
+            </div>`
+        }
+
+        const Page = function () {
+            return html`<${Shell}>
+                <${QuestionAndAnswers} question=${question} />
+            <//>`
+        }
+
+        render(html`<${Page} />`, document.body)
+    </script>
+</body>
+
+</html>
