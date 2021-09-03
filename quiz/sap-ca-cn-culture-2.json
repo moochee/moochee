@@ -12,7 +12,7 @@
             "rightAnswerId": "D"
         },
         {
-            "text": "In which Chinese classical masterpiece is Monkey King the main character?",
+            "text": "In which Chinese novel is Monkey King the main character?",
             "answers": [
                 { "id": "A", "text": "A dream in red mansions" },
                 { "id": "B", "text": "Journey to the west" },
@@ -22,7 +22,7 @@
             "rightAnswerId": "B"
         },
         {
-            "text": "Which number is commonly disliked by Chinese?",
+            "text": "Which number is often disliked by Chinese?",
             "answers": [
                 { "id": "A", "text": "1" },
                 { "id": "B", "text": "13" },

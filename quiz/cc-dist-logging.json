@@ -14,7 +14,7 @@
         {
             "text": "What should you do to standardize your logs?",
             "answers": [
-                { "id": "A", "text": "collect all the logs from different microservices into a single storage" },
+                { "id": "A", "text": "collect logs from different microservices into a single storage" },
                 { "id": "B", "text": "propagate context info through multiple microservices" },
                 { "id": "C", "text": "use a structured log format (e.g. JSON)" },
                 { "id": "D", "text": "use correlation IDs" }

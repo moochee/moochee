@@ -2,7 +2,7 @@
     "title": "Chinese Culture 3 @ SAP California",
     "questions": [
         {
-            "text": "Which one of the following holidays does NOT relate to family?",
+            "text": "Which holiday does NOT relate to family?",
             "answers": [
                 { "id": "A", "text": "Spring Festival" },
                 { "id": "B", "text": "Mid-autumn Festival" },
@@ -12,7 +12,7 @@
             "rightAnswerId": "C"
         },
         {
-            "text": "Which one of the following social apps is the most popular one in China?",
+            "text": "Which social app is most popular in China?",
             "answers": [
                 { "id": "A", "text": "Instagram" },
                 { "id": "B", "text": "Wechat" },
@@ -22,7 +22,7 @@
             "rightAnswerId": "B"
         },
         {
-            "text": "Which are the two most popular mobile payment apps in China?",
+            "text": "Which two mobile payment apps are most popular in China?",
             "answers": [
                 { "id": "A", "text": "Wechat and Unionpay" },
                 { "id": "B", "text": "Wechat and Apple Pay" },
