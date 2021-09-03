@@ -1,5 +1,5 @@
 .hostQuestionAndAnswers {
-    margin-top: 10%;
+    margin-top: 8%;
 }
 
 .hostNextQuestionButton, .hostBackHomeButton {
@@ -24,8 +24,8 @@
 .hostCountdown {
     position: absolute;
     bottom: 2vh;
-    right: 5vh;
-    font-size: 4vh;
+    right: 4vh;
+    font-size: 5vh;
 }
 
 .hostPodium {
