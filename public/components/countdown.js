@@ -18,5 +18,5 @@ export default function Countdown(props) {
         return () => clearInterval(interval)
     }, [])
 
-    return html`<h2>${secondsLeft}</h2>`
+    return html`${secondsLeft}`
 }
