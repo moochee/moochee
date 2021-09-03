@@ -23,13 +23,14 @@
         loadCss('/components/sticky/sticky-card.css')
         loadCss('/components/shell/shell.css')
 
-
         const question = {
-            id: 1, text: 'Test question?', answers: [
-                { id: 1, text: 'Answer 1' },
-                { id: 2, text: 'Answer 2' },
-                { id: 3, text: 'Answer 3' },
-                { id: 4, text: 'Answer 4' }
+            "id": 1,
+            "text": "Which of the following is not mentioned in fairy tales related to the Mid-Autumn Festival?",
+            "answers": [
+                { "id": "A", "text": "Chang’e, the goddess of the moon" },
+                { "id": "B", "text": "Pied magpie" },
+                { "id": "C", "text": "Osmanthus tree" },
+                { "id": "D", "text": "Jade Rabbit" }
             ],
             totalQuestions: 1
         }
@@ -57,7 +58,7 @@
 
         const Page = function () {
             return html`<${Shell}>
-                <${QuestionAndAnswers} question=${question} />
+                <${QuestionAndAnswers} question=${question} countDown=12/>
             <//>`
         }
 
