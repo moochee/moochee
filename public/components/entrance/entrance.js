@@ -12,10 +12,13 @@ export default function Entrance(props) {
 
     const colors = ['green', 'blue', 'orange', 'purple']
 
-    useEffect(async () => {
-        const list = await props.adapter.getQuizzes()
-        list.forEach((entry, index) => entry.color = colors[index % 4])
-        setQuizzes(list)
+    useEffect(() => {
+        const loadQuizzes = async () => {
+            const list = await props.adapter.getQuizzes()
+            list.forEach((entry, index) => entry.color = colors[index % 4])
+            setQuizzes(list)
+        }
+        loadQuizzes()
     }, [])
 
     const host = async (quizId, quizTitle) => {
