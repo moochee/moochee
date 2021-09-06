@@ -9,7 +9,9 @@ loadCss('components/host/waiting.css')
 
 const QRCode = function (props) {
     const appendQr = useRef(null)
-    useEffect(() => { QrCreator.render({ text: props.url, background: '#ffffff', size: 1024 }, appendQr.current) })
+    useEffect(() => {
+        QrCreator.render({ text: props.url, background: '#ffffff', size: 1024 }, appendQr.current)
+    }, [])
     return html`<canvas class=hostWaitingQrCode ref=${appendQr} />`
 }
 
