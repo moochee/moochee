@@ -1,6 +1,6 @@
 'use strict'
 
-import { html, useState } from '/lib/preact-3.1.0.standalone.module.js'
+import { html, useState, useEffect } from '/lib/preact-3.1.0.standalone.module.js'
 import loadCss from '/load-css.js'
 import Shell from '/components/shell/shell.js'
 
@@ -11,14 +11,18 @@ export default function Join(props) {
     const updatePlayerName = (event) => setPlayerName(event.target.value)
     const [errorMessage, setErrorMessage] = useState('')
 
+    const onJoiningFailed = (error) => {
+        setErrorMessage(error)
+    }
+
+    useEffect(() => {
+        props.adapter.subscribe('joiningFailed', onJoiningFailed)
+        return () => props.adapter.unsubscribe('joiningFailed')
+    })
+
     const join = async () => {
-        try {
-            const name = playerName.trim()
-            const joinResponse = await props.adapter.join(props.gameId, name)
-            props.onJoin(joinResponse.quizTitle, name, joinResponse.avatar, joinResponse.otherPlayers)
-        } catch (error) {
-            setErrorMessage(error.message)
-        }
+        const name = playerName.trim()
+        props.adapter.join(props.gameId, name)
     }
 
     return html`<${Shell} headerCenter='Welcome to the 🦍 Quiz'>

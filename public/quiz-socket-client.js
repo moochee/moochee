@@ -1,38 +1,44 @@
 'use strict'
 
 export default function QuizSocketClient(socket) {
+    const subscribers = new Map()
 
-    this.subscribe = (event, subscriber) => {
-        socket.on(event, subscriber)
+    socket.onmessage = (event) => {
+        const message = JSON.parse(event.data)
+        const subscriber = subscribers.get(message.event)
+        if (subscriber) subscriber(...message.args)
     }
 
-    this.unsubscribe = (event, subscriber) => {
-        socket.off(event, subscriber)
+    this.subscribe = (event, subscriber) => {
+        subscribers.set(event, subscriber)
+    }
+
+    this.unsubscribe = (event) => {
+        subscribers.delete(event)
     }
 
     this.getQuizzes = async () => {
-        return await (await fetch('/api/v1/quizzes')).json()
+        const msg = { event: 'getQuizzes', args: [] }
+        socket.send(JSON.stringify(msg))
     }
 
     this.host = (quizId) => {
-        return new Promise(resolve => {
-            socket.emit('host', quizId, (gameId) => resolve(gameId))
-        })
+        const msg = { event: 'host', args: [quizId] }
+        socket.send(JSON.stringify(msg))
     }
 
     this.join = (gameId, playerName) => {
-        return new Promise((resolve, reject) => {
-            socket.emit('join', gameId, playerName, (response) => {
-                return response.errorMessage ? reject(new Error(response.errorMessage)) : resolve(response)
-            })
-        })
+        const msg = { event: 'join', args: [gameId, playerName] }
+        socket.send(JSON.stringify(msg))
     }
 
     this.nextRound = (gameId) => {
-        socket.emit('nextRound', gameId)
+        const msg = { event: 'nextRound', args: [gameId] }
+        socket.send(JSON.stringify(msg))
     }
 
     this.guess = (gameId, questionId, playerName, answerId) => {
-        socket.emit('guess', gameId, questionId, playerName, answerId)
+        const msg = { event: 'guess', args: [gameId, questionId, playerName, answerId] }
+        socket.send(JSON.stringify(msg))
     }
 }

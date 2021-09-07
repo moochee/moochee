@@ -12,18 +12,19 @@ export default function Entrance(props) {
 
     const colors = ['green', 'blue', 'orange', 'purple']
 
+    const onQuizzesReceived = (quizzes) => {
+        quizzes.forEach((entry, index) => entry.color = colors[index % 4])
+        setQuizzes(quizzes)
+    }
+
     useEffect(() => {
-        const loadQuizzes = async () => {
-            const list = await props.adapter.getQuizzes()
-            list.forEach((entry, index) => entry.color = colors[index % 4])
-            setQuizzes(list)
-        }
-        loadQuizzes()
+        props.adapter.subscribe('quizzesReceived', onQuizzesReceived)
+        props.adapter.getQuizzes()
+        return () => props.adapter.unsubscribe('quizzesReceived')
     }, [])
 
-    const host = async (quizId, quizTitle) => {
-        const gameId = await props.adapter.host(quizId)
-        props.onHost(gameId, quizTitle)
+    const host = (quizId) => {
+        props.adapter.host(quizId)
     }
 
     const quizList = quizzes.map((q) => {

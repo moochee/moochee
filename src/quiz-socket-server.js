@@ -1,51 +1,59 @@
 'use strict'
 
-import { Server } from 'socket.io'
 import Events from './events.js'
 import QuizRepo from './quiz-repo.js'
 import Games from './games.js'
 
-export default function create() {
-    const io = new Server()
+export default function create(uWS) {
     const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
     const quizRepo = new QuizRepo()
-    const events = new Events(io)
+    const events = new Events(uWS)
     const games = new Games(timer, quizRepo, events)
+    const decoder = new TextDecoder('utf-8')
 
-    io.on('connection', (socket) => {
-        socket.on('getQuizzes', async (callback) => {
-            const quizzes = await games.getQuizzes()
-            callback(quizzes)
-        })
+    const server = {
+        idleTimeout: 28,
+        maxBackpressure: 1024,
+        maxPayloadLength: 512,
+        compression: uWS.DEDICATED_COMPRESSOR_3KB,
+        message: async (socket, message, isBinary) => {
+            let response, request = JSON.parse(decoder.decode(message))
 
-        socket.on('host', async (quizId, callback) => {
-            const gameId = await games.host(quizId)
-            socket.join(gameId)
-            callback(gameId)
-        })
-
-        socket.on('join', (gameId, name, callback) => {
-            try {
-                const joinResponse = games.join(gameId, name, socket.id)
-                socket.join(gameId)
-                callback(joinResponse)
-            } catch (error) {
-                callback({ errorMessage: error.message })
+            if (request.event === 'getQuizzes') {
+                const quizzes = await games.getQuizzes()
+                response = { event: 'quizzesReceived', args: [quizzes] }
+                socket.send(JSON.stringify(response), isBinary, true)
             }
-        })
+            else if (request.event === 'host') {
+                const { gameId, quizTitle } = await games.host(...request.args)
+                socket.subscribe(gameId)
+                response = { event: 'gameStarted', args: [gameId, quizTitle] }
+                socket.send(JSON.stringify(response), isBinary, true)
+            } else if (request.event === 'join') {
+                try {
+                    const { quizTitle, name, avatar, otherPlayers } = games.join(...request.args)
+                    const gameId = request.args[0]
+                    socket.subscribe(gameId)
+                    socket['gameId'] = gameId
+                    socket['playerName'] = name
+                    response = { event: 'joiningOk', args: [quizTitle, name, avatar, otherPlayers] }
+                    socket.send(JSON.stringify(response), isBinary, true)
+                } catch (error) {
+                    response = { event: 'joiningFailed', args: [error.message] }
+                    socket.send(JSON.stringify(response), isBinary, true)
+                }
+            } else if (request.event === 'nextRound') {
+                games.nextRound(...request.args)
+            } else if (request.event === 'guess') {
+                games.guess(...request.args)
+            }
+        },
+        close: (socket) => {
+            const gameId = socket['gameId']
+            const name = socket['playerName']
+            games.disconnect(gameId, name)
+        }
+    }
 
-        socket.on('nextRound', (gameId) => {
-            games.nextRound(gameId)
-        })
-
-        socket.on('guess', (gameId, questionText, playerName, answer) => {
-            games.guess(gameId, questionText, playerName, answer)
-        })
-
-        socket.on('disconnect', () => {
-            games.disconnect(socket.id)
-        })
-    })
-
-    return io
+    return server
 }

@@ -15,16 +15,16 @@ export default function Games(timer, quizRepo, events) {
         const gameId = String(nextGameId++)
         const quiz = await quizRepo.getById(quizId)
         const remainingQuestions = quiz.questions.map((q, index) => {
-            return { id: index + 1, text: q.text, answers: q.answers, totalQuestions: quiz.questions.length}
+            return { id: index + 1, text: q.text, answers: q.answers, totalQuestions: quiz.questions.length }
         })
         const questionsAndGuesses = quiz.questions.map((q, index) => {
             return { id: index + 1, rightAnswerId: q.rightAnswerId, guesses: [], totalQuestions: quiz.questions.length }
         })
         games.push({ id: gameId, quizTitle: quiz.title, remainingQuestions, questionsAndGuesses, players: [], avatars: new Avatars() })
-        return gameId
+        return { gameId, quizTitle: quiz.title }
     }
 
-    this.join = (gameId, name, socketId) => {
+    this.join = (gameId, name) => {
         const game = games.find(g => g.id === gameId)
         if (!game) {
             throw new Error('Game does not exist!')
@@ -39,10 +39,10 @@ export default function Games(timer, quizRepo, events) {
             throw new Error(`Game reached max. number of players(${game.players.length})!`)
         }
         const avatar = game.avatars.pick()
-        const newPlayer = { name, avatar, score: 0, socketId }
+        const newPlayer = { name, avatar, score: 0 }
         game.players.push(newPlayer)
         events.publish('playerJoined', gameId, newPlayer.avatar)
-        return { quizTitle: game.quizTitle, avatar: newPlayer.avatar, score: newPlayer.score, otherPlayers: game.players.filter(p => p.name !== name).map(p => p.avatar) }
+        return { quizTitle: game.quizTitle, name: newPlayer.name, avatar: newPlayer.avatar, otherPlayers: game.players.filter(p => p.name !== name).map(p => p.avatar) }
     }
 
     this.nextRound = (gameId) => {
@@ -83,17 +83,12 @@ export default function Games(timer, quizRepo, events) {
         }
     }
 
-    this.disconnect = (socketId) => {
-        let game, player
-        for (let g of games) {
-            player = g.players.find(p => p.socketId === socketId)
-            if (player) {
-                game = g
-                break
-            }
-        }
+    this.disconnect = (gameId, playerName) => {
+        const game = games.find((g) => g.id === gameId)
+
         if (game && game.players) {
-            game.players = game.players.filter(p => p.socketId != socketId)
+            const player = game.players.find((p) => p.name === playerName)
+            game.players = game.players.filter(p => p.name != playerName)
             events.publish('playerDisconnected', game.id, player.avatar)
         }
     }
