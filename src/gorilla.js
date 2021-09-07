@@ -1,17 +1,36 @@
 'use strict'
 
-import express from 'express'
-import http from 'http'
-import quizSocketServer from './quiz-socket-server.js'
+import pkg from 'uWebSockets.js'
+const { App } = pkg
+import { serveDir } from 'uwebsocket-serve'
+// import quizSocketServer from './quiz-socket-server.js'
+import QuizRepo from './quiz-repo.js'
 
-const app = express()
+const quizRepo = new QuizRepo()
 
-app.use(express.static('public'))
+// // uWebSockets.js is binary by default
+// import { StringDecoder } from 'string_decoder'
+// const decoder = new StringDecoder('utf8')
 
-const server = http.createServer(app)
+App()
+    .ws('/*', {
+        // message: (socket, message, isBinary) => {
+        //     // parse JSON and perform the action
+        //     //let json = JSON.parse(decoder.write(Buffer.from(message)))
+        // }
+    })
+    .get('/*', serveDir('public'))
+    .get('/api/v1/quizzes', async (res) => {
+        res.onAborted(() => { res.aborted = true })
+        let r = await quizRepo.getAll()
+        if (!res.aborted) {
+            res.end(JSON.stringify(r))
+        }
+    })
+    .listen(process.env.PORT || 3000, (listenSocket) => {
+        if (listenSocket) {
+            console.log('Server started!')
+        }
+    })
 
-quizSocketServer().attach(server)
-
-const listener = server.listen(process.env.PORT || 3000, () => {
-    console.log(`Server started on *:${listener.address().port}`)
-})
+//quizSocketServer().attach(server)

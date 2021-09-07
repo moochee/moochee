@@ -10,10 +10,8 @@ export default function QuizSocketClient(socket) {
         socket.off(event, subscriber)
     }
 
-    this.getQuizzes = () => {
-        return new Promise(resolve => {
-            socket.emit('getQuizzes', (quizzes) => resolve(quizzes))
-        })
+    this.getQuizzes = async () => {
+        return await (await fetch('/api/v1/quizzes')).json()
     }
 
     this.host = (quizId) => {
