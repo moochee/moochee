@@ -85,8 +85,7 @@ export default function Games(timer, quizRepo, events) {
 
     this.disconnect = (gameId, playerName) => {
         const game = games.find((g) => g.id === gameId)
-
-        if (game && game.players) {
+        if (game && game.players && playerName) {
             const player = game.players.find((p) => p.name === playerName)
             game.players = game.players.filter(p => p.name != playerName)
             events.publish('playerDisconnected', game.id, player.avatar)

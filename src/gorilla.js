@@ -1,16 +1,13 @@
 'use strict'
 
-import uWS from 'uWebSockets.js'
-import { serveDir } from 'uwebsocket-serve'
+import { createServer } from 'http'
+import serve from 'serve-handler'
 import quizSocketServer from './quiz-socket-server.js'
 
-const app = uWS.App()
-app.get('/*', serveDir('public'))
-app.ws('/*', quizSocketServer(app))
+const server = createServer((req, res) => serve(req, res, { public: 'public' }))
+quizSocketServer(server)
 
 const port = process.env.PORT || 3000
-app.listen(port, (listenSocket) => {
-    if (listenSocket) {
-        console.log(`Server started at ${port}!`)
-    }
+server.listen(port, () => {
+    console.log(`Server started at ${port}`)
 })

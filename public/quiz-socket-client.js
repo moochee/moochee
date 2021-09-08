@@ -1,23 +1,23 @@
 'use strict'
 
 export default function QuizSocketClient(socket) {
-    const subscribers = new Map()
+    const subscribers = {}
 
     socket.onmessage = (event) => {
         const message = JSON.parse(event.data)
-        const subscriber = subscribers.get(message.event)
+        const subscriber = subscribers[message.event]
         if (subscriber) subscriber(...message.args)
     }
 
     this.subscribe = (event, subscriber) => {
-        subscribers.set(event, subscriber)
+        subscribers[event] = subscriber
     }
 
     this.unsubscribe = (event) => {
-        subscribers.delete(event)
+        delete subscribers[event]
     }
 
-    this.getQuizzes = async () => {
+    this.getQuizzes = () => {
         const msg = { event: 'getQuizzes', args: [] }
         socket.send(JSON.stringify(msg))
     }
