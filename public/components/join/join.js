@@ -8,8 +8,11 @@ loadCss('components/join/join.css')
 
 export default function Join(props) {
     const [playerName, setPlayerName] = useState('')
-    const updatePlayerName = (event) => setPlayerName(event.target.value)
     const [errorMessage, setErrorMessage] = useState('')
+
+    const updatePlayerName = (event) => {
+        setPlayerName(event.target.value)
+    }
 
     const join = async () => {
         try {
