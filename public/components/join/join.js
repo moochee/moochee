@@ -8,7 +8,6 @@ loadCss('components/join/join.css')
 
 export default function Join(props) {
     const [playerName, setPlayerName] = useState('')
-    const updatePlayerName = (event) => setPlayerName(event.target.value)
     const [errorMessage, setErrorMessage] = useState('')
 
     const onJoiningFailed = (error) => {
@@ -19,6 +18,10 @@ export default function Join(props) {
         props.adapter.subscribe('joiningFailed', onJoiningFailed)
         return () => props.adapter.unsubscribe('joiningFailed')
     })
+
+    const updatePlayerName = (event) => {
+        setPlayerName(event.target.value)
+    }
 
     const join = async () => {
         const name = playerName.trim()

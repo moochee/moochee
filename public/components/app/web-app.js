@@ -54,7 +54,6 @@ const PlayGameWeb = function (props) {
         return () => {
             removeEventListener('hashchange', hashChanged)
             props.adapter.unsubscribe('joiningOk')
-            props.adapter.unsubscribe('joiningFailed')
         }
     })
 
@@ -75,13 +74,15 @@ const PlayGameWeb = function (props) {
 
 export default function WebApp(props) {
     const [hash, setHash] = useState(window.location.hash)
+
     const hashChanged = () => {
         setHash(window.location.hash)
     }
+
     useEffect(() => {
         addEventListener('hashchange', hashChanged)
         return () => removeEventListener('hashchange', hashChanged)
-    })
+    }, [])
 
     const gameId = (hash.indexOf('#/play/') > -1) ? hash.split('/')[2] : ''
     return gameId

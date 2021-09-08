@@ -27,7 +27,7 @@ export default function Scoreboard() {
 
     useEffect(() => {
         setTimeout(updateRanking, 1000)
-    })
+    }, [])
 
     // TODO tryout counter animation using css @property https://css-tricks.com/animating-number-counters/
 
