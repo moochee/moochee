@@ -1,8 +1,7 @@
 'use strict'
 
-import { html, useState, useEffect, useRef } from '/lib/preact-3.1.0.standalone.module.js'
+import { html, useState, useEffect } from '/lib/preact-3.1.0.standalone.module.js'
 import loadCss from '/load-css.js'
-import AudioControl from '/components/audio/audio-control.js'
 import Shell from '/components/shell/shell.js'
 import Countdown from '/components/countdown.js'
 import Podium from '/components/podium/podium.js'
@@ -53,11 +52,7 @@ export default function Play(props) {
     const [waitingToStart, setWaitingToStart] = useState(true)
     const [isFinal, setIsFinal] = useState(false)
     const [countDown, setCountDown] = useState(null)
-    const [volume, setVolume] = useState(1)
     const [score, setScore] = useState(0)
-
-    const music = useRef({})
-    music.current.volume = volume
 
     const onPlayerJoined = (gameId, player) => {
         props.onPlayerJoined(player)
@@ -96,7 +91,6 @@ export default function Play(props) {
     }
 
     useEffect(() => {
-        music.current.play()
         props.adapter.subscribe('playerJoined', onPlayerJoined)
         props.adapter.subscribe('roundStarted', onRoundStarted)
         props.adapter.subscribe('roundFinished', onRoundFinished)
@@ -117,11 +111,8 @@ export default function Play(props) {
     const podiumBlock = showPodium ? html`<${Podium} players=${result} />` : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
     const gameOverBlock = isFinal ? html`<h2>Game is over!</h2>` : ''
-    const isIos = navigator.userAgent.match(/ipad|iphone/i)
-    const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`
 
-    return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='${props.playerAvatar} ${props.playerName}' footerRight='Score: ${score}' fullScreenContent=${showPodium}>
-        <audio ref=${music} loop src=components/positive-funny-background-music-for-video-games.mp3></audio>
+    return html`<${Shell} headerLeft=${props.quizTitle} footerLeft='${props.playerAvatar} ${props.playerName}' footerRight='Score: ${score}' fullScreenContent=${showPodium}>
         ${waitingToStartBlock}
         ${questionBlock}
         ${podiumBlock}
