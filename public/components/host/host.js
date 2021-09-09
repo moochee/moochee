@@ -72,7 +72,6 @@ export default function Host(props) {
     const [volume, setVolume] = useState(1)
 
     const music = useRef({})
-    music.current.volume = volume
 
     const onPlayerJoined = (gameId, player) => {
         setPlayers((oldPlayers) => {
@@ -136,15 +135,15 @@ export default function Host(props) {
 
     const showPodium = Boolean(result)
     const waitingToStart = !question && !result
-    const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} volume=${volume} canStart=${canStart} adapter=${props.adapter} />` : ''
+    const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} adapter=${props.adapter} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />` : ''
     const podiumBlock = showPodium && !isFinal ? html`<${PodiumPage} players=${result} onNext=${nextRound} />` : ''
     const podiumFinalBlock = showPodium && isFinal ? html`<${PodiumFinalPage} players=${result} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`
 
-    return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='#${props.gameId}' footerRight='${players.length} Players' fullScreenContent=${showPodium}>
-        <audio ref=${music} loop src=components/positive-funny-background-music-for-video-games.mp3></audio>
+    return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft=#${props.gameId} footerRight='${players.length} Players' fullScreenContent=${showPodium}>
+        <audio ref=${music} volume=${volume} loop src=components/positive-funny-background-music-for-video-games.mp3></audio>
         ${waitingToStartBlock}
         ${questionBlock}
         ${podiumBlock}
