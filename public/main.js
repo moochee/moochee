@@ -14,4 +14,4 @@ loadCss('/style.css')
 
 // eslint-disable-next-line no-undef
 const socket = new WebSocket(`${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}`)
-socket.onopen = () => render(html`<${WebApp} adapter=${new QuizSocketClient(socket)} />`, document.body)
+render(html`<${WebApp} adapter=${new QuizSocketClient(socket)} />`, document.body)

@@ -2,6 +2,7 @@
 
 export default function QuizSocketClient(socket) {
     const subscribers = {}
+    const ready = new Promise((resolve) => socket.onopen = resolve)
 
     socket.onmessage = (event) => {
         const message = JSON.parse(event.data)
@@ -17,27 +18,32 @@ export default function QuizSocketClient(socket) {
         delete subscribers[event]
     }
 
-    this.getQuizzes = () => {
+    this.getQuizzes = async () => {
+        await ready
         const msg = { event: 'getQuizzes', args: [] }
         socket.send(JSON.stringify(msg))
     }
 
-    this.host = (quizId) => {
+    this.host = async (quizId) => {
+        await ready
         const msg = { event: 'host', args: [quizId] }
         socket.send(JSON.stringify(msg))
     }
 
-    this.join = (gameId, playerName) => {
+    this.join = async (gameId, playerName) => {
+        await ready
         const msg = { event: 'join', args: [gameId, playerName] }
         socket.send(JSON.stringify(msg))
     }
 
-    this.nextRound = (gameId) => {
+    this.nextRound = async (gameId) => {
+        await ready
         const msg = { event: 'nextRound', args: [gameId] }
         socket.send(JSON.stringify(msg))
     }
 
-    this.guess = (gameId, questionId, playerName, answerId) => {
+    this.guess = async (gameId, questionId, playerName, answerId) => {
+        await ready
         const msg = { event: 'guess', args: [gameId, questionId, playerName, answerId] }
         socket.send(JSON.stringify(msg))
     }
