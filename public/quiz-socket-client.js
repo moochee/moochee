@@ -1,8 +1,11 @@
 'use strict'
 
-export default function QuizSocketClient(socket) {
-    const subscribers = {}
+export default function QuizSocketClient() {
+    // eslint-disable-next-line no-undef
+    const socket = new WebSocket(`${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}`)
     const ready = new Promise((resolve) => socket.onopen = resolve)
+
+    const subscribers = {}
 
     socket.onmessage = (event) => {
         const message = JSON.parse(event.data)
@@ -18,33 +21,27 @@ export default function QuizSocketClient(socket) {
         delete subscribers[event]
     }
 
-    this.getQuizzes = async () => {
-        await ready
-        const msg = { event: 'getQuizzes', args: [] }
-        socket.send(JSON.stringify(msg))
+    const send = (msg) => {
+        ready.then(() => socket.send(JSON.stringify(msg)))
     }
 
-    this.host = async (quizId) => {
-        await ready
-        const msg = { event: 'host', args: [quizId] }
-        socket.send(JSON.stringify(msg))
+    this.getQuizzes = () => {
+        send({ event: 'getQuizzes', args: [] })
     }
 
-    this.join = async (gameId, playerName) => {
-        await ready
-        const msg = { event: 'join', args: [gameId, playerName] }
-        socket.send(JSON.stringify(msg))
+    this.host = (quizId) => {
+        send({ event: 'host', args: [quizId] })
     }
 
-    this.nextRound = async (gameId) => {
-        await ready
-        const msg = { event: 'nextRound', args: [gameId] }
-        socket.send(JSON.stringify(msg))
+    this.join = (gameId, playerName) => {
+        send({ event: 'join', args: [gameId, playerName] })
     }
 
-    this.guess = async (gameId, questionId, playerName, answerId) => {
-        await ready
-        const msg = { event: 'guess', args: [gameId, questionId, playerName, answerId] }
-        socket.send(JSON.stringify(msg))
+    this.nextRound = (gameId) => {
+        send({ event: 'nextRound', args: [gameId] })
+    }
+
+    this.guess = (gameId, questionId, playerName, answerId) => {
+        send({ event: 'guess', args: [gameId, questionId, playerName, answerId] })
     }
 }
