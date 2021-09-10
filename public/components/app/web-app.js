@@ -11,16 +11,21 @@ const HostGameWeb = function (props) {
     const [gameId, setGameId] = useState('')
     const [quizTitle, setQuizTitle] = useState('')
 
-    const host = (gameId, quizTitle) => {
+    const onGameStarted = (gameId, quizTitle) => {
         setGameId(gameId)
         setQuizTitle(quizTitle)
         setAtEntrance(false)
     }
 
+    useEffect(() => {
+        props.adapter.subscribe('gameStarted', onGameStarted)
+        return () => props.adapter.unsubscribe('gameStarted')
+    }, [])
+
     const home = () => setAtEntrance(true)
 
     return atEntrance ?
-        html`<${Entrance} adapter=${props.adapter} onHost=${host} />` :
+        html`<${Entrance} adapter=${props.adapter} />` :
         html`<${Host} gameId=${gameId} adapter=${props.adapter} quizTitle=${quizTitle} onBackHome=${home} />`
 }
 
@@ -31,13 +36,26 @@ const PlayGameWeb = function (props) {
     const [otherPlayers, setOtherPlayers] = useState([])
     const [quizTitle, setQuizTitle] = useState('')
 
-    const join = (quizTitle, playerName, playerAvatar, otherPlayers) => {
-        setPlayerName(playerName)
-        setPlayerAvatar(playerAvatar)
+    const hashChanged = () => {
+        setAtJoinGame(true)
+    }
+
+    const onJoiningOk = (quizTitle, name, avatar, otherPlayers) => {
+        setPlayerName(name)
+        setPlayerAvatar(avatar)
         setOtherPlayers(otherPlayers)
         setQuizTitle(quizTitle)
         setAtJoinGame(false)
     }
+
+    useEffect(() => {
+        addEventListener('hashchange', hashChanged)
+        props.adapter.subscribe('joiningOk', onJoiningOk)
+        return () => {
+            removeEventListener('hashchange', hashChanged)
+            props.adapter.unsubscribe('joiningOk')
+        }
+    })
 
     const addPlayer = (otherPlayer) => {
         setOtherPlayers((oldOtherPlayers) => [...oldOtherPlayers, otherPlayer])
@@ -48,7 +66,7 @@ const PlayGameWeb = function (props) {
     }
 
     return atJoinGame ?
-        html`<${Join} gameId=${props.gameId} adapter=${props.adapter} onJoin=${join} />` :
+        html`<${Join} gameId=${props.gameId} adapter=${props.adapter} />` :
         html`<${Play} gameId=${props.gameId} adapter=${props.adapter} quizTitle=${quizTitle}
             playerName=${playerName} playerAvatar=${playerAvatar} otherPlayers=${otherPlayers}
             onPlayerJoined=${addPlayer} onPlayerDisconnected=${removePlayer} />`

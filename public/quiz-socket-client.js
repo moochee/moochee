@@ -1,40 +1,47 @@
 'use strict'
 
-export default function QuizSocketClient(socket) {
+export default function QuizSocketClient() {
+    // eslint-disable-next-line no-undef
+    const socket = new WebSocket(`${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}`)
+    const ready = new Promise((resolve) => socket.onopen = resolve)
 
-    this.subscribe = (event, subscriber) => {
-        socket.on(event, subscriber)
+    const subscribers = {}
+
+    socket.onmessage = (event) => {
+        const message = JSON.parse(event.data)
+        const subscriber = subscribers[message.event]
+        if (subscriber) subscriber(...message.args)
     }
 
-    this.unsubscribe = (event, subscriber) => {
-        socket.off(event, subscriber)
+    this.subscribe = (event, subscriber) => {
+        subscribers[event] = subscriber
+    }
+
+    this.unsubscribe = (event) => {
+        delete subscribers[event]
+    }
+
+    const send = (msg) => {
+        ready.then(() => socket.send(JSON.stringify(msg)))
     }
 
     this.getQuizzes = () => {
-        return new Promise(resolve => {
-            socket.emit('getQuizzes', (quizzes) => resolve(quizzes))
-        })
+        send({ event: 'getQuizzes', args: [] })
     }
 
     this.host = (quizId) => {
-        return new Promise(resolve => {
-            socket.emit('host', quizId, (gameId) => resolve(gameId))
-        })
+        send({ event: 'host', args: [quizId] })
     }
 
     this.join = (gameId, playerName) => {
-        return new Promise((resolve, reject) => {
-            socket.emit('join', gameId, playerName, (response) => {
-                return response.errorMessage ? reject(new Error(response.errorMessage)) : resolve(response)
-            })
-        })
+        send({ event: 'join', args: [gameId, playerName] })
     }
 
     this.nextRound = (gameId) => {
-        socket.emit('nextRound', gameId)
+        send({ event: 'nextRound', args: [gameId] })
     }
 
     this.guess = (gameId, questionId, playerName, answerId) => {
-        socket.emit('guess', gameId, questionId, playerName, answerId)
+        send({ event: 'guess', args: [gameId, questionId, playerName, answerId] })
     }
 }

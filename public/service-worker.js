@@ -18,9 +18,8 @@ self.addEventListener('fetch', (event) => {
 
     // filter funny stuff like chrome-extension:// extensions etc.
     const url = new URL(event.request.url)
-    const isSocketReq = (url.pathname.indexOf('socket.io') > -1) && (url.pathname.indexOf('socket.io.min.js') === -1)
     const isRangeReq = event.request.headers.has('range')
-    if (['http:', 'https:'].includes(url.protocol) && !isSocketReq && !isRangeReq) {
+    if (['http:', 'https:'].includes(url.protocol) && !isRangeReq) {
         event.respondWith(intercept())
     }
 })
