@@ -6,10 +6,14 @@ import loadCss from '/load-css.js'
 loadCss('/components/sticky/sticky-card.css')
 
 export default function StickyCard(props) {
-    return html`<div class=stickyCard>
-        <img src=components/sticky/sticky-${props.color}.svg></img>
-        <div class=textField>
-            ${props.text}
+    const countBlock = props.count != undefined ? html`<div class=count>${props.count}</div>` : ''
+    const cssClasses = props.wrong ? 'stickyCard wrongAnswer' : 'stickyCard rightAnswer'
+
+    return html`<div>
+        <div class=${cssClasses}>
+            <img src=components/sticky/sticky-${props.color}.svg></img>
+            <div class=textField>${props.text}</div>
         </div>
+        ${countBlock}
     </div>`
 }
