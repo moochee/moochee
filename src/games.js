@@ -2,18 +2,18 @@
 
 import Avatars from './avatars.js'
 
-export default function Games(timer, quizRepo, events) {
+export default function Games(timer, quizService, events) {
     let nextGameId = 100000
     const games = []
     const secondsOfNetworkDelay = 2
 
     this.getQuizzes = async () => {
-        return await quizRepo.getAll()
+        return await quizService.getAll()
     }
 
     this.host = async (quizId) => {
         const gameId = String(nextGameId++)
-        const quiz = await quizRepo.getById(quizId)
+        const quiz = await quizService.getById(quizId)
         const remainingQuestions = quiz.questions.map((q, index) => {
             return { id: index + 1, text: q.text, answers: q.answers, totalQuestions: quiz.questions.length }
         })

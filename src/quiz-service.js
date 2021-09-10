@@ -2,7 +2,7 @@
 
 import { readFile, readdir } from 'fs/promises'
 
-export default function QuizRepo() {
+export default function QuizService() {
     const QUIZ_DIR = './quiz/'
 
     this.getById = async (quizId) => {

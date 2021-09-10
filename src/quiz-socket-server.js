@@ -1,15 +1,15 @@
 'use strict'
 import { WebSocketServer } from 'ws'
 import Events from './events.js'
-import QuizRepo from './quiz-repo.js'
+import QuizService from './quiz-service.js'
 import Games from './games.js'
 
 export default function create(server) {
     const wss = new WebSocketServer({ server })
     const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
-    const quizRepo = new QuizRepo()
+    const quizService = new QuizService()
     const events = new Events(wss)
-    const games = new Games(timer, quizRepo, events)
+    const games = new Games(timer, quizService, events)
 
     wss.on('connection', (ws) => {
         ws.on('message', async (message) => {
