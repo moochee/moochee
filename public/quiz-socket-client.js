@@ -1,7 +1,6 @@
 'use strict'
 
 export default function QuizSocketClient() {
-    // eslint-disable-next-line no-undef
     const socket = new WebSocket(`${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}`)
     const ready = new Promise((resolve) => socket.onopen = resolve)
 
