@@ -10,6 +10,7 @@ export default function Join(props) {
     const [playerName, setPlayerName] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const name = useRef(null)
+    const nameKey = 'gorilla-quiz.name'
 
     const onJoiningFailed = (error) => {
         setErrorMessage(error)
@@ -18,8 +19,10 @@ export default function Join(props) {
     useEffect(() => {
         props.adapter.subscribe('joiningFailed', onJoiningFailed)
         setTimeout(() => name.current.focus(), 1) // firefox needs 1ms to focus
+        const savedName = localStorage.getItem(nameKey)
+        if (savedName) setPlayerName(savedName)
         return () => props.adapter.unsubscribe('joiningFailed')
-    })
+    }, [])
 
     const updatePlayerName = (event) => {
         setPlayerName(event.target.value)
@@ -27,6 +30,7 @@ export default function Join(props) {
 
     const join = async () => {
         const name = playerName.trim()
+        localStorage.setItem(nameKey, name)
         props.adapter.join(props.gameId, name)
     }
 

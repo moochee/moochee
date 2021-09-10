@@ -55,7 +55,7 @@ const PlayGameWeb = function (props) {
             removeEventListener('hashchange', hashChanged)
             props.adapter.unsubscribe('joiningOk')
         }
-    })
+    }, [])
 
     const addPlayer = (otherPlayer) => {
         setOtherPlayers((oldOtherPlayers) => [...oldOtherPlayers, otherPlayer])
