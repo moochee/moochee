@@ -1,7 +1,7 @@
 'use strict'
 
-export default function QuizSocketClient() {
-    const socket = new WebSocket(`${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}`)
+export default function QuizSocketClient(createWebSocket) {
+    const socket = createWebSocket()
     const ready = new Promise((resolve) => socket.onopen = resolve)
 
     const subscribers = {}

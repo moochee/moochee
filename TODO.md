@@ -11,6 +11,7 @@
 - **Feature**: define secondsToGuess per quiz and per question in quiz json
 
 # DONE
+- replace socket.io with plain websocket
 - center the stickies on the y-axis, consider both quiz stickies on entrance and answer stickies on play/host
 - deploy to CF (or even K8s?) and test performance (initial load vs cached) and device responsiveness
 - show progress on host/player side, current question and total number of questions

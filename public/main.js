@@ -12,4 +12,5 @@ import WebApp from '/components/app/web-app.js'
 loadCss('/font/komikatext_regular_macroman/stylesheet.css')
 loadCss('/style.css')
 
-render(html`<${WebApp} adapter=${new QuizSocketClient()} />`, document.body)
+const wsUrl = `${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}`
+render(html`<${WebApp} adapter=${new QuizSocketClient(() => new WebSocket(wsUrl))} />`, document.body)
