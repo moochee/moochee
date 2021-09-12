@@ -28,6 +28,8 @@ export default function QuizSocketClient(createWebSocket) {
         send({ event: 'getQuizzes', args: [] })
     }
 
+    // REVISE should we better call those things 'command' rather than 'event'?
+    //        event is rather what gets emitted by the server when the command finished successfully (DDD terminology)
     this.host = (quizId) => {
         send({ event: 'host', args: [quizId] })
     }
