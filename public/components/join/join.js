@@ -17,11 +17,11 @@ export default function Join(props) {
     }
 
     useEffect(() => {
-        props.adapter.subscribe('joiningFailed', onJoiningFailed)
+        props.client.subscribe('joiningFailed', onJoiningFailed)
         setTimeout(() => name.current.focus(), 1) // firefox needs 1ms to focus
         const savedName = localStorage.getItem(nameKey)
         if (savedName) setPlayerName(savedName)
-        return () => props.adapter.unsubscribe('joiningFailed')
+        return () => props.client.unsubscribe('joiningFailed')
     }, [])
 
     const updatePlayerName = (event) => {
@@ -31,7 +31,7 @@ export default function Join(props) {
     const join = async () => {
         const name = playerName.trim()
         localStorage.setItem(nameKey, name)
-        props.adapter.join(props.gameId, name)
+        props.client.join(props.gameId, name)
     }
 
     return html`<${Shell} headerCenter='Welcome to the 🦍 Quiz'>

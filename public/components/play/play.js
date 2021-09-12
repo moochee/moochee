@@ -84,24 +84,24 @@ export default function Play(props) {
     }
 
     const guess = (answerId) => {
-        props.adapter.guess(props.gameId, question.id, props.playerName, answerId)
+        props.client.guess(props.gameId, question.id, props.playerName, answerId)
         setQuestion(null)
         setWaitingForOtherResponses(true)
         setResult(null)
     }
 
     useEffect(() => {
-        props.adapter.subscribe('playerJoined', onPlayerJoined)
-        props.adapter.subscribe('roundStarted', onRoundStarted)
-        props.adapter.subscribe('roundFinished', onRoundFinished)
-        props.adapter.subscribe('gameFinished', onGameFinished)
-        props.adapter.subscribe('playerDisconnected', onPlayerDisconnected)
+        props.client.subscribe('playerJoined', onPlayerJoined)
+        props.client.subscribe('roundStarted', onRoundStarted)
+        props.client.subscribe('roundFinished', onRoundFinished)
+        props.client.subscribe('gameFinished', onGameFinished)
+        props.client.subscribe('playerDisconnected', onPlayerDisconnected)
         return () => {
-            props.adapter.unsubscribe('playerJoined', onPlayerJoined)
-            props.adapter.unsubscribe('roundStarted', onRoundStarted)
-            props.adapter.unsubscribe('roundFinished', onRoundFinished)
-            props.adapter.unsubscribe('gameFinished', onGameFinished)
-            props.adapter.unsubscribe('playerDisconnected', onPlayerDisconnected)
+            props.client.unsubscribe('playerJoined', onPlayerJoined)
+            props.client.unsubscribe('roundStarted', onRoundStarted)
+            props.client.unsubscribe('roundFinished', onRoundFinished)
+            props.client.unsubscribe('gameFinished', onGameFinished)
+            props.client.unsubscribe('playerDisconnected', onPlayerDisconnected)
         }
     }, [])
 

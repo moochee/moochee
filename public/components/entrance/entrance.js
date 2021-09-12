@@ -18,13 +18,13 @@ export default function Entrance(props) {
     }
 
     useEffect(() => {
-        props.adapter.subscribe('quizzesReceived', onQuizzesReceived)
-        props.adapter.getQuizzes()
-        return () => props.adapter.unsubscribe('quizzesReceived')
+        props.client.subscribe('quizzesReceived', onQuizzesReceived)
+        props.client.getQuizzes()
+        return () => props.client.unsubscribe('quizzesReceived')
     }, [])
 
     const host = (quizId) => {
-        props.adapter.host(quizId)
+        props.client.host(quizId)
     }
 
     const quizList = quizzes.map((q) => {

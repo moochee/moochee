@@ -13,4 +13,4 @@ loadCss('/font/komikatext_regular_macroman/stylesheet.css')
 loadCss('/style.css')
 
 const wsUrl = `${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}`
-render(html`<${WebApp} adapter=${new QuizSocketClient(() => new WebSocket(wsUrl))} />`, document.body)
+render(html`<${WebApp} client=${new QuizSocketClient(() => new WebSocket(wsUrl))} />`, document.body)

@@ -7,7 +7,7 @@
   - https://stackoverflow.com/questions/31776548/why-cant-javascript-play-audio-files-on-iphone-safari
   - https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html
 - **Bugfix**: close/delete game when finished, or auto-close a game 30min after it was started
-- **Tech Improve**: try implement both a WebSocket adapter and an HttpRestAdapter, both should work to be "plugged in" without changing the code
+- **Tech Improve**: try implement both a WebSocket client and an HttpRestClient, both should work to be "plugged in" without changing the code
 - **Feature**: define secondsToGuess per quiz and per question in quiz json
 
 # DONE

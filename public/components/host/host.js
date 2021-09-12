@@ -110,7 +110,7 @@ export default function Host(props) {
     }
 
     const nextRound = () => {
-        props.adapter.nextRound(props.gameId)
+        props.client.nextRound(props.gameId)
     }
 
     const stopMusic = () => {
@@ -119,23 +119,23 @@ export default function Host(props) {
 
     useEffect(() => {
         music.current.play()
-        props.adapter.subscribe('playerJoined', onPlayerJoined)
-        props.adapter.subscribe('roundStarted', onRoundStarted)
-        props.adapter.subscribe('roundFinished', onRoundFinished)
-        props.adapter.subscribe('gameFinished', onGameFinished)
-        props.adapter.subscribe('playerDisconnected', onPlayerDisconnected)
+        props.client.subscribe('playerJoined', onPlayerJoined)
+        props.client.subscribe('roundStarted', onRoundStarted)
+        props.client.subscribe('roundFinished', onRoundFinished)
+        props.client.subscribe('gameFinished', onGameFinished)
+        props.client.subscribe('playerDisconnected', onPlayerDisconnected)
         return () => {
-            props.adapter.unsubscribe('playerJoined', onPlayerJoined)
-            props.adapter.unsubscribe('roundStarted', onRoundStarted)
-            props.adapter.unsubscribe('roundFinished', onRoundFinished)
-            props.adapter.unsubscribe('gameFinished', onGameFinished)
-            props.adapter.unsubscribe('playerDisconnected', onPlayerDisconnected)
+            props.client.unsubscribe('playerJoined', onPlayerJoined)
+            props.client.unsubscribe('roundStarted', onRoundStarted)
+            props.client.unsubscribe('roundFinished', onRoundFinished)
+            props.client.unsubscribe('gameFinished', onGameFinished)
+            props.client.unsubscribe('playerDisconnected', onPlayerDisconnected)
         }
     }, [])
 
     const showPodium = Boolean(result)
     const waitingToStart = !question && !result
-    const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} adapter=${props.adapter} />` : ''
+    const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} client=${props.client} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />` : ''
     const podiumBlock = showPodium && !isFinal ? html`<${PodiumPage} players=${result} onNext=${nextRound} />` : ''
     const podiumFinalBlock = showPodium && isFinal ? html`<${PodiumFinalPage} players=${result} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''

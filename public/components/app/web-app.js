@@ -18,15 +18,15 @@ const HostGameWeb = function (props) {
     }
 
     useEffect(() => {
-        props.adapter.subscribe('gameStarted', onGameStarted)
-        return () => props.adapter.unsubscribe('gameStarted')
+        props.client.subscribe('gameStarted', onGameStarted)
+        return () => props.client.unsubscribe('gameStarted')
     }, [])
 
     const home = () => setAtEntrance(true)
 
     return atEntrance ?
-        html`<${Entrance} adapter=${props.adapter} />` :
-        html`<${Host} gameId=${gameId} adapter=${props.adapter} quizTitle=${quizTitle} onBackHome=${home} />`
+        html`<${Entrance} client=${props.client} />` :
+        html`<${Host} gameId=${gameId} client=${props.client} quizTitle=${quizTitle} onBackHome=${home} />`
 }
 
 const PlayGameWeb = function (props) {
@@ -50,10 +50,10 @@ const PlayGameWeb = function (props) {
 
     useEffect(() => {
         addEventListener('hashchange', hashChanged)
-        props.adapter.subscribe('joiningOk', onJoiningOk)
+        props.client.subscribe('joiningOk', onJoiningOk)
         return () => {
             removeEventListener('hashchange', hashChanged)
-            props.adapter.unsubscribe('joiningOk')
+            props.client.unsubscribe('joiningOk')
         }
     }, [])
 
@@ -66,8 +66,8 @@ const PlayGameWeb = function (props) {
     }
 
     return atJoinGame ?
-        html`<${Join} gameId=${props.gameId} adapter=${props.adapter} />` :
-        html`<${Play} gameId=${props.gameId} adapter=${props.adapter} quizTitle=${quizTitle}
+        html`<${Join} gameId=${props.gameId} client=${props.client} />` :
+        html`<${Play} gameId=${props.gameId} client=${props.client} quizTitle=${quizTitle}
             playerName=${playerName} playerAvatar=${playerAvatar} otherPlayers=${otherPlayers}
             onPlayerJoined=${addPlayer} onPlayerDisconnected=${removePlayer} />`
 }
@@ -86,6 +86,6 @@ export default function WebApp(props) {
 
     const gameId = (hash.indexOf('#/play/') > -1) ? hash.split('/')[2] : ''
     return gameId
-        ? html`<${PlayGameWeb} gameId=${gameId} adapter=${props.adapter} />`
-        : html`<${HostGameWeb} adapter=${props.adapter} />`
+        ? html`<${PlayGameWeb} gameId=${gameId} client=${props.client} />`
+        : html`<${HostGameWeb} client=${props.client} />`
 }
