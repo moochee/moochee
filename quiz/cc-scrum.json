@@ -24,7 +24,7 @@
         {
             "text": "The ScrumMaster role includes...?",
             "answers": [
-                { "id": "A", "text": "Telling the team how to turn backlog items into a Product Increment" },
+                { "id": "A", "text": "Telling the team how to implement backlog items" },
                 { "id": "B", "text": "Getting status from team members in the daily" },
                 { "id": "C", "text": "Assigning work to team members, based on tasks" },
                 { "id": "D", "text": "None of the above" }
@@ -35,7 +35,7 @@
             "text": "The Goal of the Daily Scrum is not...?",
             "answers": [
                 { "id": "A", "text": "Track the status of all team members" },
-                { "id": "B", "text": "Check that we are on track to achieve the Sprint Goals" },
+                { "id": "B", "text": "Check if we are on track to achieve the Sprint Goals" },
                 { "id": "C", "text": "Synchronize the team members" },
                 { "id": "D", "text": "Identify impediments" }
             ],
@@ -46,7 +46,7 @@
             "answers": [
                 { "id": "A", "text": "Up to 1 page" },
                 { "id": "B", "text": "Up to 10 pages per Sprint" },
-                { "id": "C", "text": "As long as needed to provide a positive Return on Investment" },
+                { "id": "C", "text": "As long as needed to provide a positive ROI" },
                 { "id": "D", "text": "0 - No Design document is needed" }
             ],
             "rightAnswerId": "C"
