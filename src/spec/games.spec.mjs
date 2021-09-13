@@ -3,13 +3,13 @@
 import Games from '../games.js'
 
 describe('Games', () => {
-    let timer, quizRepo, events, games
+    let timer, quizService, events, games
 
     beforeEach(() => {
         timer = { setTimeout: () => null, clearTimeout: () => null, secondsToGuess: null }
-        quizRepo = { questions: [], getById: function () { return { title: 'sample quiz', questions: this.questions } } }
+        quizService = { questions: [], getById: function () { return { title: 'sample quiz', questions: this.questions } } }
         events = { publish: function (...args) { this.receivedArgs = args } }
-        games = new Games(timer, quizRepo, events)
+        games = new Games(timer, quizService, events)
     })
 
     it('returns a new gameId when hosting a game', async () => {
@@ -43,7 +43,7 @@ describe('Games', () => {
     })
 
     it('presents the first question and seconds to guess when a new round starts', async () => {
-        quizRepo.questions = [{ text: 'question1', answers: [] }]
+        quizService.questions = [{ text: 'question1', answers: [] }]
         timer.secondsToGuess = 10
         const gameId = await host()
         games.nextRound(gameId)
@@ -52,7 +52,7 @@ describe('Games', () => {
     })
 
     it('presents the ranking when a round is finished', async () => {
-        quizRepo.questions = [{ text: 'question1', answers: [] }, { text: 'question2', answers: [] }]
+        quizService.questions = [{ text: 'question1', answers: [] }, { text: 'question2', answers: [] }]
         timer.setTimeout = (callback) => callback() //instantly invoke callback -> finish round right after start
         const gameId = await host()
         games.nextRound(gameId)
@@ -60,7 +60,7 @@ describe('Games', () => {
     })
 
     it('presents the second question when the next round is started', async () => {
-        quizRepo.questions = [{ text: 'question1', answers: [] }, { text: 'question2', answers: [] }]
+        quizService.questions = [{ text: 'question1', answers: [] }, { text: 'question2', answers: [] }]
         timer.secondsToGuess = 10
         const gameId = await host()
         games.nextRound(gameId)
@@ -70,7 +70,7 @@ describe('Games', () => {
     })
 
     it('finishes the game when there are no more questions', async () => {
-        quizRepo.questions = [{ text: 'question1', answers: [] }]
+        quizService.questions = [{ text: 'question1', answers: [] }]
         timer.setTimeout = (callback) => callback() //instantly invoke callback -> finish round right after start
         const gameId = await host()
         games.nextRound(gameId)
@@ -78,7 +78,7 @@ describe('Games', () => {
     })
 
     it('assigns some points to a player who guessed the right answer', async () => {
-        quizRepo.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }]
+        quizService.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }]
         let finishRound
         timer.setTimeout = (callback) => finishRound = callback
         const gameId = await host()
@@ -90,18 +90,19 @@ describe('Games', () => {
         games.guess(gameId, questionId, 'bob', 1)
         finishRound()
         const expectedRanking = [
-            // REVISE once we got the socketId out of the games, we don't need jasmine.objectContaining any longer
-            jasmine.objectContaining({ name: 'alice', avatar: jasmine.any(String), score: jasmine.any(Number) }),
-            jasmine.objectContaining({ name: 'bob', avatar: jasmine.any(String), score: 0 })
+            { name: 'alice', avatar: jasmine.any(String), score: jasmine.any(Number) },
+            { name: 'bob', avatar: jasmine.any(String), score: 0 }
         ]
         expect(events.receivedArgs).toEqual(['gameFinished', gameId, expectedRanking])
+        const aliceScore = events.receivedArgs[2].find(p => p.name === 'alice').score
+        expect(aliceScore).toBeGreaterThan(0)
     })
 
     it('should fire finishRound only once if all players guessed before timeout', async () => {
         let finishRound
         timer.setTimeout = (callback) => finishRound = callback
         timer.clearTimeout = () => finishRound = () => null
-        quizRepo.questions = [{ text: 'question1', answers: [] }, { text: 'question2', answers: [] }]
+        quizService.questions = [{ text: 'question1', answers: [] }, { text: 'question2', answers: [] }]
         events.publish = function (...args) {
             if (args[0] === 'roundFinished') this.finishRoundCalled = this.finishRoundCalled || 0 + 1
         }
@@ -120,7 +121,7 @@ describe('Games', () => {
         let finishRound
         timer.setTimeout = (callback) => finishRound = callback
         timer.clearTimeout = () => finishRound = () => null
-        quizRepo.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }, { text: 'question2', answers: [] }]
+        quizService.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }, { text: 'question2', answers: [] }]
         events.publish = function (...args) {
             if (args[0] === 'roundFinished') this.finishRoundCalled = (this.finishRoundCalled || 0) + 1
         }
@@ -139,7 +140,7 @@ describe('Games', () => {
         let finishRound
         timer.setTimeout = (callback) => finishRound = callback
         timer.clearTimeout = () => finishRound = () => null
-        quizRepo.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }, { text: 'question2', answers: [] }]
+        quizService.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }, { text: 'question2', answers: [] }]
         events.publish = function (...args) { this.receivedArgs = args }
 
         const gameId = await host()
@@ -150,9 +151,8 @@ describe('Games', () => {
         finishRound()
         games.guess(gameId, 1, 'bob', 0)
         const expectedRanking = [
-            // REVISE once we got the socketId out of the games, we don't need jasmine.objectContaining any longer
-            jasmine.objectContaining({ name: 'alice', avatar: jasmine.any(String), score: jasmine.any(Number) }),
-            jasmine.objectContaining({ name: 'bob', avatar: jasmine.any(String), score: 0 })
+            { name: 'alice', avatar: jasmine.any(String), score: jasmine.any(Number) },
+            { name: 'bob', avatar: jasmine.any(String), score: 0 }
         ]
         expect(events.receivedArgs).toEqual(['roundFinished', gameId, expectedRanking])
     })
