@@ -17,15 +17,14 @@
         loadCss('/style.css')
         loadCss('/font/komikatext_regular_macroman/stylesheet.css')
         import StickyCard from '/components/sticky/sticky-card.js'
-        import Countdown from '/components/countdown.js'
         import Shell from '/components/shell/shell.js'
-        loadCss('/components/host/host.css')
+        import Distribution from '/components/distribution/distribution.js'
+        loadCss('/components/distribution/distribution.css')
         loadCss('/components/sticky/sticky-card.css')
         loadCss('/components/shell/shell.css')
 
-        const question = {
-            "id": 1,
-            "text": "Which one below is not mentioned in fairy tales of the Mid-Autumn Festival?",
+        const distribution = {
+            "questionText": "Which one below is not mentioned in fairy tales of the Mid-Autumn Festival?",
             "answers": [
                 { "id": "A", "text": "Chang’e, the goddess of the moon", "count": 25 },
                 { "id": "B", "text": "Pied magpie", "count": 2 },
@@ -36,31 +35,9 @@
             totalQuestions: 1
         }
 
-        const RoundResult = function (props) {
-            const colors = ['green', 'purple', 'blue', 'orange']
-
-            const answersBlock = props.question.answers.map((answer, index) => {
-                const style = (answer.id === props.question.rightAnswerId) ? '' : 'opacity: 40%; transform: scale(.8);'
-                const countStyle ='position: relative; bottom: 30%; right: 15%; font-size: min(5vw, 5vh); color: white; text-align: right;'
-                return html`<div style=${style}>
-                    <${StickyCard} key=${index} color=${colors[index]} text=${answer.text} info=${answer.count}/>
-                    <div style=${countStyle}>${answer.count}</div>
-                </div>`
-            })
-
-            const progress = `(${props.question.id}/${props.question.totalQuestions})`
-
-            return html`<div class=hostQuestionAndAnswers>
-                <h1 class=hostQuestion>${progress} ${props.question.text}</h1>
-                <div class=hostAnswers>
-                    ${answersBlock}
-                </div>
-            </div>`
-        }
-
         const Page = function () {
             return html`<${Shell}>
-                <${RoundResult} question=${question} />
+                <${Distribution} distribution=${distribution} />
             <//>`
         }
 

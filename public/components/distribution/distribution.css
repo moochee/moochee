@@ -1,0 +1,19 @@
+.distributionQuestionAndAnswers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.distributionQuestion {
+    text-align: center;
+    font-size: 4vh;
+    color: #0070c0;
+}
+
+.distributionAnswers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
