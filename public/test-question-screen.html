@@ -27,7 +27,7 @@
             "id": 1,
             "text": "Which one below is not mentioned in fairy tales of the Mid-Autumn Festival?",
             "answers": [
-                { "id": "A", "text": "Chang’e, the goddess of the moon", "count": 5 },
+                { "id": "A", "text": "Chang’e, the goddess of the moon", "count": 25 },
                 { "id": "B", "text": "Pied magpie", "count": 2 },
                 { "id": "C", "text": "Osmanthus tree", "count": 1 },
                 { "id": "D", "text": "Jade Rabbit", "count": 0 }
@@ -40,9 +40,12 @@
             const colors = ['green', 'purple', 'blue', 'orange']
 
             const answersBlock = props.question.answers.map((answer, index) => {
-                const wrong = answer.id != props.question.rightAnswerId
-                return html`<${StickyCard} key=${index} color=${colors[index]} text=${answer.text} 
-                    wrong=${wrong} count=${answer.count}/>`
+                const style = (answer.id === props.question.rightAnswerId) ? '' : 'opacity: 40%; transform: scale(.8);'
+                const countStyle ='position: relative; bottom: 30%; right: 15%; font-size: min(5vw, 5vh); color: white; text-align: right;'
+                return html`<div style=${style}>
+                    <${StickyCard} key=${index} color=${colors[index]} text=${answer.text} info=${answer.count}/>
+                    <div style=${countStyle}>${answer.count}</div>
+                </div>`
             })
 
             const progress = `(${props.question.id}/${props.question.totalQuestions})`

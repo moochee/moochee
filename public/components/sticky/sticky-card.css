@@ -13,19 +13,3 @@
     text-align: center;
     transform: translate(0, -50%) rotate(-3deg);
 }
-
-.rightAnswer {
-    opacity: 100%;
-}
-
-.wrongAnswer {
-    opacity: 50%;
-}
-
-.count {
-    position: relative;
-    bottom: 5%;
-    left: 50%;
-    font-size: min(5vw, 5vh);
-    color: black;
-}
