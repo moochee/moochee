@@ -47,7 +47,7 @@ const QuestionAndAnswers = function (props) {
 
 export default function Play(props) {
     const [question, setQuestion] = useState(null)
-    const [result, setResult] = useState(null)
+    const [status, setStatus] = useState(null)
     const [waitingForOtherResponses, setWaitingForOtherResponses] = useState(false)
     const [waitingToStart, setWaitingToStart] = useState(true)
     const [isFinal, setIsFinal] = useState(false)
@@ -65,21 +65,21 @@ export default function Play(props) {
     const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
         setQuestion(newQuestion)
         setWaitingForOtherResponses(false)
-        setResult(null)
+        setStatus(null)
         setWaitingToStart(false)
         setCountDown(secondsToGuess)
     }
 
-    const onRoundFinished = (gameId, result) => {
+    const onRoundFinished = (gameId, status) => {
         setQuestion(null)
         setWaitingForOtherResponses(false)
-        setResult(result)
+        setStatus(status)
         setCountDown(null)
-        setScore(result.find(r => r.avatar === props.playerAvatar).score)
+        setScore(status.scoreboard.find(r => r.avatar === props.playerAvatar).score)
     }
 
-    const onGameFinished = (gameId, result) => {
-        onRoundFinished(gameId, result)
+    const onGameFinished = (gameId, status) => {
+        onRoundFinished(gameId, status)
         setIsFinal(true)
     }
 
@@ -87,7 +87,7 @@ export default function Play(props) {
         props.client.guess(props.gameId, question.id, props.playerName, answerId)
         setQuestion(null)
         setWaitingForOtherResponses(true)
-        setResult(null)
+        setStatus(null)
     }
 
     useEffect(() => {
@@ -105,10 +105,10 @@ export default function Play(props) {
         }
     }, [])
 
-    const showPodium = Boolean(result) && !isFinal
+    const showPodium = Boolean(status) && !isFinal
     const waitingToStartBlock = waitingToStart ? html`<${WaitingToStart} avatar=${props.playerAvatar} otherPlayers=${props.otherPlayers} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} onGuess=${guess} />` : ''
-    const podiumBlock = showPodium ? html`<${Podium} players=${result} />` : ''
+    const podiumBlock = showPodium ? html`<${Podium} players=${status.scoreboard} />` : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
     const gameOverBlock = isFinal ? html`<h2>Game is over!</h2>` : ''
 

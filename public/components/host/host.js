@@ -66,7 +66,7 @@ export default function Host(props) {
     const [players, setPlayers] = useState([])
     const [question, setQuestion] = useState(null)
     const [canStart, setCanStart] = useState(false)
-    const [result, setResult] = useState(null)
+    const [status, setStatus] = useState(null)
     const [isFinal, setIsFinal] = useState(false)
     const [countDown, setCountDown] = useState(null)
     const [volume, setVolume] = useState(1)
@@ -93,19 +93,19 @@ export default function Host(props) {
 
     const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
         setQuestion(newQuestion)
-        setResult(null)
+        setStatus(null)
         setCountDown(secondsToGuess)
     }
 
-    const onRoundFinished = (gameId, result) => {
+    const onRoundFinished = (gameId, status) => {
         setQuestion(null)
-        setResult(result)
+        setStatus(status)
         setCountDown(null)
     }
 
-    const onGameFinished = (gameId, result) => {
+    const onGameFinished = (gameId, status) => {
         setQuestion(null)
-        setResult(result)
+        setStatus(status)
         setIsFinal(true)
     }
 
@@ -133,12 +133,12 @@ export default function Host(props) {
         }
     }, [])
 
-    const showPodium = Boolean(result)
-    const waitingToStart = !question && !result
+    const showPodium = Boolean(status)
+    const waitingToStart = !question && !status
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} client=${props.client} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />` : ''
-    const podiumBlock = showPodium && !isFinal ? html`<${PodiumPage} players=${result} onNext=${nextRound} />` : ''
-    const podiumFinalBlock = showPodium && isFinal ? html`<${PodiumFinalPage} players=${result} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
+    const podiumBlock = showPodium && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} onNext=${nextRound} />` : ''
+    const podiumFinalBlock = showPodium && isFinal ? html`<${PodiumFinalPage} players=${status.scoreboard} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`
 

@@ -26,7 +26,7 @@ describe('Games', () => {
         expect(joinResponse).toEqual({ quizTitle: 'sample quiz', name: 'alice', avatar: jasmine.any(String), otherPlayers: [] })
     })
 
-    it('is not possible to join with a player name that is already taken in this game', async () => {
+    it('cannot be joined with a player name that is already taken in same game', async () => {
         const gameId = await host()
         games.join(gameId, 'alice')
         // TODO 'bob' should be able to join if the name is only taken in another game
@@ -38,7 +38,7 @@ describe('Games', () => {
         }
     })
 
-    it('is an error if the game does not exist', async () => {
+    it('cannot be joined if the game id does not exist', async () => {
         expect(() => games.join(42, 'alice')).toThrowError(/not exist/)
     })
 
@@ -51,12 +51,29 @@ describe('Games', () => {
         expect(events.receivedArgs).toEqual(['roundStarted', gameId, expectedQuestion, 10])
     })
 
-    it('presents the ranking when a round is finished', async () => {
+    it('presents the answer distribution when a round is finished', async () => {
+        const q1 = { text: 'q1', answers: [{ 'id': 'A', 'text': 'a' }, { 'id': 'B', 'text': 'b' }], rightAnswerId: 'A' }
+        const q2 = { text: 'q1', answers: [] }
+        quizService.questions = [q1, q2]
+        const gameId = await host()
+        games.join(gameId, 'alice')
+        games.join(gameId, 'bob')
+        games.nextRound(gameId)
+        const questionId = 1
+        games.guess(gameId, questionId, 'alice', 'A')
+        games.guess(gameId, questionId, 'bob', 'A')
+        expect(events.receivedArgs).toEqual(['roundFinished', gameId, jasmine.any(Object)])
+        const result = events.receivedArgs[2].result
+        expect(result.answers.find(a => a.id === 'A').count).toEqual(2)
+        expect(result.answers.find(a => a.id === 'B').count).toEqual(0)
+    })
+
+    it('presents the scoreboard when a round is finished', async () => {
         quizService.questions = [{ text: 'question1', answers: [] }, { text: 'question2', answers: [] }]
-        timer.setTimeout = (callback) => callback() //instantly invoke callback -> finish round right after start
+        timer.setTimeout = (finishRound) => finishRound() //instantly finish round right after start
         const gameId = await host()
         games.nextRound(gameId)
-        expect(events.receivedArgs).toEqual(['roundFinished', gameId, []]) // no players, so the ranking is empty
+        expect(events.receivedArgs).toEqual(['roundFinished', gameId, jasmine.objectContaining({ scoreboard: [] })]) // no players, so the scoreboard is empty
     })
 
     it('presents the second question when the next round is started', async () => {
@@ -69,16 +86,18 @@ describe('Games', () => {
         expect(events.receivedArgs).toEqual(['roundStarted', gameId, expectedQuestion, 10])
     })
 
-    it('finishes the game when there are no more questions', async () => {
+    it('is finished when there are no more questions', async () => {
         quizService.questions = [{ text: 'question1', answers: [] }]
-        timer.setTimeout = (callback) => callback() //instantly invoke callback -> finish round right after start
+        timer.setTimeout = (finishRound) => finishRound() //instantly finish round right after start
         const gameId = await host()
         games.nextRound(gameId)
-        expect(events.receivedArgs).toEqual(['gameFinished', gameId, []]) // no players, so the ranking is empty
+        expect(events.receivedArgs).toEqual(['gameFinished', gameId, jasmine.any(Object)])
     })
 
-    it('assigns some points to a player who guessed the right answer', async () => {
-        quizService.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }]
+    it('assigns points if player guessed the right answer', async () => {
+        quizService.questions = [
+            { text: 'q1', answers: [{ 'id': 'A', 'text': 'a' }, { 'id': 'B', 'text': 'b' }], rightAnswerId: 'A' }
+        ]
         let finishRound
         timer.setTimeout = (callback) => finishRound = callback
         const gameId = await host()
@@ -86,16 +105,12 @@ describe('Games', () => {
         games.join(gameId, 'bob')
         games.nextRound(gameId)
         const questionId = 1
-        games.guess(gameId, questionId, 'alice', 0)
-        games.guess(gameId, questionId, 'bob', 1)
+        games.guess(gameId, questionId, 'alice', 'A')
+        games.guess(gameId, questionId, 'bob', 'B')
         finishRound()
-        const expectedRanking = [
-            { name: 'alice', avatar: jasmine.any(String), score: jasmine.any(Number) },
-            { name: 'bob', avatar: jasmine.any(String), score: 0 }
-        ]
-        expect(events.receivedArgs).toEqual(['gameFinished', gameId, expectedRanking])
-        const aliceScore = events.receivedArgs[2].find(p => p.name === 'alice').score
-        expect(aliceScore).toBeGreaterThan(0)
+
+        expect(events.receivedArgs[2].scoreboard[0].score).toBeGreaterThan(0)
+        expect(events.receivedArgs[2].scoreboard[1].score).toBe(0)
     })
 
     it('should fire finishRound only once if all players guessed before timeout', async () => {
@@ -118,12 +133,12 @@ describe('Games', () => {
     })
 
     it('should fire finishRound only once if the last player answered after timeout', async () => {
-        let finishRound
+        let finishRound, finishRoundCalled = 0
         timer.setTimeout = (callback) => finishRound = callback
         timer.clearTimeout = () => finishRound = () => null
         quizService.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }, { text: 'question2', answers: [] }]
         events.publish = function (...args) {
-            if (args[0] === 'roundFinished') this.finishRoundCalled = (this.finishRoundCalled || 0) + 1
+            if (args[0] === 'roundFinished') finishRoundCalled++
         }
 
         const gameId = await host()
@@ -133,28 +148,27 @@ describe('Games', () => {
         games.guess(gameId, 1, 'alice', 0)
         finishRound()
         games.guess(gameId, 1, 'bob', 0)
-        expect(events.finishRoundCalled).toEqual(1)
+        expect(finishRoundCalled).toEqual(1)
     })
 
     it('should get zero score if the last player answered correctly after timeout', async () => {
         let finishRound
         timer.setTimeout = (callback) => finishRound = callback
         timer.clearTimeout = () => finishRound = () => null
-        quizService.questions = [{ text: 'question1', answers: ['x', 'y'], rightAnswerId: 0 }, { text: 'question2', answers: [] }]
+        quizService.questions = [
+            { text: 'q1', answers: [{ 'id': 'A', 'text': 'a' }, { 'id': 'B', 'text': 'b' }], rightAnswerId: 'A' }
+        ]
         events.publish = function (...args) { this.receivedArgs = args }
 
         const gameId = await host()
         games.join(gameId, 'alice')
         games.join(gameId, 'bob')
         games.nextRound(gameId)
-        games.guess(gameId, 1, 'alice', 0)
+        games.guess(gameId, 1, 'alice', 'A')
         finishRound()
-        games.guess(gameId, 1, 'bob', 0)
-        const expectedRanking = [
-            { name: 'alice', avatar: jasmine.any(String), score: jasmine.any(Number) },
-            { name: 'bob', avatar: jasmine.any(String), score: 0 }
-        ]
-        expect(events.receivedArgs).toEqual(['roundFinished', gameId, expectedRanking])
+        games.guess(gameId, 1, 'bob', 'A')
+        expect(events.receivedArgs[2].scoreboard[0].score).toBeGreaterThan(0)
+        expect(events.receivedArgs[2].scoreboard[1].score).toBe(0)
     })
 
     const host = async () => {
