@@ -1,0 +1,64 @@
+{
+    "title": "Agile SCRUM & ASE Onboarding",
+    "questions": [
+        {
+            "text": "What is the outcome of a Sprint?",
+            "answers": [
+                { "id": "A", "text": "Backlog Item" },
+                { "id": "B", "text": "Delivery Unit" },
+                { "id": "C", "text": "Product Increment" },
+                { "id": "D", "text": "Sprint Goal" }
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "What is one purpose of the daily scrum?",
+            "answers": [
+                { "id": "A", "text": "Check if we are on track to achieve the Sprint Goals." },
+                { "id": "B", "text": "Prioritize the sprint backlog." },
+                { "id": "D", "text": "Refine the sprint backlog." },
+                { "id": "C", "text": "Track the status of all team members." }
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "What is not a role in a typical Scrum team?",
+            "answers": [
+                { "id": "A", "text": "Developers" },
+                { "id": "B", "text": "Manager" },
+                { "id": "C", "text": "Product Owner" },
+                { "id": "D", "text": "Scrum Master" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "What is NOT an ASE methodology?",
+            "answers": [
+                { "id": "A", "text": "Clean Code" },
+                { "id": "B", "text": "Pair-Programming" },
+                { "id": "C", "text": "Prototyping" },
+                { "id": "D", "text": "Refactoring" }
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "What of the below topics is seen as an external quality?",
+            "answers": [
+                { "id": "A", "text": "Extensibility" },
+                { "id": "B", "text": "Readability" },
+                { "id": "C", "text": "Testability" },
+                { "id": "D", "text": "Usability" }
+            ],
+            "rightAnswerId": "D"
+        },
+        {
+            "text": "What is meant with Shift Left Quality model?",
+            "answers": [
+                { "id": "A", "text": "Find and prevent defects early in the software delivery process." },
+                { "id": "B", "text": "Method of debugging by examining source code before a program is run." },
+                { "id": "D", "text": "Simultaneous learning, test design, and execution." }
+            ],
+            "rightAnswerId": "A"
+        }
+    ]
+}
