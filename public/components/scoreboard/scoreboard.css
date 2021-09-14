@@ -1,27 +1,40 @@
-/* TODO @media to display a frame in landscape mode */
-
 /* TODO should we make it bounce? */
+
 @keyframes rankingMove {
     to {
         transform: translateY(calc(var(--positions) * 100 * 1%));
     }
 }
 
-
-/* @keyframes moveDown {
-    to {
-        transform: translateY(+200%);
-    }
-} */
-
 .rankingMove {
     animation: rankingMove 1s linear forwards;
 }
 
-/* .moveDown {
-    animation: moveDown 1s linear forwards;
-} */
-
 .rankingInvisible {
     opacity: 0;
+}
+
+.rankingDisappear {
+    animation: rankingDisappear 1s linear forwards;
+}
+
+@keyframes rankingDisappear {
+    to {
+        opacity: 0;
+        transform: translateY(500%);
+    }
+}
+
+.rankingAppear {
+    animation: rankingAppear 1s linear forwards;
+}
+
+@keyframes rankingAppear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(calc(var(--positions) * 100 * 1%));
+    }
 }

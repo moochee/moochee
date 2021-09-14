@@ -9,20 +9,24 @@ loadCss('/components/scoreboard/scoreboard.css')
 // TODO move remaining styling to css
 
 export default function Scoreboard() {
-    // REVISE check if we can live without those 'invisible' style classes
-    let [rankingClasses, setRankingClasses] = useState(['', '', '', '', '', 'rankingInvisible', 'rankingInvisible'])
+    let [rankingClasses, setRankingClasses] = useState(['', '', '', '', '', 'rankingInvisible', 'rankingInvisible', 'rankingInvisible', 'rankingInvisible', 'rankingInvisible', 'rankingInvisible'])
     let rankingRef = useRef()
 
     const updateRanking = () => {
-        // TODO hard coded right now to simulate swapping rank 1 and 2
-        rankingRef.current.children[0].style.setProperty('--positions', 1)
-        rankingRef.current.children[1].style.setProperty('--positions', -1)
-        setRankingClasses(oldRankingClasses => {
-            const newRankingClasses = [...oldRankingClasses]
-            newRankingClasses[0] = 'rankingMove'
-            newRankingClasses[1] = 'rankingMove'
-            return newRankingClasses
+        const newRankingClasses = new Array(7)
+        ranking.forEach((entry, index) => {
+            rankingRef.current.children[index].style.setProperty('--positions', entry.newRank - entry.oldRank)
+            if (entry.oldRank <= 5 && entry.newRank > 5) {
+                newRankingClasses[index] = 'rankingDisappear'
+            } else if (entry.oldRank > 5 && entry.newRank <= 5) {
+                newRankingClasses[index] = 'rankingAppear'
+            } else if (entry.oldRank > 5 && entry.newRank > 5) {
+                newRankingClasses[index] = 'rankingInvisible'
+            } else {
+                newRankingClasses[index] = 'rankingMove'
+            }
         })
+        setRankingClasses(newRankingClasses)
     }
 
     useEffect(() => {
@@ -31,6 +35,11 @@ export default function Scoreboard() {
 
     // TODO tryout counter animation using css @property https://css-tricks.com/animating-number-counters/
 
+    // const ranking = [
+    //     { avatar: '🐶', oldScore: 100, newScore: 100, oldRank: 2, newRank: 1 },
+    //     { avatar: '🐱', oldScore: 200, newScore: 100, oldRank: 1, newRank: 2 }
+    // ]
+
     const ranking = [
         { avatar: '🐶', oldScore: 100, newScore: 100, oldRank: 7, newRank: 1 },
         { avatar: '🐱', oldScore: 200, newScore: 100, oldRank: 6, newRank: 2 },
@@ -38,33 +47,27 @@ export default function Scoreboard() {
         { avatar: '🐹', oldScore: 400, newScore: 100, oldRank: 4, newRank: 4 },
         { avatar: '🐰', oldScore: 500, newScore: 100, oldRank: 3, newRank: 5 },
         { avatar: '🦊', oldScore: 600, newScore: 100, oldRank: 2, newRank: 6 },
-        { avatar: '🐻', oldScore: 20000, newScore: 100, oldRank: 1, newRank: 7 }
+        { avatar: '🐼', oldScore: 300, newScore: 100, oldRank: 8, newRank: 8 },
+        { avatar: '🐨', oldScore: 400, newScore: 100, oldRank: 9, newRank: 9 },
+        { avatar: '🐯', oldScore: 500, newScore: 100, oldRank: 10, newRank: 10 },
+        { avatar: '🦁', oldScore: 600, newScore: 100, oldRank: 11, newRank: 11 },
+        { avatar: '🐻', oldScore: 20000, newScore: 50, oldRank: 1, newRank: 7 }
     ]
 
     ranking.sort((a, b) => a.oldRank - b.oldRank)
 
-    const entries = ranking.map((e, index) => index <= 4
-        ? html`
-            <div key=${e.avatar}>
-                <div class=${rankingClasses[index]} style='display: flex; align-items: center;'>
-                    <div style='margin-right: 0.5em; font-size: 2em;'>${e.avatar}</div>
-                    <div style='white-space: nowrap;'>${e.oldScore} points</div>
-                </div>
-            </div>`
-        : ''
-    )
+    const entries = ranking.map((e, index) => {
+        return html`<div key=${e.avatar} class=${rankingClasses[index]} style='display: flex; align-items: center;'>
+            <div style='margin-right: 0.5em; font-size: 2em;'>${e.avatar}</div>
+            <div style='white-space: nowrap;'>${e.oldScore} points</div>
+        </div>`
+    })
 
-    return html`
-        <${Shell} headerCenter='Score Board'>
-            <div style='height: 100%; display: flex; align-items: center;'>
-                <div
-                    style='background-color: white; box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); margin-left: 20%; width: 60%; font-size: 4vh; display: flex; flex-direction: column; align-items: center;'>
-                    <!-- style='border: 1px solid; box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 4vh;'> -->
-                    <div ref=${rankingRef}>
-                        ${entries}
-                    </div>
-                </div>
+    return html`<${Shell} headerCenter='Score Board'>
+        <div style='height: 100%; display: flex; justify-content: center; font-size: 5vh;'>
+            <div style='margin-top: 5vh' ref=${rankingRef}>
+                ${entries}
             </div>
-            </ />
-    `
+        </div>
+    </ />`
 }
