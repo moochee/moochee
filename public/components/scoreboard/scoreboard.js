@@ -11,8 +11,6 @@ export default function Scoreboard(props) {
     // TODO tryout counter animation using css @property https://css-tricks.com/animating-number-counters/
     const rankingClasses = {}
 
-    props.ranking.sort((a, b) => a.oldRank - b.oldRank)
-
     props.ranking.forEach(entry => {
         if (entry.oldRank <= 5 && entry.rank > 5) {
             rankingClasses[entry.avatar] = 'rankingMoveOut'
@@ -47,7 +45,7 @@ export default function Scoreboard(props) {
     }, [])
 
     return html`<div ref=${scoreboard} class=ranking>
-        <div style='display: flex; flex-direction: column; align-items: center; margin-top: 10vh;'>
+        <div style='display: flex; flex-direction: column; align-items: center; margin-top: 12vh;'>
             ${entries}
         </div>
     </div>`

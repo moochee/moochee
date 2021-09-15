@@ -113,8 +113,8 @@ export default function Host(props) {
             const oldEntry = oldScoreboard.find(e => e.avatar === entry.avatar) || {}
             return { ...entry, rank: index + 1, oldScore: oldEntry.score, oldRank: oldEntry.rank }
         })
-        updatedScoreboard.sort((a, b) => a.oldScore - b.oldRank)
-        console.log(updatedScoreboard)
+        // FIXME: didn't get it, shouldn't be sorting on old score instead?
+        updatedScoreboard.sort((a, b) => a.oldRank - b.oldRank)
         return updatedScoreboard
     }
 
