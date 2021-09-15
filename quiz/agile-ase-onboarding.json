@@ -42,7 +42,7 @@
             "rightAnswerId": "D"
         },
         {
-            "text": "What is meant with Shift Left Quality model?",
+            "text": "What can be done to achieve shift left?",
             "answers": [
                 { "id": "A", "text": "Perform tests early." },
                 { "id": "B", "text": "Use debugging." },
