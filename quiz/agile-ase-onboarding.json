@@ -44,9 +44,9 @@
         {
             "text": "What is meant with Shift Left Quality model?",
             "answers": [
-                { "id": "A", "text": "Find and prevent defects early in the software delivery process." },
-                { "id": "B", "text": "Method of debugging by examining source code before a program is run." },
-                { "id": "C", "text": "Simultaneous learning, test design, and execution." }             
+                { "id": "A", "text": "Perform tests early." },
+                { "id": "B", "text": "Use debugging." },
+                { "id": "C", "text": "Perform manual testing before release." }             
             ],
             "rightAnswerId": "A"
         }
