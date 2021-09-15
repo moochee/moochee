@@ -11,7 +11,7 @@ export default function Scoreboard(props) {
     // TODO tryout counter animation using css @property https://css-tricks.com/animating-number-counters/
     const rankingClasses = {}
 
-    // ranking.sort((a, b) => a.oldRank - b.oldRank)
+    props.ranking.sort((a, b) => a.oldRank - b.oldRank)
 
     props.ranking.forEach(entry => {
         if (entry.oldRank <= 5 && entry.rank > 5) {
