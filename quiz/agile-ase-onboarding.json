@@ -32,16 +32,6 @@
             "rightAnswerId": "B"
         },
         {
-            "text": "What is NOT an ASE methodology?",
-            "answers": [
-                { "id": "A", "text": "Clean Code" },
-                { "id": "B", "text": "Pair-Programming" },
-                { "id": "C", "text": "Prototyping" },
-                { "id": "D", "text": "Refactoring" }                
-            ],
-            "rightAnswerId": "C"
-        },
-        {
             "text": "What of the below topics is seen as an external quality?",
             "answers": [
                 { "id": "A", "text": "Extensibility" },
