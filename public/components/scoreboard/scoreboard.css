@@ -1,5 +1,14 @@
 /* TODO should we make it bounce? */
 
+.ranking {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    color: white;
+    font-size: 5vh;
+    background: content-box radial-gradient(grey, black);
+}
+
 .rankingMove {
     animation: rankingMove 1s linear forwards;
     animation-delay: 2s;
@@ -43,7 +52,7 @@
 .rankingAppear {
     opacity: 0;
     animation: rankingAppear 1s linear forwards;
-    animation-delay: 2s;
+    animation-delay: 0.5s;
 }
 
 @keyframes rankingAppear {

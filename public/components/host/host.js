@@ -6,7 +6,8 @@ import loadCss from '/load-css.js'
 import AudioControl from '/components/audio/audio-control.js'
 import Shell from '/components/shell/shell.js'
 import Countdown from '/components/countdown.js'
-import Podium from '/components/podium/podium.js'
+import Scoreboard from '/components/scoreboard/scoreboard.js'
+import Distribution from '/components/distribution/distribution.js'
 import PodiumFinal from '/components/podium/podium-final.js'
 import StickyCard from '/components/sticky/sticky-card.js'
 import StickyButton from '/components/sticky/sticky-button.js'
@@ -36,8 +37,23 @@ const QuestionAndAnswers = function (props) {
 }
 
 const PodiumPage = function (props) {
+    const [showScoreboard, setShowScoreboard] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => setShowScoreboard(false), 10000)
+    }, [])
+
+    const scoreboardBlock = showScoreboard ? html`<${Scoreboard} ranking=${props.players} />` : ''
+    const distributionBlock = !showScoreboard ? html`<${Distribution} distribution=${props.result} />` : ''
+
     return html`<div class=hostPodium>
-        <${Podium} players=${props.players} />
+        ${scoreboardBlock}
+        ${distributionBlock}
+        <div class=hostSwitchContainer>
+            <div class=hostSwitch onmouseover=${() => setShowScoreboard(true)}>Scoreboard</div>
+            <div class=hostSwitch>|</div>
+            <div class=hostSwitch onmouseover=${() => setShowScoreboard(false)}>Distribution</div>
+        </div>
         <div class=hostNextQuestionButton>
             <${StickyButton} onClick=${props.onNext} color=blue text='Next Question' />
         </div>
@@ -152,7 +168,7 @@ export default function Host(props) {
     const waitingToStart = !question && !isRoundFinished
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} client=${props.client} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />` : ''
-    const podiumBlock = isRoundFinished && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} onNext=${nextRound} />` : ''
+    const podiumBlock = isRoundFinished && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} result=${status.result} onNext=${nextRound} />` : ''
     const podiumFinalBlock = isRoundFinished && isFinal ? html`<${PodiumFinalPage} players=${status.scoreboard} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`

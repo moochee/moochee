@@ -1,6 +1,6 @@
 'use strict'
 
-import { html } from '/lib/preact-3.1.0.standalone.module.js'
+import { html, useEffect, useRef } from '/lib/preact-3.1.0.standalone.module.js'
 
 import loadCss from '/load-css.js'
 import StickyCard from '/components/sticky/sticky-card.js'
@@ -8,6 +8,19 @@ import StickyCard from '/components/sticky/sticky-card.js'
 loadCss('components/distribution/distribution.css')
 
 export default function Distribution(props) {
+
+    const distribution = useRef()
+    const setDimensions = () => {
+        const height = Math.min(window.innerHeight, window.innerWidth * 9 / 16) / 100
+        distribution.current.style.setProperty('--height', height)
+        distribution.current.style.setProperty('--width', height * 16 / 9)
+    }
+    useEffect(() => {
+        setDimensions()
+        window.addEventListener('resize', setDimensions)
+        return () => window.removeEventListener('resize', setDimensions)
+    }, [])
+
     const colors = ['green', 'purple', 'blue', 'orange']
 
     const answersBlock = props.distribution.answers.map((answer, index) => {
@@ -20,7 +33,7 @@ export default function Distribution(props) {
         </div>`
     })
 
-    return html`<div class=distributionQuestionAndAnswers>
+    return html`<div ref=${distribution} class=distributionQuestionAndAnswers>
         <h1 class=distributionQuestion>${props.distribution.questionText}</h1>
         <div class=distributionAnswers>
             ${answersBlock}

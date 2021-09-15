@@ -34,3 +34,22 @@
 .hostPodium {
     height: 100%;
 }
+
+.hostSwitchContainer {
+    position: absolute;
+    right: 45%;
+    bottom: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2vh;
+}
+
+.hostSwitch {
+    color: lightgray;
+    font-size: 2vh;
+}
+
+.hostSwitch:hover {
+    color: white;
+}

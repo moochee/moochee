@@ -1,7 +1,6 @@
 'use strict'
 
-import { html } from '/lib/preact-3.1.0.standalone.module.js'
-import Shell from '/components/shell/shell.js'
+import { html, useEffect, useRef } from '/lib/preact-3.1.0.standalone.module.js'
 import loadCss from '/load-css.js'
 
 loadCss('/components/scoreboard/scoreboard.css')
@@ -35,11 +34,21 @@ export default function Scoreboard(props) {
         </div>`
     })
 
-    return html`<${Shell} headerCenter='Score Board'>
-        <div style='height: 100%; display: flex; justify-content: center; font-size: 5vh;'>
-            <div style='margin-top: 5vh'>
-                ${entries}
-            </div>
+    const scoreboard = useRef()
+    const setDimensions = () => {
+        const height = Math.min(window.innerHeight, window.innerWidth * 9 / 16) / 100
+        scoreboard.current.style.setProperty('--height', height)
+        scoreboard.current.style.setProperty('--width', height * 16 / 9)
+    }
+    useEffect(() => {
+        setDimensions()
+        window.addEventListener('resize', setDimensions)
+        return () => window.removeEventListener('resize', setDimensions)
+    }, [])
+
+    return html`<div ref=${scoreboard} class=ranking>
+        <div style='display: flex; flex-direction: column; align-items: center; justify-content: center;'>
+            ${entries}
         </div>
-    </ />`
+    </div>`
 }
