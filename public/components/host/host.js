@@ -40,7 +40,8 @@ const PodiumPage = function (props) {
     const [showScoreboard, setShowScoreboard] = useState(true)
 
     useEffect(() => {
-        setTimeout(() => setShowScoreboard(false), 10000)
+        const timeoutId = setTimeout(() => setShowScoreboard(false), 6000)
+        return () => clearTimeout(timeoutId)
     }, [])
 
     const scoreboardBlock = showScoreboard ? html`<${Scoreboard} ranking=${props.players} />` : ''
@@ -49,11 +50,9 @@ const PodiumPage = function (props) {
     return html`<div class=hostPodium>
         ${scoreboardBlock}
         ${distributionBlock}
-        <div class=hostSwitchContainer>
-            <div class=hostSwitch onmouseover=${() => setShowScoreboard(true)}>Scoreboard</div>
-            <div class=hostSwitch>|</div>
-            <div class=hostSwitch onmouseover=${() => setShowScoreboard(false)}>Distribution</div>
-        </div>
+        <div class=hostSwitch
+            onmouseover=${() => setShowScoreboard(true)}
+            onmouseout=${() => setShowScoreboard(false)}>Scoreboard</div>
         <div class=hostNextQuestionButton>
             <${StickyButton} onClick=${props.onNext} color=blue text='Next Question' />
         </div>
@@ -65,7 +64,8 @@ const PodiumFinalPage = function (props) {
 
     useEffect(() => {
         props.stopMusic()
-        setTimeout(() => setCanBackHome(true), 20000)
+        const timeoutId = setTimeout(() => setCanBackHome(true), 20000)
+        return () => clearTimeout(timeoutId)
     }, [])
 
     const backHomeButton = canBackHome ? html`<div class=hostBackHomeButton>
@@ -120,7 +120,6 @@ export default function Host(props) {
 
     const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
         setQuestion(newQuestion)
-        setStatus({ scoreboard: [] })
         setCountDown(secondsToGuess)
         setIsRoundFinished(false)
     }
