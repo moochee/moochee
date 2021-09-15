@@ -66,7 +66,8 @@ export default function Host(props) {
     const [players, setPlayers] = useState([])
     const [question, setQuestion] = useState(null)
     const [canStart, setCanStart] = useState(false)
-    const [status, setStatus] = useState(null)
+    const [isRoundFinished, setIsRoundFinished] = useState(false)
+    const [status, setStatus] = useState({ scoreboard: [] })
     const [isFinal, setIsFinal] = useState(false)
     const [countDown, setCountDown] = useState(null)
     const [volume, setVolume] = useState(1)
@@ -91,19 +92,34 @@ export default function Host(props) {
         })
     }
 
+    const updateScoreboard = (oldScoreboard, newScoreboard) => {
+        const updatedScoreboard = newScoreboard.map((entry, index) => {
+            const oldEntry = oldScoreboard.find(e => e.avatar === entry.avatar) || {}
+            return { ...entry, rank: index + 1, oldScore: oldEntry.score, oldRank: oldEntry.rank }
+        })
+        updatedScoreboard.sort((a, b) => a.oldScore - b.oldRank)
+        console.log(updatedScoreboard)
+        return updatedScoreboard
+    }
+
     const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
         setQuestion(newQuestion)
-        setStatus(null)
+        setStatus({ scoreboard: [] })
         setCountDown(secondsToGuess)
+        setIsRoundFinished(false)
     }
 
     const onRoundFinished = (gameId, status) => {
+        setIsRoundFinished(true)
         setQuestion(null)
-        setStatus(status)
+        setStatus(oldStatus => ({
+            result: status.result, scoreboard: updateScoreboard(oldStatus.scoreboard, status.scoreboard)
+        }))
         setCountDown(null)
     }
 
     const onGameFinished = (gameId, status) => {
+        setIsRoundFinished(true)
         setQuestion(null)
         setStatus(status)
         setIsFinal(true)
@@ -133,16 +149,15 @@ export default function Host(props) {
         }
     }, [])
 
-    const showPodium = Boolean(status)
-    const waitingToStart = !question && !status
+    const waitingToStart = !question && !isRoundFinished
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} client=${props.client} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />` : ''
-    const podiumBlock = showPodium && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} onNext=${nextRound} />` : ''
-    const podiumFinalBlock = showPodium && isFinal ? html`<${PodiumFinalPage} players=${status.scoreboard} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
+    const podiumBlock = isRoundFinished && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} onNext=${nextRound} />` : ''
+    const podiumFinalBlock = isRoundFinished && isFinal ? html`<${PodiumFinalPage} players=${status.scoreboard} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`
 
-    return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft=#${props.gameId} footerRight='${players.length} Players' fullScreenContent=${showPodium}>
+    return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft=#${props.gameId} footerRight='${players.length} Players' fullScreenContent=${isRoundFinished}>
         <audio ref=${music} volume=${volume} loop src=components/positive-funny-background-music-for-video-games.mp3></audio>
         ${waitingToStartBlock}
         ${questionBlock}

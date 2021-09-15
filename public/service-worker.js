@@ -16,7 +16,7 @@ self.addEventListener('fetch', (event) => {
         return cacheResponse || remoteResponse
     }
 
-    // filter funny stuff like chrome-extension:// extensions etc.
+    // ignore any protocols other than http(s) (e.g. chrome-extension://, wss://) + range requests (e.g. audio, service worker does not support ranged queries)
     const url = new URL(event.request.url)
     const isRangeReq = event.request.headers.has('range')
     if (['http:', 'https:'].includes(url.protocol) && !isRangeReq) {

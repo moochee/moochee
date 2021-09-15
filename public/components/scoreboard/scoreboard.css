@@ -1,40 +1,53 @@
 /* TODO should we make it bounce? */
 
+.rankingMove {
+    animation: rankingMove 1s linear forwards;
+    animation-delay: 2s;
+}
+
 @keyframes rankingMove {
     to {
         transform: translateY(calc(var(--positions) * 100 * 1%));
     }
 }
 
-.rankingMove {
-    animation: rankingMove 1s linear forwards;
-}
-
 .rankingInvisible {
     opacity: 0;
 }
 
-.rankingDisappear {
-    animation: rankingDisappear 1s linear forwards;
+.rankingMoveOut {
+    animation: rankingMoveOut 1s linear forwards;
+    animation-delay: 2s;
 }
 
-@keyframes rankingDisappear {
+@keyframes rankingMoveOut {
     to {
         opacity: 0;
         transform: translateY(500%);
     }
 }
 
-.rankingAppear {
-    animation: rankingAppear 1s linear forwards;
+.rankingMoveIn {
+    opacity: 0;
+    animation: rankingMoveIn 1s linear forwards;
+    animation-delay: 2s;
 }
 
-@keyframes rankingAppear {
-    from {
-        opacity: 0;
-    }
+@keyframes rankingMoveIn {
     to {
         opacity: 1;
         transform: translateY(calc(var(--positions) * 100 * 1%));
+    }
+}
+
+.rankingAppear {
+    opacity: 0;
+    animation: rankingAppear 1s linear forwards;
+    animation-delay: 2s;
+}
+
+@keyframes rankingAppear {
+    to {
+        opacity: 1;
     }
 }

@@ -18,7 +18,21 @@
         loadCss('/style.css')
         loadCss('/font/komikatext_regular_macroman/stylesheet.css')
 
-        render(html`<${Scoreboard} />`, document.body)
+        const ranking = [
+            { avatar: '🐻', oldScore: 20000, score: 50, oldRank: 1, rank: 7 },
+            { avatar: '🦊', oldScore: 600, score: 100, oldRank: 2, rank: 6 },
+            { avatar: '🐰', oldScore: 500, score: 100, oldRank: 3, rank: 5 },
+            { avatar: '🐹', oldScore: 400, score: 100, oldRank: 4, rank: 4 },
+            { avatar: '🐭', oldScore: 300, score: 100, oldRank: 5, rank: 3 },
+            { avatar: '🐱', oldScore: 200, score: 100, oldRank: 6, rank: 2 },
+            { avatar: '🐶', oldScore: 100, score: 100, oldRank: 7, rank: 1 },
+            { avatar: '🐼', oldScore: 300, score: 100, oldRank: 8, rank: 8 },
+            { avatar: '🐨', oldScore: 400, score: 100, oldRank: 9, rank: 9 },
+            { avatar: '🐯', oldScore: 500, score: 100, oldRank: 10, rank: 10 },
+            { avatar: '🦁', oldScore: 600, score: 100, oldRank: 11, rank: 11 }
+        ]
+
+        render(html`<${Scoreboard} ranking=${ranking} />`, document.body)
     </script>
 </body>
 
