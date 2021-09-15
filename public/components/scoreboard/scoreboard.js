@@ -47,7 +47,7 @@ export default function Scoreboard(props) {
     }, [])
 
     return html`<div ref=${scoreboard} class=ranking>
-        <div style='display: flex; flex-direction: column; align-items: center; justify-content: center;'>
+        <div style='display: flex; flex-direction: column; align-items: center; margin-top: 10vh;'>
             ${entries}
         </div>
     </div>`
