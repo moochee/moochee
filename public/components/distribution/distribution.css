@@ -18,3 +18,28 @@
     justify-content: center;
     flex-wrap: wrap;
 }
+
+.correctAnswerAppear {
+    opacity: 0;
+    animation: correctAnswerAppear 1s linear forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes correctAnswerAppear {
+    to {
+        opacity: 1;
+    }
+}
+
+.wrongAnswerAppear {
+    transform: scale(.8);
+    opacity: 0;
+    animation: wrongAnswerAppear 1s linear forwards;
+    animation-delay: 1s;
+}
+
+@keyframes wrongAnswerAppear {
+    to {
+        opacity: 60%;
+    }
+}
