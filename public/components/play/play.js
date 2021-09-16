@@ -104,6 +104,7 @@ export default function Play(props) {
             setScore(status.scoreboard.find(r => r.avatar === props.playerAvatar).score)
             return { ...status }
         })
+        setCountDown(null)
         setIsFinal(true)
     }
 
