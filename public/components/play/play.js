@@ -58,6 +58,7 @@ export default function Play(props) {
     const [waitingForOtherResponses, setWaitingForOtherResponses] = useState(false)
     const [isFinal, setIsFinal] = useState(false)
     const [countDown, setCountDown] = useState(null)
+    const [score, setScore] = useState(0)
 
     const onPlayerJoined = (gameId, player) => {
         props.onPlayerJoined(player)
@@ -88,9 +89,10 @@ export default function Play(props) {
         setIsRoundFinished(true)
         setQuestion(null)
         setWaitingForOtherResponses(false)
-        setStatus(oldStatus => ({
-            result: status.result, scoreboard: updateScoreboard(oldStatus.scoreboard, status.scoreboard)
-        }))
+        setStatus(oldStatus => {
+            setScore(status.scoreboard.find(r => r.avatar === props.playerAvatar).score)
+            return { result: status.result, scoreboard: updateScoreboard(oldStatus.scoreboard, status.scoreboard) }
+        })
         setCountDown(null)
     }
 
@@ -98,7 +100,10 @@ export default function Play(props) {
         setIsRoundFinished(true)
         setQuestion(null)
         setWaitingForOtherResponses(false)
-        setStatus(status)
+        setStatus(() => {
+            setScore(status.scoreboard.find(r => r.avatar === props.playerAvatar).score)
+            return { ...status }
+        })
         setIsFinal(true)
     }
 
@@ -129,8 +134,6 @@ export default function Play(props) {
     const podiumBlock = isRoundFinished && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} result=${status.result} />` : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
     const gameOverBlock = isRoundFinished && isFinal ? html`<h2>Game over!</h2>` : ''
-
-    const score = status.scoreboard.find(r => r.avatar === props.playerAvatar).score
 
     return html`<${Shell} headerLeft='${props.playerAvatar} ${props.playerName}' headerRight='Score: ${score}' footerLeft=${props.quizTitle} footerRight=''>
         ${waitingToStartBlock}
