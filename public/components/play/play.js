@@ -136,7 +136,7 @@ export default function Play(props) {
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
     const gameOverBlock = isRoundFinished && isFinal ? html`<h2>Game over!</h2>` : ''
 
-    return html`<${Shell} headerLeft='${props.playerAvatar} ${props.playerName}' headerRight='Score: ${score}' footerLeft=${props.quizTitle} footerRight=' '>
+    return html`<${Shell} headerLeft='${props.playerAvatar} ${props.playerName}' headerRight='Score: ${score}' footerLeft=${props.gameId} footerRight=${props.quizTitle}>
         ${waitingToStartBlock}
         ${questionBlock}
         ${podiumBlock}
