@@ -99,6 +99,7 @@ export default function Play(props) {
     const onGameFinished = (gameId, status) => {
         setIsRoundFinished(true)
         setQuestion(null)
+        setWaitingForOtherResponses(false)
         setStatus(status)
         setIsFinal(true)
     }
@@ -129,9 +130,9 @@ export default function Play(props) {
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} onGuess=${guess} />` : ''
     const podiumBlock = isRoundFinished && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} result=${status.result} />` : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
-    const gameOverBlock = isRoundFinished && isFinal ? html`<h2>Game is over!</h2>` : ''
+    const gameOverBlock = isRoundFinished && isFinal ? html`<h2>Game over!</h2>` : ''
 
-    return html`<${Shell} headerLeft=${props.quizTitle} footerLeft='${props.playerAvatar} ${props.playerName}' footerRight='Score: ${score}' fullScreenContent=${isRoundFinished}>
+    return html`<${Shell} headerLeft=${props.quizTitle} footerLeft='${props.playerAvatar} ${props.playerName}' footerRight='Score: ${score}' fullScreenContent=false>
         ${waitingToStartBlock}
         ${questionBlock}
         ${podiumBlock}
