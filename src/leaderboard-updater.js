@@ -12,9 +12,9 @@ const options = {
     }
 }
 
-export default function update(eventName, result) {
+export default function update(eventName, status) {
     if (eventName === 'gameFinished') {
-        const scores = result.map(({ name, score }) => ({ name, score }))
+        const scores = status.scoreboard.map(({ name, score }) => ({ name, score }))
         const data = new TextEncoder().encode(
             JSON.stringify({ scores: scores })
         )
