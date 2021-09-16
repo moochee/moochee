@@ -33,7 +33,7 @@ export default function Distribution(props) {
     })
 
     return html`<div ref=${distribution} class=distributionQuestionAndAnswers>
-        <h1 class=distributionQuestion>${props.distribution.questionText}</h1>
+        <h1 class=distributionQuestion>${props.distribution.text}</h1>
         <div class=distributionAnswers>
             ${answersBlock}
         </div>

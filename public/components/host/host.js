@@ -108,6 +108,12 @@ export default function Host(props) {
         })
     }
 
+    const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
+        setQuestion(newQuestion)
+        setCountDown(secondsToGuess)
+        setIsRoundFinished(false)
+    }
+
     const updateScoreboard = (oldScoreboard, newScoreboard) => {
         const updatedScoreboard = newScoreboard.map((entry, index) => {
             const oldEntry = oldScoreboard.find(e => e.avatar === entry.avatar) || {}
@@ -116,12 +122,6 @@ export default function Host(props) {
         // FIXME: didn't get it, shouldn't be sorting on old score instead?
         updatedScoreboard.sort((a, b) => a.oldRank - b.oldRank)
         return updatedScoreboard
-    }
-
-    const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
-        setQuestion(newQuestion)
-        setCountDown(secondsToGuess)
-        setIsRoundFinished(false)
     }
 
     const onRoundFinished = (gameId, status) => {

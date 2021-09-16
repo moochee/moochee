@@ -4,7 +4,7 @@ import { html, useState, useEffect } from '/lib/preact-3.1.0.standalone.module.j
 import loadCss from '/load-css.js'
 import Shell from '/components/shell/shell.js'
 import Countdown from '/components/countdown.js'
-import Podium from '/components/podium/podium.js'
+import Scoreboard from '/components/scoreboard/scoreboard.js'
 import StickyButton from '/components/sticky/sticky-button.js'
 
 loadCss('components/play/play.css')
@@ -45,11 +45,17 @@ const QuestionAndAnswers = function (props) {
     </div>`
 }
 
+const PodiumPage = function (props) {
+    return html`<div class=hostPodium>
+        <${Scoreboard} ranking=${props.players} />
+    </div>`
+}
+
 export default function Play(props) {
     const [question, setQuestion] = useState(null)
-    const [status, setStatus] = useState(null)
+    const [isRoundFinished, setIsRoundFinished] = useState(false)
+    const [status, setStatus] = useState({ scoreboard: [] })
     const [waitingForOtherResponses, setWaitingForOtherResponses] = useState(false)
-    const [waitingToStart, setWaitingToStart] = useState(true)
     const [isFinal, setIsFinal] = useState(false)
     const [countDown, setCountDown] = useState(null)
     const [score, setScore] = useState(0)
@@ -65,21 +71,35 @@ export default function Play(props) {
     const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
         setQuestion(newQuestion)
         setWaitingForOtherResponses(false)
-        setStatus(null)
-        setWaitingToStart(false)
         setCountDown(secondsToGuess)
+        setIsRoundFinished(false)
+    }
+
+    const updateScoreboard = (oldScoreboard, newScoreboard) => {
+        const updatedScoreboard = newScoreboard.map((entry, index) => {
+            const oldEntry = oldScoreboard.find(e => e.avatar === entry.avatar) || {}
+            return { ...entry, rank: index + 1, oldScore: oldEntry.score, oldRank: oldEntry.rank }
+        })
+        // FIXME: didn't get it, shouldn't be sorting on old score instead?
+        updatedScoreboard.sort((a, b) => a.oldRank - b.oldRank)
+        return updatedScoreboard
     }
 
     const onRoundFinished = (gameId, status) => {
+        setIsRoundFinished(true)
         setQuestion(null)
         setWaitingForOtherResponses(false)
-        setStatus(status)
+        setStatus(oldStatus => ({
+            result: status.result, scoreboard: updateScoreboard(oldStatus.scoreboard, status.scoreboard)
+        }))
         setCountDown(null)
         setScore(status.scoreboard.find(r => r.avatar === props.playerAvatar).score)
     }
 
     const onGameFinished = (gameId, status) => {
-        onRoundFinished(gameId, status)
+        setIsRoundFinished(true)
+        setQuestion(null)
+        setStatus(status)
         setIsFinal(true)
     }
 
@@ -87,7 +107,6 @@ export default function Play(props) {
         props.client.guess(props.gameId, question.id, props.playerName, answerId)
         setQuestion(null)
         setWaitingForOtherResponses(true)
-        setStatus(null)
     }
 
     useEffect(() => {
@@ -105,14 +124,14 @@ export default function Play(props) {
         }
     }, [])
 
-    const showPodium = Boolean(status) && !isFinal
+    const waitingToStart = !question && !isRoundFinished && !waitingForOtherResponses
     const waitingToStartBlock = waitingToStart ? html`<${WaitingToStart} avatar=${props.playerAvatar} otherPlayers=${props.otherPlayers} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} onGuess=${guess} />` : ''
-    const podiumBlock = showPodium ? html`<${Podium} players=${status.scoreboard} />` : ''
+    const podiumBlock = isRoundFinished && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} result=${status.result} />` : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
-    const gameOverBlock = isFinal ? html`<h2>Game is over!</h2>` : ''
+    const gameOverBlock = isRoundFinished && isFinal ? html`<h2>Game is over!</h2>` : ''
 
-    return html`<${Shell} headerLeft=${props.quizTitle} footerLeft='${props.playerAvatar} ${props.playerName}' footerRight='Score: ${score}' fullScreenContent=${showPodium}>
+    return html`<${Shell} headerLeft=${props.quizTitle} footerLeft='${props.playerAvatar} ${props.playerName}' footerRight='Score: ${score}' fullScreenContent=${isRoundFinished}>
         ${waitingToStartBlock}
         ${questionBlock}
         ${podiumBlock}
