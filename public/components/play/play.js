@@ -58,7 +58,6 @@ export default function Play(props) {
     const [waitingForOtherResponses, setWaitingForOtherResponses] = useState(false)
     const [isFinal, setIsFinal] = useState(false)
     const [countDown, setCountDown] = useState(null)
-    const [score, setScore] = useState(0)
 
     const onPlayerJoined = (gameId, player) => {
         props.onPlayerJoined(player)
@@ -93,7 +92,6 @@ export default function Play(props) {
             result: status.result, scoreboard: updateScoreboard(oldStatus.scoreboard, status.scoreboard)
         }))
         setCountDown(null)
-        setScore(status.scoreboard.find(r => r.avatar === props.playerAvatar).score)
     }
 
     const onGameFinished = (gameId, status) => {
@@ -132,7 +130,9 @@ export default function Play(props) {
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
     const gameOverBlock = isRoundFinished && isFinal ? html`<h2>Game over!</h2>` : ''
 
-    return html`<${Shell} headerLeft=${props.quizTitle} footerLeft='${props.playerAvatar} ${props.playerName}' footerRight='Score: ${score}'>
+    const score = status.scoreboard.find(r => r.avatar === props.playerAvatar).score
+
+    return html`<${Shell} headerLeft='${props.playerAvatar} ${props.playerName}' headerRight='Score: ${score}' footerLeft=${props.quizTitle} footerRight=''>
         ${waitingToStartBlock}
         ${questionBlock}
         ${podiumBlock}
