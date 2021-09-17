@@ -12,7 +12,7 @@
             "rightAnswerId": "D"
         },
         {
-            "text": "What's the typical customer expectation of availability in the cloud?",
+            "text": "What's the customer expectation of availability in the cloud?",
             "answers": [
                 { "id": "A", "text": "99.9% almost always available" },
                 { "id": "B", "text": "Available at working days" },
@@ -22,7 +22,7 @@
             "rightAnswerId": "A"
         },
         {
-            "text": "What's the typical main benefit of a microservice architecture?",
+            "text": "What's the main benefit of a microservice architecture?",
             "answers": [
                 { "id": "A", "text": "Function reuse" },
                 { "id": "B", "text": "Increase the speed of innovation" },
@@ -47,7 +47,7 @@
                 { "id": "A", "text": "Cloud services are only offered to private customers" },
                 { "id": "B", "text": "Infrastructure is provided only for single organization" },
                 { "id": "C", "text": "Infrastructure can only be provided on customer's premise" },
-                { "id": "D", "text": "It can only be offerred in the European Union" }
+                { "id": "D", "text": "It can only be offered in the European Union" }
             ],
             "rightAnswerId": "B"
         },

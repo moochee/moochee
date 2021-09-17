@@ -34,7 +34,7 @@
         {
             "text": "What can make it hard to find specific commit that caused an issue?",
             "answers": [
-                { "id": "A", "text": "Commits pushed faster than CD pipeline execution" },
+                { "id": "A", "text": "Commits pushed faster than pipeline execution" },
                 { "id": "B", "text": "Commits pushed faster than every 5 minutes" },
                 { "id": "C", "text": "Commits from different developers" },
                 { "id": "D", "text": "Bad commit message" }
@@ -56,7 +56,7 @@
             "answers": [
                 { "id": "A", "text": "Connecting Fiori apps to BTP" },
                 { "id": "B", "text": "Connecting Platform to Infrastructure" },
-                { "id": "C", "text": "Connecting Cloud apps with On-Premise systems" },
+                { "id": "C", "text": "Connecting Cloud apps with On-Premise" },
                 { "id": "D", "text": "Connecting Cloud apps with Cloud databases" }
             ],
             "rightAnswerId": "C"
