@@ -29,7 +29,7 @@
                 { "id": "C", "text": "Spaghetti Code/no separation of concerns" },
                 { "id": "D", "text": "Data fragmentation" }
             ],
-            "rightAnswerId": "B"
+            "rightAnswerId": "C"
         },
         {
             "text": "What can make it hard to find specific commit that caused an issue?",

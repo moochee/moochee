@@ -22,17 +22,17 @@
             "rightAnswerId": "B"
         },
         {
-            "text": "The ScrumMaster role includes...?",
+            "text": "The Scrum Master role includes...?",
             "answers": [
                 { "id": "A", "text": "Telling the team how to implement backlog items" },
                 { "id": "B", "text": "Getting status from team members in the daily" },
                 { "id": "C", "text": "Assigning work to team members, based on tasks" },
                 { "id": "D", "text": "None of the above" }
             ],
-            "rightAnswerId": "C"
+            "rightAnswerId": "D"
         },
         {
-            "text": "The Goal of the Daily Scrum is not...?",
+            "text": "The Goal of the Daily Scrum is NOT...?",
             "answers": [
                 { "id": "A", "text": "Track the status of all team members" },
                 { "id": "B", "text": "Check if we are on track to achieve the Sprint Goals" },
@@ -52,7 +52,7 @@
             "rightAnswerId": "C"
         },
         {
-            "text": "Per Scrum, the role of the manager is...?",
+            "text": "Per Scrum guide, the role of the manager is...?",
             "answers": [
                 { "id": "A", "text": "Leading self organization" },
                 { "id": "B", "text": "Technology excellence" },
