@@ -52,6 +52,10 @@
     }
 }
 
+.playPodium {
+    height: 100%;
+}
+
 .playAnswers {
     display: flex;
     flex-direction: row;

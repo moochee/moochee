@@ -4,6 +4,7 @@ import { html, useState, useEffect } from '/lib/preact-3.1.0.standalone.module.j
 import loadCss from '/load-css.js'
 import Shell from '/components/shell/shell.js'
 import Countdown from '/components/countdown.js'
+import Distribution from '/components/distribution/distribution.js'
 import Scoreboard from '/components/scoreboard/scoreboard.js'
 import StickyButton from '/components/sticky/sticky-button.js'
 
@@ -46,8 +47,19 @@ const QuestionAndAnswers = function (props) {
 }
 
 const PodiumPage = function (props) {
-    return html`<div class=hostPodium>
-        <${Scoreboard} ranking=${props.players} />
+    const [showDistribution, setShowDistribution] = useState(true)
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => setShowDistribution(false), 6000)
+        return () => clearTimeout(timeoutId)
+    }, [])
+
+    const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
+    const scoreboardBlock = !showDistribution ? html`<${Scoreboard} ranking=${props.players} />` : ''
+
+    return html`<div class=playPodium>
+        ${distributionBlock}
+        ${scoreboardBlock}
     </div>`
 }
 
