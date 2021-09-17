@@ -1,0 +1,65 @@
+{
+    "title": "Blameless Retrospectives",
+    "questions": [
+        {
+            "text": "Scrum is short for...?",
+            "answers": [
+                { "id": "A", "text": "Scrummage" },
+                { "id": "B", "text": "Sumashi Canabe Ramimoto Umame Matsushita" },
+                { "id": "C", "text": "Simple, Cross-functional, Realistic, Unified Management" },
+                { "id": "D", "text": "Software Craftmanship for Realistic Unbiased Management" }
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "The relationship between Agile and Scrum is...?",
+            "answers": [
+                { "id": "A", "text": "They are synonymous" },
+                { "id": "B", "text": "Scrum is a type of Agile" },
+                { "id": "C", "text": "Scrum with Extreme Programming = Agile" },
+                { "id": "D", "text": "Agile is a type of Scrum" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "The ScrumMaster role includes...?",
+            "answers": [
+                { "id": "A", "text": "Telling the team how to implement backlog items" },
+                { "id": "B", "text": "Getting status from team members in the daily" },
+                { "id": "C", "text": "Assigning work to team members, based on tasks" },
+                { "id": "D", "text": "None of the above" }
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "The Goal of the Daily Scrum is not...?",
+            "answers": [
+                { "id": "A", "text": "Track the status of all team members" },
+                { "id": "B", "text": "Check if we are on track to achieve the Sprint Goals" },
+                { "id": "C", "text": "Synchronize the team members" },
+                { "id": "D", "text": "Identify impediments" }
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "According to Agile, The right length for a Design Document is...?",
+            "answers": [
+                { "id": "A", "text": "Up to 1 page" },
+                { "id": "B", "text": "Up to 10 pages per Sprint" },
+                { "id": "C", "text": "As long as needed to provide a positive ROI" },
+                { "id": "D", "text": "0 - No Design document is needed" }
+            ],
+            "rightAnswerId": "C"
+        },
+        {
+            "text": "Per Scrum, the role of the manager is...?",
+            "answers": [
+                { "id": "A", "text": "Leading self organization" },
+                { "id": "B", "text": "Technology excellence" },
+                { "id": "C", "text": "Taking care of quality" },
+                { "id": "D", "text": "None is specified" }
+            ],
+            "rightAnswerId": "D"
+        }
+    ]
+}
