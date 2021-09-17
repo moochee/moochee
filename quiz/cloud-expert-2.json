@@ -1,0 +1,65 @@
+{
+    "title": "Cloud Expert 2",
+    "questions": [
+        {
+            "text": "What do system tests generally test?",
+            "answers": [
+                { "id": "A", "text": "The login procedure" },
+                { "id": "B", "text": "Whether the UI works" },
+                { "id": "C", "text": "Whether the UI is accessible" },
+                { "id": "D", "text": "Integration of all relevant system components" }
+            ],
+            "rightAnswerId": "D"
+        },
+        {
+            "text": "When do you use synchronous service calls?",
+            "answers": [
+                { "id": "A", "text": "When result is needed before next steps" },
+                { "id": "B", "text": "Always" },
+                { "id": "C", "text": "Never" },
+                { "id": "D", "text": "When result is NOT needed before next steps" }
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "What's the opposite of high cohesion?",
+            "answers": [
+                { "id": "A", "text": "Loose Coupling" },
+                { "id": "B", "text": "Keep it small and simple" },
+                { "id": "C", "text": "Spaghetti Code/no separation of concerns" },
+                { "id": "D", "text": "Data fragmentation" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "What can make it hard to find specific commit that caused an issue?",
+            "answers": [
+                { "id": "A", "text": "Commits pushed faster than CD pipeline execution" },
+                { "id": "B", "text": "Commits pushed faster than every 5 minutes" },
+                { "id": "C", "text": "Commits from different developers" },
+                { "id": "D", "text": "Bad commit message" }
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "How many updates do Amazon developers make to production per minute?",
+            "answers": [
+                { "id": "A", "text": "90" },
+                { "id": "B", "text": "15" },
+                { "id": "C", "text": "2" },
+                { "id": "D", "text": "500" }
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "What is the goal of HANA Cloud Connector?",
+            "answers": [
+                { "id": "A", "text": "Connecting Fiori apps to BTP" },
+                { "id": "B", "text": "Connecting Platform to Infrastructure" },
+                { "id": "C", "text": "Connecting Cloud apps with On-Premise systems" },
+                { "id": "D", "text": "Connecting Cloud apps with Cloud databases" }
+            ],
+            "rightAnswerId": "C"
+        }
+    ]
+}

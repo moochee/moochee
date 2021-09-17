@@ -1,0 +1,65 @@
+{
+    "title": "Cloud Expert 1",
+    "questions": [
+        {
+            "text": "What is the target platform in SAP Cloud Strategy?",
+            "answers": [
+                { "id": "A", "text": "Monsoon" },
+                { "id": "B", "text": "AWS" },
+                { "id": "C", "text": "Heroku" },
+                { "id": "D", "text": "BTP" }
+            ],
+            "rightAnswerId": "D"
+        },
+        {
+            "text": "What's the typical customer expectation of availability in the cloud?",
+            "answers": [
+                { "id": "A", "text": "99.9% almost always available" },
+                { "id": "B", "text": "Available at working days" },
+                { "id": "C", "text": "Depends on the timezone of the service" },
+                { "id": "D", "text": "Depends on service level agreement" }
+            ],
+            "rightAnswerId": "A"
+        },
+        {
+            "text": "What's the typical main benefit of a microservice architecture?",
+            "answers": [
+                { "id": "A", "text": "Function reuse" },
+                { "id": "B", "text": "Increase the speed of innovation" },
+                { "id": "C", "text": "Saving energy costs" },
+                { "id": "D", "text": "Simplification" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "What does PaaS stand for?",
+            "answers": [
+                { "id": "A", "text": "Platform as a Standard" },
+                { "id": "B", "text": "Product application advertisement Standard" },
+                { "id": "C", "text": "Persistency as a Service" },
+                { "id": "D", "text": "Platform as a Service" }
+            ],
+            "rightAnswerId": "D"
+        },
+        {
+            "text": "Private cloud means...?",
+            "answers": [
+                { "id": "A", "text": "Cloud services are only offered to private customers" },
+                { "id": "B", "text": "Infrastructure is provided only for single organization" },
+                { "id": "C", "text": "Infrastructure can only be provided on customer's premise" },
+                { "id": "D", "text": "It can only be offerred in the European Union" }
+            ],
+            "rightAnswerId": "B"
+        },
+        {
+            "text": "What characterizes a microservice best?",
+            "answers": [
+                { "id": "A", "text": "CRUD Service" },
+                { "id": "B", "text": "Focused on doing one thing well" },
+                { "id": "C", "text": "Maximum 500 lines of code" },
+                { "id": "D", "text": "Exposes simple data model" }
+            ],
+            "rightAnswerId": "B"
+        }
+    ]
+}
