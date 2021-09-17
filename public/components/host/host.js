@@ -61,19 +61,29 @@ const PodiumPage = function (props) {
 
 const PodiumFinalPage = function (props) {
     const [canBackHome, setCanBackHome] = useState(false)
+    const [showDistribution, setShowDistribution] = useState(true)
 
     useEffect(() => {
-        props.stopMusic()
-        const timeoutId = setTimeout(() => setCanBackHome(true), 20000)
-        return () => clearTimeout(timeoutId)
+        const finalPodiumTimeoutId = setTimeout(() => {
+            props.stopMusic()
+            setShowDistribution(false)
+        }, 6000)
+        const backHomeTimeoutId = setTimeout(() => setCanBackHome(true), 26000)
+        return () => {
+            clearTimeout(finalPodiumTimeoutId)
+            clearTimeout(backHomeTimeoutId)
+        }
     }, [])
 
+    const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
+    const podiumFinalBlack = !showDistribution ? html`<${PodiumFinal} players=${props.players} volume=${props.volume} />` : ''
     const backHomeButton = canBackHome ? html`<div class=hostBackHomeButton>
         <${StickyButton} onClick=${props.onBackHome} color=blue text='Back Home 🔥' />
     </div>` : ''
 
     return html`<div class=hostPodium>
-        <${PodiumFinal} players=${props.players} volume=${props.volume} />
+        ${distributionBlock}
+        ${podiumFinalBlack}
         ${backHomeButton}
     </div>`
 }
@@ -134,9 +144,7 @@ export default function Host(props) {
     }
 
     const onGameFinished = (gameId, status) => {
-        setIsRoundFinished(true)
-        setQuestion(null)
-        setStatus(status)
+        onRoundFinished(gameId, status)
         setIsFinal(true)
     }
 
@@ -168,7 +176,7 @@ export default function Host(props) {
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} client=${props.client} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />` : ''
     const podiumBlock = isRoundFinished && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} result=${status.result} onNext=${nextRound} />` : ''
-    const podiumFinalBlock = isRoundFinished && isFinal ? html`<${PodiumFinalPage} players=${status.scoreboard} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
+    const podiumFinalBlock = isRoundFinished && isFinal ? html`<${PodiumFinalPage} players=${status.scoreboard} result=${status.result} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`
 
