@@ -37,22 +37,22 @@ const QuestionAndAnswers = function (props) {
 }
 
 const PodiumPage = function (props) {
-    const [showScoreboard, setShowScoreboard] = useState(true)
+    const [showDistribution, setShowDistribution] = useState(true)
 
     useEffect(() => {
-        const timeoutId = setTimeout(() => setShowScoreboard(false), 6000)
+        const timeoutId = setTimeout(() => setShowDistribution(false), 6000)
         return () => clearTimeout(timeoutId)
     }, [])
 
-    const scoreboardBlock = showScoreboard ? html`<${Scoreboard} ranking=${props.players} />` : ''
-    const distributionBlock = !showScoreboard ? html`<${Distribution} distribution=${props.result} />` : ''
+    const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
+    const scoreboardBlock = !showDistribution ? html`<${Scoreboard} ranking=${props.players} />` : ''
 
     return html`<div class=hostPodium>
-        ${scoreboardBlock}
         ${distributionBlock}
+        ${scoreboardBlock}
         <div class=hostSwitch
-            onmouseover=${() => setShowScoreboard(true)}
-            onmouseout=${() => setShowScoreboard(false)}>Scoreboard</div>
+            onmouseover=${() => setShowDistribution(true)}
+            onmouseout=${() => setShowDistribution(false)}>Distribution</div>
         <div class=hostNextQuestionButton>
             <${StickyButton} onClick=${props.onNext} color=blue text='Next Question' />
         </div>
