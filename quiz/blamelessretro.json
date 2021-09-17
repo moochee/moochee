@@ -62,7 +62,7 @@
             "rightAnswerId": "D"
         },
         {
-            "text": "By using blameless retrospecitves, teams...",
+            "text": "By using blameless retrospectives, teams...",
             "answers": [
                 { "id": "A", "text": "Change how they talk to each other" },
                 { "id": "B", "text": "Utilize a growth mindset" },
