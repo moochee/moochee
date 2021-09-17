@@ -42,7 +42,7 @@
             "rightAnswerId": "D"
         },
         {
-            "text": "Teams should have blameless retrospecives because...?",
+            "text": "Teams should have blameless retrospectives because...?",
             "answers": [
                 { "id": "A", "text": "It focuses on events instead of people" },
                 { "id": "B", "text": "It decreases the fear of blaming people" },
