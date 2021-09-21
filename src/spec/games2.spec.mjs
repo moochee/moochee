@@ -21,4 +21,11 @@ describe('Games 2', () => {
         const game = games.create()
         expect(game.getId()).toBeDefined()
     })
+
+    it('should create different game each time', () => {
+        const games = new Games()
+        const game1 = games.create()
+        const game2 = games.create()
+        expect(game1.getId()).not.toBe(game2.getId())
+    })
 })
