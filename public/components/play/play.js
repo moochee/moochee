@@ -63,6 +63,23 @@ const PodiumPage = function (props) {
     </div>`
 }
 
+const PodiumFinalPage = function (props) {
+    const [showDistribution, setShowDistribution] = useState(true)
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => setShowDistribution(false), 6000)
+        return () => clearTimeout(timeoutId)
+    }, [])
+
+    const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
+    const gameOverBlock = !showDistribution ? html`<h2>Game Over. Watch the host's screen NOW!</h2>` : ''
+
+    return html`<div class=playPodium>
+        ${distributionBlock}
+        ${gameOverBlock}
+    </div>`
+}
+
 export default function Play(props) {
     const [question, setQuestion] = useState(null)
     const [isRoundFinished, setIsRoundFinished] = useState(false)
@@ -146,13 +163,13 @@ export default function Play(props) {
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} onGuess=${guess} />` : ''
     const podiumBlock = isRoundFinished && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} result=${status.result} />` : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
-    const gameOverBlock = isRoundFinished && isFinal ? html`<h2>Game over!</h2>` : ''
+    const podiumFinalBlock = isRoundFinished && isFinal ? html`<${PodiumFinalPage} result=${status.result} />` : ''
 
     return html`<${Shell} headerLeft=${props.quizTitle} footerLeft='${props.playerAvatar} ${props.playerName}' footerRight='Score: ${score}' fullScreenContent=${isRoundFinished && !isFinal}>
         ${waitingToStartBlock}
         ${questionBlock}
         ${podiumBlock}
         ${waitingBlockForOtherResponses}
-        ${gameOverBlock}
+        ${podiumFinalBlock}
     <//>`
 }
