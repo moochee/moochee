@@ -1,6 +1,7 @@
 'use strict'
 
 import Avatars from './avatars.js'
+import Game from './game.js'
 
 // REVISE split Games and Game, the complexity became too high
 export default function Games(timer, quizService, events) {
@@ -20,7 +21,7 @@ export default function Games(timer, quizService, events) {
         })
         // REVISE find a better name - maybe status or round? (since it is used to track the status of the round)
         const questionsAndGuesses = quiz.questions.map((q, index) => {
-            return { id: index + 1, text: q.text, answers: q.answers.map(a => ({...a, count: 0})), rightAnswerId: q.rightAnswerId, guesses: [] }
+            return { id: index + 1, text: q.text, answers: q.answers.map(a => ({ ...a, count: 0 })), rightAnswerId: q.rightAnswerId, guesses: [] }
         })
         games.push({ id: gameId, quizTitle: quiz.title, remainingQuestions, questionsAndGuesses, players: [], avatars: new Avatars() })
         return { gameId, quizTitle: quiz.title }
@@ -97,5 +98,9 @@ export default function Games(timer, quizService, events) {
             game.players = game.players.filter(p => p.name != playerName)
             events.publish('playerDisconnected', game.id, player.avatar)
         }
+    }
+
+    this.create = () => {
+        return new Game(String(nextGameId++))
     }
 }
