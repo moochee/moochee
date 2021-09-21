@@ -16,16 +16,29 @@ import Games from '../games.js'
 // - player leave
 
 describe('Games 2', () => {
+    let games
+
+    beforeEach(() => {
+        games = new Games()
+    })
+
     it('should create new game', () => {
-        const games = new Games()
         const game = games.create()
         expect(game.getId()).toBeDefined()
     })
 
     it('should create different game each time', () => {
-        const games = new Games()
         const game1 = games.create()
         const game2 = games.create()
         expect(game1.getId()).not.toBe(game2.getId())
+    })
+
+    it('should find existing game by id', () => {
+        const game = games.create()
+        expect(games.find(game.getId())).toEqual(game)
+    })
+
+    it('should throw when finding non-exist game by id', () => {
+        expect(() => games.find(1)).toThrow()
     })
 })

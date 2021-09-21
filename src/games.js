@@ -101,6 +101,14 @@ export default function Games(timer, quizService, events) {
     }
 
     this.create = () => {
-        return new Game(String(nextGameId++))
+        const game = new Game(String(nextGameId++))
+        games.push(game)
+        return game
+    }
+
+    this.find = (id) => {
+        const game = games.find((game) => game.getId() === id)
+        if (!game) throw new Error(`can't find game with id ${id}`)
+        return game
     }
 }
