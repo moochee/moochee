@@ -5,6 +5,7 @@ const GameWrapper = (() => {
 
     return function Game(quiz, events, avatars) {
         const players = []
+        let currentQuestionIndex = 0
 
         this.id = nextGameId++
 
@@ -17,6 +18,12 @@ const GameWrapper = (() => {
             players.push({ name, avatar, score: 0 })
             const otherPlayers = players.filter(p => p.name !== name).map(p => p.avatar)
             events.publish('playerJoined', this.id, quiz.title, name, avatar, otherPlayers)
+        }
+
+        this.nextRound = () => {
+            const question = quiz.questions[currentQuestionIndex++]
+            const questionWithoutCorrectAnswer = { text: question.text, answers: question.answers.map(a => ({ text: a.text })) }
+            events.publish('roundStarted', this.id, questionWithoutCorrectAnswer)
         }
     }
 })()

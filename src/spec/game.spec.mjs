@@ -4,26 +4,27 @@ import Games from '../games.js'
 import Avatars from '../avatars.js'
 
 // Game
-// - next round
 // - player guess
 // - finish round
 // - finish game
 // - player leave
+// - timeout
 
 describe('Game', () => {
     let game, quiz, events, avatars
-    const ALICE = 'Alice'
+    const ALICE = 'Alice', BOB = 'Bob', JENNY = 'Jenny'
 
     beforeEach(() => {
         quiz = { title: 'sample quiz', questions: [] }
-        events = { publish: function (...args) { this.receivedArgs = args } }
-        avatars = new Avatars([['x']])
+        events = { publish: function (...args) { this.actualArgs = args } }
+        avatars = new Avatars([['x'], ['y']])
         game = new Games().create(quiz, events, avatars)
     })
 
     it('sets score, avatar and presents quiz title when player joins a game', () => {
         game.join(ALICE)
-        expect(events.receivedArgs).toEqual(['playerJoined', game.id, quiz.title, ALICE, jasmine.any(String), quiz.questions])
+        const expectedArgs = ['playerJoined', game.id, quiz.title, ALICE, jasmine.any(String), []]
+        expect(events.actualArgs).toEqual(expectedArgs)
     })
 
     it('sends error when player joins with empty name', () => {
@@ -36,7 +37,17 @@ describe('Game', () => {
     })
 
     it('send error when reaching max. number of players', () => {
-        game = new Games().create(quiz, events, new Avatars([]))
-        expect(() => game.join(ALICE)).toThrow()
+        game.join(ALICE)
+        game.join(BOB)
+        expect(() => game.join(JENNY)).toThrow()
+    })
+
+    it('presents first question without correct answer when game starts', () => {
+        quiz.questions = [{ text: 'fun?', answers: [{ text: 'yeah', correct: true }] }]
+        game.join(ALICE)
+        game.join(BOB)
+        game.nextRound()
+        const expectedArgs = ['roundStarted', game.id, { text: 'fun?', answers: [{ text: 'yeah' }] }]
+        expect(events.actualArgs).toEqual(expectedArgs)
     })
 })
