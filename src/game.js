@@ -7,7 +7,7 @@ const GameWrapper = (() => {
 
     return function Game(quiz, events, avatars, timer) {
         let players = []
-        let currentQuestionIndex = 0
+        let currentQuestionIndex = -1
         let guessTimeoutId
 
         this.id = nextGameId++
@@ -24,7 +24,7 @@ const GameWrapper = (() => {
         }
 
         this.nextRound = () => {
-            const question = quiz.questions[currentQuestionIndex]
+            const question = quiz.questions[++currentQuestionIndex]
             const questionWithoutCorrectAnswer = { text: question.text, answers: question.answers.map(a => ({ text: a.text })) }
             events.publish('roundStarted', this.id, questionWithoutCorrectAnswer)
             const timeToGuess = (timer.secondsToGuess + NETWORK_DELAY_IN_SECONDS) * 1000
