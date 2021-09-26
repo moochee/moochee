@@ -43,6 +43,6 @@ export default function Players(avatars) {
     }
 
     this.resetAllGuesses = () => {
-        players = players.map(p => ({ name: p.name, avatar: p.avatar, score: p.score, guessed: false }))
+        players.forEach(p => p.guessed = false)
     }
 }
