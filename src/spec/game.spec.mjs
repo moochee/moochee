@@ -2,24 +2,19 @@
 
 import Games from '../games.js'
 import Avatars from '../avatars.js'
-
-// Game
-// - player guess
-// - finish round
-// - finish game
-// - player leave
-// - timeout
+import Players from '../players.js'
 
 describe('Game', () => {
-    let game, quiz, events, avatars, timer
+    let game, quiz, events, avatars, players, timer
     const ALICE = 'Alice', BOB = 'Bob', JENNY = 'Jenny'
 
     beforeEach(() => {
         quiz = { title: 'sample quiz', questions: [] }
         events = { publish: function (...args) { this.actualArgs = args } }
         avatars = new Avatars([['x'], ['y']])
+        players = new Players(avatars)
         timer = { setTimeout: () => null, clearTimeout: () => null, secondsToGuess: null }
-        game = new Games().create(quiz, events, avatars, timer)
+        game = new Games().create(quiz, events, players, timer)
     })
 
     it('sets score, avatar and presents quiz title when player joins a game', () => {
@@ -50,23 +45,6 @@ describe('Game', () => {
         game.nextRound()
         const expectedArgs = ['roundStarted', game.id, { text: 'fun?', answers: [{ text: 'yeah' }] }]
         expect(events.actualArgs).toEqual(expectedArgs)
-    })
-
-    describe('check if all players guessed', () => {
-        it('return false when no one has guessed', () => {
-            const players = [{ name: ALICE, guessed: false }]
-            expect(game.allPlayersGuessed(players)).toBe(false)
-        })
-
-        it('return false when one player has not guessed', () => {
-            const players = [{ name: ALICE, guessed: true }, { name: BOB, guessed: false }]
-            expect(game.allPlayersGuessed(players)).toBe(false)
-        })
-
-        it('return true when all has guessed', () => {
-            const players = [{ name: ALICE, guessed: true }, { name: BOB, guessed: true }]
-            expect(game.allPlayersGuessed(players)).toBe(true)
-        })
     })
 
     it('presents the answer distribution when a round is finished', () => {

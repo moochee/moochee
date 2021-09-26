@@ -14,7 +14,7 @@ describe('Players', () => {
     it('add new player', () => {
         const actual = players.add(ALICE)
         const numberOfPlayers = players.getResult().length
-        expect(actual).toEqual([ALICE, jasmine.any(String), []])
+        expect(actual).toEqual([jasmine.any(String), []])
         expect(numberOfPlayers).toBe(1)
     })
 
@@ -56,14 +56,14 @@ describe('Players', () => {
 
     it('return false when no player has guessed', () => {
         players.add(ALICE)
-        expect(players.allPlayersGuessed()).toBe(false)
+        expect(players.isAllGuessed()).toBe(false)
     })
 
     it('return false when one of two players has not guessed', () => {
         players.add(ALICE)
         players.add(BOB)
         players.guessed(ALICE)
-        expect(players.allPlayersGuessed()).toBe(false)
+        expect(players.isAllGuessed()).toBe(false)
     })
 
     it('return true when both has guessed', () => {
@@ -71,13 +71,13 @@ describe('Players', () => {
         players.add(BOB)
         players.guessed(ALICE)
         players.guessed(BOB)
-        expect(players.allPlayersGuessed()).toBe(true)
+        expect(players.isAllGuessed()).toBe(true)
     })
 
     it('guessed by non-existence player', () => {
         players.add(ALICE)
         players.guessed(BOB)
-        expect(players.allPlayersGuessed()).toBe(false)
+        expect(players.isAllGuessed()).toBe(false)
     })
 
     it('remove a player', () => {
@@ -91,5 +91,12 @@ describe('Players', () => {
         players.remove(ALICE)
         const numberOfPlayers = players.getResult().length
         expect(numberOfPlayers).toBe(0)
+    })
+
+    it('reset guessed when starting new round', () => {
+        players.add(ALICE)
+        players.guessed(ALICE)
+        players.resetAllGuesses()
+        expect(players.isAllGuessed()).toBe(false)
     })
 })

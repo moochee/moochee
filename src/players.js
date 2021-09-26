@@ -11,7 +11,7 @@ export default function Players(avatars) {
         const avatar = avatars.pick()
         players.push({ name, avatar, score: 0, guessed: false })
         const otherPlayers = players.filter(p => p.name !== name).map(p => p.avatar)
-        return [name, avatar, otherPlayers]
+        return [avatar, otherPlayers]
     }
 
     this.remove = (name) => {
@@ -38,7 +38,11 @@ export default function Players(avatars) {
         if (player) player.guessed = true
     }
 
-    this.allPlayersGuessed = () => {
+    this.isAllGuessed = () => {
         return players.filter(p => p.guessed === false).length === 0
+    }
+
+    this.resetAllGuesses = () => {
+        players = players.map(p => ({ name: p.name, avatar: p.avatar, score: p.score, guessed: false }))
     }
 }
