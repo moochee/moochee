@@ -4,70 +4,63 @@
         {
             "text": "Are you in?",
             "answers": [
-                { "id": "A", "text": "Yes" },
-                { "id": "B", "text": "No" },
-                { "id": "C", "text": "Maybe" },
-                { "id": "D", "text": "I don't know" }
-            ],
-            "rightAnswerId": "A"
+                { "text": "Yes", "correct": true },
+                { "text": "No" },
+                { "text": "Maybe" },
+                { "text": "I don't know" }
+            ]
         },
         {
             "text": "What does PPO stand for?",
             "answers": [
-                { "id": "A", "text": "Product Passionate Ownership" },
-                { "id": "B", "text": "Private Product Ownership" },
-                { "id": "C", "text": "Passionate Product Ownership" },
-                { "id": "D", "text": "Potential Product Optimization" }
-            ],
-            "rightAnswerId": "C"
+                { "text": "Product Passionate Ownership" },
+                { "text": "Private Product Ownership" },
+                { "text": "Passionate Product Ownership", "correct": true },
+                { "text": "Potential Product Optimization" }
+            ]
         },
         {
             "text": "What is the fundamental principle of PPO?",
             "answers": [
-                { "id": "A", "text": "Minimize Output - Minimize Outcome" },
-                { "id": "B", "text": "Maximize Output - Minimize Outcome" },
-                { "id": "C", "text": "Minimize Output - Maximize Outcome" },
-                { "id": "D", "text": "Maximize Output - Maximize Outcome" }
-            ],
-            "rightAnswerId":  "C"
+                { "text": "Minimize Output - Minimize Outcome" },
+                { "text": "Maximize Output - Minimize Outcome" },
+                { "text": "Minimize Output - Maximize Outcome", "correct": true },
+                { "text": "Maximize Output - Maximize Outcome" }
+            ]
         },
         {
             "text": "PPO is meant to...",
             "answers": [
-                { "id": "A", "text": "Enrich the Development Process" },
-                { "id": "B", "text": "Embrace the Development Approach" },
-                { "id": "C", "text": "Extend the Developers' Life" },
-                { "id": "D", "text": "Embrace the Developers' Vision"}
-            ],
-            "rightAnswerId": "A"
+                { "text": "Enrich the Development Process", "correct": true },
+                { "text": "Embrace the Development Approach" },
+                { "text": "Extend the Developers' Life" },
+                { "text": "Embrace the Developers' Vision"}
+            ]
         },
         {
             "text": "The Opportunity Canvas helps you to have...?",
             "answers": [
-                { "id": "A", "text": "Careful Observation" },
-                { "id": "B", "text": "Candid Communication" },
-                { "id": "C", "text": "Collaborative Argumentation" },
-                { "id": "D", "text": "Comprehensive Conversation"}
-            ],
-            "rightAnswerId": "D"
+                { "text": "Careful Observation" },
+                { "text": "Candid Communication" },
+                { "text": "Collaborative Argumentation" },
+                { "text": "Comprehensive Conversation", "correct": true}
+            ]
         },
         {
             "text": "Which element is not part of the Opportunity Canvas?",
             "answers": [
-                { "id": "A", "text": "Users & Customers" },
-                { "id": "B", "text": "Solutions Today" },
-                { "id": "C", "text": "Satisfaction Rating" },
-                { "id": "D", "text": "Business Benefits & Metrics"}
-            ],
-            "rightAnswerId": "C"
+                { "text": "Users & Customers" },
+                { "text": "Solutions Today" },
+                { "text": "Satisfaction Rating", "correct": true },
+                { "text": "Business Benefits & Metrics"}
+            ]
         },
         {
             "text": "Day 1 was great & I would like to continue with Day2!",
             "answers": [
-                { "id": "A", "text": "True" },
-                { "id": "B", "text": "False"}
-            ],
-            "rightAnswerId":  "A"
+                { "text": "True", "correct": true },
+                { "text": "False"}
+            ]
         }
     ]
 }

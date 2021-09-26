@@ -4,82 +4,74 @@
         {
             "text": "When would I want to have a blameless retrospective?",
             "answers": [
-                { "id": "A", "text": "After our last standup" },
-                { "id": "B", "text": "After a specific failed event" },
-                { "id": "C", "text": "Since our last release" },
-                { "id": "D", "text": "Every 120 days" }
-            ],
-            "rightAnswerId": "B"
+                { "text": "After our last standup" },
+                { "text": "After a specific failed event", "correct": true },
+                { "text": "Since our last release" },
+                { "text": "Every 120 days" }
+            ]
         },
         {
             "text": "The focus of the retrospective is...?",
             "answers": [
-                { "id": "A", "text": "Talk about events and people" },
-                { "id": "B", "text": "Talk about people" },
-                { "id": "C", "text": "Talk about events" },
-                { "id": "D", "text": "Talk about the weather" }
-            ],
-            "rightAnswerId": "C"
+                { "text": "Talk about events and people" },
+                { "text": "Talk about people" },
+                { "text": "Talk about events", "correct": true },
+                { "text": "Talk about the weather" }
+            ]
         },
         {
             "text": "If the focus is about events I should...?",
             "answers": [
-                { "id": "A", "text": "Talk about the process" },
-                { "id": "B", "text": "Focus on velocity" },
-                { "id": "C", "text": "Cover people related issues" },
-                { "id": "D", "text": "None of the above" }
-            ],
-            "rightAnswerId": "A"
+                { "text": "Talk about the process", "correct": true },
+                { "text": "Focus on velocity" },
+                { "text": "Cover people related issues" },
+                { "text": "None of the above" }
+            ]
         },
         {
             "text": "The Goal of a blameless retrospective is...?",
             "answers": [
-                { "id": "A", "text": "Blame the team" },
-                { "id": "B", "text": "Blame the customer" },
-                { "id": "C", "text": "Blame the process" },
-                { "id": "D", "text": "Learn from it" }
-            ],
-            "rightAnswerId": "D"
+                { "text": "Blame the team" },
+                { "text": "Blame the customer" },
+                { "text": "Blame the process" },
+                { "text": "Learn from it", "correct": true }
+            ]
         },
         {
             "text": "Teams should have blameless retrospectives because...?",
             "answers": [
-                { "id": "A", "text": "It focuses on events instead of people" },
-                { "id": "B", "text": "It decreases the fear of blaming people" },
-                { "id": "C", "text": "It increases communication" },
-                { "id": "D", "text": "All of the above" }
-            ],
-            "rightAnswerId": "D"
+                { "text": "It focuses on events instead of people" },
+                { "text": "It decreases the fear of blaming people" },
+                { "text": "It increases communication" },
+                { "text": "All of the above", "correct": true }
+            ]
         },
         {
             "text": "A blameless culture...",
             "answers": [
-                { "id": "A", "text": "Allows for teams to learn and improve" },
-                { "id": "B", "text": "Encourages honesty and acceptance of failure" },
-                { "id": "C", "text": "Opens up cross-team collaboration" },
-                { "id": "D", "text": "All of the above" }
-            ],
-            "rightAnswerId": "D"
+                { "text": "Allows for teams to learn and improve" },
+                { "text": "Encourages honesty and acceptance of failure" },
+                { "text": "Opens up cross-team collaboration" },
+                { "text": "All of the above", "correct": true }
+            ]
         },
         {
             "text": "By using blameless retrospectives, teams...",
             "answers": [
-                { "id": "A", "text": "Change how they talk to each other" },
-                { "id": "B", "text": "Utilize a growth mindset" },
-                { "id": "C", "text": "Brings empathy to the organization" },
-                { "id": "D", "text": "All of the above" }
-            ],
-            "rightAnswerId": "D"
+                { "text": "Change how they talk to each other" },
+                { "text": "Utilize a growth mindset" },
+                { "text": "Brings empathy to the organization" },
+                { "text": "All of the above", "correct": true }
+            ]
         }, 
         {
             "text": "A blameless retrospective agenda...",
             "answers": [
-                { "id": "A", "text": "Only covers what went well" },
-                { "id": "B", "text": "Covers well and wrong" },
-                { "id": "C", "text": "Covers well, wrong, and how to fix the wrong" },
-                { "id": "D", "text": "Covers well, wrong, fixes, and how to keep doing the well" }
-            ],
-            "rightAnswerId": "D"
+                { "text": "Only covers what went well" },
+                { "text": "Covers well and wrong" },
+                { "text": "Covers well, wrong, and how to fix the wrong" },
+                { "text": "Covers well, wrong, fixes, and how to keep doing the well", "correct": true }
+            ]
         }        
     ]
 }

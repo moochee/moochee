@@ -42,7 +42,7 @@ export default function QuizSocketClient(createWebSocket) {
         send({ event: 'nextRound', args: [gameId] })
     }
 
-    this.guess = (gameId, questionId, playerName, answerId) => {
-        send({ event: 'guess', args: [gameId, questionId, playerName, answerId] })
+    this.guess = (gameId, playerName, answerIndex) => {
+        send({ event: 'guess', args: [gameId, playerName, answerIndex] })
     }
 }

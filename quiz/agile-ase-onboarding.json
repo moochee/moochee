@@ -1,54 +1,49 @@
 {
-    "title": "Agile SCRUM & ASE Onboarding",
+    "title": "Agile Scrum & ASE Onboarding",
     "questions": [
         {
             "text": "What is the outcome of a Sprint?",
             "answers": [
-                { "id": "A", "text": "Backlog Item" },
-                { "id": "B", "text": "Delivery Unit" },
-                { "id": "C", "text": "Product Increment" },
-                { "id": "D", "text": "Sprint Goal" }                
-            ],
-            "rightAnswerId": "C"
+                { "text": "Backlog Item" },
+                { "text": "Delivery Unit" },
+                { "text": "Product Increment", "correct": true },
+                { "text": "Sprint Goal" }                
+            ]
         },
         {
             "text": "What is one purpose of the daily scrum?",
             "answers": [
-                { "id": "A", "text": "Check if we are on track to achieve the Sprint Goals." },
-                { "id": "B", "text": "Prioritize the sprint backlog." },
-                { "id": "C", "text": "Refine the sprint backlog." },
-                { "id": "D", "text": "Track the status of all team members." }                
-            ],
-            "rightAnswerId": "A"
+                { "text": "Check if we are on track to achieve the Sprint Goals.", "correct": true },
+                { "text": "Prioritize the sprint backlog." },
+                { "text": "Refine the sprint backlog." },
+                { "text": "Track the status of all team members." }                
+            ]
         },
         {
             "text": "What is not a role in a typical Scrum team?",
             "answers": [
-              { "id": "A", "text": "Developers" },
-              { "id": "B", "text": "Manager" },
-              { "id": "C", "text": "Product Owner" },
-              { "id": "D", "text": "Scrum Master" }       
-            ],
-            "rightAnswerId": "B"
+              { "text": "Developers" },
+              { "text": "Manager", "correct": true },
+              { "text": "Product Owner" },
+              { "text": "Scrum Master" }       
+            ]
         },
         {
             "text": "What of the below topics is seen as an external quality?",
             "answers": [
-                { "id": "A", "text": "Extensibility" },
-                { "id": "B", "text": "Readability" },
-                { "id": "C", "text": "Testability" },
-                { "id": "D", "text": "Usability" }                
-            ],
-            "rightAnswerId": "D"
+                { "text": "Extensibility" },
+                { "text": "Readability" },
+                { "text": "Testability" },
+                { "text": "Usability", "correct": true }                
+            ]
         },
         {
             "text": "What can be done to achieve shift left?",
             "answers": [
-                { "id": "A", "text": "Perform tests early." },
-                { "id": "B", "text": "Use debugging." },
-                { "id": "C", "text": "Perform manual testing before release." }             
-            ],
-            "rightAnswerId": "A"
+                { "text": "Perform tests early.", "correct": true },
+                { "text": "Use debugging." },
+                { "text": "Perform manual testing before release." }             
+            ]
         }
     ]
 }

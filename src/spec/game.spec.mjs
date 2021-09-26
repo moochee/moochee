@@ -19,7 +19,7 @@ describe('Game', () => {
 
     it('sets score, avatar and presents quiz title when player joins a game', () => {
         game.join(ALICE)
-        const expectedArgs = ['playerJoined', game.id, quiz.title, ALICE, jasmine.any(String), []]
+        const expectedArgs = ['playerJoined', game.id, jasmine.any(String)]
         expect(events.actualArgs).toEqual(expectedArgs)
     })
 
@@ -38,12 +38,13 @@ describe('Game', () => {
         expect(() => game.join(JENNY)).toThrow()
     })
 
-    it('presents first question without correct answer when first round starts', () => {
+    it('presents first question without correct answer and seconds to guess when first round starts', () => {
         quiz.questions = [{ text: 'fun?', answers: [{ text: 'yeah', correct: true }] }]
         game.join(ALICE)
         game.join(BOB)
         game.nextRound()
-        const expectedArgs = ['roundStarted', game.id, { text: 'fun?', answers: [{ text: 'yeah' }] }]
+        const expectedQuestion = { id: 1, text: 'fun?', answers: [{ text: 'yeah' }], totalQuestions: 1 }
+        const expectedArgs = ['roundStarted', game.id, expectedQuestion, null]
         expect(events.actualArgs).toEqual(expectedArgs)
     })
 
@@ -60,6 +61,6 @@ describe('Game', () => {
         expect(events.actualArgs).toEqual(expectArgs)
         const result = events.actualArgs[2].result
         expect(result.answers[0].count).toEqual(2)
-        expect(result.answers[1].count).toEqual(undefined)
+        expect(result.answers[1].count).toEqual(0)
     })
 })

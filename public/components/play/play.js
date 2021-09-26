@@ -29,7 +29,7 @@ const QuestionAndAnswers = function (props) {
     const colors = ['green', 'purple', 'blue', 'orange']
 
     const answersBlock = props.question.answers.map((answer, index) => {
-        return html`<${StickyButton} key=${index} color=${colors[index]} onClick=${() => props.onGuess(answer.id)} text=${answer.text} />`
+        return html`<${StickyButton} key=${index} color=${colors[index]} onClick=${() => props.onGuess(index)} text=${answer.text} />`
     })
 
     const progress = `(${props.question.id}/${props.question.totalQuestions})`
@@ -137,8 +137,8 @@ export default function Play(props) {
         setIsFinal(true)
     }
 
-    const guess = (answerId) => {
-        props.client.guess(props.gameId, question.id, props.playerName, answerId)
+    const guess = (answerIndex) => {
+        props.client.guess(props.gameId, props.playerName, answerIndex)
         setQuestion(null)
         setWaitingForOtherResponses(true)
     }

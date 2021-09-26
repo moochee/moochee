@@ -4,62 +4,56 @@
         {
             "text": "What is the target platform in SAP Cloud Strategy?",
             "answers": [
-                { "id": "A", "text": "Monsoon" },
-                { "id": "B", "text": "AWS" },
-                { "id": "C", "text": "Heroku" },
-                { "id": "D", "text": "BTP" }
-            ],
-            "rightAnswerId": "D"
+                { "text": "Monsoon" },
+                { "text": "AWS" },
+                { "text": "Heroku" },
+                { "text": "BTP", "correct": true }
+            ]
         },
         {
             "text": "What's the typical customer expectation of availability in the cloud?",
             "answers": [
-                { "id": "A", "text": "99.9% almost always available" },
-                { "id": "B", "text": "Available at working days" },
-                { "id": "C", "text": "Depends on the timezone of the service" },
-                { "id": "D", "text": "Depends on service level agreement" }
-            ],
-            "rightAnswerId": "A"
+                { "text": "99.9% almost always available", "correct": true },
+                { "text": "Available at working days" },
+                { "text": "Depends on the timezone of the service" },
+                { "text": "Depends on service level agreement" }
+            ]
         },
         {
             "text": "What's the main benefit of a microservice architecture?",
             "answers": [
-                { "id": "A", "text": "Function reuse" },
-                { "id": "B", "text": "Increase the speed of innovation" },
-                { "id": "C", "text": "Saving energy costs" },
-                { "id": "D", "text": "Simplification" }
-            ],
-            "rightAnswerId": "B"
+                { "text": "Function reuse" },
+                { "text": "Increase the speed of innovation", "correct": true },
+                { "text": "Saving energy costs" },
+                { "text": "Simplification" }
+            ]
         },
         {
             "text": "What does PaaS stand for?",
             "answers": [
-                { "id": "A", "text": "Platform as a Standard" },
-                { "id": "B", "text": "Product application advertisement Standard" },
-                { "id": "C", "text": "Persistency as a Service" },
-                { "id": "D", "text": "Platform as a Service" }
-            ],
-            "rightAnswerId": "D"
+                { "text": "Platform as a Standard" },
+                { "text": "Product application advertisement Standard" },
+                { "text": "Persistency as a Service" },
+                { "text": "Platform as a Service", "correct": true }
+            ]
         },
         {
             "text": "Private cloud means...?",
             "answers": [
-                { "id": "A", "text": "Cloud services are only offered to private customers" },
-                { "id": "B", "text": "Infrastructure is provided only for single organization" },
-                { "id": "C", "text": "Infrastructure can only be provided on customer's premise" },
-                { "id": "D", "text": "It can only be offered in the European Union" }
-            ],
-            "rightAnswerId": "B"
+                { "text": "Cloud services are only offered to private customers" },
+                { "text": "Infrastructure is provided only for single organization", "correct": true },
+                { "text": "Infrastructure can only be provided on customer's premise" },
+                { "text": "It can only be offered in the European Union" }
+            ]
         },
         {
             "text": "What characterizes a microservice best?",
             "answers": [
-                { "id": "A", "text": "CRUD Service" },
-                { "id": "B", "text": "Focused on doing one thing well" },
-                { "id": "C", "text": "Maximum 500 lines of code" },
-                { "id": "D", "text": "Exposes simple data model" }
-            ],
-            "rightAnswerId": "B"
+                { "text": "CRUD Service" },
+                { "text": "Focused on doing one thing well", "correct": true },
+                { "text": "Maximum 500 lines of code" },
+                { "text": "Exposes simple data model" }
+            ]
         }
     ]
 }

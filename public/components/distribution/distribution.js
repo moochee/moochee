@@ -24,7 +24,7 @@ export default function Distribution(props) {
     const colors = ['green', 'purple', 'blue', 'orange']
 
     const answersBlock = props.distribution.answers.map((answer, index) => {
-        const className = (answer.id === props.distribution.rightAnswerId) ? 'correctAnswerAppear' : 'wrongAnswerAppear'
+        const className = answer.correct ? 'correctAnswerAppear' : 'wrongAnswerAppear'
         const countStyle = 'position: relative; bottom: 30%; right: 15%; font-size: min(5vw, 5vh); color: white; text-align: right;'
         return html`<div class=${className}>
             <${StickyCard} key=${index} color=${colors[index]} text=${answer.text} info=${answer.count}/>
