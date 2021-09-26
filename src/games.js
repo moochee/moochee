@@ -100,8 +100,8 @@ export default function Games(timer, quizService, events) {
         }
     }
 
-    this.create = (quiz, events, avatars) => {
-        const game = new Game(quiz, events, avatars)
+    this.create = (quiz, events, avatars, timer) => {
+        const game = new Game(quiz, events, avatars, timer)
         games.push(game)
         return game
     }

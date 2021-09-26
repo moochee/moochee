@@ -5,9 +5,10 @@ const GameWrapper = (() => {
     let roundStartTime
     const NETWORK_DELAY_IN_SECONDS = 2
 
-    return function Game(quiz, events, avatars) {
-        const players = []
+    return function Game(quiz, events, avatars, timer) {
+        let players = []
         let currentQuestionIndex = 0
+        let guessTimeoutId
 
         this.id = nextGameId++
 
@@ -26,8 +27,8 @@ const GameWrapper = (() => {
             const question = quiz.questions[currentQuestionIndex]
             const questionWithoutCorrectAnswer = { text: question.text, answers: question.answers.map(a => ({ text: a.text })) }
             events.publish('roundStarted', this.id, questionWithoutCorrectAnswer)
-            // const timeToGuess = (timer.secondsToGuess + NETWORK_DELAY_IN_SECONDS) * 1000
-            // guessTimeoutId = timer.setTimeout(() => finishRound(question), timeToGuess)
+            const timeToGuess = (timer.secondsToGuess + NETWORK_DELAY_IN_SECONDS) * 1000
+            guessTimeoutId = timer.setTimeout(() => this.finishRound(question), timeToGuess)
             roundStartTime = new Date()
         }
 
@@ -43,7 +44,7 @@ const GameWrapper = (() => {
             player.guessed = true
 
             if (this.allPlayersGuessed(players)) {
-                //timer.clearTimeout(guessTimeoutId)
+                timer.clearTimeout(guessTimeoutId)
                 this.finishRound(question)
             }
         }
@@ -58,6 +59,14 @@ const GameWrapper = (() => {
                 events.publish('roundFinished', this.id, { result, scoreboard })
             } else {
                 events.publish('gameFinished', this.id, { result, scoreboard })
+            }
+        }
+
+        this.disconnect = (name) => {
+            if (name) {
+                const player = players.find(p => p.name === name)
+                players = players.filter(p => p.name != name)
+                events.publish('playerDisconnected', this.id, player.avatar)
             }
         }
     }

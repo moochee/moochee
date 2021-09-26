@@ -11,14 +11,15 @@ import Avatars from '../avatars.js'
 // - timeout
 
 describe('Game', () => {
-    let game, quiz, events, avatars
+    let game, quiz, events, avatars, timer
     const ALICE = 'Alice', BOB = 'Bob', JENNY = 'Jenny'
 
     beforeEach(() => {
         quiz = { title: 'sample quiz', questions: [] }
         events = { publish: function (...args) { this.actualArgs = args } }
         avatars = new Avatars([['x'], ['y']])
-        game = new Games().create(quiz, events, avatars)
+        timer = { setTimeout: () => null, clearTimeout: () => null, secondsToGuess: null }
+        game = new Games().create(quiz, events, avatars, timer)
     })
 
     it('sets score, avatar and presents quiz title when player joins a game', () => {
