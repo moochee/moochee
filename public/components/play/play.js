@@ -89,15 +89,15 @@ export default function Play(props) {
     const [countDown, setCountDown] = useState(null)
     const [score, setScore] = useState(0)
 
-    const onPlayerJoined = (gameId, player) => {
+    const onPlayerJoined = (player) => {
         props.onPlayerJoined(player)
     }
 
-    const onPlayerDisconnected = (gameId, player) => {
+    const onPlayerDisconnected = (player) => {
         props.onPlayerDisconnected(player)
     }
 
-    const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
+    const onRoundStarted = (newQuestion, secondsToGuess) => {
         setQuestion(newQuestion)
         setWaitingForOtherResponses(false)
         setCountDown(secondsToGuess)
@@ -114,7 +114,7 @@ export default function Play(props) {
         return updatedScoreboard
     }
 
-    const onRoundFinished = (gameId, status) => {
+    const onRoundFinished = (status) => {
         setIsRoundFinished(true)
         setQuestion(null)
         setWaitingForOtherResponses(false)
@@ -125,7 +125,7 @@ export default function Play(props) {
         setCountDown(null)
     }
 
-    const onGameFinished = (gameId, status) => {
+    const onGameFinished = (status) => {
         setIsRoundFinished(true)
         setQuestion(null)
         setWaitingForOtherResponses(false)

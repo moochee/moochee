@@ -3,13 +3,12 @@
 import WebSocket from 'ws'
 import update from './leaderboard-updater.js'
 
-export default function Events(wss) {
+export default function Events(webSocketServer) {
     this.publish = (eventName, gameId, ...args) => {
-        // REVISE if we already publish to the right gameId 'channel', then do we really need to pass the gameId again in the event args?
-        const message = JSON.stringify({ event: eventName, args: [gameId, ...args] })
-        wss.clients.forEach((ws) => {
-            if (ws.gameId === gameId && ws.readyState === WebSocket.OPEN) {
-                ws.send(message)
+        const message = JSON.stringify({ event: eventName, args: [...args] })
+        webSocketServer.clients.forEach(webSocket => {
+            if (webSocket.gameId === gameId && webSocket.readyState === WebSocket.OPEN) {
+                webSocket.send(message)
             }
         })
 

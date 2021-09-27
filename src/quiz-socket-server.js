@@ -11,37 +11,37 @@ export default function create(server) {
     const games = new Games(quizService, webSocketServer)
 
     webSocketServer.on('connection', (webSocket) => {
-        const send = (reply) => {
-            webSocket.send(JSON.stringify(reply))
+        const reply = (message) => {
+            webSocket.send(JSON.stringify(message))
         }
 
         webSocket.on('message', async (message) => {
             let request = JSON.parse(message)
 
-            if (request.event === 'getQuizzes') {
+            if (request.command === 'getQuizzes') {
                 const quizzes = await games.getQuizzes()
-                send({ event: 'quizzesReceived', args: [quizzes] })
+                reply({ event: 'quizzesReceived', args: [quizzes] })
             }
-            else if (request.event === 'host') {
+            else if (request.command === 'host') {
                 const { gameId, quizTitle } = await games.host(...request.args)
                 webSocket.gameId = gameId
-                send({ event: 'gameStarted', args: [gameId, quizTitle] })
-            } else if (request.event === 'join') {
+                reply({ event: 'gameStarted', args: [gameId, quizTitle] })
+            } else if (request.command === 'join') {
                 try {
                     const [gameId, name] = request.args
                     const game = games.find(gameId)
                     const { quizTitle, avatar, otherPlayers } = game.join(name)
                     webSocket.gameId = gameId
                     webSocket.playerName = name
-                    send({ event: 'joiningOk', args: [quizTitle, name, avatar, otherPlayers] })
+                    reply({ event: 'joiningOk', args: [quizTitle, name, avatar, otherPlayers] })
                 } catch (error) {
-                    send({ event: 'joiningFailed', args: [error.message] })
+                    reply({ event: 'joiningFailed', args: [error.message] })
                 }
-            } else if (request.event === 'nextRound') {
+            } else if (request.command === 'nextRound') {
                 const [gameId] = request.args
                 const game = games.find(gameId)
                 game.nextRound()
-            } else if (request.event === 'guess') {
+            } else if (request.command === 'guess') {
                 const [gameId, name, answerIndex] = request.args
                 const game = games.find(gameId)
                 game.guess(name, answerIndex)

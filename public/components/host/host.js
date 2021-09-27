@@ -100,7 +100,7 @@ export default function Host(props) {
 
     const music = useRef({})
 
-    const onPlayerJoined = (gameId, player) => {
+    const onPlayerJoined = (player) => {
         setPlayers((oldPlayers) => {
             if (oldPlayers.length >= 1) {
                 setCanStart(true)
@@ -109,7 +109,7 @@ export default function Host(props) {
         })
     }
 
-    const onPlayerDisconnected = (gameId, player) => {
+    const onPlayerDisconnected = (player) => {
         setPlayers((oldPlayers) => {
             if (oldPlayers.length <= 2) {
                 setCanStart(false)
@@ -118,7 +118,7 @@ export default function Host(props) {
         })
     }
 
-    const onRoundStarted = (gameId, newQuestion, secondsToGuess) => {
+    const onRoundStarted = (newQuestion, secondsToGuess) => {
         setQuestion(newQuestion)
         setCountDown(secondsToGuess)
         setIsRoundFinished(false)
@@ -134,7 +134,7 @@ export default function Host(props) {
         return updatedScoreboard
     }
 
-    const onRoundFinished = (gameId, status) => {
+    const onRoundFinished = (status) => {
         setIsRoundFinished(true)
         setQuestion(null)
         setStatus(oldStatus => ({
@@ -143,8 +143,8 @@ export default function Host(props) {
         setCountDown(null)
     }
 
-    const onGameFinished = (gameId, status) => {
-        onRoundFinished(gameId, status)
+    const onGameFinished = (status) => {
+        onRoundFinished(status)
         setIsFinal(true)
     }
 
