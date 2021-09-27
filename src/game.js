@@ -11,7 +11,7 @@ function Game(quiz, events, players, timer) {
     this.join = (name) => {
         const [avatar, otherPlayers] = players.add(name)
         events.publish('playerJoined', this.id, avatar)
-        return { quizTitle: quiz.title, name, avatar, otherPlayers }
+        return { quizTitle: quiz.title, avatar, otherPlayers }
     }
 
     this.nextRound = () => {

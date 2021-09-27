@@ -11,44 +11,54 @@ export default function create(server) {
     const games = new Games(quizService, webSocketServer)
 
     webSocketServer.on('connection', (webSocket) => {
+        const send = (reply) => {
+            webSocket.send(JSON.stringify(reply))
+        }
+
         webSocket.on('message', async (message) => {
-            // REVISE why do we need the response variable, can we not just inline?
-            //        alternatively, could create a send function that wraps the JSON.stringify
-            let response, request = JSON.parse(message)
+            let request = JSON.parse(message)
 
             if (request.event === 'getQuizzes') {
                 const quizzes = await games.getQuizzes()
-                response = { event: 'quizzesReceived', args: [quizzes] }
-                webSocket.send(JSON.stringify(response))
+                send({ event: 'quizzesReceived', args: [quizzes] })
             }
             else if (request.event === 'host') {
                 const { gameId, quizTitle } = await games.host(...request.args)
                 webSocket.gameId = gameId
-                response = { event: 'gameStarted', args: [gameId, quizTitle] }
-                webSocket.send(JSON.stringify(response))
+                send({ event: 'gameStarted', args: [gameId, quizTitle] })
             } else if (request.event === 'join') {
                 try {
-                    const { quizTitle, name, avatar, otherPlayers } = games.join(...request.args)
-                    const gameId = request.args[0]
+                    const [gameId, name] = request.args
+                    const game = games.find(gameId)
+                    const { quizTitle, avatar, otherPlayers } = game.join(name)
                     webSocket.gameId = gameId
                     webSocket.playerName = name
-                    response = { event: 'joiningOk', args: [quizTitle, name, avatar, otherPlayers] }
-                    webSocket.send(JSON.stringify(response))
+                    send({ event: 'joiningOk', args: [quizTitle, name, avatar, otherPlayers] })
                 } catch (error) {
-                    response = { event: 'joiningFailed', args: [error.message] }
-                    webSocket.send(JSON.stringify(response))
+                    send({ event: 'joiningFailed', args: [error.message] })
                 }
             } else if (request.event === 'nextRound') {
-                games.nextRound(...request.args)
+                const [gameId] = request.args
+                const game = games.find(gameId)
+                game.nextRound()
             } else if (request.event === 'guess') {
-                games.guess(...request.args)
+                const [gameId, name, answerIndex] = request.args
+                const game = games.find(gameId)
+                game.guess(name, answerIndex)
             }
         })
 
         webSocket.on('close', () => {
             const gameId = webSocket.gameId
-            const name = webSocket.playerName
-            games.disconnect(gameId, name)
+            if (!gameId) return
+            try {
+                const game = games.find(gameId)
+                const name = webSocket.playerName
+                if (!name) return
+                game.disconnect(name)
+            } catch (error) {
+                console.log(error)
+            }
         })
     })
 

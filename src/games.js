@@ -22,27 +22,6 @@ export default function Games(quizService, webSocketServer) {
         return { gameId: game.id, quizTitle: quiz.title }
     }
 
-    this.join = (gameId, name) => {
-        const game = this.find(gameId)
-        return game.join(name)
-    }
-
-    this.nextRound = (gameId) => {
-        const game = this.find(gameId)
-        return game.nextRound()
-    }
-
-    this.guess = (gameId, name, answerIndex) => {
-        const game = this.find(gameId)
-        game.guess(name, answerIndex)
-    }
-
-    this.disconnect = (gameId, name) => {
-        if (!gameId) return
-        const game = this.find(gameId)
-        game.disconnect(name)
-    }
-
     this.create = (quiz, events, players, timer) => {
         const game = new Game(quiz, events, players, timer)
         games.push(game)
