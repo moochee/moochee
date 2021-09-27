@@ -31,6 +31,8 @@ function Game(quiz, events, players, timer) {
     }
 
     this.guess = (name, answerIndex) => {
+        if (roundStartTime === null) return
+
         const question = quiz.questions[currentQuestionIndex]
 
         const answer = question.answers[answerIndex]
