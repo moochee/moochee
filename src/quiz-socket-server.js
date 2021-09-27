@@ -11,51 +11,53 @@ export default function create(server) {
     const games = new Games(quizService, webSocketServer)
 
     webSocketServer.on('connection', (webSocket) => {
-        const reply = (message) => {
-            webSocket.send(JSON.stringify(message))
-        }
+        const reply = (message) => webSocket.send(JSON.stringify(message))
 
-        webSocket.on('message', async (message) => {
-            let request = JSON.parse(message)
+        webSocket.on('message', (message) => {
+            const { command, args } = JSON.parse(message)
 
-            if (request.command === 'getQuizzes') {
-                const quizzes = await games.getQuizzes()
-                reply({ event: 'quizzesReceived', args: [quizzes] })
-            }
-            else if (request.command === 'host') {
-                const { gameId, quizTitle } = await games.host(...request.args)
-                webSocket.gameId = gameId
-                reply({ event: 'gameStarted', args: [gameId, quizTitle] })
-            } else if (request.command === 'join') {
-                try {
-                    const [gameId, name] = request.args
-                    const game = games.find(gameId)
-                    const { quizTitle, avatar, otherPlayers } = game.join(name)
+            const commandHandlers = {
+                getQuizzes: async () => {
+                    const quizzes = await games.getQuizzes()
+                    reply({ event: 'quizzesReceived', args: [quizzes] })
+                },
+                host: async () => {
+                    const { gameId, quizTitle } = await games.host(...args)
                     webSocket.gameId = gameId
-                    webSocket.playerName = name
-                    reply({ event: 'joiningOk', args: [quizTitle, name, avatar, otherPlayers] })
-                } catch (error) {
-                    reply({ event: 'joiningFailed', args: [error.message] })
+                    reply({ event: 'gameStarted', args: [gameId, quizTitle] })
+                },
+                join: () => {
+                    try {
+                        const [gameId, name] = args
+                        const game = games.find(gameId)
+                        const { quizTitle, avatar, otherPlayers } = game.join(name)
+                        webSocket.gameId = gameId
+                        webSocket.playerName = name
+                        reply({ event: 'joiningOk', args: [quizTitle, name, avatar, otherPlayers] })
+                    } catch (error) {
+                        reply({ event: 'joiningFailed', args: [error.message] })
+                    }
+                },
+                nextRound: () => {
+                    const [gameId] = args
+                    const game = games.find(gameId)
+                    game.nextRound()
+                },
+                guess: () => {
+                    const [gameId, name, answerIndex] = args
+                    const game = games.find(gameId)
+                    game.guess(name, answerIndex)
                 }
-            } else if (request.command === 'nextRound') {
-                const [gameId] = request.args
-                const game = games.find(gameId)
-                game.nextRound()
-            } else if (request.command === 'guess') {
-                const [gameId, name, answerIndex] = request.args
-                const game = games.find(gameId)
-                game.guess(name, answerIndex)
             }
+
+            commandHandlers[command]()
         })
 
         webSocket.on('close', () => {
-            const gameId = webSocket.gameId
-            if (!gameId) return
+            if (!webSocket.gameId || !webSocket.playerName) return
             try {
-                const game = games.find(gameId)
-                const name = webSocket.playerName
-                if (!name) return
-                game.disconnect(name)
+                const game = games.find(webSocket.gameId)
+                game.disconnect(webSocket.playerName)
             } catch (error) {
                 console.log(error)
             }
