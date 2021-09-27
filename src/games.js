@@ -5,7 +5,6 @@ import Events from './events.js'
 import Avatars from './avatars.js'
 import Players from './players.js'
 
-// REVISE split Games and Game, the complexity became too high
 export default function Games(quizService, webSocketServer) {
     const games = []
     const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
