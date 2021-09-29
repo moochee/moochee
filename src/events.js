@@ -4,11 +4,11 @@ import WebSocket from 'ws'
 import update from './leaderboard-updater.js'
 
 export default function Events(webSocketServer, webSocket) {
-    this.publish = (message) => {
-        const [gameId] = message.args.splice(0, 1)
+    this.publish = (gameId, message) => {
+        const messageString = JSON.stringify(message)
         webSocketServer.clients.forEach(client => {
             if (client.gameId === gameId && client.readyState === WebSocket.OPEN) {
-                client.send(JSON.stringify(message))
+                client.send(messageString)
             }
         })
         process.env.UPDATE_LEADERBOARD ? update(message) : null

@@ -11,7 +11,7 @@ describe('Game', () => {
     beforeEach(async () => {
         quiz = { title: 'sample quiz', questions: [] }
         events = {
-            publish: function (message) { this.publishedMessage = message },
+            publish: function (_, message) { this.publishedMessage = message },
             reply: function (message) { this.repliedMessage = message }
         }
         avatars = new Avatars([['x'], ['y']])
@@ -24,7 +24,7 @@ describe('Game', () => {
     it('sets score, avatar and presents quiz title when player joins a game', () => {
         game.join(ALICE, events)
         expect(events.repliedMessage).toEqual({ event: 'joiningOk', args: [quiz.title, ALICE, jasmine.any(String), []] })
-        expect(events.publishedMessage).toEqual({ event: 'playerJoined', args: [game.id, jasmine.any(String)] })
+        expect(events.publishedMessage).toEqual({ event: 'playerJoined', args: [jasmine.any(String)] })
     })
 
     it('sends error when player joins with empty name', () => {
@@ -48,7 +48,7 @@ describe('Game', () => {
         game.join(BOB)
         game.nextRound(events)
         const expectedQuestion = { id: 1, text: 'q1', answers: [{ text: 'a1' }], totalQuestions: 1 }
-        const expectedMessage = { event: 'roundStarted', args: [game.id, expectedQuestion, null] }
+        const expectedMessage = { event: 'roundStarted', args: [expectedQuestion, null] }
         expect(events.publishedMessage).toEqual(expectedMessage)
     })
 
@@ -61,9 +61,9 @@ describe('Game', () => {
         game.nextRound()
         game.guess(ALICE, 0)
         game.guess(BOB, 0, events)
-        const expectedMessage = { event: 'roundFinished', args: [game.id, jasmine.any(Object)] }
+        const expectedMessage = { event: 'roundFinished', args: [jasmine.any(Object)] }
         expect(events.publishedMessage).toEqual(expectedMessage)
-        const result = events.publishedMessage.args[1].result
+        const result = events.publishedMessage.args[0].result
         expect(result.answers[0].count).toEqual(2)
         expect(result.answers[1].count).toEqual(0)
     })
@@ -72,7 +72,7 @@ describe('Game', () => {
         quiz.questions = [{ text: 'q1', answers: [] }, { text: 'q2', answers: [] }]
         game.nextRound()
         game.finishRound(quiz.questions[0], events)
-        const expectedMessage = { event: 'roundFinished', args: [game.id, jasmine.objectContaining({ scoreboard: [] })] }
+        const expectedMessage = { event: 'roundFinished', args: [jasmine.objectContaining({ scoreboard: [] })] }
         expect(events.publishedMessage).toEqual(expectedMessage) // no players, so the scoreboard is empty
     })
 
@@ -82,7 +82,7 @@ describe('Game', () => {
         game.nextRound()
         game.nextRound(events)
         const expectedQuestion = { id: 2, text: 'q2', answers: [], totalQuestions: 2 }
-        const expectedMessage = { event: 'roundStarted', args: [game.id, expectedQuestion, 10] }
+        const expectedMessage = { event: 'roundStarted', args: [expectedQuestion, 10] }
         expect(events.publishedMessage).toEqual(expectedMessage)
     })
 
@@ -90,15 +90,13 @@ describe('Game', () => {
         quiz.questions = [{ text: 'q1', answers: [] }]
         game.nextRound()
         game.finishRound(quiz.questions[0], events)
-        expect(events.publishedMessage).toEqual({ event: 'gameFinished', args: [game.id, jasmine.any(Object)] })
+        expect(events.publishedMessage).toEqual({ event: 'gameFinished', args: [jasmine.any(Object)] })
     })
 
     it('should fire finishRound only once if all players guessed before timeout', () => {
         let finishRoundCalled = 0
         quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }, { text: 'a2' }], }, { text: 'q2', answers: [] }]
-        events.publish = function (message) {
-            if (message.event === 'roundFinished') finishRoundCalled++
-        }
+        events.publish = function (_, message) { if (message.event === 'roundFinished') finishRoundCalled++ }
         game.join(ALICE)
         game.join(BOB)
         game.nextRound()
@@ -116,14 +114,14 @@ describe('Game', () => {
         game.guess(ALICE, 0)
         game.guess(BOB, 1, events)
         game.finishRound(quiz.questions[0], events) // simulate timeout
-        expect(events.publishedMessage.args[1].scoreboard[0].score).toBeGreaterThan(0)
-        expect(events.publishedMessage.args[1].scoreboard[1].score).toBe(0)
+        expect(events.publishedMessage.args[0].scoreboard[0].score).toBeGreaterThan(0)
+        expect(events.publishedMessage.args[0].scoreboard[1].score).toBe(0)
     })
 
     it('should fire finishRound only once if the last player answered after timeout', () => {
         let finishRoundCalled = 0
         quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }, { text: 'a2' }], }, { text: 'q2', answers: [] }]
-        events.publish = function (message) { if (message.event === 'roundFinished') finishRoundCalled++ }
+        events.publish = function (_, message) { if (message.event === 'roundFinished') finishRoundCalled++ }
         game.join(ALICE)
         game.join(BOB)
         game.nextRound()
@@ -135,15 +133,15 @@ describe('Game', () => {
 
     it('should get zero score if the last player answered correctly after timeout', () => {
         quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }, { text: 'a2' }] }]
-        events.publish = function (message) { this.publishedMessage = message }
+        events.publish = function (_, message) { this.publishedMessage = message }
         game.join(ALICE)
         game.join(BOB)
         game.nextRound()
         game.guess(ALICE, 0)
         game.finishRound(quiz.questions[0], events)
         game.guess(BOB, 0, events)
-        expect(events.publishedMessage.args[1].scoreboard[0].score).toBeGreaterThan(0)
-        expect(events.publishedMessage.args[1].scoreboard[1].score).toBe(0)
+        expect(events.publishedMessage.args[0].scoreboard[0].score).toBeGreaterThan(0)
+        expect(events.publishedMessage.args[0].scoreboard[1].score).toBe(0)
     })
 
     // TODO shouldn't we have a test for increasing the score based on faster response time?

@@ -7,6 +7,7 @@ import QuizSocketClient from '../../public/quiz-socket-client.js'
 
 describe('Integration', () => {
     let server, port, hostClient, playerClient
+    const ALICE = 'Alice'
 
     beforeEach(async () => {
         const httpServer = createServer()
@@ -29,7 +30,7 @@ describe('Integration', () => {
             hostClient.subscribe('gameStarted', resolve)
         })
         await new Promise(resolve => {
-            playerClient.join(gameId, 'alice')
+            playerClient.join(gameId, ALICE)
             playerClient.subscribe('joiningOk', resolve)
         })
     })

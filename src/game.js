@@ -10,12 +10,13 @@ function Game(quiz, players, timer) {
 
     this.join = (name, events) => {
         const [avatar, otherPlayers] = players.add(name)
-        events?.publish({ event: 'playerJoined', args: [this.id, avatar] })
+        events?.publish(this.id, { event: 'playerJoined', args: [avatar] })
         events?.reply({ event: 'joiningOk', args: [quiz.title, name, avatar, otherPlayers] })
     }
 
     this.nextRound = (events) => {
         // TODO: may need to save round result before moving to next round (or do it in finishRound)
+        // so we don't need frontend to hand previous score in scoreboard
         roundStartTime = new Date()
 
         players.resetAllGuesses()
@@ -30,7 +31,7 @@ function Game(quiz, players, timer) {
             answers: question.answers.map(a => ({ text: a.text })),
             totalQuestions: quiz.questions.length
         }
-        events?.publish({ event: 'roundStarted', args: [this.id, questionWithoutCorrectAnswer, timer.secondsToGuess] })
+        events?.publish(this.id, { event: 'roundStarted', args: [questionWithoutCorrectAnswer, timer.secondsToGuess] })
     }
 
     this.guess = (name, answerIndex, events) => {
@@ -57,15 +58,15 @@ function Game(quiz, players, timer) {
         const scoreboard = [...players.getResult()]
         scoreboard.sort((a, b) => b.score - a.score)
         if (currentQuestionIndex === quiz.questions.length - 1) {
-            events?.publish({ event: 'gameFinished', args: [this.id, { result, scoreboard }] })
+            events?.publish(this.id, { event: 'gameFinished', args: [{ result, scoreboard }] })
         } else {
-            events?.publish({ event: 'roundFinished', args: [this.id, { result, scoreboard }] })
+            events?.publish(this.id, { event: 'roundFinished', args: [{ result, scoreboard }] })
         }
     }
 
     this.disconnect = (name, events) => {
         const avatar = players.remove(name)
-        if (avatar) events?.publish({ event: 'playerDisconnected', args: [this.id, avatar] })
+        if (avatar) events?.publish(this.id, { event: 'playerDisconnected', args: [avatar] })
     }
 }
 
