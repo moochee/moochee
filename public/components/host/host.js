@@ -105,7 +105,7 @@ export default function Host(props) {
             if (oldPlayers.length >= 1) {
                 setCanStart(true)
             }
-            return [...oldPlayers, player]
+            return [player, ...oldPlayers]
         })
     }
 

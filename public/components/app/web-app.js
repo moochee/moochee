@@ -58,7 +58,7 @@ const PlayGameWeb = function (props) {
     }, [])
 
     const addPlayer = (otherPlayer) => {
-        setOtherPlayers((oldOtherPlayers) => [...oldOtherPlayers, otherPlayer])
+        setOtherPlayers((oldOtherPlayers) => [otherPlayer, ...oldOtherPlayers])
     }
 
     const removePlayer = (player) => {
