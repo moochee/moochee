@@ -2,51 +2,48 @@
 import { WebSocketServer } from 'ws'
 import QuizService from './quiz-service.js'
 import Games from './games.js'
+import Events from './events.js'
+import Players from './players.js'
+import Avatars from './avatars.js'
 
-// REVISE it's a bit weird that we are emitting events here direcly, but also indirectly through games.js->events.publish
-//        maybe it can be consolidated
 export default function create(server) {
     const webSocketServer = new WebSocketServer({ server })
     const quizService = new QuizService()
-    const games = new Games(quizService, webSocketServer)
+    const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
+    const games = new Games(quizService, timer)
 
     webSocketServer.on('connection', (webSocket) => {
-        const reply = (message) => webSocket.send(JSON.stringify(message))
+        const events = new Events(webSocketServer, webSocket)
 
         webSocket.on('message', (message) => {
             const { command, args } = JSON.parse(message)
 
             const commandHandlers = {
                 getQuizzes: async () => {
-                    const quizzes = await games.getQuizzes()
-                    reply({ event: 'quizzesReceived', args: [quizzes] })
+                    await games.getQuizzes(events)
                 },
                 host: async () => {
-                    const { gameId, quizTitle } = await games.host(...args)
-                    webSocket.gameId = gameId
-                    reply({ event: 'gameStarted', args: [gameId, quizTitle] })
+                    const [quizId] = args
+                    const players = new Players(new Avatars)
+                    const game = await games.host(quizId, players, events)
+                    webSocket.gameId = game.id
                 },
                 join: () => {
-                    try {
-                        const [gameId, name] = args
-                        const game = games.find(gameId)
-                        const { quizTitle, avatar, otherPlayers } = game.join(name)
+                    const [gameId, name] = args
+                    if (games.join(gameId, name, events)) {
                         webSocket.gameId = gameId
                         webSocket.playerName = name
-                        reply({ event: 'joiningOk', args: [quizTitle, name, avatar, otherPlayers] })
-                    } catch (error) {
-                        reply({ event: 'joiningFailed', args: [error.message] })
                     }
                 },
                 nextRound: () => {
                     const [gameId] = args
                     const game = games.find(gameId)
-                    game.nextRound()
+                    game.nextRound(events)
                 },
                 guess: () => {
                     const [gameId, name, answerIndex] = args
                     const game = games.find(gameId)
-                    game.guess(name, answerIndex)
+                    game.guess(name, answerIndex, events)
                 }
             }
 
@@ -57,7 +54,7 @@ export default function create(server) {
             if (!webSocket.gameId || !webSocket.playerName) return
             try {
                 const game = games.find(webSocket.gameId)
-                game.disconnect(webSocket.playerName)
+                game.disconnect(webSocket.playerName, events)
             } catch (error) {
                 console.log(error)
             }

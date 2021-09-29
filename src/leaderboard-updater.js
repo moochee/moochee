@@ -12,22 +12,14 @@ const options = {
     }
 }
 
-export default function update(eventName, status) {
-    if (eventName === 'gameFinished') {
-        const scores = status.scoreboard.map(({ name, score }) => ({ name, score }))
-        const data = new TextEncoder().encode(
-            JSON.stringify({ scores: scores })
-        )
+export default function update(message) {
+    if (message.event !== 'gameFinished') return
 
-        const req = https.request(options, res => {
-            console.log(`statusCode: ${res.statusCode}`)
-        })
-
-        req.on('error', error => {
-            console.error(error)
-        })
-
-        req.write(data)
-        req.end()
-    }
+    const status = message.args[1]
+    const scores = status.scoreboard.map(({ name, score }) => ({ name, score }))
+    const data = new TextEncoder().encode(JSON.stringify({ scores: scores }))
+    const req = https.request(options, res => console.log(`statusCode: ${res.statusCode}`))
+    req.on('error', error => console.error(error))
+    req.write(data)
+    req.end()
 }

@@ -5,7 +5,7 @@ import { readFile, readdir } from 'fs/promises'
 export default function QuizService() {
     const QUIZ_DIR = './quiz/'
 
-    this.getById = async (quizId) => {
+    this.get = async (quizId) => {
         const quizPath = `${QUIZ_DIR}${quizId}`
         return JSON.parse(await readFile(quizPath, 'utf8'))
     }
@@ -15,7 +15,7 @@ export default function QuizService() {
         let quizzes = []
         for (let file of files) {
             try {
-                const quizTitle = (await this.getById(file)).title
+                const quizTitle = (await this.get(file)).title
                 quizzes.push({ id: file, title: quizTitle })
             } catch (error) {
                 console.error(file, error)
