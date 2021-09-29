@@ -15,7 +15,7 @@ const options = {
 export default function update(message) {
     if (message.event !== 'gameFinished') return
 
-    const status = message.args[1]
+    const [status] = message.args
     const scores = status.scoreboard.map(({ name, score }) => ({ name, score }))
     const data = new TextEncoder().encode(JSON.stringify({ scores: scores }))
     const req = https.request(options, res => console.log(`statusCode: ${res.statusCode}`))
