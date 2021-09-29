@@ -12,7 +12,8 @@ describe('Game', () => {
         quiz = { title: 'sample quiz', questions: [] }
         events = {
             publish: function (_, message) { this.publishedMessage = message },
-            reply: function (message) { this.repliedMessage = message }
+            reply: function (message) { this.repliedMessage = message },
+            notifyHost: function () { this.hostNotified = true }
         }
         avatars = new Avatars([['x'], ['y']])
         players = new Players(avatars)
@@ -91,6 +92,15 @@ describe('Game', () => {
         game.nextRound()
         game.finishRound(quiz.questions[0], events)
         expect(events.publishedMessage).toEqual({ event: 'gameFinished', args: [jasmine.any(Object)] })
+    })
+
+    it('notifies host whenever player guessed', () => {
+        quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }, { text: 'a2' }] }]
+        game.join(ALICE)
+        game.join(BOB)
+        game.nextRound()
+        game.guess(ALICE, 0, events)
+        expect(events.hostNotified).toBe(true)
     })
 
     it('should fire finishRound only once if all players guessed before timeout', () => {

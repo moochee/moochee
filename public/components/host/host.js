@@ -99,6 +99,7 @@ export default function Host(props) {
     const [volume, setVolume] = useState(1)
 
     const music = useRef({})
+    const tap = useRef({})
 
     const onPlayerJoined = (player) => {
         setPlayers((oldPlayers) => {
@@ -134,6 +135,10 @@ export default function Host(props) {
         return updatedScoreboard
     }
 
+    const onPlayerGuessed = () => {
+        tap.current.play()
+    }
+
     const onRoundFinished = (status) => {
         setIsRoundFinished(true)
         setQuestion(null)
@@ -160,12 +165,14 @@ export default function Host(props) {
         music.current.play()
         props.client.subscribe('playerJoined', onPlayerJoined)
         props.client.subscribe('roundStarted', onRoundStarted)
+        props.client.subscribe('playerGuessed', onPlayerGuessed)
         props.client.subscribe('roundFinished', onRoundFinished)
         props.client.subscribe('gameFinished', onGameFinished)
         props.client.subscribe('playerDisconnected', onPlayerDisconnected)
         return () => {
             props.client.unsubscribe('playerJoined', onPlayerJoined)
             props.client.unsubscribe('roundStarted', onRoundStarted)
+            props.client.unsubscribe('playerGuessed', onPlayerGuessed)
             props.client.unsubscribe('roundFinished', onRoundFinished)
             props.client.unsubscribe('gameFinished', onGameFinished)
             props.client.unsubscribe('playerDisconnected', onPlayerDisconnected)
@@ -182,6 +189,7 @@ export default function Host(props) {
 
     return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft=#${props.gameId} footerRight='${players.length} Players' fullScreenContent=${isRoundFinished}>
         <audio ref=${music} volume=${volume} loop src=components/positive-funny-background-music-for-video-games.mp3></audio>
+        <audio ref=${tap} volume=${volume} src=components/host/tap.mp3></audio>
         ${waitingToStartBlock}
         ${questionBlock}
         ${podiumBlock}

@@ -47,6 +47,8 @@ function Game(quiz, players, timer) {
         players.addScore(name, score)
 
         players.guessed(name)
+        events?.notifyHost(this.id, { event: 'playerGuessed', args: [] })
+
         if (players.isAllGuessed()) {
             timer.clearTimeout(guessTimeoutId)
             this.finishRound(question, events)
