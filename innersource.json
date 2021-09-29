@@ -1,0 +1,12 @@
+{
+    "title": "Gorilla",
+    "motivation": "Run fun quizzes to juice up trainings and workshops.",
+    "contributions": [
+      "Feedback",
+      "Implement new features",
+      "New quizzes"
+    ],
+    "skills": [
+      "node.js"
+    ]
+}
