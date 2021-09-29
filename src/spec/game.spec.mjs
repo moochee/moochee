@@ -32,20 +32,20 @@ describe('Game', () => {
     })
 
     it('sends error when player name exists', () => {
-        game.join(ALICE, events)
+        game.join(ALICE)
         expect(() => game.join(ALICE, events)).toThrowError()
     })
 
     it('send error when reaching max. number of players', () => {
-        game.join(ALICE, events)
-        game.join(BOB, events)
+        game.join(ALICE)
+        game.join(BOB)
         expect(() => game.join(JENNY, events)).toThrowError()
     })
 
     it('presents first question without correct answer and seconds to guess when first round starts', () => {
         quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }] }]
-        game.join(ALICE, events)
-        game.join(BOB, events)
+        game.join(ALICE)
+        game.join(BOB)
         game.nextRound(events)
         const expectedQuestion = { id: 1, text: 'q1', answers: [{ text: 'a1' }], totalQuestions: 1 }
         const expectedMessage = { event: 'roundStarted', args: [game.id, expectedQuestion, null] }
@@ -56,10 +56,10 @@ describe('Game', () => {
         const q1 = { text: 'q1', answers: [{ text: 'a1', correct: true }, { text: 'a2' }] }
         const q2 = { text: 'q2', answers: [] }
         quiz.questions = [q1, q2]
-        game.join(ALICE, events)
-        game.join(BOB, events)
-        game.nextRound(events)
-        game.guess(ALICE, 0, events)
+        game.join(ALICE)
+        game.join(BOB)
+        game.nextRound()
+        game.guess(ALICE, 0)
         game.guess(BOB, 0, events)
         const expectedMessage = { event: 'roundFinished', args: [game.id, jasmine.any(Object)] }
         expect(events.publishedMessage).toEqual(expectedMessage)
@@ -70,82 +70,77 @@ describe('Game', () => {
 
     it('presents the scoreboard when a round is finished', () => {
         quiz.questions = [{ text: 'q1', answers: [] }, { text: 'q2', answers: [] }]
-        game.nextRound(events)
+        game.nextRound()
         game.finishRound(quiz.questions[0], events)
-        expect(events.publishedMessage).toEqual({ event: 'roundFinished', args: [game.id, jasmine.objectContaining({ scoreboard: [] })] }) // no players, so the scoreboard is empty
+        const expectedMessage = { event: 'roundFinished', args: [game.id, jasmine.objectContaining({ scoreboard: [] })] }
+        expect(events.publishedMessage).toEqual(expectedMessage) // no players, so the scoreboard is empty
     })
 
     it('presents the second question when the next round is started', () => {
         quiz.questions = [{ text: 'q1', answers: [] }, { text: 'q2', answers: [] }]
         timer.secondsToGuess = 10
-        game.nextRound(events)
+        game.nextRound()
         game.nextRound(events)
         const expectedQuestion = { id: 2, text: 'q2', answers: [], totalQuestions: 2 }
-        expect(events.publishedMessage).toEqual({ event: 'roundStarted', args: [game.id, expectedQuestion, 10] })
+        const expectedMessage = { event: 'roundStarted', args: [game.id, expectedQuestion, 10] }
+        expect(events.publishedMessage).toEqual(expectedMessage)
     })
 
     it('is finished when there are no more questions', () => {
         quiz.questions = [{ text: 'q1', answers: [] }]
-        game.nextRound(events)
+        game.nextRound()
         game.finishRound(quiz.questions[0], events)
         expect(events.publishedMessage).toEqual({ event: 'gameFinished', args: [game.id, jasmine.any(Object)] })
     })
 
     it('should fire finishRound only once if all players guessed before timeout', () => {
-        let finishRound, finishRoundCalled = 0
-        timer.setTimeout = (callback) => finishRound = callback
-        timer.clearTimeout = () => finishRound = () => null
+        let finishRoundCalled = 0
         quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }, { text: 'a2' }], }, { text: 'q2', answers: [] }]
         events.publish = function (message) {
             if (message.event === 'roundFinished') finishRoundCalled++
         }
-        game.join(ALICE, events)
-        game.join(BOB, events)
-        game.nextRound(events)
-        game.guess(ALICE, 0, events)
-        game.guess(BOB, 1, events)
-        finishRound(quiz.questions[0], events)
+        game.join(ALICE)
+        game.join(BOB)
+        game.nextRound()
+        game.guess(ALICE, 0)
+        game.guess(BOB, 1)
+        game.finishRound(quiz.questions[0], events) // simulate timeout
         expect(finishRoundCalled).toEqual(1)
     })
 
     it('assigns points if player guessed the right answer', () => {
         quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }, { text: 'a2' }] }]
-        game.join(ALICE, events)
-        game.join(BOB, events)
-        game.nextRound(events)
-        game.guess(ALICE, 0, events)
+        game.join(ALICE)
+        game.join(BOB)
+        game.nextRound()
+        game.guess(ALICE, 0)
         game.guess(BOB, 1, events)
-        game.finishRound(quiz.questions[0], events)
+        game.finishRound(quiz.questions[0], events) // simulate timeout
         expect(events.publishedMessage.args[1].scoreboard[0].score).toBeGreaterThan(0)
         expect(events.publishedMessage.args[1].scoreboard[1].score).toBe(0)
     })
 
     it('should fire finishRound only once if the last player answered after timeout', () => {
-        let finishRound, finishRoundCalled = 0
-        timer.setTimeout = (callback) => finishRound = callback
-        timer.clearTimeout = () => finishRound = () => null
+        let finishRoundCalled = 0
         quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }, { text: 'a2' }], }, { text: 'q2', answers: [] }]
         events.publish = function (message) { if (message.event === 'roundFinished') finishRoundCalled++ }
-        game.join(ALICE, events)
-        game.join(BOB, events)
-        game.nextRound(events)
-        game.guess(ALICE, 0, events)
-        finishRound(quiz.questions[0], events)
+        game.join(ALICE)
+        game.join(BOB)
+        game.nextRound()
+        game.guess(ALICE, 0)
+        game.finishRound(quiz.questions[0], events) // simulate timeout
         game.guess(BOB, 0, events)
         expect(finishRoundCalled).toEqual(1)
     })
 
     it('should get zero score if the last player answered correctly after timeout', () => {
-        let finishRound
-        timer.setTimeout = (callback) => finishRound = callback
-        timer.clearTimeout = () => finishRound = () => null
         quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }, { text: 'a2' }] }]
         events.publish = function (message) { this.publishedMessage = message }
-        game.join(ALICE, events)
-        game.join(BOB, events)
-        game.nextRound(events)
-        game.guess(ALICE, 0, events)
-        finishRound(quiz.questions[0], events)
+        game.join(ALICE)
+        game.join(BOB)
+        game.nextRound()
+        game.guess(ALICE, 0)
+        game.finishRound(quiz.questions[0], events)
         game.guess(BOB, 0, events)
         expect(events.publishedMessage.args[1].scoreboard[0].score).toBeGreaterThan(0)
         expect(events.publishedMessage.args[1].scoreboard[1].score).toBe(0)

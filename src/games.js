@@ -7,14 +7,14 @@ export default function Games(quizService, timer) {
 
     this.getQuizzes = async (events) => {
         const quizzes = await quizService.getAll()
-        events.reply({ event: 'quizzesReceived', args: [quizzes] })
+        events?.reply({ event: 'quizzesReceived', args: [quizzes] })
     }
 
     this.host = async (quizId, players, events) => {
         const quiz = await quizService.get(quizId)
         const game = new Game(quiz, players, timer)
         games.push(game)
-        events.reply({ event: 'gameStarted', args: [game.id, quiz.title] })
+        events?.reply({ event: 'gameStarted', args: [game.id, quiz.title] })
         return game
     }
 
@@ -24,7 +24,7 @@ export default function Games(quizService, timer) {
             const game = this.find(gameId)
             game.join(name, events)
         } catch (error) {
-            events.reply({ event: 'joiningFailed', args: [error.message] })
+            events?.reply({ event: 'joiningFailed', args: [error.message] })
             joinedOk = false
         }
         return joinedOk

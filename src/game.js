@@ -10,8 +10,8 @@ function Game(quiz, players, timer) {
 
     this.join = (name, events) => {
         const [avatar, otherPlayers] = players.add(name)
-        events.publish({ event: 'playerJoined', args: [this.id, avatar] })
-        events.reply({ event: 'joiningOk', args: [quiz.title, name, avatar, otherPlayers] })
+        events?.publish({ event: 'playerJoined', args: [this.id, avatar] })
+        events?.reply({ event: 'joiningOk', args: [quiz.title, name, avatar, otherPlayers] })
     }
 
     this.nextRound = (events) => {
@@ -30,7 +30,7 @@ function Game(quiz, players, timer) {
             answers: question.answers.map(a => ({ text: a.text })),
             totalQuestions: quiz.questions.length
         }
-        events.publish({ event: 'roundStarted', args: [this.id, questionWithoutCorrectAnswer, timer.secondsToGuess] })
+        events?.publish({ event: 'roundStarted', args: [this.id, questionWithoutCorrectAnswer, timer.secondsToGuess] })
     }
 
     this.guess = (name, answerIndex, events) => {
@@ -57,15 +57,15 @@ function Game(quiz, players, timer) {
         const scoreboard = [...players.getResult()]
         scoreboard.sort((a, b) => b.score - a.score)
         if (currentQuestionIndex === quiz.questions.length - 1) {
-            events.publish({ event: 'gameFinished', args: [this.id, { result, scoreboard }] })
+            events?.publish({ event: 'gameFinished', args: [this.id, { result, scoreboard }] })
         } else {
-            events.publish({ event: 'roundFinished', args: [this.id, { result, scoreboard }] })
+            events?.publish({ event: 'roundFinished', args: [this.id, { result, scoreboard }] })
         }
     }
 
     this.disconnect = (name, events) => {
         const avatar = players.remove(name)
-        if (avatar) events.publish({ event: 'playerDisconnected', args: [this.id, avatar] })
+        if (avatar) events?.publish({ event: 'playerDisconnected', args: [this.id, avatar] })
     }
 }
 
