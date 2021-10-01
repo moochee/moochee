@@ -6,7 +6,7 @@ function Game(quiz, players, timer) {
     let roundStartTime
     const NETWORK_DELAY_IN_SECONDS = 2
 
-    this.id = String(Game.nextGameId++)
+    this.id = String(Math.floor(100000 + Math.random() * 900000))
 
     this.join = (name, events) => {
         const [avatar, otherPlayers] = players.add(name)
