@@ -72,6 +72,4 @@ function Game(quiz, players, timer) {
     }
 }
 
-Game.nextGameId = 100000
-
 export default Game
