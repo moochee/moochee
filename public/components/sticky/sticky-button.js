@@ -1,9 +1,9 @@
 'use strict'
 
-import { html, useState } from '/lib/preact-3.1.0.standalone.module.js'
-import loadCss from '/load-css.js'
+import { html, useState } from '/public/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/public/load-css.js'
 
-loadCss('/components/sticky/sticky-button.css')
+loadCss('/public/components/sticky/sticky-button.css')
 
 export default function StickyButton(props) {
     const [stickyClass, setStickyClass] = useState('stickyButton')
@@ -13,7 +13,7 @@ export default function StickyButton(props) {
     }
 
     return html`<div onAnimationEnd=${props.onClick} onClick=${click} class=${stickyClass}>
-        <img src=components/sticky/sticky-${props.color}.svg></img>
+        <img src=/public/components/sticky/sticky-${props.color}.svg></img>
         <div class=textField>
             ${props.text}
         </div>

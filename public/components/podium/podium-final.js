@@ -1,10 +1,10 @@
 'use strict'
 
-import { html, useEffect, useRef } from '/lib/preact-3.1.0.standalone.module.js'
-import loadCss from '/load-css.js'
+import { html, useEffect, useRef } from '/public/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/public/load-css.js'
 
-loadCss('/components/podium/podium.css')
-loadCss('/components/podium/podium-animations.css')
+loadCss('/public/components/podium/podium.css')
+loadCss('/public/components/podium/podium-animations.css')
 
 export default function PodiumFinal(props) {
     const music = useRef({})

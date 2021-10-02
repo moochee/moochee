@@ -1,11 +1,10 @@
 'use strict'
 
-import { html, useEffect, useRef } from '/lib/preact-3.1.0.standalone.module.js'
+import { html, useEffect, useRef } from '/public/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/public/load-css.js'
+import StickyCard from '/public/components/sticky/sticky-card.js'
 
-import loadCss from '/load-css.js'
-import StickyCard from '/components/sticky/sticky-card.js'
-
-loadCss('components/distribution/distribution.css')
+loadCss('/public/components/distribution/distribution.css')
 
 export default function Distribution(props) {
 

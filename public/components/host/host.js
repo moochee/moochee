@@ -1,19 +1,18 @@
 'use strict'
 
-import { html, useState, useEffect, useRef } from '/lib/preact-3.1.0.standalone.module.js'
-
-import loadCss from '/load-css.js'
-import AudioControl from '/components/audio/audio-control.js'
-import Shell from '/components/shell/shell.js'
-import Countdown from '/components/countdown.js'
-import Scoreboard from '/components/scoreboard/scoreboard.js'
-import Distribution from '/components/distribution/distribution.js'
-import PodiumFinal from '/components/podium/podium-final.js'
-import StickyCard from '/components/sticky/sticky-card.js'
-import StickyButton from '/components/sticky/sticky-button.js'
+import { html, useState, useEffect, useRef } from '/public/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/public/load-css.js'
+import AudioControl from '/public/components/audio/audio-control.js'
+import Shell from '/public/components/shell/shell.js'
+import Countdown from '/public/components/countdown.js'
+import Scoreboard from '/public/components/scoreboard/scoreboard.js'
+import Distribution from '/public/components/distribution/distribution.js'
+import PodiumFinal from '/public/components/podium/podium-final.js'
+import StickyCard from '/public/components/sticky/sticky-card.js'
+import StickyButton from '/public/components/sticky/sticky-button.js'
 import Waiting from './waiting.js'
 
-loadCss('components/host/host.css')
+loadCss('/public/components/host/host.css')
 
 const QuestionAndAnswers = function (props) {
     const colors = ['green', 'purple', 'blue', 'orange']

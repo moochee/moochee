@@ -1,33 +1,8 @@
 'use strict'
 
 import { html, useState, useEffect } from '/public/lib/preact-3.1.0.standalone.module.js'
-import Entrance from '/public/components/entrance/entrance.js'
-import Host from '/public/components/host/host.js'
 import Join from '/public/components/join/join.js'
 import Play from '/public/components/play/play.js'
-
-const HostGameWeb = function (props) {
-    const [atEntrance, setAtEntrance] = useState(true)
-    const [gameId, setGameId] = useState('')
-    const [quizTitle, setQuizTitle] = useState('')
-
-    const onGameStarted = (gameId, quizTitle) => {
-        setGameId(gameId)
-        setQuizTitle(quizTitle)
-        setAtEntrance(false)
-    }
-
-    useEffect(() => {
-        props.client.subscribe('gameStarted', onGameStarted)
-        return () => props.client.unsubscribe('gameStarted')
-    }, [])
-
-    const home = () => setAtEntrance(true)
-
-    return atEntrance ?
-        html`<${Entrance} client=${props.client} />` :
-        html`<${Host} gameId=${gameId} client=${props.client} quizTitle=${quizTitle} onBackHome=${home} />`
-}
 
 const PlayGameWeb = function (props) {
     const [atJoinGame, setAtJoinGame] = useState(true)
@@ -72,7 +47,7 @@ const PlayGameWeb = function (props) {
             onPlayerJoined=${addPlayer} onPlayerDisconnected=${removePlayer} />`
 }
 
-export default function WebApp(props) {
+export default function PlayApp(props) {
     const [hash, setHash] = useState(window.location.hash)
 
     const hashChanged = () => {
@@ -84,8 +59,6 @@ export default function WebApp(props) {
         return () => removeEventListener('hashchange', hashChanged)
     }, [])
 
-    const gameId = (hash.indexOf('#/play/') > -1) ? hash.split('/')[2] : ''
-    return gameId
-        ? html`<${PlayGameWeb} gameId=${gameId} client=${props.client} />`
-        : html`<${HostGameWeb} client=${props.client} />`
+    const gameId = (hash.indexOf('#/game/') > -1) ? hash.split('/')[2] : ''
+    return gameId ? html`<${PlayGameWeb} gameId=${gameId} client=${props.client} />` : ''
 }

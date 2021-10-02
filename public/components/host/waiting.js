@@ -1,16 +1,16 @@
 'use strict'
 
-import { html, useState, useRef, useEffect } from '/lib/preact-3.1.0.standalone.module.js'
-import loadCss from '/load-css.js'
-import StickyButton from '/components/sticky/sticky-button.js'
-import QrCreator from '/lib/qr-creator.es6.min.js'
+import { html, useState, useRef, useEffect } from '/public/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/public/load-css.js'
+import StickyButton from '/public/components/sticky/sticky-button.js'
+import QrCreator from '/public/lib/qr-creator.es6.min.js'
 
-loadCss('components/host/waiting.css')
+loadCss('/public/components/host/waiting.css')
 
 const QRCode = function (props) {
     const appendQr = useRef(null)
-    useEffect(() => { 
-        QrCreator.render({ text: props.url, background: '#ffffff', size: 1024 }, appendQr.current) 
+    useEffect(() => {
+        QrCreator.render({ text: props.url, background: '#ffffff', size: 1024 }, appendQr.current)
     }, [])
     return html`<canvas class=hostWaitingQrCode ref=${appendQr} />`
 }

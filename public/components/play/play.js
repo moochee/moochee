@@ -1,14 +1,14 @@
 'use strict'
 
-import { html, useState, useEffect } from '/lib/preact-3.1.0.standalone.module.js'
-import loadCss from '/load-css.js'
-import Shell from '/components/shell/shell.js'
-import Countdown from '/components/countdown.js'
-import Distribution from '/components/distribution/distribution.js'
-import Scoreboard from '/components/scoreboard/scoreboard.js'
-import StickyButton from '/components/sticky/sticky-button.js'
+import { html, useState, useEffect } from '/public/lib/preact-3.1.0.standalone.module.js'
+import loadCss from '/public/load-css.js'
+import Shell from '/public/components/shell/shell.js'
+import Countdown from '/public/components/countdown.js'
+import Distribution from '/public/components/distribution/distribution.js'
+import Scoreboard from '/public/components/scoreboard/scoreboard.js'
+import StickyButton from '/public/components/sticky/sticky-button.js'
 
-loadCss('components/play/play.css')
+loadCss('/public/components/play/play.css')
 
 const WaitingToStart = function (props) {
     const otherPlayers = props.otherPlayers.map(p => html`<div key=${p} class='playWaitingAvatar playWaitingBounceIn'>${p}</div>`)
