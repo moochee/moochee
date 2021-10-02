@@ -1,10 +1,13 @@
 'use strict'
 
-import { createServer } from 'http'
-import serve from 'serve-handler'
+import http from 'http'
+import express from 'express'
 import quizSocketServer from './quiz-socket-server.js'
 
-const server = createServer((req, res) => serve(req, res, { public: 'public' }))
+const app = express()
+app.use('/', express.static('public'))
+
+const server = http.createServer(app)
 quizSocketServer(server)
 
 const port = process.env.PORT || 3000
