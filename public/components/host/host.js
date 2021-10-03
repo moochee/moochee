@@ -187,8 +187,8 @@ export default function Host(props) {
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`
 
     return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft=#${props.gameId} footerRight='${players.length} Players' fullScreenContent=${isRoundFinished}>
-        <audio ref=${music} volume=${volume} loop src=components/positive-funny-background-music-for-video-games.mp3></audio>
-        <audio ref=${tap} volume=${volume} src=components/host/tap.mp3></audio>
+        <audio ref=${music} volume=${volume} loop src=/public/components/positive-funny-background-music-for-video-games.mp3></audio>
+        <audio ref=${tap} volume=${volume} src=/public/components/host/tap.mp3></audio>
         ${waitingToStartBlock}
         ${questionBlock}
         ${podiumBlock}
