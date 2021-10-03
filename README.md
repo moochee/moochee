@@ -1,6 +1,6 @@
 # gorilla
 
-A quiz app: https://acdc-gorilla.cfapps.sap.hana.ondemand.com/
+A multi-person interactive quiz app: https://acdc-gorilla.cfapps.sap.hana.ondemand.com/ (sso required)
 
 The name is to honor the [first computer game of which one of the authors looked and debugged into the source code](https://archive.org/details/GorillasQbasic).
 
