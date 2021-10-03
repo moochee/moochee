@@ -1,7 +1,7 @@
 'use strict'
 
 if (navigator.serviceWorker) {
-    navigator.serviceWorker.register('/public/service-worker.js')
+    navigator.serviceWorker.register('/public/service-worker.js', { scope: './' })
 }
 
 import { html, render } from '/public/lib/preact-3.1.0.standalone.module.js'
