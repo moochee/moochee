@@ -3,11 +3,8 @@
 import passport from 'passport'
 import session from 'express-session'
 import { Issuer, Strategy } from 'openid-client'
-import dotenv from 'dotenv'
 
 export default function auth(app) {
-    dotenv.config()
-
     passport.serializeUser(function (user, done) {
         done(null, user)
     })

@@ -12,7 +12,7 @@ All quizzes are located in [/quiz](https://github.tools.sap/acdc/gorilla/tree/ma
 
 After cloning you can:
 - Run the tests: `npm test`
-- Start the server: `npm start`
+- Start the server: `npm run dev`
 
 Besides Node.js, no extra tools are needed, cause big toolchains suck.
 
@@ -31,7 +31,7 @@ _For the second reason, we compiled a list of our learnings here!_
 - CSS transitions & animations
 - WebSockets / socket.io
 - Custom visuals and widgets using SVG
-- UI5 Web Components (worked really we, discarded later just because we wanted to try making our own widgets)
+- UI5 Web Components (worked really well, discarded later just because we wanted to try making our own widgets)
 - Git hooks
 - QR codes for URLs
 - **The most important one:** be _absolutely minimalistic regarding tools_ - and demonstrate things are super performant while still ultra simple & elegant at the same time

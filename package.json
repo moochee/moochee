@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node src/gorilla.js",
+    "dev": "node -r dotenv/config src/gorilla.js dotenv_config_path=.env.dev",
+    "start": "node -r dotenv/config src/gorilla.js dotenv_config_path=.env",
     "lint": "eslint src public **/*.mjs",
     "test": "jasmine src/spec/**/*.spec.mjs",
     "coverage": "c8 jasmine src/spec/**/*.spec.mjs",
