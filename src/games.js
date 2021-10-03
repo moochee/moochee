@@ -12,9 +12,17 @@ export default function Games(quizService, timer) {
 
     this.host = async (quizId, players, events) => {
         const quiz = await quizService.get(quizId)
-        const game = new Game(quiz, players, timer)
+        let game = createGameWithoutCollidingId(quiz, players)
         games.push(game)
         events?.reply({ event: 'gameStarted', args: [game.id, quiz.title] })
+        return game
+    }
+
+    const createGameWithoutCollidingId = (quiz, players) => {
+        let game = new Game(quiz, players, timer)
+        while (games.find(g => g.id === game.id)) {
+            game = new Game(quiz, players, timer)
+        }
         return game
     }
 
