@@ -1,5 +1,5 @@
 # TODO
-- **Tech Improve**: split Game from Games
+- **Tech improve**: secure the app with sso
 - **Tech Improve**: zero downtime deployment of stateful app
 - **Feature** implement 'player is on fire', e.g. when climbed 3 times, or guessed right 3 times, or ...
 - **Bugfix**: music not working on Safari (incl iPhone) - need to use history.pushState (done already for host, not yet for players) _AND_ make sure the .play is triggered synchronously on a user interaction; right now there's multiple things making it async: a) we have an animation when clicking the sticky and b) we first call the backend to get the gameId before we enter the room. Possible solution: start the music immediately on click, but keep it muted, and unmute only once the "room" is entered successfully. Can there be other solutions? Related articles:
@@ -10,13 +10,14 @@
 - **Bugfix**: close/delete game when finished, or auto-close a game 30min after it was started
 - **Tech Improve**: try implement both a WebSocket client and an HttpRestClient, both should work to be "plugged in" without changing the code
 - **Feature**: define secondsToGuess per quiz and per question in quiz json
-- **Feature**: play sound on host when player guesses to create more intensive competition atmosphere
-- **Feature**: show newly joined players at the beginning, especially when having a large number of players
 - **Bugfix**: in scoreboard no. 1 overlaps with no. 2 in some cases
 - **Feature**: show 3s count down before starting the first question
 
 
 # DONE
+- **Feature**: play sound on host when player guesses to create more intensive competition atmosphere
+- **Feature**: show newly joined players at the beginning, especially when having a large number of players
+- **Tech Improve**: split Game from Games
 - show answer distribution and the correct answer as intermediate result
 - replace socket.io with plain websocket
 - center the stickies on the y-axis, consider both quiz stickies on entrance and answer stickies on play/host
