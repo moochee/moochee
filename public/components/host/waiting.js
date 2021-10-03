@@ -16,7 +16,7 @@ const QRCode = function (props) {
 }
 
 export default function Waiting(props) {
-    const joinUrl = `${window.location.origin}/#/play/${props.gameId}`
+    const joinUrl = `${window.location.origin}/play/#/game/${props.gameId}`
     const [copied, setCopied] = useState('')
     const joinUrlInput = useRef()
 

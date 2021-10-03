@@ -6,15 +6,10 @@ import auth from './auth.js'
 import quizSocketServer from './quiz-socket-server.js'
 
 const app = express()
-auth(app)
+const login = auth(app)
 app.use('/public', express.static('public'))
 app.use('/play', express.static('web/play'))
-app.use('/', (req, res, next) => {
-    if (!req.isAuthenticated()) {
-        return res.status(401).end('Not authenticated!')
-    }
-    next()
-})
+app.use('/', login)
 app.use('/', express.static('web/host'))
 
 const server = http.createServer(app)
