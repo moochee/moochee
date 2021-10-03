@@ -37,17 +37,26 @@ export default function create(server) {
                 },
                 nextRound: () => {
                     const [gameId] = args
-                    const game = games.find(gameId)
-                    game.nextRound(events)
+                    try {
+                        const game = games.find(gameId)
+                        game.nextRound(events)
+                    } catch (error) {
+                        console.log(error)
+                    }
                 },
                 guess: () => {
                     const [gameId, name, answerIndex] = args
-                    const game = games.find(gameId)
-                    game.guess(name, answerIndex, events)
+                    try {
+                        const game = games.find(gameId)
+                        game.guess(name, answerIndex, events)
+                    } catch (error) {
+                        console.log(error)
+                    }
                 }
             }
 
-            commandHandlers[command]()
+            const commandHandler = commandHandlers[command]
+            commandHandler ? commandHandler() : console.log(`No handler defined for command: ${command}`)
         })
 
         webSocket.on('close', () => {
