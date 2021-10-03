@@ -57,7 +57,7 @@ export default function auth(app) {
     }))
 
     return (req, res, next) => {
-        if (!req.isAuthenticated()) {
+        if (!req.isAuthenticated() && req.originalUrl !== '/service-worker.js') {
             return res.redirect('/login')
         }
         next()
