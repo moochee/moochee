@@ -102,7 +102,7 @@ export default function Host(props) {
 
     const onPlayerJoined = (player) => {
         setPlayers((oldPlayers) => {
-            if (oldPlayers.length >= 1) {
+            if (oldPlayers.length >= 0) {
                 setCanStart(true)
             }
             return [player, ...oldPlayers]
@@ -111,7 +111,7 @@ export default function Host(props) {
 
     const onPlayerDisconnected = (player) => {
         setPlayers((oldPlayers) => {
-            if (oldPlayers.length <= 2) {
+            if (oldPlayers.length <= 1) {
                 setCanStart(false)
             }
             return oldPlayers.filter(p => p != player)
