@@ -77,7 +77,7 @@ const PodiumFinalPage = function (props) {
     const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
     const podiumFinalBlack = !showDistribution ? html`<${PodiumFinal} players=${props.players} volume=${props.volume} />` : ''
     const backHomeButton = canBackHome ? html`<div class=hostBackHomeButton>
-        <${StickyButton} onClick=${props.onBackHome} color=blue text='Back Home 🔥' />
+        <${StickyButton} onClick=${props.onBackHome} color=blue text='Home 🔥' />
     </div>` : ''
 
     return html`<div class=hostPodium>
