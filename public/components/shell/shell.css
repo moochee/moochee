@@ -66,18 +66,9 @@
     padding-top: 0vh;
 }
 
-@media (orientation: portrait) {
-    .shellContentFit {
-        height: 80%;
-        padding-top: 9vh;
-    }
-}
-
-@media (orientation: landscape) {
-    .shellContentFit {
-        height: 80%;
-        padding-top: 8vh;
-    }
+.shellContentFit {
+    height: 80%;
+    padding-top: 8.95vh;
 }
 
 @media only screen and (min-width: 768px) {
