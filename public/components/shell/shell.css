@@ -68,12 +68,5 @@
 
 .shellContentFit {
     height: 80%;
-    padding-top: 8.92vh;
-}
-
-@media only screen and (min-width: 768px) {
-    .shellContentFit {
-        height: 80%;
-        padding-top: 10vh;
-    }
+    padding-top: 10vh;
 }

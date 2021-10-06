@@ -72,7 +72,7 @@ const PodiumFinalPage = function (props) {
     }, [])
 
     const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
-    const gameOverBlock = !showDistribution ? html`<h2>Game Over. Watch the host's screen NOW!</h2>` : ''
+    const gameOverBlock = !showDistribution ? html`<h2 style='padding-top: 10vh'>Game Over. Watch the host's screen NOW!</h2>` : ''
 
     return html`<div class=playPodium>
         ${distributionBlock}
@@ -165,7 +165,7 @@ export default function Play(props) {
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
     const podiumFinalBlock = isRoundFinished && isFinal ? html`<${PodiumFinalPage} result=${status.result} />` : ''
 
-    return html`<${Shell} headerLeft=${props.quizTitle} footerLeft='${props.playerAvatar} ${props.playerName}' footerRight='Score: ${score}' fullScreenContent=${isRoundFinished && !isFinal}>
+    return html`<${Shell} headerLeft=${props.quizTitle} footerLeft='${props.playerAvatar} ${props.playerName}' footerRight='Score: ${score}' fullScreenContent=${isRoundFinished}>
         ${waitingToStartBlock}
         ${questionBlock}
         ${podiumBlock}
