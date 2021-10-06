@@ -28,7 +28,7 @@ const fetchAndUpdateCacheIfOnline = async (request, cache) => {
     if (navigator.onLine) {
         try {
             const resp = await fetch(request)
-            if (resp.status === 200) {
+            if (resp.status === 200 && resp.type === 'basic') {
                 await cache.put(request, resp.clone())
             }
             return resp
