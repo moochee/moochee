@@ -12,12 +12,12 @@
 
 <body>
     <script type='module'>
-        import { html, render, useEffect, useState, useRef } from '/lib/preact-3.1.0.standalone.module.js'
-        import Scoreboard from '/components/scoreboard/scoreboard.js'
-        import Shell from '/components/shell/shell.js'
-        import loadCss from '/load-css.js'
-        loadCss('/style.css')
-        loadCss('/font/komikatext_regular_macroman/stylesheet.css')
+        import { html, render, useEffect, useState, useRef } from '/public/lib/preact-3.1.0.standalone.module.js'
+        import Scoreboard from '/public/components/scoreboard/scoreboard.js'
+        import Shell from '/public/components/shell/shell.js'
+        import loadCss from '/public/load-css.js'
+        loadCss('/public/style.css')
+        loadCss('/public/font/komikatext_regular_macroman/stylesheet.css')
 
         // const ranking = [
         //     { avatar: '🐻', oldScore: 20000, score: 50, oldRank: 1, rank: 7 },
@@ -33,8 +33,11 @@
         //     { avatar: '🦁', oldScore: 600, score: 100, oldRank: 11, rank: 11 }
         // ]
         const ranking = [
-            { avatar: '🐯', oldScore: 500, score: 781, oldRank: 2, rank: 1 },
-            { avatar: '🦁', oldScore: 572, score: 572, oldRank: 1, rank: 2 }
+            { avatar: '🐻', oldScore: 20000, score: 20000, oldRank: 1, rank: 2 },
+            { avatar: '🦊', oldScore: 600, score: 20001, oldRank: 2, rank: 1 },
+            { avatar: '🐰', oldScore: 500, score: 600, oldRank: 3, rank: 3 },
+            { avatar: '🐹', oldScore: 400, score: 500, oldRank: 4, rank: 4 },
+            { avatar: '🐭', oldScore: 300, score: 400, oldRank: 5, rank: 5 },
         ]
         const Page = () => {
             return html`<${Shell}><${Scoreboard} ranking=${ranking} /><//>`
