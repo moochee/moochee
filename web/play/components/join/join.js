@@ -4,7 +4,7 @@ import { html, useState, useEffect, useRef } from '/public/lib/preact-3.1.0.stan
 import loadCss from '/public/load-css.js'
 import Shell from '/public/components/shell/shell.js'
 
-loadCss('/public/components/join/join.css')
+loadCss('/play/components/join/join.css')
 
 export default function Join(props) {
     const [playerName, setPlayerName] = useState('')

@@ -5,7 +5,7 @@ import loadCss from '/public/load-css.js'
 import StickyButton from '/public/components/sticky/sticky-button.js'
 import QrCreator from '/public/lib/qr-creator.es6.min.js'
 
-loadCss('/public/components/host/waiting.css')
+loadCss('/components/host/waiting.css')
 
 const QRCode = function (props) {
     const appendQr = useRef(null)

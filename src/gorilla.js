@@ -7,7 +7,7 @@ import quizSocketServer from './quiz-socket-server.js'
 
 const app = express()
 const login = auth(app)
-app.use('/public', express.static('public'))
+app.use('/public', express.static('web/public'))
 app.use('/play', express.static('web/play'))
 app.use('/', login)
 app.use('/', express.static('web/host'))

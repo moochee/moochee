@@ -7,12 +7,12 @@ import Shell from '/public/components/shell/shell.js'
 import Countdown from '/public/components/countdown.js'
 import Scoreboard from '/public/components/scoreboard/scoreboard.js'
 import Distribution from '/public/components/distribution/distribution.js'
-import PodiumFinal from '/public/components/podium/podium-final.js'
+import PodiumFinal from '/public/components/podium-final/podium-final.js'
 import StickyCard from '/public/components/sticky/sticky-card.js'
 import StickyButton from '/public/components/sticky/sticky-button.js'
 import Waiting from './waiting.js'
 
-loadCss('/public/components/host/host.css')
+loadCss('/components/host/host.css')
 
 const QuestionAndAnswers = function (props) {
     const colors = ['green', 'purple', 'blue', 'orange']
@@ -188,7 +188,7 @@ export default function Host(props) {
 
     return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft=#${props.gameId} footerRight='${players.length} Players' fullScreenContent=${isRoundFinished}>
         <audio ref=${music} volume=${volume} loop src=/public/components/positive-funny-background-music-for-video-games.mp3></audio>
-        <audio ref=${tap} volume=${volume} src=/public/components/host/tap.mp3></audio>
+        <audio ref=${tap} volume=${volume} src=/components/host/tap.mp3></audio>
         ${waitingToStartBlock}
         ${questionBlock}
         ${podiumBlock}

@@ -8,7 +8,7 @@ import Distribution from '/public/components/distribution/distribution.js'
 import Scoreboard from '/public/components/scoreboard/scoreboard.js'
 import StickyButton from '/public/components/sticky/sticky-button.js'
 
-loadCss('/public/components/play/play.css')
+loadCss('/play/components/play/play.css')
 
 const WaitingToStart = function (props) {
     const otherPlayers = props.otherPlayers.map(p => html`<div key=${p} class='playWaitingAvatar playWaitingBounceIn'>${p}</div>`)

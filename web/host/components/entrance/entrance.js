@@ -5,7 +5,7 @@ import loadCss from '/public/load-css.js'
 import Shell from '/public/components/shell/shell.js'
 import StickyButton from '/public/components/sticky/sticky-button.js'
 
-loadCss('/public/components/entrance/entrance.css')
+loadCss('/components/entrance/entrance.css')
 
 export default function Entrance(props) {
     const [quizzes, setQuizzes] = useState([])

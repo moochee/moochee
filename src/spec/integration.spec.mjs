@@ -3,7 +3,7 @@
 import { createServer } from 'http'
 import WebSocket from 'ws'
 import quizSocketServer from '../quiz-socket-server.js'
-import QuizSocketClient from '../../public/quiz-socket-client.js'
+import QuizSocketClient from '../../web/public/quiz-socket-client.js'
 
 describe('Integration', () => {
     let server, port, hostClient, playerClient
