@@ -26,12 +26,29 @@ describe('Integration', () => {
     it('should be possible to join a game', async () => {
         const gameId = await new Promise(resolve => {
             hostClient.getQuizzes()
-            hostClient.subscribe('quizzesReceived', quizzes => hostClient.host(quizzes[0].id))
+            hostClient.subscribe('quizzesReceived', () => hostClient.host('cc-dist-logging.json'))
             hostClient.subscribe('gameStarted', resolve)
         })
         await new Promise(resolve => {
             playerClient.join(gameId, ALICE)
             playerClient.subscribe('joiningOk', resolve)
+        })
+        await new Promise(resolve => {
+            hostClient.nextRound(gameId)
+            playerClient.subscribe('roundStarted', resolve)
+        })
+        await new Promise(resolve => {
+            playerClient.guess(gameId, ALICE, 1)
+            playerClient.subscribe('roundFinished', resolve)
+        })
+        await new Promise(resolve => {
+            hostClient.nextRound(gameId)
+            playerClient.guess(gameId, ALICE, 2)
+            playerClient.subscribe('gameFinished', resolve)
+        })
+        await new Promise(resolve => {
+            playerClient.disconnect()
+            hostClient.subscribe('playerDisconnected', resolve)
         })
     })
 

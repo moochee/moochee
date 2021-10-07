@@ -43,4 +43,6 @@ export default function QuizSocketClient(createWebSocket) {
     this.guess = (gameId, playerName, answerIndex) => {
         send({ command: 'guess', args: [gameId, playerName, answerIndex] })
     }
+
+    this.disconnect = () => socket.close()
 }
