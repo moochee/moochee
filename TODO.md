@@ -1,7 +1,8 @@
 # TODO
-- **Tech improve**: secure the app with sso
 - **Tech Improve**: zero downtime deployment of stateful app
+- **Feature**: implement an easy-to-use quiz creator
 - **Feature** implement 'player is on fire', e.g. when climbed 3 times, or guessed right 3 times, or ...
+- **Tech Improve**: calculate old/new score/ranking in backend
 - **Bugfix**: music not working on Safari (incl iPhone) - need to use history.pushState (done already for host, not yet for players) _AND_ make sure the .play is triggered synchronously on a user interaction; right now there's multiple things making it async: a) we have an animation when clicking the sticky and b) we first call the backend to get the gameId before we enter the room. Possible solution: start the music immediately on click, but keep it muted, and unmute only once the "room" is entered successfully. Can there be other solutions? Related articles:
   - Maybe noteOn helps?? https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/PlayingandSynthesizingSounds/PlayingandSynthesizingSounds.html#//apple_ref/doc/uid/TP40009523-CH6-SW1
   - https://developer.apple.com/forums/thread/94522
@@ -15,9 +16,10 @@
 
 
 # DONE
-- **Feature**: play sound on host when player guesses to create more intensive competition atmosphere
-- **Feature**: show newly joined players at the beginning, especially when having a large number of players
-- **Tech Improve**: split Game from Games
+- secure the app with sso
+- play sound on host when player guesses to create more intensive competition atmosphere
+- show newly joined players at the beginning, especially when having a large number of players
+- split Game from Games
 - show answer distribution and the correct answer as intermediate result
 - replace socket.io with plain websocket
 - center the stickies on the y-axis, consider both quiz stickies on entrance and answer stickies on play/host
