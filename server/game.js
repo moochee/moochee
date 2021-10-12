@@ -59,12 +59,14 @@ function Game(quiz, players, timer) {
         roundStartTime = null
         const scoreboard = [...players.getResult()]
         scoreboard.sort((a, b) => b.score - a.score)
-        if (currentQuestionIndex === quiz.questions.length - 1) {
+        if (isLastQuestion()) {
             events?.publish(this.id, { event: 'gameFinished', args: [{ result, scoreboard }] })
         } else {
             events?.publish(this.id, { event: 'roundFinished', args: [{ result, scoreboard }] })
         }
     }
+
+    const isLastQuestion = () => currentQuestionIndex === quiz.questions.length - 1
 
     this.disconnect = (name, events) => {
         const avatar = players.remove(name)
