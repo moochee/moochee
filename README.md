@@ -11,6 +11,8 @@ All quizzes are located in [/quiz](https://github.tools.sap/acdc/gorilla/tree/ma
 ## Dev How-To
 
 After cloning you can:
+- Copy `.env.sample` to `.env.dev`
+  - Assign values to environment variables in `.env.dev`
 - Run the tests: `npm test`
 - Start the server: `npm run dev`
 

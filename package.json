@@ -1,13 +1,13 @@
 {
   "name": "gorilla",
   "version": "1.0.0",
-  "description": "",
+  "description": "An interactive multi-person quiz game",
   "scripts": {
-    "dev": "node -r dotenv/config src/gorilla.js dotenv_config_path=.env.dev",
-    "start": "node -r dotenv/config src/gorilla.js dotenv_config_path=.env",
-    "lint": "eslint src web **/*.mjs",
-    "test": "jasmine src/spec/**/*.spec.mjs",
-    "coverage": "c8 jasmine src/spec/**/*.spec.mjs",
+    "dev": "node -r dotenv/config server/gorilla.js dotenv_config_path=.env.dev",
+    "start": "node -r dotenv/config server/gorilla.js dotenv_config_path=.env",
+    "lint": "eslint server web **/*.mjs",
+    "test": "jasmine server/spec/**/*.spec.mjs",
+    "coverage": "c8 jasmine server/spec/**/*.spec.mjs",
     "prepare": "echo 'npm run lint && npm test' > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
   },
   "type": "module",
