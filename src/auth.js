@@ -3,6 +3,7 @@
 import passport from 'passport'
 import session from 'express-session'
 import { Issuer, Strategy } from 'openid-client'
+import config from './auth-config.js'
 
 export default function auth(app) {
     passport.serializeUser(function (user, done) {
@@ -13,7 +14,7 @@ export default function auth(app) {
     })
 
     app.use(session({
-        secret: process.env.SESSION_SECRET,
+        secret: config.SESSION_SECRET,
         resave: false,
         saveUninitialized: false
     }))
@@ -22,15 +23,15 @@ export default function auth(app) {
     app.use(passport.session())
 
     const idp = new Issuer({
-        issuer: `${process.env.IDP}/oauth/token`,
-        authorization_endpoint: `${process.env.IDP}/oauth/authorize`,
-        token_endpoint: `${process.env.IDP}/oauth/token`,
-        jwks_uri: `${process.env.IDP}/token_keys`
+        issuer: `${config.IDP}/oauth/token`,
+        authorization_endpoint: `${config.IDP}/oauth/authorize`,
+        token_endpoint: `${config.IDP}/oauth/token`,
+        jwks_uri: `${config.IDP}/token_keys`
     })
     const client = new idp.Client({
-        client_id: process.env.CLIENT_ID,
-        client_secret: process.env.CLIENT_SECRET,
-        redirect_uris: [process.env.REDIRECT_URI],
+        client_id: config.CLIENT_ID,
+        client_secret: config.CLIENT_SECRET,
+        redirect_uris: [config.REDIRECT_URI],
         token_endpoint_auth_method: 'client_secret_post' //xsuaa needs this
     })
 

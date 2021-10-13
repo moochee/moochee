@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "node -r dotenv/config src/gorilla.js dotenv_config_path=.env.dev",
-    "start": "node -r dotenv/config src/gorilla.js dotenv_config_path=.env",
+    "start": "node src/gorilla.js",
     "lint": "eslint src web **/*.mjs",
     "test": "jasmine src/spec/**/*.spec.mjs",
     "coverage": "c8 jasmine src/spec/**/*.spec.mjs",
@@ -15,7 +14,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "openid-client": "^4.9.0",
@@ -23,11 +21,11 @@
     "ws": "^8.2.1"
   },
   "devDependencies": {
+    "c8": "^7.9.0",
     "eslint": "^7.32.0",
     "eslint-plugin-jasmine": "^4.1.2",
     "eslint-plugin-react": "^7.24.0",
-    "jasmine": "^3.8.0",
-    "c8": "^7.9.0"
+    "jasmine": "^3.8.0"
   },
   "engines": {
     "node": "14.17.x"
