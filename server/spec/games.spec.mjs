@@ -31,4 +31,13 @@ describe('Games', () => {
     it('throws error when finding non-exist game by id', () => {
         expect(() => games.find(1)).toThrow()
     })
+
+    it('returns 0 running game initially', () => {
+        expect(games.numberOfRunningGames()).toBe(0)
+    })
+
+    it('returns 1 running game when hosting a game', async () => {
+        await games.host(null, null, events)
+        expect(games.numberOfRunningGames()).toBe(1)
+    })
 })

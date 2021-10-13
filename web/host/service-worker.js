@@ -19,7 +19,8 @@ self.addEventListener('fetch', (event) => {
     // ignore any protocols other than http(s) (e.g. chrome-extension://, wss://) + range requests (e.g. audio, service worker does not support ranged queries)
     const url = new URL(event.request.url)
     const isRangeReq = event.request.headers.has('range')
-    if (['http:', 'https:'].includes(url.protocol) && !isRangeReq) {
+    const isApiReq = url.pathname.indexOf('/api/') >= 0
+    if (['http:', 'https:'].includes(url.protocol) && !isRangeReq && !isApiReq) {
         event.respondWith(intercept())
     }
 })

@@ -43,4 +43,7 @@ export default function Games(quizService, timer) {
         if (!game) throw new Error(`can't find game with id ${id}`)
         return game
     }
+
+    // TODO: ignore games which starts 30min ago or clean them up
+    this.numberOfRunningGames = () => games.length
 }
