@@ -1,0 +1,24 @@
+export SESSION_SECRET=
+export REDIRECT_URI=
+export VCAP_SERVICES='{
+  "xsuaa": [
+    {
+      "name": "gorilla-uaa",
+      "credentials": {
+        "clientid": "",
+        "clientsecret": "",
+        "url": ""
+      }
+    }
+  ],
+  "fs-storage": [
+    {
+      "name": "gorilla-fs",
+      "volume_mounts": [
+        {
+          "container_dir": "."
+        }
+      ]
+    }
+  ]
+}'
