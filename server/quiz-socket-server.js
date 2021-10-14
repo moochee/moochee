@@ -12,6 +12,7 @@ export default function create(server) {
     const quizService = new QuizService()
     const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
     const games = new Games(quizService, timer)
+    webSocketServer.games = games
 
     webSocketServer.on('connection', (webSocket) => {
         const events = new Events(webSocketServer, webSocket)

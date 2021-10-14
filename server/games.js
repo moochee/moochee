@@ -45,5 +45,7 @@ export default function Games(quizService, timer) {
     }
 
     // TODO: ignore games which starts 30min ago or clean them up
-    this.numberOfRunningGames = () => games.length
+    this.runningGames = () => {
+        return { runningGames: games.length }
+    }
 }

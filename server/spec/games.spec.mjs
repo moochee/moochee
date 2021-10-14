@@ -33,11 +33,11 @@ describe('Games', () => {
     })
 
     it('returns 0 running game initially', () => {
-        expect(games.numberOfRunningGames()).toBe(0)
+        expect(games.runningGames()).toEqual({ runningGames: 0 })
     })
 
     it('returns 1 running game when hosting a game', async () => {
         await games.host(null, null, events)
-        expect(games.numberOfRunningGames()).toBe(1)
+        expect(games.runningGames()).toEqual({ runningGames: 1 })
     })
 })
