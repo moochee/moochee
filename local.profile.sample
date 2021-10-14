@@ -1,5 +1,4 @@
 export SESSION_SECRET=SuperStrongSecret
-export REDIRECT_URI=http://localhost:3000/login/callback
 export VCAP_SERVICES='{
   "xsuaa": [
     {
@@ -20,5 +19,10 @@ export VCAP_SERVICES='{
         }
       ]
     }
+  ]
+}'
+export VCAP_APPLICATION='{
+  "uris": [
+      "localhost:3000"
   ]
 }'
