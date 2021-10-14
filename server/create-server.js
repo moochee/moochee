@@ -5,9 +5,9 @@ import express from 'express'
 import auth from './auth.js'
 import quizSocketServer from './quiz-socket-server.js'
 
-export default function createServer() {
+export default function createServer(config) {
     const app = express()
-    const login = auth(app)
+    const login = auth(app, config)
     const httpServer = http.createServer(app)
     quizSocketServer(httpServer)
 

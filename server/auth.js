@@ -3,9 +3,8 @@
 import passport from 'passport'
 import session from 'express-session'
 import { Issuer, Strategy } from 'openid-client'
-import config from './auth-config.js'
 
-export default function auth(app) {
+export default function auth(app, config) {
     passport.serializeUser(function (user, done) {
         done(null, user)
     })
