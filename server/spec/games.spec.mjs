@@ -40,4 +40,28 @@ describe('Games', () => {
         await games.host(null, null, events)
         expect(games.runningGames()).toEqual({ runningGames: 1 })
     })
+
+    it('deletes game when it was created more than 30 minutes ago', async () => {
+        const game = await games.host()
+        const thirtyOneMinutesAgo = new Date(Date.now() - 1000 * 60 * 31)
+        game.setCreatedAt(thirtyOneMinutesAgo)
+        games.deleteInactiveGames()
+        expect(games.runningGames()).toEqual({ runningGames: 0 })
+    })
+
+    it('does not delete game when it was created within 30 minutes', async () => {
+        const game = await games.host()
+        const twentyMinutesAgo = new Date(Date.now() - 1000 * 60 * 20)
+        game.setCreatedAt(twentyMinutesAgo)
+        games.deleteInactiveGames()
+        expect(games.runningGames()).toEqual({ runningGames: 1 })
+    })
+
+    it('does not delete game when it was created exactly 30 minutes ago', async () => {
+        const game = await games.host()
+        const thirtyMinutesAgo = new Date(Date.now() - 1000 * 60 * 30)
+        game.setCreatedAt(thirtyMinutesAgo)
+        games.deleteInactiveGames()
+        expect(games.runningGames()).toEqual({ runningGames: 1 })
+    })
 })

@@ -3,7 +3,7 @@
 import Game from './game.js'
 
 export default function Games(quizService, timer) {
-    const games = []
+    let games = []
 
     this.getQuizzes = async (events) => {
         const quizzes = await quizService.getAll()
@@ -47,5 +47,10 @@ export default function Games(quizService, timer) {
     // TODO: ignore games which starts 30min ago or clean them up
     this.runningGames = () => {
         return { runningGames: games.length }
+    }
+
+    this.deleteInactiveGames = () => {
+        const thirtyMinutes = 1000 * 60 * 30
+        games = games.filter(g => g.getCreatedAt() >= (Date.now() - thirtyMinutes))
     }
 }
