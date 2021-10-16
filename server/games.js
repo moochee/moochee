@@ -51,6 +51,6 @@ export default function Games(quizService, timer) {
 
     this.deleteInactiveGames = () => {
         const thirtyMinutes = 1000 * 60 * 30
-        games = games.filter(g => g.getCreatedAt() >= (Date.now() - thirtyMinutes))
+        games = games.filter(g => (Date.now() - g.getCreatedAt()) <= thirtyMinutes)
     }
 }
