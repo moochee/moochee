@@ -4,7 +4,7 @@ function Game(quiz, players, timer) {
     let currentQuestionIndex = -1
     let guessTimeoutId
     let roundStartTime
-    let createdAt
+    let createdAt = Date.now()
     const NETWORK_DELAY_IN_SECONDS = 2
 
     this.id = String(Math.floor(100000 + Math.random() * 900000))
