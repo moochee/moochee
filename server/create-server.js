@@ -16,7 +16,7 @@ export default function createServer(config) {
 
     app.use(express.json())
     app.get('/api/v1/runningGames', (_, res) => {
-        res.status(200).send(socketServer.games.runningGames())
+        res.status(200).send(socketServer.games.getRunningGames())
     })
 
     app.use('/', login)

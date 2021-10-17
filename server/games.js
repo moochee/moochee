@@ -44,7 +44,7 @@ export default function Games(quizService, timer) {
         return game
     }
 
-    this.runningGames = () => {
+    this.getRunningGames = () => {
         this.deleteInactiveGames()
         return { runningGames: games.length }
     }

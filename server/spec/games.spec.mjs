@@ -33,12 +33,12 @@ describe('Games', () => {
     })
 
     it('returns 0 running game initially', () => {
-        expect(games.runningGames()).toEqual({ runningGames: 0 })
+        expect(games.getRunningGames()).toEqual({ runningGames: 0 })
     })
 
     it('returns 1 running game when hosting a game', async () => {
         await games.host(null, null, events)
-        expect(games.runningGames()).toEqual({ runningGames: 1 })
+        expect(games.getRunningGames()).toEqual({ runningGames: 1 })
     })
 
     it('deletes game when it was created more than 30 minutes ago', async () => {
@@ -46,7 +46,7 @@ describe('Games', () => {
         const thirtyOneMinutesAgo = new Date(Date.now() - 1000 * 60 * 31)
         game.setCreatedAt(thirtyOneMinutesAgo)
         games.deleteInactiveGames()
-        expect(games.runningGames()).toEqual({ runningGames: 0 })
+        expect(games.getRunningGames()).toEqual({ runningGames: 0 })
     })
 
     it('does not delete game when it was created within 30 minutes', async () => {
@@ -54,7 +54,7 @@ describe('Games', () => {
         const twentyMinutesAgo = new Date(Date.now() - 1000 * 60 * 20)
         game.setCreatedAt(twentyMinutesAgo)
         games.deleteInactiveGames()
-        expect(games.runningGames()).toEqual({ runningGames: 1 })
+        expect(games.getRunningGames()).toEqual({ runningGames: 1 })
     })
 
     it('does not delete game when it was created exactly 30 minutes ago', async () => {
@@ -62,6 +62,6 @@ describe('Games', () => {
         const thirtyMinutesAgo = new Date(Date.now() - 1000 * 60 * 30)
         game.setCreatedAt(thirtyMinutesAgo)
         games.deleteInactiveGames()
-        expect(games.runningGames()).toEqual({ runningGames: 1 })
+        expect(games.getRunningGames()).toEqual({ runningGames: 1 })
     })
 })
