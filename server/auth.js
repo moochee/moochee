@@ -5,6 +5,8 @@ import session from 'express-session'
 import { Issuer, Strategy } from 'openid-client'
 
 export default function auth(app, config) {
+    const OPENID_CONNECT = 'oidc'
+
     passport.serializeUser(function (user, done) {
         done(null, user)
     })
@@ -34,7 +36,7 @@ export default function auth(app, config) {
         token_endpoint_auth_method: 'client_secret_post' //xsuaa needs this
     })
 
-    passport.use('oidc',
+    passport.use(OPENID_CONNECT,
         new Strategy({ client }, (tokenSet, done) => {
             const claims = tokenSet.claims()
             return done(null, {
@@ -45,10 +47,10 @@ export default function auth(app, config) {
         })
     )
 
-    app.get('/login', passport.authenticate('oidc'))
+    app.get('/login', passport.authenticate(OPENID_CONNECT))
 
     // TODO: provide a failure url
-    app.get('/login/callback', passport.authenticate('oidc', {
+    app.get('/login/callback', passport.authenticate(OPENID_CONNECT, {
         successRedirect: '/',
         failureRedirect: '/'
     }))
