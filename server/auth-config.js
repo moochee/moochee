@@ -4,7 +4,8 @@ const vcapServices = JSON.parse(process.env.VCAP_SERVICES || {})
 const serviceEnvs = Object.keys(vcapServices).map(key => vcapServices[key]).flat()
 const uaa = serviceEnvs.find(entry => entry.name === 'gorilla-uaa')
 const vcapApplication = JSON.parse(process.env.VCAP_APPLICATION || {})
-const uri = vcapApplication.uris[0]
+// fallback uri is provided because url in VCAP_APPLICATION is empty when deploying new version hidden
+const uri = vcapApplication.uris[0] || 'acdc-gorilla.cfapps.sap.hana.ondemand.com'
 const protocol = uri.indexOf('localhost') >= 0 ? 'http' : 'https'
 
 export default {
