@@ -19,6 +19,10 @@ describe('Server', () => {
         client.get('/server-worker.js').expect(200)
     })
 
+    it('allows anonymous access to favicon.ico at root', () => {
+        client.get('/favicon.ico').expect(204)
+    })
+
     it('allows anonymous access to play page', () => {
         client.get('/play').expect(200)
     })

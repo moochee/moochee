@@ -56,7 +56,9 @@ export default function auth(app, config) {
     }))
 
     return (req, res, next) => {
-        if (!req.isAuthenticated() && req.originalUrl !== '/service-worker.js') {
+        if (req.originalUrl === '/service-worker.js') return next()
+        if (req.originalUrl === '/favicon.ico') return res.status(204).end()
+        if (!req.isAuthenticated()) {
             return res.redirect('/login')
         }
         next()
