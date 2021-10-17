@@ -25,8 +25,8 @@ describe('Server', () => {
 
     it('allows anonymous access to number of running games', async () => {
         const response = await client.get('/api/v1/runningGames')
-            .expect('Content-Type', /json/)
+            .expect('content-type', /text\/plain/)
             .expect(200)
-        expect(response.body).toEqual({ runningGames: 0 })
+        expect(response.text).toEqual('0')
     })
 })
