@@ -19,6 +19,7 @@ export default function createServer(config) {
             .status(200)
             .send(String(socketServer.games.getRunningGames()))
     })
+    app.get('/favicon.ico', (_, res) => res.status(204).end())
 
     app.use('/', login)
     app.use('/', express.static('web/host'))
