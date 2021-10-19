@@ -3,19 +3,23 @@
 import { html, useState } from '/public/lib/preact-3.1.0.standalone.module.js'
 
 function Answer(props) {
-    const updateText = (e) => props.onInput(e.target.value)
-
-    const changeSelection = () => props.onSelect()
-
-    const deleteAnswer = () => props.onDelete()
+    const input = (e) => props.onUpdateText(e.target.value)
+    const change = () => props.onChangeCorrectAnswer()
+    const checked = props.answer.correct ? true : false
 
     return html`<div>
-        <input type=radio id=${props.id} name=answer value=${props.text} 
-            checked=${props.correct} onchange=${changeSelection} />
-        <input oninput=${updateText} value=${props.text}></input>
-        <button onclick=${deleteAnswer}>Delete</button>
-    </div>
-  `
+        <input oninput=${input} value=${props.answer.text}></input>
+        <input type=checkbox id=${props.id} checked=${checked} onchange=${change}/>
+    </div>`
+}
+
+function Answers(props) {
+    const answersBlock = props.answers.map((answer, index) => {
+        return html`<${Answer} id=${index} answer=${answer} 
+            onUpdateText=${(text) => props.onUpdateText(index, text)} 
+            onChangeCorrectAnswer=${() => props.onChangeCorrectAnswer(index)} />`
+    })
+    return html`${answersBlock}`
 }
 
 export default function QuizCreator() {
@@ -23,49 +27,34 @@ export default function QuizCreator() {
     const [question, setQuestion] = useState('Question 1?')
     const [answers, setAnswers] = useState([
         { text: 'Answer 1', correct: true },
-        { text: 'Answer 2' }
+        { text: 'Answer 2' },
+        { text: 'Answer 3' },
+        { text: 'Answer 4' }
     ])
 
     const updateTitle = (e) => setTitle(e.target.value)
 
     const updateQuestion = (e) => setQuestion(e.target.value)
 
-    const addAnswer = () => setAnswers(oldAnswers => {
-        if (oldAnswers.length >= 4) return oldAnswers
-        return [...oldAnswers, { text: '' }]
+    const updateAnswerText = (index, text) => setAnswers(oldAnswers => {
+        const newAnswers = [...oldAnswers]
+        newAnswers[index].text = text
+        return newAnswers
+    })
+
+    const changeCorrectAnswer = (index) => setAnswers(oldAnswers => {
+        const newAnswers = oldAnswers.map(a => ({ text: a.text }))
+        newAnswers[index].correct = true
+        return newAnswers
     })
 
     const save = () => {
         const saveQuiz = async (newQuiz) => {
-            const payload = { ...newQuiz }
-            console.log(payload)
+            console.log(newQuiz)
         }
-        const quiz = { title, questions: [{ text: question, answers: answers }] }
+        const quiz = { title, questions: [{ text: question, answers: answers.filter(a => a.text) }] }
         saveQuiz(quiz)
     }
-
-    const answersBlock = answers.map((a, i) => {
-        const updateAnswerText = (answer) => setAnswers(oldAnswers => {
-            const newAnswers = [...oldAnswers]
-            newAnswers[i].text = answer
-            return newAnswers
-        })
-
-        const markCorrectAnswer = () => setAnswers(oldAnswers => {
-            const newAnswers = oldAnswers.map(a => ({ text: a.text }))
-            newAnswers[i].correct = true
-            return newAnswers
-        })
-
-        const deleteAnswer = () => setAnswers(oldAnswers => {
-            if (oldAnswers.length === 2) return oldAnswers
-            const newAnswers = oldAnswers.filter((_, index) => index !== i)
-            return newAnswers
-        })
-
-        return html`<${Answer} id=${i} text=${a.text} correct=${a.correct} 
-            onInput=${updateAnswerText} onSelect=${markCorrectAnswer} onDelete=${deleteAnswer} />`
-    })
 
     return html`
         <div>
@@ -75,9 +64,8 @@ export default function QuizCreator() {
         <div>
             <label for=question>Question</label>
             <input id=question oninput=${updateQuestion} value=${question}>$</input>
-            <button onclick=${addAnswer}>Add answer</button>
         </div>
-        ${answersBlock}
+        <${Answers} answers=${answers} onUpdateText=${updateAnswerText} onChangeCorrectAnswer=${changeCorrectAnswer} />
         <button id=save onclick=${save}>Save</button>
     `
 }
