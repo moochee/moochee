@@ -10,10 +10,10 @@ loadCss('/components/entrance/entrance.css')
 export default function Entrance(props) {
     const [quizzes, setQuizzes] = useState([])
 
-    const colors = ['green', 'blue', 'orange', 'purple']
+    const colors = ['green', 'blue', 'orange', 'purple', 'red', 'yellow', 'petrol']
 
     const onQuizzesReceived = (quizzes) => {
-        quizzes.forEach((entry, index) => entry.color = colors[index % 4])
+        quizzes.forEach((entry, index) => entry.color = colors[index % 7])
         setQuizzes(quizzes)
     }
 
