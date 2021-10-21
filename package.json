@@ -17,7 +17,6 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "link": "^0.1.5",
     "openid-client": "^4.9.0",
     "passport": "^0.5.0",
     "ws": "^8.2.1"
