@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "An interactive multi-person quiz game",
   "scripts": {
+    "dev": "source local.profile && npm start",
     "start": "node server/gorilla.js",
     "lint": "eslint server web **/*.mjs",
     "test": "jasmine server/spec/**/*.spec.mjs",
