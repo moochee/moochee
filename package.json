@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "An interactive multi-person quiz game",
   "scripts": {
-    "dev": "source local.profile && npm start",
     "start": "node server/gorilla.js",
     "lint": "eslint server web **/*.mjs",
     "test": "jasmine server/spec/**/*.spec.mjs",
     "coverage": "c8 jasmine server/spec/**/*.spec.mjs",
-    "prepare": "echo 'npm run lint && npm test' > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
+    "prepare": "cp pre-commit .git/hooks/pre-commit"
   },
   "type": "module",
   "keywords": [],

@@ -15,7 +15,7 @@ import Waiting from './waiting.js'
 loadCss('/components/host/host.css')
 
 const QuestionAndAnswers = function (props) {
-    const colors = ['green', 'purple', 'blue', 'orange']
+    const colors = ['green', 'purple', 'blue', 'orange', 'red', 'yellow', 'petrol']
 
     const answersBlock = props.question.answers.map((answer, index) => {
         return html`<${StickyCard} key=${index} color=${colors[index]} text=${answer.text} />`
@@ -96,6 +96,7 @@ export default function Host(props) {
     const [isFinal, setIsFinal] = useState(false)
     const [countDown, setCountDown] = useState(null)
     const [volume, setVolume] = useState(1)
+    const [statistics, setStatistics] = useState({ answerResults: [] })
 
     const music = useRef({})
     const tap = useRef({})
@@ -134,20 +135,34 @@ export default function Host(props) {
         return updatedScoreboard
     }
 
+    const updateAnswerResults = (oldAnswerResults, newAnswerResults) => {
+        console.log(oldAnswerResults)
+        console.log(newAnswerResults)
+        const updatedAnswerResults = [oldAnswerResults, newAnswerResults]
+        console.log(updatedAnswerResults)
+        return updatedAnswerResults.flat()
+    }
+
     const onPlayerGuessed = () => {
         tap.current.play()
     }
 
     const onRoundFinished = (status) => {
+        //console.log(status)
         setIsRoundFinished(true)
         setQuestion(null)
         setStatus(oldStatus => ({
             result: status.result, scoreboard: updateScoreboard(oldStatus.scoreboard, status.scoreboard)
         }))
+        setStatistics(oldStatistics => ({
+            result: status.result, answerResults: updateAnswerResults(oldStatistics.answerResults, status.result)
+        }))
         setCountDown(null)
     }
 
     const onGameFinished = (status) => {
+        console.log(statistics)
+        console.log(status)
         onRoundFinished(status)
         setIsFinal(true)
     }

@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+npm run lint
+npm test
