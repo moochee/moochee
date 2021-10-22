@@ -20,7 +20,7 @@ export default function Distribution(props) {
         return () => window.removeEventListener('resize', setDimensions)
     }, [])
 
-    const colors = ['green', 'purple', 'blue', 'orange']
+    const colors = ['green', 'purple', 'blue', 'orange', 'red', 'yellow', 'petrol']
 
     const answersBlock = props.distribution.answers.map((answer, index) => {
         const className = answer.correct ? 'correctAnswerAppear' : 'wrongAnswerAppear'

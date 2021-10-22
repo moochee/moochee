@@ -1,0 +1,292 @@
+{
+    "title": "Tech-Bingo",
+    "questions": [
+        {
+            "text": "example",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "docker",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "yaml-files",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "kafka",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "images",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "container",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "k8s",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "kubernetes",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "Eureka",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "Hyperscaler",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "messaging",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "spark",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "github",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "hexagonal Architecture",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "Microservices",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "Cloud",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "DataLake",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "Python",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "Jenkins",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "Developer Portal",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "Cloud Security",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "instances",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "Linux / Unix",
+            "answers": [
+                { "text": "0: Whaaaat? Could you pronounce it?", "correct": true },
+                { "text": "1: Ah, heard of that, it has something to do with {fill in related word}", "correct": true },
+                { "text": "2: Yes, I have a (basic) understanding, but missing practice", "correct": true },
+                { "text": "3: Have used it, maybe need a refresher but can google that", "correct": true },
+                { "text": "4: I use it regulary, but don't know details behind it", "correct": true },
+                { "text": "5: I use it very often and have some detailed knowledge", "correct": true },
+                { "text": "6: Boooring, I know more about it (in every detail) than YOU!", "correct": true }
+            ]
+       },
+        {
+            "text": "END",
+            "answers": [
+                { "text": "0: Total waste of time, s*** session!", "correct": true },
+                { "text": "1: Waste of time, but nice try", "correct": true },
+                { "text": "2: Kind of OK-ish", "correct": true },
+                { "text": "3: OK, but wrong time (I prefer lunch)", "correct": true },
+                { "text": "4: That was kind of fun (or any reason for good)", "correct": true },
+                { "text": "5: That was fun and better like normal lunchbreak, once again :-D", "correct": true }
+            ]
+        }
+    ]
+}

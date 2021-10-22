@@ -26,7 +26,7 @@ const WaitingToStart = function (props) {
 }
 
 const QuestionAndAnswers = function (props) {
-    const colors = ['green', 'purple', 'blue', 'orange']
+    const colors = ['green', 'purple', 'blue', 'orange', 'red', 'yellow', 'petrol']
 
     const answersBlock = props.question.answers.map((answer, index) => {
         return html`<${StickyButton} key=${index} color=${colors[index]} onClick=${() => props.onGuess(index)} text=${answer.text} />`
