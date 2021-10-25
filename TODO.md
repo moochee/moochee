@@ -8,7 +8,6 @@
   - https://developer.apple.com/forums/thread/94522
   - https://stackoverflow.com/questions/31776548/why-cant-javascript-play-audio-files-on-iphone-safari
   - https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html
-- **Bugfix**: close/delete game when finished, or auto-close a game 30min after it was started
 - **Tech Improve**: try implement both a WebSocket client and an HttpRestClient, both should work to be "plugged in" without changing the code
 - **Feature**: define secondsToGuess per quiz and per question in quiz json
 - **Bugfix**: in scoreboard no. 1 overlaps with no. 2 in some cases
@@ -20,6 +19,7 @@
 
 
 # DONE
+- auto-close a game 30min after it was started
 - secure the app with sso
 - play sound on host when player guesses to create more intensive competition atmosphere
 - show newly joined players at the beginning, especially when having a large number of players
