@@ -20,20 +20,18 @@ export default function createServer(config) {
             .send(String(socketServer.games.getRunningGames()))
     })
 
-    // app.use(express.json())
-    // app.post('/api/v1/users/me/quizzes', (req, res) => {
-    //     if (!req.isAuthenticated()) {
-    //         return res.status(401).end('Not authenticated!')
-    //     }
-    //     res.set('Content-Type', 'application/json')
-    //         .status(201)
-    //         .send(req.body)
-    // })
+    app.use(express.json())
+    app.post('/api/v1/users/me/quizzes', (req, res) => {
+        if (!req.isAuthenticated()) {
+            return res.status(401).end('Not authenticated!')
+        }
+        res.set('Content-Type', 'application/json')
+            .status(201)
+            .send(req.body)
+    })
 
     app.use('/', login)
     app.use('/', express.static('web/host'))
-
-
 
     return httpServer
 }
