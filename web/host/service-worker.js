@@ -10,7 +10,7 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
     const intercept = async () => {
-        const cache = await caches.open('static-v2')
+        const cache = await caches.open('static-v1')
         const remoteResponse = fetchAndUpdateCacheIfOnline(event.request, cache)
         const cacheResponse = await cache.match(event.request)
         return cacheResponse || remoteResponse
@@ -20,7 +20,8 @@ self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url)
     const isRangeReq = event.request.headers.has('range')
     const isApiReq = url.pathname.indexOf('/api/') >= 0
-    if (['http:', 'https:'].includes(url.protocol) && !isRangeReq && !isApiReq) {
+    const isHostIndex = url.pathname === '/'
+    if (['http:', 'https:'].includes(url.protocol) && !isRangeReq && !isApiReq && !isHostIndex) {
         event.respondWith(intercept())
     }
 })
@@ -29,7 +30,7 @@ const fetchAndUpdateCacheIfOnline = async (request, cache) => {
     if (navigator.onLine) {
         try {
             const resp = await fetch(request)
-            if (resp.status === 200 && resp.type === 'basic') {
+            if (resp.status === 200) {
                 await cache.put(request, resp.clone())
             }
             return resp
