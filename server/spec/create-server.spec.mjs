@@ -2,7 +2,7 @@
 
 import request from 'supertest'
 import createServer from '../create-server.js'
-import dummyConfig from './helper/dummy-config.js'
+import dummyConfig from './auth-config/dummy-config.js'
 
 describe('Server', () => {
     let client

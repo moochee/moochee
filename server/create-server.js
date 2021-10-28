@@ -4,8 +4,9 @@ import http from 'http'
 import express from 'express'
 import auth from './auth.js'
 import quizSocketServer from './quiz-socket-server.js'
+import QuizRouter from './api/quiz/quiz-router.js'
 
-export default function createServer(config) {
+export default function createServer(config, directory) {
     const app = express()
     const login = auth(app, config)
     const httpServer = http.createServer(app)
@@ -21,14 +22,7 @@ export default function createServer(config) {
     })
 
     app.use(express.json())
-    app.post('/api/v1/users/me/quizzes', (req, res) => {
-        if (!req.isAuthenticated()) {
-            return res.status(401).end('Not authenticated!')
-        }
-        res.set('Content-Type', 'application/json')
-            .status(201)
-            .send(req.body)
-    })
+    app.use('/api/v1/quizzes', new QuizRouter(directory))
 
     app.use('/', login)
     app.use('/', express.static('web/host'))

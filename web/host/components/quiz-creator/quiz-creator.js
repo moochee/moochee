@@ -50,7 +50,14 @@ export default function QuizCreator() {
 
     const save = () => {
         const saveQuiz = async (newQuiz) => {
-            console.log(newQuiz)
+            await fetch('/api/v1/quizzes', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newQuiz)
+            })
         }
         const quiz = { title, questions: [{ text: question, answers: answers.filter(a => a.text) }] }
         saveQuiz(quiz)
