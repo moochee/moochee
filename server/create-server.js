@@ -4,7 +4,7 @@ import http from 'http'
 import express from 'express'
 import auth from './auth.js'
 import quizSocketServer from './quiz-socket-server.js'
-import QuizRouter from './api/quiz/quiz-router.js'
+import QuizRouter from './quiz-router.js'
 
 export default function createServer(config, directory) {
     const app = express()
