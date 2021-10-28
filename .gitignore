@@ -2,4 +2,5 @@ node_modules
 .DS_Store
 coverage
 quiz/*-test.json
+quiz/sap
 *.profile

@@ -2,3 +2,4 @@ node_modules
 design-ideas
 coverage
 quiz/*-test.json
+quiz/sap
