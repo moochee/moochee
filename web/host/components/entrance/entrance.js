@@ -12,15 +12,13 @@ export default function Entrance(props) {
 
     const colors = ['green', 'blue', 'orange', 'purple', 'red', 'yellow', 'petrol']
 
-    const onQuizzesReceived = (quizzes) => {
-        quizzes.forEach((entry, index) => entry.color = colors[index % 7])
-        setQuizzes(quizzes)
-    }
-
     useEffect(() => {
-        props.client.subscribe('quizzesReceived', onQuizzesReceived)
-        props.client.getQuizzes()
-        return () => props.client.unsubscribe('quizzesReceived')
+        const getQuizzes = async () => {
+            const quizList = await (await fetch('/api/v1/quizzes')).json()
+            quizList.forEach((entry, index) => entry.color = colors[index % 7])
+            setQuizzes(quizList)
+        }
+        getQuizzes()
     }, [])
 
     const host = (quizId) => {

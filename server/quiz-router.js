@@ -5,14 +5,15 @@ import QuizService from './quiz-service.js'
 
 export default function QuizRouter(directory) {
     const router = new Router()
-    const quizService = new QuizService()
+    const quizService = new QuizService(directory)
 
     router.post('/', async (req, res) => {
         if (!req.isAuthenticated()) {
             return res.status(401).end('Not authenticated!')
         }
         try {
-            const quiz = await quizService.create(req.body, req.user.claims.email, directory)
+            const authorEmail = req.user.claims.email
+            const quiz = await quizService.create(req.body, true, authorEmail)
             res.status(200).send(quiz).end()
         } catch (error) {
             console.log(error)
@@ -25,7 +26,8 @@ export default function QuizRouter(directory) {
             return res.status(401).end('Not authenticated!')
         }
         try {
-            const quizList = await quizService.getAllByEmail(req.user.claims.email, directory)
+            const authorEmail = req.user.claims.email
+            const quizList = await quizService.getAll(authorEmail)
             res.status(200).send(quizList).end()
         } catch (error) {
             console.log(error)

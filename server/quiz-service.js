@@ -1,62 +1,45 @@
 'use strict'
 
-import { readFile, readdir, access, mkdir, writeFile } from 'fs/promises'
+import { readFile, readdir, writeFile, access, mkdir } from 'fs/promises'
 
-export default function QuizService() {
-    const publicDir = './quiz'
-
+export default function QuizService(directory) {
     this.get = async (quizId) => {
-        const quizPath = `${publicDir}/${quizId}`
+        const quizPath = `./quiz/${quizId}`
         return JSON.parse(await readFile(quizPath, 'utf8'))
     }
 
-    this.getAll = async () => {
-        const dirents = await readdir(publicDir, { withFileTypes: true })
-        let quizzes = []
+    this.getAll = async (author) => {
+        const dirents = await readdir('./quiz', { withFileTypes: true })
+        let publicQuizzes = []
         for (let dirent of dirents) {
             if (dirent.isDirectory()) continue
             try {
                 const quizTitle = (await this.get(dirent.name)).title
-                quizzes.push({ id: dirent.name, title: quizTitle })
+                publicQuizzes.push({ id: dirent.name, title: quizTitle })
             } catch (error) {
                 console.error(dirent.name, error)
             }
         }
+        const quizzes = await this.getAllPrivate(author)
+        quizzes.push.apply(quizzes, publicQuizzes)
         return quizzes
     }
 
-    this.create = async (quiz, email, rootDir) => {
-        const { userDir, tenantDir } = getDirs(email, rootDir)
-        try {
-            await access(tenantDir)
-        } catch (error) {
-            await mkdir(tenantDir)
-        }
-        try {
-            await access(userDir)
-        } catch (error) {
-            await mkdir(userDir)
-        }
-        const shortName = (+new Date).toString(36).slice(-5)
-        await writeFile(`${userDir}/${shortName}.json`, JSON.stringify(quiz))
-        return quiz
-    }
-
-    this.getByEmail = async (quizId, email, rootDir) => {
-        const { userDir } = getDirs(email, rootDir)
-        const quizPath = `${userDir}/${quizId}`
+    this.getPrivate = async (quizId) => {
+        const quizPath = `${directory}/${quizId}`
         return JSON.parse(await readFile(quizPath, 'utf8'))
     }
 
-    this.getAllByEmail = async (email, rootDir) => {
-        const { userDir } = getDirs(email, rootDir)
-        const dirents = await readdir(userDir, { withFileTypes: true })
+    this.getAllPrivate = async (author) => {
+        const dirents = await readdir(directory, { withFileTypes: true })
         let quizzes = []
         for (let dirent of dirents) {
             if (dirent.isDirectory()) continue
             try {
-                const quizTitle = (await this.getByEmail(dirent.name, email, rootDir)).title
-                quizzes.push({ id: dirent.name, title: quizTitle })
+                const quiz = await this.getPrivate(dirent.name)
+                if (quiz.author === author || !quiz.isPrivate) {
+                    quizzes.push({ id: dirent.name, title: quiz.title })
+                }
             } catch (error) {
                 console.error(dirent.name, error)
             }
@@ -64,9 +47,16 @@ export default function QuizService() {
         return quizzes
     }
 
-    const getDirs = (email, rootDir) => {
-        const tenantDir = `${rootDir}/sap`
-        const userDir = `${tenantDir}/${email}`
-        return { userDir, tenantDir }
+    this.create = async (quiz, isPrivate, author) => {
+        try {
+            await access(directory)
+        } catch (error) {
+            await mkdir(directory)
+        }
+        const quizContent = { ...quiz, isPrivate, author }
+        const shortId = (+new Date).toString(36).slice(-5)
+        const fileName = `${directory}/${shortId}.json`
+        await writeFile(fileName, JSON.stringify(quizContent))
+        return quizContent
     }
 }

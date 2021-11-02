@@ -23,10 +23,9 @@ describe('Integration', () => {
         server.close()
     })
 
-    it('should be possible to join a game', async () => {
+    it('should be possible to join a public game', async () => {
         const gameId = await new Promise(resolve => {
-            hostClient.getQuizzes()
-            hostClient.subscribe('quizzesReceived', () => hostClient.host('cc-dist-logging.json'))
+            hostClient.host('cc-dist-logging.json')
             hostClient.subscribe('gameStarted', resolve)
         })
         await new Promise(resolve => {
