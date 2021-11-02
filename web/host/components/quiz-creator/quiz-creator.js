@@ -1,6 +1,7 @@
 'use strict'
 
 import { html, useState } from '/public/lib/preact-3.1.0.standalone.module.js'
+import Shell from '/public/components/shell/shell.js'
 
 function Answer(props) {
     const input = (e) => props.onUpdateText(e.target.value)
@@ -48,8 +49,8 @@ export default function QuizCreator() {
         return newAnswers
     })
 
-    const save = () => {
-        const saveQuiz = async (newQuiz) => {
+    const create = () => {
+        const createQuiz = async (newQuiz) => {
             await fetch('/api/v1/quizzes', {
                 method: 'POST',
                 headers: {
@@ -60,10 +61,12 @@ export default function QuizCreator() {
             })
         }
         const quiz = { title, questions: [{ text: question, answers: answers.filter(a => a.text) }] }
-        saveQuiz(quiz)
+        createQuiz(quiz).then(() => location.href = '/')
     }
 
-    return html`
+    const cancel = () => location.href = '/'
+
+    return html`<${Shell} headerCenter='Quiz Creator'>
         <div>
             <label for=title>Title</label>
             <input id=title oninput=${updateTitle} value=${title}></input>
@@ -73,6 +76,7 @@ export default function QuizCreator() {
             <input id=question oninput=${updateQuestion} value=${question}>$</input>
         </div>
         <${Answers} answers=${answers} onUpdateText=${updateAnswerText} onChangeCorrectAnswer=${changeCorrectAnswer} />
-        <button id=save onclick=${save}>Save</button>
-    `
+        <button id=create onclick=${create}>Create</button>
+        <button id=cancel onclick=${cancel}>Cancel</button>
+    <//>`
 }
