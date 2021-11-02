@@ -7,9 +7,9 @@ import Events from './events.js'
 import Players from './players.js'
 import Avatars from './avatars.js'
 
-export default function create(server) {
+export default function create(server, directory) {
     const webSocketServer = new WebSocketServer({ server })
-    const quizService = new QuizService()
+    const quizService = new QuizService(directory)
     const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
     const games = new Games(quizService, timer)
     webSocketServer.games = games

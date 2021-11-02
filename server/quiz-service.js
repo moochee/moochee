@@ -5,7 +5,13 @@ import { readFile, readdir, writeFile, access, mkdir } from 'fs/promises'
 export default function QuizService(directory) {
     this.get = async (quizId) => {
         const quizPath = `./quiz/${quizId}`
-        return JSON.parse(await readFile(quizPath, 'utf8'))
+        let quiz
+        try {
+            quiz = JSON.parse(await readFile(quizPath, 'utf8'))
+        } catch (error) {
+            quiz = this.getPrivate(quizId)
+        }
+        return quiz
     }
 
     this.getAll = async (author) => {

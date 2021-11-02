@@ -10,7 +10,7 @@ export default function createServer(config, directory) {
     const app = express()
     const login = auth(app, config)
     const httpServer = http.createServer(app)
-    const socketServer = quizSocketServer(httpServer)
+    const socketServer = quizSocketServer(httpServer, directory)
 
     app.use('/public', express.static('web/public'))
     app.use('/play', express.static('web/play'))
