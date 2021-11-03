@@ -2,25 +2,33 @@
 
 import { html, useState } from '/public/lib/preact-3.1.0.standalone.module.js'
 import Shell from '/public/components/shell/shell.js'
+import StickyInput from '/public/components/sticky/sticky-input.js'
+
+import loadCss from '/public/load-css.js'
+loadCss('/components/quiz-creator/quiz-creator.css')
 
 function Answer(props) {
-    const input = (e) => props.onUpdateText(e.target.value)
+    const input = (e) => props.onUpdateText(e.target.innerText)
     const change = () => props.onChangeCorrectAnswer()
     const checked = props.answer.correct ? true : false
 
-    return html`<div>
-        <input oninput=${input} value=${props.answer.text}></input>
+    return html`<div class=quizCreatorAnswer>
+        <${StickyInput} id=${props.id} color=${props.color} text=${props.answer.text} oninput=${input} />
         <input type=checkbox id=${props.id} checked=${checked} onchange=${change}/>
     </div>`
 }
 
 function Answers(props) {
+    const colors = ['green', 'purple', 'blue', 'orange', 'red', 'yellow', 'petrol']
+
     const answersBlock = props.answers.map((answer, index) => {
-        return html`<${Answer} id=${index} answer=${answer} 
+        return html`<${Answer} id=${index} answer=${answer} color=${colors[index]}
             onUpdateText=${(text) => props.onUpdateText(index, text)} 
             onChangeCorrectAnswer=${() => props.onChangeCorrectAnswer(index)} />`
     })
-    return html`${answersBlock}`
+    return html`<div class=quizCreatorAnswers>
+        ${answersBlock}
+    </div>`
 }
 
 export default function QuizCreator() {
@@ -33,9 +41,9 @@ export default function QuizCreator() {
         { text: 'Answer 4' }
     ])
 
-    const updateTitle = (e) => setTitle(e.target.value)
+    const updateTitle = (e) => setTitle(e.target.innerText)
 
-    const updateQuestion = (e) => setQuestion(e.target.value)
+    const updateQuestion = (e) => setQuestion(e.target.innerText)
 
     const updateAnswerText = (index, text) => setAnswers(oldAnswers => {
         const newAnswers = [...oldAnswers]
@@ -68,15 +76,14 @@ export default function QuizCreator() {
 
     return html`<${Shell} headerCenter='Quiz Creator'>
         <div>
-            <label for=title>Title</label>
-            <input id=title oninput=${updateTitle} value=${title}></input>
+            <h1 class=quizCreatorTitle contenteditable=true oninput=${updateTitle}>${title}</h1>
         </div>
-        <div>
-            <label for=question>Question</label>
-            <input id=question oninput=${updateQuestion} value=${question}>$</input>
-        </div>
+        <hr />
+        <h1 class=quizCreatorQuestion contenteditable=true oninput=${updateQuestion}>${question}</h1>
         <${Answers} answers=${answers} onUpdateText=${updateAnswerText} onChangeCorrectAnswer=${changeCorrectAnswer} />
-        <button id=create onclick=${create}>Create</button>
-        <button id=cancel onclick=${cancel}>Cancel</button>
+        <div class=quizCreatorActions>
+            <button id=create class=quizCreatorButton onclick=${create}>Create</button>
+            <button id=cancel class=quizCreatorButton onclick=${cancel}>Cancel</button>
+        </div>
     <//>`
 }

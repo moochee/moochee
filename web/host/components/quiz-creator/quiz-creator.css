@@ -1,0 +1,39 @@
+.quizCreatorTitle {
+    text-align: center;
+    font-size: 4vh;
+    color: black;
+}
+
+.quizCreatorQuestion {
+    text-align: center;
+    font-size: 4vh;
+    color: #0070c0;
+}
+
+.quizCreatorAnswers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.quizCreatorAnswer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quizCreatorActions {
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2vh;
+}
+
+.quizCreatorButton {
+    width: 8vh;
+    height: 3vh;
+    font-size: 2vh;
+    font-family: inherit;
+}
