@@ -33,7 +33,7 @@ export default function Entrance(props) {
 
     return html`<${Shell} headerCenter='Welcome to the 🦍 Quiz'>
         <div class=entrance>
-            <h1 class=entranceTitle>Select a quiz to host a new game</h1>
+            <div class=entranceTitle>Select a quiz to host a new game</div>
             <div class=entranceQuizzes>
                 ${quizList}
             </div>
