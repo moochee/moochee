@@ -37,11 +37,27 @@
     align-items: center;
 }
 
-.quizCreatorActions {
+.quizCreatorAddDeleteQuestion {
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 1vh
+}
+
+.quizCreatorActions {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    gap: 1vh;
+    width: 100%;
+    margin-right: 10%;
+}
+
+.quizCreatorSmallButton {
+    width: 5vh;
+    height: 5vh;
+    font-size: 2vh;
+    font-family: inherit;
 }
 
 .quizCreatorButton {
@@ -49,4 +65,9 @@
     height: 5vh;
     font-size: 3vh;
     font-family: inherit;
+}
+
+.quizCreatorCheckBox {
+    width: 2vh;
+    height: 2vh;
 }

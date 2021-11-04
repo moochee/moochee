@@ -14,7 +14,7 @@ function Answer(props) {
 
     return html`<div class=quizCreatorAnswer>
         <${StickyInput} id=${props.id} color=${props.color} text=${props.answer.text} oninput=${input} />
-        <input type=checkbox id=${props.id} checked=${checked} onchange=${change} />
+        <input class=quizCreatorCheckBox type=checkbox id=${props.id} checked=${checked} onchange=${change} />
     </div>`
 }
 
@@ -31,21 +31,29 @@ function Answers(props) {
 }
 
 function Question(props) {
+    const [initialQuestionText] = useState(props.text)
     const updateQuestionText = (e) => props.onUpdateText(e.target.innerText)
 
-    return html`<h1 class=quizCreatorQuestion contenteditable=true oninput=${updateQuestionText}>${props.text}</h1>`
+    return html`<h1 class=quizCreatorQuestion contenteditable=true 
+        oninput=${updateQuestionText} dangerouslySetInnerHTML=${{ __html: initialQuestionText }} />`
 }
 
 function QuestionAndAnswers(props) {
     return html`<div>
         <hr />
         <${Question} text=${props.question.text} onUpdateText=${props.onUpdateQuestionText} />
-        <${Answers} answers=${props.question.answers} onUpdateText=${props.onUpdateAnswerText} onChangeCorrectAnswer=${props.onChangeCorrectAnswer} />
+        <${Answers} answers=${props.question.answers} onUpdateText=${props.onUpdateAnswerText} 
+            onChangeCorrectAnswer=${props.onChangeCorrectAnswer} />
+        <div class=quizCreatorAddDeleteQuestion>
+            <button id=add class=quizCreatorSmallButton onclick=${props.onAddQuestion}>+</button>
+            <button id=delete class=quizCreatorSmallButton onclick=${props.onDeleteQuestion}>-</button>
+        </div>
     </div>`
 }
 
 export default function QuizCreator() {
     const [title, setTitle] = useState('Untitled Quiz')
+    const [initialTitle] = useState(title)
     const q1 = {
         text: 'Untitled Question?',
         answers: [
@@ -55,16 +63,7 @@ export default function QuizCreator() {
             { text: 'Answer 4' }
         ]
     }
-    const q2 = {
-        text: 'Untitled Question?',
-        answers: [
-            { text: 'Answer 1', correct: true },
-            { text: 'Answer 2' },
-            { text: 'Answer 3' },
-            { text: 'Answer 4' }
-        ]
-    }
-    const [questions, setQuestions] = useState([q1, q2])
+    const [questions, setQuestions] = useState([q1])
 
     const updateTitle = (e) => setTitle(e.target.innerText)
 
@@ -106,16 +105,32 @@ export default function QuizCreator() {
             return newQuestions
         })
 
+        const addQuestion = () => setQuestions(oldQuestions => {
+            const newQuestions = [...oldQuestions]
+            newQuestions.splice(i + 1, 0, q1)
+            return newQuestions
+        })
+
+        const deleteQuestion = () => setQuestions(oldQuestions => {
+            if (oldQuestions.length === 1) return oldQuestions
+            const newQuestions = [...oldQuestions]
+            newQuestions.splice(i, 1)
+            return newQuestions
+        })
+
         return html`<${QuestionAndAnswers} question=${q} onUpdateQuestionText=${updateQuestionText} 
-            onUpdateAnswerText=${updateAnswerText} onChangeCorrectAnswer=${changeCorrectAnswer} />`
+            onUpdateAnswerText=${updateAnswerText} onChangeCorrectAnswer=${changeCorrectAnswer} 
+            onAddQuestion=${addQuestion} onDeleteQuestion=${deleteQuestion} />`
     })
 
     return html`<${Shell} headerCenter='Quiz Creator'>
         <div class=quizCreator>
-            <h1 class=quizCreatorTitle contenteditable=true oninput=${updateTitle}>${title}</h1>
+            <h1 class=quizCreatorTitle contenteditable=true 
+                oninput=${updateTitle} dangerouslySetInnerHTML=${{ __html: initialTitle }} />
             <div class=quizCreatorQuestions>
                 ${questionsBlock}
             </div>
+            <hr />
             <div class=quizCreatorActions>
                 <button id=create class=quizCreatorButton onclick=${create}>Create</button>
                 <button id=cancel class=quizCreatorButton onclick=${cancel}>Cancel</button>
