@@ -14,48 +14,59 @@ function Answer(props) {
 
     return html`<div class=quizCreatorAnswer>
         <${StickyInput} id=${props.id} color=${props.color} text=${props.answer.text} oninput=${input} />
-        <input type=checkbox id=${props.id} checked=${checked} onchange=${change}/>
+        <input type=checkbox id=${props.id} checked=${checked} onchange=${change} />
     </div>`
 }
 
 function Answers(props) {
     const colors = ['green', 'purple', 'blue', 'orange', 'red', 'yellow', 'petrol']
-
-    const answersBlock = props.answers.map((answer, index) => {
-        return html`<${Answer} id=${index} answer=${answer} color=${colors[index]}
-            onUpdateText=${(text) => props.onUpdateText(index, text)} 
-            onChangeCorrectAnswer=${() => props.onChangeCorrectAnswer(index)} />`
+    const answersBlock = props.answers.map((answer, i) => {
+        return html`<${Answer} id=${i} answer=${answer} color=${colors[i]}
+            onUpdateText=${(text) => props.onUpdateText(i, text)} 
+            onChangeCorrectAnswer=${() => props.onChangeCorrectAnswer(i)} />`
     })
     return html`<div class=quizCreatorAnswers>
         ${answersBlock}
     </div>`
 }
 
+function Question(props) {
+    const updateQuestionText = (e) => props.onUpdateText(e.target.innerText)
+
+    return html`<h1 class=quizCreatorQuestion contenteditable=true oninput=${updateQuestionText}>${props.text}</h1>`
+}
+
+function QuestionAndAnswers(props) {
+    return html`<div>
+        <hr />
+        <${Question} text=${props.question.text} onUpdateText=${props.onUpdateQuestionText} />
+        <${Answers} answers=${props.question.answers} onUpdateText=${props.onUpdateAnswerText} onChangeCorrectAnswer=${props.onChangeCorrectAnswer} />
+    </div>`
+}
+
 export default function QuizCreator() {
-    const [title, setTitle] = useState('Quiz 1')
-    const [question, setQuestion] = useState('Question 1?')
-    const [answers, setAnswers] = useState([
-        { text: 'Answer 1', correct: true },
-        { text: 'Answer 2' },
-        { text: 'Answer 3' },
-        { text: 'Answer 4' }
-    ])
+    const [title, setTitle] = useState('Untitled Quiz')
+    const q1 = {
+        text: 'Untitled Question?',
+        answers: [
+            { text: 'Answer 1', correct: true },
+            { text: 'Answer 2' },
+            { text: 'Answer 3' },
+            { text: 'Answer 4' }
+        ]
+    }
+    const q2 = {
+        text: 'Untitled Question?',
+        answers: [
+            { text: 'Answer 1', correct: true },
+            { text: 'Answer 2' },
+            { text: 'Answer 3' },
+            { text: 'Answer 4' }
+        ]
+    }
+    const [questions, setQuestions] = useState([q1, q2])
 
     const updateTitle = (e) => setTitle(e.target.innerText)
-
-    const updateQuestion = (e) => setQuestion(e.target.innerText)
-
-    const updateAnswerText = (index, text) => setAnswers(oldAnswers => {
-        const newAnswers = [...oldAnswers]
-        newAnswers[index].text = text
-        return newAnswers
-    })
-
-    const changeCorrectAnswer = (index) => setAnswers(oldAnswers => {
-        const newAnswers = oldAnswers.map(a => ({ text: a.text }))
-        newAnswers[index].correct = true
-        return newAnswers
-    })
 
     const create = () => {
         const createQuiz = async (newQuiz) => {
@@ -68,22 +79,47 @@ export default function QuizCreator() {
                 body: JSON.stringify(newQuiz)
             })
         }
-        const quiz = { title, questions: [{ text: question, answers: answers.filter(a => a.text) }] }
+        const quiz = { title, questions: questions }
+        console.log(quiz)
         createQuiz(quiz).then(() => location.href = '/')
     }
 
     const cancel = () => location.href = '/'
 
+    const questionsBlock = questions.map((q, i) => {
+        const updateQuestionText = (questionText) => setQuestions(oldQuestions => {
+            const newQuestions = [...oldQuestions]
+            newQuestions[i].text = questionText
+            return newQuestions
+        })
+
+        const updateAnswerText = (answerIndex, answerText) => setQuestions(oldQuestions => {
+            const newQuestions = [...oldQuestions]
+            newQuestions[i].answers[answerIndex].text = answerText
+            return newQuestions
+        })
+
+        const changeCorrectAnswer = (answerIndex) => setQuestions(oldQuestions => {
+            const newQuestions = [...oldQuestions]
+            newQuestions[i].answers = oldQuestions[i].answers.map(a => ({ text: a.text }))
+            newQuestions[i].answers[answerIndex].correct = true
+            return newQuestions
+        })
+
+        return html`<${QuestionAndAnswers} question=${q} onUpdateQuestionText=${updateQuestionText} 
+            onUpdateAnswerText=${updateAnswerText} onChangeCorrectAnswer=${changeCorrectAnswer} />`
+    })
+
     return html`<${Shell} headerCenter='Quiz Creator'>
-        <div>
+        <div class=quizCreator>
             <h1 class=quizCreatorTitle contenteditable=true oninput=${updateTitle}>${title}</h1>
-        </div>
-        <hr />
-        <h1 class=quizCreatorQuestion contenteditable=true oninput=${updateQuestion}>${question}</h1>
-        <${Answers} answers=${answers} onUpdateText=${updateAnswerText} onChangeCorrectAnswer=${changeCorrectAnswer} />
-        <div class=quizCreatorActions>
-            <button id=create class=quizCreatorButton onclick=${create}>Create</button>
-            <button id=cancel class=quizCreatorButton onclick=${cancel}>Cancel</button>
+            <div class=quizCreatorQuestions>
+                ${questionsBlock}
+            </div>
+            <div class=quizCreatorActions>
+                <button id=create class=quizCreatorButton onclick=${create}>Create</button>
+                <button id=cancel class=quizCreatorButton onclick=${cancel}>Cancel</button>
+            </div>
         </div>
     <//>`
 }
