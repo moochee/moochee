@@ -10,11 +10,13 @@ loadCss('/components/quiz-creator/quiz-creator.css')
 function Answer(props) {
     const input = (e) => props.onUpdateText(e.target.innerText)
     const change = () => props.onChangeCorrectAnswer()
-    const checked = props.answer.correct ? true : false
+    const checked = Boolean(props.answer.correct)
+    const disabled = !(props.answer.text.trim())
 
     return html`<div class=quizCreatorAnswer>
         <${StickyInput} id=${props.id} color=${props.color} text=${props.answer.text} oninput=${input} />
-        <input class=quizCreatorCheckBox type=checkbox id=${props.id} checked=${checked} onchange=${change} />
+        <input class=quizCreatorCheckBox type=checkbox id=${props.id}
+            checked=${checked} disabled=${disabled} onchange=${change} />
     </div>`
 }
 
@@ -123,7 +125,7 @@ export default function QuizCreator() {
             onAddQuestion=${addQuestion} onDeleteQuestion=${deleteQuestion} />`
     })
 
-    return html`<${Shell} headerCenter='Quiz Creator'>
+    return html`<${Shell} headerCenter='Create a Quiz'>
         <div class=quizCreator>
             <h1 class=quizCreatorTitle contenteditable=true 
                 oninput=${updateTitle} dangerouslySetInnerHTML=${{ __html: initialTitle }} />
