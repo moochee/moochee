@@ -80,7 +80,10 @@ export default function QuizCreator() {
                 body: JSON.stringify(newQuiz)
             })
         }
-        const quiz = { title, questions: questions }
+        const quiz = {
+            title,
+            questions: questions.map(q => ({ text: q.text, answers: q.answers.filter(a => a.text.trim() !== '') }))
+        }
         console.log(quiz)
         createQuiz(quiz).then(() => location.href = '/')
     }
