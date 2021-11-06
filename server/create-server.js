@@ -18,14 +18,12 @@ export default function createServer(config, directory) {
         // TODO check if this doesn't cause trouble on CF, e.g. CF should not try to re-start on exit code 0
         console.log('received shutdown signal')
         res.status(202).end()
-        httpServer.close((error) => {
-            if (error) {
-                console.error(error)
-                process.exit(1)
-            } else {
-                console.log('bye')
-                process.exit(0)
-            }
+        socketServer.close(function () {
+            console.log('bye WebSocket server')
+        })
+        httpServer.close(() => {
+            console.log('bye HTTP server')
+            // process.exit(0)
         })
     })
 
