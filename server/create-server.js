@@ -18,13 +18,7 @@ export default function createServer(config, directory) {
         // TODO check if this doesn't cause trouble on CF, e.g. CF should not try to re-start on exit code 0
         console.log('received shutdown signal')
         res.status(202).end()
-        socketServer.close(function () {
-            console.log('bye WebSocket server')
-        })
-        httpServer.close(() => {
-            console.log('bye HTTP server')
-            // process.exit(0)
-        })
+        httpServer.close(() => console.log('bye'))
     })
 
     const login = auth(app, config)

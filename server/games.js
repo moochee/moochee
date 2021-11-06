@@ -49,6 +49,10 @@ export default function Games(quizService, timer) {
         return games.length
     }
 
+    // FIXME name is misleading and this can cause serious trouble
+    //       This deletes games not when they were inactive for 30min, it deletes them 30min after they have been created, even if they are "active".
+    //       It also feels wrong that this is a public method. There should be something like a timeout event that gets initialized when a game gets created.
+    //       The timeout would delete the game if it is reached, and it should get refreshed on each activity on the game.
     this.deleteInactiveGames = () => {
         const thirtyMinutes = 1000 * 60 * 30
         games = games.filter(g => (Date.now() - g.getCreatedAt()) <= thirtyMinutes)
