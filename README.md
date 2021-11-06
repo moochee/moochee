@@ -71,3 +71,53 @@ _For the second reason, we compiled a list of our learnings here!_
 - Monospace font does apply for emojis
 - Golang has really some nice and interesting concepts like the way structs/classes are done
 - Golang does not have try/catch, so error handling is really different
+
+## License Info
+
+### Music
+
+Music was taken from https://www.freesoundslibrary.com/positive-funny-background-music-for-video-games/
+
+```
+"Free Sounds Library"
+Free Sound Effects Site.
+Licence: License: Attribution 4.0 International (CC BY 4.0). You are allowed to use sound effects free of charge and royalty free in your multimedia projects for commercial or non-commercial purposes.
+```
+
+- http://www.freesoundslibrary.com
+- https://creativecommons.org/licenses/by/4.0/
+- https://creativecommons.org/licenses/by/4.0/legalcode
+
+### Visuals
+
+- Avatats are standard built emojis
+- Cloud Curriculum and Agile+Cloud Development Competencies logo are our own logo
+- Other visuals are taken from https://pixabay.com/ or from https://freesvg.org/ and subject to the licenses below
+
+```
+Simplified Pixabay License (https://pixabay.com/service/license/)
+Our license empowers creators and protects our community. We want to keep it as simple as possible. Here is an overview of what Pixabay content can and can't be used for.
+
+What is allowed?
+✓	All content on Pixabay can be used for free for commercial and noncommercial use across print and digital, except in the cases mentioned in "What is not allowed".
+✓	Attribution is not required. Giving credit to the contributor or Pixabay is not necessary but is always appreciated by our community.
+✓	You can make modifications to content from Pixabay.
+What is not allowed?
+This section only applies to image users and not to the appropriate image authors.
+
+✕	Don't redistribute or sell someone else's Pixabay images or videos on other stock or wallpaper platforms.
+✕	Don't sell unaltered copies of an image. e.g. sell an exact copy of a stock photo as a poster, print or on a physical product.
+✕	Don't portray identifiable people in a bad light or in a way that is offensive.
+✕	Don't use images with identifiable brands to create a misleading association with a product or service.
+```
+
+```
+CC0 1.0 Universal (CC0 1.0) (https://creativecommons.org/publicdomain/zero/1.0/)
+Public Domain Dedication
+This is a human-readable summary of the Legal Code (full text: https://creativecommons.org/publicdomain/zero/1.0/legalcode).
+
+No Copyright
+The person who associated a work with this deed has dedicated the work to the public domain by waiving all of his or her rights to the work worldwide under copyright law, including all related and neighboring rights, to the extent allowed by law.
+
+You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. See Other Information below.
+```
