@@ -13,13 +13,20 @@ export default function createServer(config, directory) {
         res.send('ok')
     })
 
-    app.post('/api/v1/stop', async (req, res) => {
+    app.post('/api/v1/stop', (req, res) => {
         // TODO shut down only when all games finished
         // TODO check if this doesn't cause trouble on CF, e.g. CF should not try to re-start on exit code 0
         console.log('received shutdown signal')
         res.status(202).end()
-        await httpServer.close()
-        process.exit(0)
+        httpServer.close((error) => {
+            if (error) {
+                console.error(error)
+                process.exit(1)
+            } else {
+                console.log('bye')
+                process.exit(0)
+            }
+        })
     })
 
     const login = auth(app, config)

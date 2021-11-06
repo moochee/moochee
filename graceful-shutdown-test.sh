@@ -17,6 +17,7 @@ done
 
 echo 'server started, requesting to stop'
 
+# TODO before sending the stop signal, unmap the public route so that no more new games can be created
 curl --fail -X POST http://localhost:3000/api/v1/stop
 
 attempts=0
