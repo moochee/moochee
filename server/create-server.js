@@ -8,6 +8,20 @@ import QuizRouter from './quiz-router.js'
 
 export default function createServer(config, directory) {
     const app = express()
+
+    app.get('/api/v1/status', (req, res) => {
+        res.send('ok')
+    })
+
+    app.post('/api/v1/stop', async (req, res) => {
+        // TODO shut down only when all games finished
+        // TODO check if this doesn't cause trouble on CF, e.g. CF should not try to re-start on exit code 0
+        console.log('received shutdown signal')
+        res.status(202).end()
+        await httpServer.close()
+        process.exit(0)
+    })
+
     const login = auth(app, config)
     const httpServer = http.createServer(app)
     const socketServer = quizSocketServer(httpServer, directory)
