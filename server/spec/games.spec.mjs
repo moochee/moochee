@@ -3,17 +3,17 @@
 import Games from '../games.js'
 
 describe('Games', () => {
-    let games, events, quiz
+    let games, events
 
     beforeEach(() => {
-        quiz = { title: 'sample quiz' }
-        games = new Games({ get: async () => quiz })
+        const quizService = { get: () => ({ title: 'sample quiz' }) }
+        games = new Games(quizService)
         events = { reply: function (message) { this.actualMessage = message } }
     })
 
     it('replies gameStarted event and returns game with id when hosting a new game', async () => {
         const game = await games.host(null, null, events)
-        expect(events.actualMessage).toEqual({ event: 'gameStarted', args: [game.id, quiz.title] })
+        expect(events.actualMessage).toEqual({ event: 'gameStarted', args: [game.id, 'sample quiz'] })
         expect(game.id).toBeDefined()
     })
 
@@ -32,28 +32,26 @@ describe('Games', () => {
         expect(() => games.find(1)).toThrow()
     })
 
-    it('returns 0 running game initially', () => {
+    it('returns 0 running games initially', () => {
         expect(games.getRunningGames()).toEqual(0)
     })
 
-    it('returns 1 running game when hosting a game', async () => {
+    it('returns 1 running games when hosting a game', async () => {
         await games.host(null, null, events)
         expect(games.getRunningGames()).toEqual(1)
     })
 
-    it('deletes game when it was created more than 30 minutes ago', async () => {
-        const game = await games.host()
-        const thirtyOneMinutesAgo = new Date(Date.now() - 1000 * 60 * 31)
-        game.setCreatedAt(thirtyOneMinutesAgo)
-        games.deleteInactiveGames()
-        expect(games.getRunningGames()).toEqual(0)
-    })
-
-    it('does not delete game when it was created in 30 minutes', async () => {
-        const game = await games.host()
-        const twentyMinutesAgo = new Date(Date.now() - 1000 * 60 * 20)
-        game.setCreatedAt(twentyMinutesAgo)
-        games.deleteInactiveGames()
-        expect(games.getRunningGames()).toEqual(1)
+    it('will consider a game as expired after two days and delete it', async () => {
+        const clock = jasmine.clock()
+        clock.install()
+        try {
+            await games.host()
+            clock.tick(1000 * 60 * 60 * 24 * 2 - 1)
+            expect(games.getRunningGames()).toEqual(1)
+            clock.tick(1)
+            expect(games.getRunningGames()).toEqual(0)
+        } finally {
+            clock.uninstall()
+        }
     })
 })
