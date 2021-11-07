@@ -50,16 +50,6 @@ export default function Games(quizService) {
 
     // REVISE The name suggests we are returning the running games, but we're returning the number of running games
     this.getRunningGames = () => {
-        this.deleteInactiveGames()
         return games.length
-    }
-
-    // FIXME name is misleading and the current approach can cause serious trouble
-    //       This deletes games not when they were inactive for 30min, it deletes them 30min after they have been created, even if they are "active".
-    //       It also feels wrong that this is a public method. There should be something like a timeout event that gets initialized when a game gets created.
-    //       The timeout would delete the game if it is reached, and it should get refreshed on each activity on the game.
-    this.deleteInactiveGames = () => {
-        const thirtyMinutes = 1000 * 60 * 30
-        games = games.filter(g => (Date.now() - g.getCreatedAt()) <= thirtyMinutes)
     }
 }

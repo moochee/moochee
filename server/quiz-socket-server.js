@@ -13,11 +13,6 @@ export default function create(server, directory) {
     const games = new Games(quizService, setTimeout)
     webSocketServer.games = games
 
-    // FIXME This should be done differently. Things like global intervals prevent a graceful shutdown cause due to running intervals, the Node.js process would exit
-    //       A cleaner approach is to use a timeout instead that gets initialized when a game gets created and logically belongs to the game.
-    const fiveMinutes = 5 * 60 * 1000
-    setInterval(() => games.deleteInactiveGames(), fiveMinutes)
-
     webSocketServer.on('connection', (webSocket) => {
         const events = new Events(webSocketServer, webSocket)
 
