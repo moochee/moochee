@@ -7,7 +7,7 @@ describe('Games', () => {
 
     beforeEach(() => {
         quiz = { title: 'sample quiz' }
-        games = new Games({ get: async () => quiz }, null)
+        games = new Games({ get: async () => quiz })
         events = { reply: function (message) { this.actualMessage = message } }
     })
 

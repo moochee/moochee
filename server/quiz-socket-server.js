@@ -10,8 +10,7 @@ import Avatars from './avatars.js'
 export default function create(server, directory) {
     const webSocketServer = new WebSocketServer({ server })
     const quizService = new QuizService(directory)
-    const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
-    const games = new Games(quizService, timer)
+    const games = new Games(quizService)
     webSocketServer.games = games
 
     // FIXME This should be done differently. Things like global intervals prevent a graceful shutdown cause due to running intervals, the Node.js process would exit

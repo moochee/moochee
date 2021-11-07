@@ -2,8 +2,9 @@
 
 import Game from './game.js'
 
-export default function Games(quizService, timer) {
+export default function Games(quizService) {
     let games = []
+    const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
 
     this.getQuizzes = async (events) => {
         const quizzes = await quizService.getAll()
