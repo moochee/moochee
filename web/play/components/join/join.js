@@ -36,7 +36,7 @@ export default function Join(props) {
 
     return html`<${Shell} headerCenter='Welcome to the 🦍 Quiz'>
         <div class=join>
-            <h1>Join Game ${props.gameId}</h1>
+            <h1>Join Game</h1>
             <input ref=${name} placeholder='Enter your name' maxLength=30 value=${playerName}
                 onInput=${updatePlayerName} onKeyPress=${e => e.code === 'Enter' ? join() : null}></input>
             <button onClick=${join}>Join</button>
