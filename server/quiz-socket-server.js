@@ -2,8 +2,6 @@
 
 import { WebSocketServer } from 'ws'
 import Events from './events.js'
-import Players from './players.js'
-import Avatars from './avatars.js'
 
 export default function create(server, games) {
     const webSocketServer = new WebSocketServer({ server })
@@ -20,8 +18,7 @@ export default function create(server, games) {
                 },
                 host: async () => {
                     const [quizId] = args
-                    const players = new Players(new Avatars())
-                    const game = await games.host(quizId, players, events)
+                    const game = await games.host(quizId, events)
                     webSocket.gameId = game.id
                 },
                 join: () => {

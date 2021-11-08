@@ -12,19 +12,19 @@ describe('Games', () => {
     })
 
     it('replies gameStarted event and returns game with id when hosting a new game', async () => {
-        const game = await games.host(null, null, events)
+        const game = await games.host(null, events)
         expect(events.actualMessage).toEqual({ event: 'gameStarted', args: [game.id, 'sample quiz'] })
         expect(game.id).toBeDefined()
     })
 
     it('hosts games with different ids', async () => {
-        const game1 = await games.host(null, null, events)
-        const game2 = await games.host(null, null, events)
+        const game1 = await games.host(null, events)
+        const game2 = await games.host(null, events)
         expect(game1.id).not.toBe(game2.id)
     })
 
     it('finds existing game by id', async () => {
-        const game = await games.host(null, null, events)
+        const game = await games.host(null, events)
         expect(games.find(game.id)).toEqual(game)
     })
 
@@ -37,7 +37,7 @@ describe('Games', () => {
     })
 
     it('returns 1 running games when hosting a game', async () => {
-        await games.host(null, null, events)
+        await games.host(null, events)
         expect(games.getRunningGames()).toEqual(1)
     })
 

@@ -1,6 +1,8 @@
 'use strict'
 
 import Game from './game.js'
+import Players from './players.js'
+import Avatars from './avatars.js'
 
 export default function Games(quizService) {
     let games = []
@@ -15,9 +17,9 @@ export default function Games(quizService) {
     // REVISE Why do we have to provide a players list? We host a new game in this method, so it's anyway empty,
     //        so why don't we just initialize it in here? I think it should even be pushed yet another level done and be initialized in game.
     // REVISE 'events' seems rather like a dependency that belongs to the constructor
-    this.host = async (quizId, players, events) => {
+    this.host = async (quizId, events) => {
         const quiz = await quizService.get(quizId)
-        const game = new Game(quiz, players, timer)
+        const game = new Game(quiz, new Players(new Avatars()), timer)
         games.push(game)
         // REVISE Is events sometimes null? Optional arguments are usually discouraged.
         events?.reply({ event: 'gameStarted', args: [game.id, quiz.title] })
