@@ -1,16 +1,12 @@
 'use strict'
 
 import { WebSocketServer } from 'ws'
-import QuizService from './quiz-service.js'
-import Games from './games.js'
 import Events from './events.js'
 import Players from './players.js'
 import Avatars from './avatars.js'
 
-export default function create(server, directory) {
+export default function create(server, games) {
     const webSocketServer = new WebSocketServer({ server })
-    const quizService = new QuizService(directory)
-    const games = new Games(quizService, setTimeout)
     webSocketServer.games = games
 
     webSocketServer.on('connection', (webSocket) => {
