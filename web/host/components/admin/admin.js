@@ -32,15 +32,17 @@ export default function Admin() {
         </div>`
     })
 
+    const quizArea = quizzes.length > 0 ?
+        html`<div class=adminQuizzes>${quizList}</div>` :
+        html`<h1>No quiz found!</h1>`
+
     return html`<${Shell} headerCenter='Manage My Quizzes'>
         <div class=admin>
             <div class=adminActions>
                 <a href='/#/create'>Create New Quiz</a>
                 <a href='/'>Back Home</a>
             </div>
-            <div class=adminQuizzes>
-                ${quizList}
-            </div>
+            ${quizArea}
         </div>
     <//>`
 }
