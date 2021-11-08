@@ -23,7 +23,7 @@ export default function Games(quizService) {
         events?.reply({ event: 'gameStarted', args: [game.id, quiz.title] })
         setTimeout(function deleteGameAfterTwoDays(game) {
             games.splice(games.indexOf(game), 1)
-        }, 1000 * 60 * 60 * 24 * 2)
+        }, 1000 * 60 * 60 * 3)
         return game
     }
 

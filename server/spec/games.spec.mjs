@@ -46,7 +46,7 @@ describe('Games', () => {
         clock.install()
         try {
             await games.host()
-            clock.tick(1000 * 60 * 60 * 24 * 2 - 1)
+            clock.tick(1000 * 60 * 60 * 3 - 1)
             expect(games.getRunningGames()).toEqual(1)
             clock.tick(1)
             expect(games.getRunningGames()).toEqual(0)
