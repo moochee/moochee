@@ -20,7 +20,7 @@ export default function create(server, games) {
                 },
                 host: async () => {
                     const [quizId] = args
-                    const players = new Players(new Avatars)
+                    const players = new Players(new Avatars())
                     const game = await games.host(quizId, players, events)
                     webSocket.gameId = game.id
                 },
