@@ -12,20 +12,24 @@ describe('Server', () => {
         client = request(httpServer(new Auth(dummyConfig)))
     })
 
-    it('protects host page at root by redirecting to login page', () => {
-        client.get('/').expect(301)
+    it('protects host page at root by redirecting to login page', async () => {
+        await client.get('/').expect(302)
     })
 
-    it('allows anonymous access to service worker at root', () => {
-        client.get('/server-worker.js').expect(200)
+    it('protects game API page at root by redirecting to login page', async () => {
+        await client.get('/api/v1/games').expect(302)
     })
 
-    it('allows anonymous access to favicon.ico at root', () => {
-        client.get('/favicon.ico').expect(204)
+    it('allows anonymous access to service worker at root', async () => {
+        await client.get('/service-worker.js').expect(200)
     })
 
-    it('allows anonymous access to play page', () => {
-        client.get('/play').expect(200)
+    it('allows anonymous access to favicon.ico at root', async () => {
+        await client.get('/favicon.ico').expect(204)
+    })
+
+    it('allows anonymous access to play page', async () => {
+        await client.get('/play/').expect(200)
     })
 
     it('allows anonymous access to number of running games', async () => {
