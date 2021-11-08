@@ -5,9 +5,13 @@
     height: 100%;
 }
 
-.adminAction {
+.adminActions {
     margin-top: 2vh;
     font-size: 2vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1vh;
 }
 
 .adminQuizzes {

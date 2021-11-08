@@ -34,8 +34,9 @@ export default function Admin() {
 
     return html`<${Shell} headerCenter='Manage My Quizzes'>
         <div class=admin>
-            <div class=adminAction>
-                <a href='#/create'>Create New Quiz</a>
+            <div class=adminActions>
+                <a href='/#/create'>Create New Quiz</a>
+                <a href='/'>Back Home</a>
             </div>
             <div class=adminQuizzes>
                 ${quizList}

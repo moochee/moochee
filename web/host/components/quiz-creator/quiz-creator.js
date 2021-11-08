@@ -84,7 +84,6 @@ export default function QuizCreator() {
             title,
             questions: questions.map(q => ({ text: q.text, answers: q.answers.filter(a => a.text.trim() !== '') }))
         }
-        console.log(quiz)
         createQuiz(quiz).then(() => backToAdmin())
     }
 
@@ -134,8 +133,8 @@ export default function QuizCreator() {
                 oninput=${updateTitle} dangerouslySetInnerHTML=${{ __html: initialTitle }} />
             <div class=quizCreatorQuestions>
                 ${questionsBlock}
+                <p/><p/><p/><p/><p/><p/>
             </div>
-            <hr />
             <div class=quizCreatorActions>
                 <button id=create class=quizCreatorButton onclick=${create}>Create</button>
                 <button id=cancel class=quizCreatorButton onclick=${backToAdmin}>Cancel</button>
