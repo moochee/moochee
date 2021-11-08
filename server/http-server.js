@@ -4,7 +4,7 @@ import http from 'http'
 import express from 'express'
 import auth from './auth.js'
 import quizSocketServer from './quiz-socket-server.js'
-import QuizRouter from './quiz-router.js'
+import quizRouter from './quiz-router.js'
 
 export default function create(config, directory) {
     const app = express()
@@ -35,7 +35,7 @@ export default function create(config, directory) {
     })
 
     app.use(express.json())
-    app.use('/api/v1/quizzes', new QuizRouter(directory))
+    app.use('/api/v1/quizzes', quizRouter(directory))
 
     app.use('/', login)
     app.use('/', express.static('web/host'))
