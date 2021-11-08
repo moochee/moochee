@@ -27,6 +27,7 @@ export default function create(auth, directory) {
     app.use('/public', express.static('web/public'))
     app.use('/play', express.static('web/play'))
 
+    // TODO to be deleted later
     app.get('/api/v1/runningGames', (_, res) => {
         res.set('Content-Type', 'text/plain')
             .status(200)

@@ -7,23 +7,23 @@ import { Issuer, Strategy } from 'openid-client'
 export default function Auth(config) {
     this.setup = (app) => {
         const OPENID_CONNECT = 'oidc'
-    
+
         passport.serializeUser(function (user, done) {
             done(null, user)
         })
         passport.deserializeUser(function (user, done) {
             done(null, user)
         })
-    
+
         app.use(session({
             secret: config.SESSION_SECRET,
             resave: false,
             saveUninitialized: false
         }))
-    
+
         app.use(passport.initialize())
         app.use(passport.session())
-    
+
         const idp = new Issuer({
             issuer: `${config.IDP}/oauth/token`,
             authorization_endpoint: `${config.IDP}/oauth/authorize`,
@@ -36,7 +36,7 @@ export default function Auth(config) {
             redirect_uris: [config.REDIRECT_URI],
             token_endpoint_auth_method: 'client_secret_post' //xsuaa needs this
         })
-    
+
         passport.use(OPENID_CONNECT,
             new Strategy({ client }, (tokenSet, done) => {
                 const claims = tokenSet.claims()
@@ -47,15 +47,15 @@ export default function Auth(config) {
                 })
             })
         )
-    
+
         app.get('/login', passport.authenticate(OPENID_CONNECT))
-    
+
         // TODO: provide a failure url
         app.get('/login/callback', passport.authenticate(OPENID_CONNECT, {
             successRedirect: '/',
             failureRedirect: '/'
         }))
-    
+
         return (req, res, next) => {
             if (req.originalUrl === '/service-worker.js') return next()
             if (req.originalUrl === '/favicon.ico') return res.status(204).end()
