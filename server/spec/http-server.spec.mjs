@@ -1,14 +1,14 @@
 'use strict'
 
 import request from 'supertest'
-import createServer from '../create-server.js'
+import httpServer from '../http-server.js'
 import dummyConfig from './auth-config/dummy-config.js'
 
 describe('Server', () => {
     let client
 
     beforeAll(() => {
-        client = request(createServer(dummyConfig))
+        client = request(httpServer(dummyConfig))
     })
 
     it('protects host page at root by redirecting to login page', () => {

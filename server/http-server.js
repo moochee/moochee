@@ -6,7 +6,7 @@ import auth from './auth.js'
 import quizSocketServer from './quiz-socket-server.js'
 import QuizRouter from './quiz-router.js'
 
-export default function createServer(config, directory) {
+export default function create(config, directory) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
