@@ -45,11 +45,16 @@ describe('Server', () => {
         beforeAll(() => {
             const noAuthMiddleware = (req, res, next) => next()
             const noAuth = { setup: () => noAuthMiddleware }
-            client = request(httpServer(noAuth))
+            client = request(httpServer(noAuth, 'quiz', 'http://localhost'))
         })
 
         it('supports creating a new game', async () => {
-            await client.post('/api/v1/games').expect(201)
+            // REVISE maybe it's better to make it a unit test, i.e. inject some dummy 'games' or 'quizService'
+            const response = await client.post('/api/v1/games').send({ quizId: 'cc-dist-logging.json' })
+                .expect(201).expect('Location', /.+/)
+            const url = new URL(response.headers['location'])
+            expect(url.hostname).toEqual('localhost')
+            expect(url.pathname).toMatch(/\/.+/)
         })
     })
 })
