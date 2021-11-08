@@ -1,0 +1,32 @@
+.admin {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.adminAction {
+    margin-top: 2vh;
+    font-size: 2vh;
+}
+
+.adminQuizzes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    justify-content: center;
+}
+
+.adminQuiz {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.adminSmallButton {
+    width: 10vh;
+    height: 5vh;
+    font-size: 2vh;
+    font-family: inherit;
+}

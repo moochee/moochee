@@ -85,10 +85,10 @@ export default function QuizCreator() {
             questions: questions.map(q => ({ text: q.text, answers: q.answers.filter(a => a.text.trim() !== '') }))
         }
         console.log(quiz)
-        createQuiz(quiz).then(() => location.href = '/')
+        createQuiz(quiz).then(() => backToAdmin())
     }
 
-    const cancel = () => location.href = '/'
+    const backToAdmin = () => location.href = '/#/admin'
 
     const questionsBlock = questions.map((q, i) => {
         const updateQuestionText = (questionText) => setQuestions(oldQuestions => {
@@ -128,7 +128,7 @@ export default function QuizCreator() {
             onAddQuestion=${addQuestion} onDeleteQuestion=${deleteQuestion} />`
     })
 
-    return html`<${Shell} headerCenter='Create a Quiz'>
+    return html`<${Shell} headerCenter='Create New Quiz'>
         <div class=quizCreator>
             <h1 class=quizCreatorTitle contenteditable=true 
                 oninput=${updateTitle} dangerouslySetInnerHTML=${{ __html: initialTitle }} />
@@ -138,7 +138,7 @@ export default function QuizCreator() {
             <hr />
             <div class=quizCreatorActions>
                 <button id=create class=quizCreatorButton onclick=${create}>Create</button>
-                <button id=cancel class=quizCreatorButton onclick=${cancel}>Cancel</button>
+                <button id=cancel class=quizCreatorButton onclick=${backToAdmin}>Cancel</button>
             </div>
         </div>
     <//>`

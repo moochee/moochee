@@ -5,8 +5,14 @@
     height: 100%;
 }
 
+.entranceTitleLine {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
 .entranceTitle {
-    font-size: min(4vw, 7.11vh); 
+    font-size: min(4vw, 7.11vh);
 }
 
 .entranceQuizzes {
