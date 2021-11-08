@@ -30,7 +30,7 @@ export default function create(auth, directory) {
     app.get('/api/v1/runningGames', (_, res) => {
         res.set('Content-Type', 'text/plain')
             .status(200)
-            .send(String(socketServer.games.getRunningGames()))
+            .send(String(games.getRunningGames()))
     })
 
     app.use(express.json())
@@ -47,7 +47,7 @@ export default function create(auth, directory) {
     const httpServer = http.createServer(app)
     const quizService = new QuizService(directory)
     const games = new Games(quizService, setTimeout)
-    const socketServer = quizSocketServer(httpServer, games)
+    quizSocketServer(httpServer, games)
 
     return httpServer
 }

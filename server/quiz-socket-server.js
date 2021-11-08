@@ -7,7 +7,6 @@ import Avatars from './avatars.js'
 
 export default function create(server, games) {
     const webSocketServer = new WebSocketServer({ server })
-    webSocketServer.games = games
 
     webSocketServer.on('connection', (webSocket) => {
         const events = new Events(webSocketServer, webSocket)
