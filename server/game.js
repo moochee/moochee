@@ -2,7 +2,7 @@
 
 import crypto from 'crypto'
 
-function Game(quiz, players, timer) {
+export default function Game(quiz, players, timer) {
     let currentQuestionIndex = -1
     let guessTimeoutId
     let roundStartTime
@@ -80,5 +80,3 @@ function Game(quiz, players, timer) {
 
     this.getCreatedAt = () => createdAt
 }
-
-export default Game
