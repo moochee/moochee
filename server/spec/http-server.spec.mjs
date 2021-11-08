@@ -3,12 +3,13 @@
 import request from 'supertest'
 import httpServer from '../http-server.js'
 import dummyConfig from './auth-config/dummy-config.js'
+import Auth from '../auth.js'
 
 describe('Server', () => {
     let client
 
     beforeAll(() => {
-        client = request(httpServer(dummyConfig))
+        client = request(httpServer(new Auth(dummyConfig)))
     })
 
     it('protects host page at root by redirecting to login page', () => {

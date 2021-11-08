@@ -2,11 +2,10 @@
 
 import http from 'http'
 import express from 'express'
-import auth from './auth.js'
 import quizSocketServer from './quiz-socket-server.js'
 import quizRouter from './quiz-router.js'
 
-export default function create(config, directory) {
+export default function create(auth, directory) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
@@ -21,7 +20,7 @@ export default function create(config, directory) {
         httpServer.close()
     })
 
-    const login = auth(app, config)
+    const login = auth.setup(app)
     const httpServer = http.createServer(app)
     const socketServer = quizSocketServer(httpServer, directory)
 
@@ -38,6 +37,8 @@ export default function create(config, directory) {
     app.use('/api/v1/quizzes', quizRouter(directory))
 
     app.use('/', login)
+    // app.post('/api/v1/games', login, (req, res) => {
+    // })
     app.use('/', express.static('web/host'))
 
     return httpServer
