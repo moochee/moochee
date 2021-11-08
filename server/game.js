@@ -1,13 +1,15 @@
 'use strict'
 
-function Game(quiz, players, timer) {
+import crypto from 'crypto'
+
+export default function Game(quiz, players, timer) {
     let currentQuestionIndex = -1
     let guessTimeoutId
     let roundStartTime
     let createdAt = Date.now()
     const NETWORK_DELAY_IN_SECONDS = 2
 
-    this.id = String(Math.floor(100000 + Math.random() * 900000))
+    this.id = crypto.randomUUID()
 
     this.join = (name, events) => {
         const [avatar, otherPlayers] = players.add(name)
@@ -78,5 +80,3 @@ function Game(quiz, players, timer) {
 
     this.getCreatedAt = () => createdAt
 }
-
-export default Game

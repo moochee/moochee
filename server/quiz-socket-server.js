@@ -1,23 +1,10 @@
 'use strict'
 
 import { WebSocketServer } from 'ws'
-import QuizService from './quiz-service.js'
-import Games from './games.js'
 import Events from './events.js'
-import Players from './players.js'
-import Avatars from './avatars.js'
 
-export default function create(server, directory) {
+export default function create(server, games) {
     const webSocketServer = new WebSocketServer({ server })
-    const quizService = new QuizService(directory)
-    const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
-    const games = new Games(quizService, timer)
-    webSocketServer.games = games
-
-    // FIXME This should be done differently. Things like global intervals prevent a graceful shutdown cause due to running intervals, the Node.js process would exit
-    //       A cleaner approach is to use a timeout instead that gets initialized when a game gets created and logically belongs to the game.
-    const fiveMinutes = 5 * 60 * 1000
-    setInterval(() => games.deleteInactiveGames(), fiveMinutes)
 
     webSocketServer.on('connection', (webSocket) => {
         const events = new Events(webSocketServer, webSocket)
@@ -31,8 +18,7 @@ export default function create(server, directory) {
                 },
                 host: async () => {
                     const [quizId] = args
-                    const players = new Players(new Avatars)
-                    const game = await games.host(quizId, players, events)
+                    const game = await games.host(quizId, events)
                     webSocket.gameId = game.id
                 },
                 join: () => {

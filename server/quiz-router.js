@@ -3,7 +3,7 @@
 import { Router } from 'express'
 import QuizService from './quiz-service.js'
 
-export default function QuizRouter(directory) {
+export default function create(directory) {
     const router = new Router()
     const quizService = new QuizService(directory)
 

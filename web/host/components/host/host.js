@@ -200,8 +200,9 @@ export default function Host(props) {
     const podiumFinalBlock = isRoundFinished && isFinal ? html`<${PodiumFinalPage} players=${status.scoreboard} result=${status.result} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`
+    const blankFooterRight = html`<div></div>`
 
-    return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft=#${props.gameId} footerRight='${players.length} Players' fullScreenContent=${isRoundFinished}>
+    return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='${players.length} Players' footerRight=${blankFooterRight} fullScreenContent=${isRoundFinished}>
         <audio ref=${music} volume=${volume} loop src=/public/components/positive-funny-background-music-for-video-games.mp3></audio>
         <audio ref=${tap} volume=${volume} src=/public/components/tap.mp3></audio>
         ${waitingToStartBlock}

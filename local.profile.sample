@@ -15,7 +15,7 @@ export VCAP_SERVICES='{
       "name": "gorilla-fs",
       "volume_mounts": [
         {
-          "container_dir": "./quizzes"
+          "container_dir": "./quiz"
         }
       ]
     }
@@ -26,3 +26,4 @@ export VCAP_APPLICATION='{
       "localhost:3000"
   ]
 }'
+export DEDICATED_URL=http://localhost:3000

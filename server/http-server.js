@@ -2,11 +2,12 @@
 
 import http from 'http'
 import express from 'express'
-import auth from './auth.js'
 import quizSocketServer from './quiz-socket-server.js'
-import QuizRouter from './quiz-router.js'
+import quizRouter from './quiz-router.js'
+import QuizService from './quiz-service.js'
+import Games from './games.js'
 
-export default function createServer(config, directory) {
+export default function create(auth, directory, dedicatedBaseUrl) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
@@ -18,27 +19,38 @@ export default function createServer(config, directory) {
         // TODO check if this doesn't cause trouble on CF, e.g. CF should not try to re-start on exit code 0
         console.log('received shutdown signal')
         res.status(202).end()
-        httpServer.close(() => console.log('bye'))
+        httpServer.close()
     })
 
-    const login = auth(app, config)
-    const httpServer = http.createServer(app)
-    const socketServer = quizSocketServer(httpServer, directory)
+    const login = auth.setup(app)
 
     app.use('/public', express.static('web/public'))
     app.use('/play', express.static('web/play'))
 
+    // TODO to be deleted later
     app.get('/api/v1/runningGames', (_, res) => {
         res.set('Content-Type', 'text/plain')
             .status(200)
-            .send(String(socketServer.games.getRunningGames()))
+            .send(String(games.getRunningGames()))
     })
 
     app.use(express.json())
-    app.use('/api/v1/quizzes', new QuizRouter(directory))
+    app.use('/api/v1/quizzes', quizRouter(directory))
 
     app.use('/', login)
+
+    app.post('/api/v1/games', login, async (req, res) => {
+        const game = await games.host(req.body.quizId)
+        const url = `${dedicatedBaseUrl}/${game.id}`
+        res.status(201).set('Location', url).end()
+    })
+
     app.use('/', express.static('web/host'))
+
+    const httpServer = http.createServer(app)
+    const quizService = new QuizService(directory)
+    const games = new Games(quizService, setTimeout)
+    quizSocketServer(httpServer, games)
 
     return httpServer
 }

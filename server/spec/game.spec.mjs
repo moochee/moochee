@@ -1,6 +1,6 @@
 'use strict'
 
-import Games from '../games.js'
+import Game from '../game.js'
 import Avatars from '../avatars.js'
 import Players from '../players.js'
 
@@ -18,8 +18,7 @@ describe('Game', () => {
         avatars = new Avatars([['x'], ['y']])
         players = new Players(avatars)
         timer = { setTimeout: () => null, clearTimeout: () => null, secondsToGuess: null }
-        const games = new Games({ get: async () => quiz }, timer)
-        game = await games.host(null, players, events)
+        game = new Game(quiz, players, timer)
     })
 
     it('sets score, avatar and presents quiz title when player joins a game', () => {

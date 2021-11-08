@@ -14,6 +14,7 @@ export default function Players(avatars) {
         return [avatar, otherPlayers]
     }
 
+    // REVISE it feels pretty weird that the remove method returns an avatar
     this.remove = (name) => {
         let avatar = null
         const player = players.find(p => p.name === name)
