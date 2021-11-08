@@ -4,6 +4,7 @@ import { html, useState, useEffect } from '/public/lib/preact-3.1.0.standalone.m
 import Entrance from '/components/entrance/entrance.js'
 import Host from '/components/host/host.js'
 import QuizCreator from '/components/quiz-creator/quiz-creator.js'
+import Admin from '/components/admin/admin.js'
 
 const HostGameWeb = function (props) {
     const [atEntrance, setAtEntrance] = useState(true)
@@ -40,8 +41,13 @@ export default function HostApp(props) {
         return () => removeEventListener('hashchange', hashChanged)
     }, [])
 
-    const inQuizCreator = (hash.indexOf('#/create') > -1) ? true : false
-    return inQuizCreator ?
-        html`<${QuizCreator} />` :
-        html`<${HostGameWeb} client=${props.client} />`
+    let page
+    if (hash.indexOf('#/create') > -1) {
+        page = html`<${QuizCreator} />`
+    } else if (hash.indexOf('#/admin') > -1) {
+        page = html`<${Admin} />`
+    } else {
+        page = html`<${HostGameWeb} client=${props.client} />`
+    }
+    return page
 }

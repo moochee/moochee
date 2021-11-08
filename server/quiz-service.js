@@ -1,6 +1,6 @@
 'use strict'
 
-import { readFile, readdir, writeFile, access, mkdir } from 'fs/promises'
+import { readFile, readdir, writeFile, access, mkdir, rm } from 'fs/promises'
 
 export default function QuizService(directory) {
     this.get = async (quizId) => {
@@ -64,5 +64,14 @@ export default function QuizService(directory) {
         const fileName = `${directory}/${shortId}.json`
         await writeFile(fileName, JSON.stringify(quizContent))
         return quizContent
+    }
+
+    this.delete = async (id) => {
+        try {
+            const fileName = `${directory}/${id}`
+            await rm(fileName)
+        } catch (error) {
+            console.error(id, error)
+        }
     }
 }

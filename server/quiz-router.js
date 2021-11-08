@@ -27,8 +27,26 @@ export default function QuizRouter(directory) {
         }
         try {
             const authorEmail = req.user.claims.email
-            const quizList = await quizService.getAll(authorEmail)
+            let quizList
+            if (req.query.private) {
+                quizList = await quizService.getAllPrivate(authorEmail)
+            } else {
+                quizList = await quizService.getAll(authorEmail)
+            }
             res.status(200).send(quizList).end()
+        } catch (error) {
+            console.log(error)
+            res.status(500).end()
+        }
+    })
+
+    router.delete('/:id', async (req, res) => {
+        if (!req.isAuthenticated()) {
+            return res.status(401).end('Not authenticated!')
+        }
+        try {
+            await quizService.delete(req.params.id)
+            res.status(200).end()
         } catch (error) {
             console.log(error)
             res.status(500).end()
