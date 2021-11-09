@@ -30,8 +30,12 @@ export default function QuizSocketClient(createWebSocket, isNewGameCreate) {
 
     this.host = async (quizId, quizTitle) => {
         if (isNewGameCreate) {
-            const response = await fetch('/api/v1/games', { method: 'POST' }).send(JSON.stringify({ quizId }))
-            const targetUrl = new URL(response.headers['location'])
+            const response = await fetch('/api/v1/games', {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+                body: JSON.stringify({ quizId })
+            })
+            const targetUrl = new URL(response.headers.get('location'))
             const gameId = targetUrl.pathname.substr(1)
             subscribers['gameCreated'](targetUrl.host, gameId, quizTitle)
         }
