@@ -15,7 +15,7 @@ export VCAP_SERVICES='{
       "name": "gorilla-fs",
       "volume_mounts": [
         {
-          "container_dir": "./quiz"
+          "container_dir": "./quizzes"
         }
       ]
     }
