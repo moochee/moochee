@@ -12,5 +12,6 @@ import HostApp from '/components/app/host-app.js'
 loadCss('/public/font/komikatext_regular_macroman/stylesheet.css')
 loadCss('/public/style.css')
 
-const wsUrl = `${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}`
-render(html`<${HostApp} client=${new QuizSocketClient(() => new WebSocket(wsUrl))} />`, document.body)
+const wsUrl = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}`
+const isNewGameCreate = window.location.hash.indexOf('?newGameCreate') > -1
+render(html`<${HostApp} client=${new QuizSocketClient(() => new WebSocket(wsUrl), isNewGameCreate)} />`, document.body)

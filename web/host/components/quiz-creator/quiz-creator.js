@@ -87,7 +87,7 @@ export default function QuizCreator() {
         createQuiz(quiz).then(() => backToAdmin())
     }
 
-    const backToAdmin = () => location.href = '/#/admin'
+    const backToAdmin = () => window.location.href = '/#/admin'
 
     const questionsBlock = questions.map((q, i) => {
         const updateQuestionText = (questionText) => setQuestions(oldQuestions => {

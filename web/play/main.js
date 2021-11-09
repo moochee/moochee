@@ -12,5 +12,5 @@ import PlayApp from '/play/components/app/play-app.js'
 loadCss('/public/font/komikatext_regular_macroman/stylesheet.css')
 loadCss('/public/style.css')
 
-const wsUrl = `${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}`
+const wsUrl = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}`
 render(html`<${PlayApp} client=${new QuizSocketClient(() => new WebSocket(wsUrl))} />`, document.body)

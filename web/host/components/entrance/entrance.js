@@ -21,8 +21,8 @@ export default function Entrance(props) {
         getQuizzes()
     }, [])
 
-    const host = (quizId) => {
-        props.client.host(quizId)
+    const host = (quizId, quizTitle) => {
+        props.client.host(quizId, quizTitle)
     }
 
     const quizList = quizzes.map((q) => {

@@ -1,6 +1,6 @@
 'use strict'
 
-export default function QuizSocketClient(createWebSocket) {
+export default function QuizSocketClient(createWebSocket, isNewGameCreate) {
     const socket = createWebSocket()
     const ready = new Promise((resolve) => socket.onopen = resolve)
 
@@ -28,7 +28,13 @@ export default function QuizSocketClient(createWebSocket) {
         send({ command: 'getQuizzes', args: [] })
     }
 
-    this.host = (quizId) => {
+    this.host = async (quizId, quizTitle) => {
+        if (isNewGameCreate) {
+            const response = await fetch('/api/v1/games', { method: 'POST' }).send(JSON.stringify({ quizId }))
+            const targetUrl = new URL(response.headers['location'])
+            const gameId = targetUrl.pathname.substr(1)
+            subscribers['gameCreated'](targetUrl.host, gameId, quizTitle)
+        }
         send({ command: 'host', args: [quizId] })
     }
 
