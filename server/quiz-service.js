@@ -36,7 +36,17 @@ export default function QuizService(directory) {
         return JSON.parse(await readFile(quizPath, 'utf8'))
     }
 
+    const createDirectoryIfNotExists = async () => {
+        try {
+            await access(directory)
+        } catch (error) {
+            await mkdir(directory)
+        }
+    }
+
     this.getAllPrivate = async (author) => {
+        await createDirectoryIfNotExists()
+
         const dirents = await readdir(directory, { withFileTypes: true })
         let quizzes = []
         for (let dirent of dirents) {
@@ -54,11 +64,6 @@ export default function QuizService(directory) {
     }
 
     this.create = async (quiz, isPrivate, author) => {
-        try {
-            await access(directory)
-        } catch (error) {
-            await mkdir(directory)
-        }
         const quizContent = { ...quiz, isPrivate, author }
         const shortId = (+new Date).toString(36).slice(-5)
         const fileName = `${directory}/${shortId}.json`
