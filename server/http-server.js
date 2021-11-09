@@ -7,7 +7,7 @@ import quizRouter from './quiz-router.js'
 import QuizService from './quiz-service.js'
 import Games from './games.js'
 
-export default function create(auth, directory, dedicatedBaseUrl) {
+export default function create(auth, directory, dedicatedOrigin) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
@@ -41,7 +41,7 @@ export default function create(auth, directory, dedicatedBaseUrl) {
 
     app.post('/api/v1/games', login, async (req, res) => {
         const game = await games.host(req.body.quizId)
-        const url = `${dedicatedBaseUrl}/${game.id}`
+        const url = `${dedicatedOrigin}/${game.id}`
         res.status(201).set('Location', url).end()
     })
 
