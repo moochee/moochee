@@ -8,13 +8,13 @@ import QuizService from '../quiz-service.js'
 import Games from '../games.js'
 
 describe('Integration', () => {
-    let server, port, hostClient, playerClient
+    let server, port, hostClient, playerClient, games
     const ALICE = 'Alice'
 
     beforeEach(async () => {
         const httpServer = createServer()
         const quizService = new QuizService()
-        const games = new Games(quizService, setTimeout)
+        games = new Games(quizService, setTimeout)
         server = quizSocketServer(httpServer, games)
         port = await new Promise((resolve) => {
             httpServer.listen(() => resolve(httpServer.address().port))
@@ -52,6 +52,20 @@ describe('Integration', () => {
         await new Promise(resolve => {
             playerClient.disconnect()
             hostClient.subscribe('playerDisconnected', resolve)
+        })
+    })
+
+    it('should be possible to join as host for a game that was already created', async () => {
+        const game = await games.host('cc-dist-logging.json')
+
+        await new Promise((resolve) => {
+            hostClient.joinAsHost(game.id)
+            hostClient.subscribe('hostJoined', resolve)
+        })
+
+        await new Promise((resolve) => {
+            playerClient.join(game.id, ALICE)
+            hostClient.subscribe('playerJoined', resolve)
         })
     })
 

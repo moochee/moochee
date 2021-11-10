@@ -8,23 +8,17 @@ import Admin from '/components/admin/admin.js'
 import QuizSocketClient from '/public/quiz-socket-client.js'
 
 const HostGameWeb = function (props) {
-    const [atEntrance, setAtEntrance] = useState(true)
-    const [gameId, setGameId] = useState('')
-    const [quizTitle, setQuizTitle] = useState('')
-    const [client, setClient] = useState()
+    const [state, setState] = useState({ atEntrance: true, gameId: '', quizTitle: '', origin: '', client: null })
 
     const onGameStarted = (gameId, quizTitle) => {
-        setGameId(gameId)
-        setQuizTitle(quizTitle)
-        setAtEntrance(false)
+        setState({atEntrance: false, gameId, quizTitle})
     }
 
     const onGameCreated = (origin, gameId, quizTitle) => {
         const wsUrl = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${origin}`
-        setClient(new QuizSocketClient(() => new WebSocket(wsUrl)))
-        setGameId(gameId)
-        setQuizTitle(quizTitle)
-        setAtEntrance(false)
+        const client = new QuizSocketClient(() => new WebSocket(wsUrl))
+        client.joinAsHost(gameId)
+        setState({atEntrance: false, gameId, quizTitle, origin, client})
     }
 
     useEffect(() => {
@@ -36,11 +30,13 @@ const HostGameWeb = function (props) {
         return () => props.client.unsubscribe('gameStarted')
     }, [])
 
-    const home = () => setAtEntrance(true)
+    const home = () => setState({})
+
+    const {atEntrance, client, gameId, quizTitle} = state
 
     return atEntrance ?
         html`<${Entrance} client=${props.client} />` :
-        html`<${Host} origin=${origin} gameId=${gameId} client=${client} quizTitle=${quizTitle} onBackHome=${home} />`
+        html`<${Host} origin=${origin} client=${client || props.client} gameId=${gameId} quizTitle=${quizTitle} onBackHome=${home} />`
 }
 
 export default function HostApp(props) {

@@ -28,13 +28,18 @@ export default function create(server, games) {
                         webSocket.playerName = name
                     }
                 },
+                joinAsHost: () => {
+                    const [gameId] = args
+                    webSocket.gameId = gameId
+                    webSocket.send(JSON.stringify({ event: 'hostJoined', args: [] }))
+                },
                 nextRound: () => {
                     const [gameId] = args
                     try {
                         const game = games.find(gameId)
                         game.nextRound(events)
                     } catch (error) {
-                        console.log(error)
+                        console.error(error)
                     }
                 },
                 guess: () => {
@@ -43,7 +48,7 @@ export default function create(server, games) {
                         const game = games.find(gameId)
                         game.guess(name, answerIndex, events)
                     } catch (error) {
-                        console.log(error)
+                        console.error(error)
                     }
                 }
             }
@@ -58,7 +63,7 @@ export default function create(server, games) {
                 const game = games.find(webSocket.gameId)
                 game.disconnect(webSocket.playerName, events)
             } catch (error) {
-                console.log(error)
+                console.error(error)
             }
         })
     })

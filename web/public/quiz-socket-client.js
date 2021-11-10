@@ -38,12 +38,17 @@ export default function QuizSocketClient(createWebSocket, isNewGameCreate) {
             const targetUrl = new URL(response.headers.get('location'))
             const gameId = targetUrl.pathname.substr(1)
             subscribers['gameCreated'](targetUrl.host, gameId, quizTitle)
+            return
         }
         send({ command: 'host', args: [quizId] })
     }
 
     this.join = (gameId, playerName) => {
         send({ command: 'join', args: [gameId, playerName] })
+    }
+
+    this.joinAsHost = (gameId) => {
+        send({ command: 'joinAsHost', args: [gameId] })
     }
 
     this.nextRound = (gameId) => {
