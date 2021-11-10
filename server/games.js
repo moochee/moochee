@@ -8,12 +8,6 @@ export default function Games(quizService) {
     let games = []
     const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
 
-    this.getQuizzes = async (events) => {
-        const quizzes = await quizService.getAll()
-        // REVISE Is events sometimes null? Optional arguments are usually discouraged.
-        events?.reply({ event: 'quizzesReceived', args: [quizzes] })
-    }
-
     // REVISE Why do we have to provide a players list? We host a new game in this method, so it's anyway empty,
     //        so why don't we just initialize it in here? I think it should even be pushed yet another level done and be initialized in game.
     // REVISE 'events' seems rather like a dependency that belongs to the constructor
