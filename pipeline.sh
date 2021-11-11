@@ -1,17 +1,15 @@
 #!/bin/sh -e
 
-if [ -n "$(git status --porcelain)" ]; then
-    echo "there are uncommitted chages, stopping pipeline"
-    exit 1
-fi
+echo 'Local stage'
+./assert-clean-local-repo.sh
+npm run lint
+npm test
+./graceful-shutdown-test.sh
 
-git fetch
-
-if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/master)" ]; then
-    echo "current branch is not in sync with origin/master, stopping pipeline"
-    exit 1
-fi
-
+echo 'Integration stage'
 cf target -s gorilla-quiz-test
+./deploy.sh -test
 
+echo 'Production stage'
 cf target -s gorilla-quiz
+./deploy.sh
