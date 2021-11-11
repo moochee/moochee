@@ -5,7 +5,6 @@ import express from 'express'
 import quizSocketServer from './quiz-socket-server.js'
 import quizRouter from './quiz-router.js'
 import QuizService from './quiz-service.js'
-import Games from './games.js'
 
 export default function create(auth, directory, dedicatedOrigin) {
     const app = express()
@@ -49,8 +48,7 @@ export default function create(auth, directory, dedicatedOrigin) {
 
     const httpServer = http.createServer(app)
     const quizService = new QuizService(directory)
-    const games = new Games(quizService, setTimeout)
-    quizSocketServer(httpServer, games)
+    const games = quizSocketServer(httpServer, quizService).games
 
     return httpServer
 }

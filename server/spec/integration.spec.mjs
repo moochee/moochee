@@ -5,7 +5,6 @@ import WebSocket from 'ws'
 import quizSocketServer from '../quiz-socket-server.js'
 import QuizSocketClient from '../../web/public/quiz-socket-client.js'
 import QuizService from '../quiz-service.js'
-import Games from '../games.js'
 
 describe('Integration', () => {
     let server, port, hostClient, playerClient, games
@@ -14,8 +13,8 @@ describe('Integration', () => {
     beforeEach(async () => {
         const httpServer = createServer()
         const quizService = new QuizService()
-        games = new Games(quizService, setTimeout)
-        server = quizSocketServer(httpServer, games)
+        server = quizSocketServer(httpServer, quizService)
+        games = server.games
         port = await new Promise((resolve) => {
             httpServer.listen(() => resolve(httpServer.address().port))
         })

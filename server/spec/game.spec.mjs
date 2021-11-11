@@ -12,41 +12,39 @@ describe('Game', () => {
         quiz = { title: 'sample quiz', questions: [] }
         events = {
             publish: function (_, message) { this.publishedMessage = message },
-            reply: function (message) { this.repliedMessage = message },
             notifyHost: function () { this.hostNotified = true }
         }
         avatars = new Avatars([['x'], ['y']])
         players = new Players(avatars)
         timer = { setTimeout: () => null, clearTimeout: () => null, secondsToGuess: null }
-        game = new Game(quiz, players, timer)
+        game = new Game(quiz, players, timer, events)
     })
 
     it('sets score, avatar and presents quiz title when player joins a game', () => {
-        game.join(ALICE, events)
-        expect(events.repliedMessage).toEqual({ event: 'joiningOk', args: [quiz.title, ALICE, jasmine.any(String), []] })
+        game.join(ALICE)
         expect(events.publishedMessage).toEqual({ event: 'playerJoined', args: [jasmine.any(String)] })
     })
 
     it('sends error when player joins with empty name', () => {
-        expect(() => game.join('', events)).toThrowError()
+        expect(() => game.join('')).toThrowError()
     })
 
     it('sends error when player name exists', () => {
         game.join(ALICE)
-        expect(() => game.join(ALICE, events)).toThrowError()
+        expect(() => game.join(ALICE)).toThrowError()
     })
 
     it('send error when reaching max. number of players', () => {
         game.join(ALICE)
         game.join(BOB)
-        expect(() => game.join(JENNY, events)).toThrowError()
+        expect(() => game.join(JENNY)).toThrowError()
     })
 
     it('presents first question without correct answer and seconds to guess when first round starts', () => {
         quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }] }]
         game.join(ALICE)
         game.join(BOB)
-        game.nextRound(events)
+        game.nextRound()
         const expectedQuestion = { id: 1, text: 'q1', answers: [{ text: 'a1' }], totalQuestions: 1 }
         const expectedMessage = { event: 'roundStarted', args: [expectedQuestion, null] }
         expect(events.publishedMessage).toEqual(expectedMessage)
@@ -60,7 +58,7 @@ describe('Game', () => {
         game.join(BOB)
         game.nextRound()
         game.guess(ALICE, 0)
-        game.guess(BOB, 0, events)
+        game.guess(BOB, 0)
         const expectedMessage = { event: 'roundFinished', args: [jasmine.any(Object)] }
         expect(events.publishedMessage).toEqual(expectedMessage)
         const result = events.publishedMessage.args[0].result
@@ -71,7 +69,7 @@ describe('Game', () => {
     it('presents the scoreboard when a round is finished', () => {
         quiz.questions = [{ text: 'q1', answers: [] }, { text: 'q2', answers: [] }]
         game.nextRound()
-        game.finishRound(quiz.questions[0], events)
+        game.finishRound(quiz.questions[0])
         const expectedMessage = { event: 'roundFinished', args: [jasmine.objectContaining({ scoreboard: [] })] }
         expect(events.publishedMessage).toEqual(expectedMessage) // no players, so the scoreboard is empty
     })
@@ -80,7 +78,7 @@ describe('Game', () => {
         quiz.questions = [{ text: 'q1', answers: [] }, { text: 'q2', answers: [] }]
         timer.secondsToGuess = 10
         game.nextRound()
-        game.nextRound(events)
+        game.nextRound()
         const expectedQuestion = { id: 2, text: 'q2', answers: [], totalQuestions: 2 }
         const expectedMessage = { event: 'roundStarted', args: [expectedQuestion, 10] }
         expect(events.publishedMessage).toEqual(expectedMessage)
@@ -89,7 +87,7 @@ describe('Game', () => {
     it('is finished when there are no more questions', () => {
         quiz.questions = [{ text: 'q1', answers: [] }]
         game.nextRound()
-        game.finishRound(quiz.questions[0], events)
+        game.finishRound(quiz.questions[0])
         expect(events.publishedMessage).toEqual({ event: 'gameFinished', args: [jasmine.any(Object)] })
     })
 
@@ -98,7 +96,7 @@ describe('Game', () => {
         game.join(ALICE)
         game.join(BOB)
         game.nextRound()
-        game.guess(ALICE, 0, events)
+        game.guess(ALICE, 0)
         expect(events.hostNotified).toBe(true)
     })
 
@@ -111,7 +109,7 @@ describe('Game', () => {
         game.nextRound()
         game.guess(ALICE, 0)
         game.guess(BOB, 1)
-        game.finishRound(quiz.questions[0], events) // simulate timeout
+        game.finishRound(quiz.questions[0]) // simulate timeout
         expect(finishRoundCalled).toEqual(1)
     })
 
@@ -121,8 +119,8 @@ describe('Game', () => {
         game.join(BOB)
         game.nextRound()
         game.guess(ALICE, 0)
-        game.guess(BOB, 1, events)
-        game.finishRound(quiz.questions[0], events) // simulate timeout
+        game.guess(BOB, 1)
+        game.finishRound(quiz.questions[0]) // simulate timeout
         expect(events.publishedMessage.args[0].scoreboard[0].score).toBeGreaterThan(0)
         expect(events.publishedMessage.args[0].scoreboard[1].score).toBe(0)
     })
@@ -135,8 +133,8 @@ describe('Game', () => {
         game.join(BOB)
         game.nextRound()
         game.guess(ALICE, 0)
-        game.finishRound(quiz.questions[0], events) // simulate timeout
-        game.guess(BOB, 0, events)
+        game.finishRound(quiz.questions[0]) // simulate timeout
+        game.guess(BOB, 0)
         expect(finishRoundCalled).toEqual(1)
     })
 
@@ -147,8 +145,8 @@ describe('Game', () => {
         game.join(BOB)
         game.nextRound()
         game.guess(ALICE, 0)
-        game.finishRound(quiz.questions[0], events)
-        game.guess(BOB, 0, events)
+        game.finishRound(quiz.questions[0])
+        game.guess(BOB, 0)
         expect(events.publishedMessage.args[0].scoreboard[0].score).toBeGreaterThan(0)
         expect(events.publishedMessage.args[0].scoreboard[1].score).toBe(0)
     })
