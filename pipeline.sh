@@ -7,7 +7,7 @@ fi
 
 git fetch
 
-if [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/master)" ]; then
+if [ "$(git rev-parse HEAD)" != "$(git rev-parse HEAD)" ]; then
     echo "current branch is not in sync with origin/master, stopping pipeline"
     exit 1
 fi
