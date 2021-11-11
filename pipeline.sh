@@ -1,7 +1,8 @@
 #!/bin/sh -e
 
-echo 'Local stage'
 ./assert-clean-local-repo.sh
+
+echo 'Local stage'
 npm run lint
 npm test
 ./graceful-shutdown-test.sh
