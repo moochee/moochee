@@ -4,6 +4,7 @@ echoerr() { >&2 echo $@; }
 
 echo 'starting server'
 
+source local.profile
 node server/gorilla.js &
 pid=$!
 
@@ -19,7 +20,6 @@ done
 
 echo 'server started, requesting to stop'
 
-# TODO before sending the stop signal, unmap the public route so that no more new games can be created
 curl --fail -X POST http://localhost:3000/api/v1/stop
 
 attempts=0
@@ -35,8 +35,7 @@ done
 
 echo 'server stopped'
 
-if ps -p $pid > /dev/null
-then
+if ps -p $pid > /dev/null; then
    echoerr "application did not completely terminate, process still exist: $pid"
    echoerr 'killing process now to prevent stale processes piling up, fix this immediately'
    kill $pid
