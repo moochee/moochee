@@ -5,7 +5,24 @@ self.addEventListener('install', () => {
 })
 
 self.addEventListener('activate', (event) => {
-    event.waitUntil(self.clients.claim())
+    event.waitUntil(self.clients.claim().then(() => {
+        // TODO remove this probably by end of 2021
+        //      currently needed to force-update users which are running an old UI old version
+        //      this old UI version also cached the index.html, which created trouble when auth session expired
+        caches.open('static-v2').then(async (cache) => {
+            const match = await cache.match(location.origin)
+            if (match) {
+                console.log('found root page in cache, app probably on an outdated UI version, force reload')
+                await cache.delete(location.origin)
+                const clients = await self.clients.matchAll()
+                clients.forEach((client) => {
+                    if (client.navigate) {
+                        setTimeout(() => client.navigate(location.origin), 1000)
+                    }
+                })
+            }
+        })
+    }))
 })
 
 self.addEventListener('fetch', (event) => {
