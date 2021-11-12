@@ -60,7 +60,7 @@ export default function create(server, quizService) {
             }
 
             const commandHandler = commandHandlers[command]
-            commandHandler ? commandHandler() : console.log(`No handler defined for command: ${command}`)
+            commandHandler ? commandHandler() : console.error(`No handler defined for command: ${command}`)
         })
 
         webSocket.on('close', () => {

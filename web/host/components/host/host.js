@@ -147,7 +147,6 @@ export default function Host(props) {
     }
 
     const onRoundFinished = (status) => {
-        //console.log(status)
         setIsRoundFinished(true)
         setQuestion(null)
         setStatus(oldStatus => ({
