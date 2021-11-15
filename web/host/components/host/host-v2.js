@@ -10,7 +10,7 @@ import Distribution from '/public/components/distribution/distribution.js'
 import PodiumFinal from '/public/components/podium-final/podium-final.js'
 import StickyCard from '/public/components/sticky/sticky-card.js'
 import StickyButton from '/public/components/sticky/sticky-button.js'
-import Waiting from './waiting.js'
+import Waiting from './waiting-v2.js'
 
 loadCss('/components/host/host.css')
 
@@ -130,6 +130,7 @@ export default function Host(props) {
             const oldEntry = oldScoreboard.find(e => e.avatar === entry.avatar) || {}
             return { ...entry, rank: index + 1, oldScore: oldEntry.score, oldRank: oldEntry.rank }
         })
+        // FIXME: didn't get it, shouldn't be sorting on old score instead?
         updatedScoreboard.sort((a, b) => a.oldRank - b.oldRank)
         return updatedScoreboard
     }
@@ -192,7 +193,7 @@ export default function Host(props) {
     }, [])
 
     const waitingToStart = !question && !isRoundFinished
-    const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} client=${props.client} />` : ''
+    const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} origin=${props.origin} players=${players} canStart=${canStart} client=${props.client} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />` : ''
     const podiumBlock = isRoundFinished && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} result=${status.result} onNext=${nextRound} />` : ''
     const podiumFinalBlock = isRoundFinished && isFinal ? html`<${PodiumFinalPage} players=${status.scoreboard} result=${status.result} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''

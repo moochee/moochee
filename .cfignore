@@ -4,3 +4,11 @@ coverage
 quiz/*-test.json
 quiz/sap
 local.profile
+.eslintrc.json
+.gitattributes
+.gitignore
+innersource.json
+Jenkinsfile
+*.sh
+pre-commit
+*.md

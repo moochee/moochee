@@ -16,7 +16,7 @@ export default function create(directory) {
             const quiz = await quizService.create(req.body, true, authorEmail)
             res.status(200).send(quiz).end()
         } catch (error) {
-            console.log(error)
+            console.error(error)
             res.status(500).end()
         }
     })
@@ -35,7 +35,7 @@ export default function create(directory) {
             }
             res.status(200).send(quizList).end()
         } catch (error) {
-            console.log(error)
+            console.error(error)
             res.status(500).end()
         }
     })
@@ -48,7 +48,7 @@ export default function create(directory) {
             await quizService.delete(req.params.id)
             res.status(200).end()
         } catch (error) {
-            console.log(error)
+            console.error(error)
             res.status(500).end()
         }
     })

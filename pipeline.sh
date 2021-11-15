@@ -11,6 +11,8 @@ echo 'Integration stage'
 cf target -s gorilla-quiz-test
 ./deploy.sh -test
 
+read -p 'Press enter to continue to production'
+
 echo 'Production stage'
 cf target -s gorilla-quiz
 ./deploy.sh
