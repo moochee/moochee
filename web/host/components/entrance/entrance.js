@@ -7,6 +7,11 @@ import StickyButton from '/public/components/sticky/sticky-button.js'
 
 loadCss('/components/entrance/entrance.css')
 
+function AdminButton() {
+    const click = () => window.location.href = '/#/admin'
+    return html`<div class=entranceAdminButton onclick=${click}>⚙️</div>`
+}
+
 export default function Entrance(props) {
     const [quizzes, setQuizzes] = useState([])
 
@@ -31,7 +36,9 @@ export default function Entrance(props) {
         </div>`
     })
 
-    return html`<${Shell} headerCenter='Welcome to the 🦍 Quiz'>
+    const adminButton = html`<${AdminButton} />`
+
+    return html`<${Shell} headerCenter='Welcome to the 🦍 Quiz' headerRight=${adminButton}>
         <div class=entrance>
             <div class=entranceTitle>Select a quiz to host a new game</div>
             <div class=entranceQuizzes>

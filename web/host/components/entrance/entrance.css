@@ -16,3 +16,7 @@
     overflow-y: auto;
     justify-content: center;
 }
+
+.entranceAdminButton {
+    cursor: pointer;
+}
