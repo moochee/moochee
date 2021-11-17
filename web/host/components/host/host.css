@@ -45,4 +45,5 @@
 
 .hostSwitch:hover {
     color: white;
+    cursor: pointer;
 }

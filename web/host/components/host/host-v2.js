@@ -43,15 +43,15 @@ const PodiumPage = function (props) {
         return () => clearTimeout(timeoutId)
     }, [])
 
+    const click = () => showDistribution ? setShowDistribution(false) : setShowDistribution(true)
+
     const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
     const scoreboardBlock = !showDistribution ? html`<${Scoreboard} ranking=${props.players} />` : ''
 
     return html`<div class=hostPodium>
         ${distributionBlock}
         ${scoreboardBlock}
-        <div class=hostSwitch
-            onmouseover=${() => setShowDistribution(true)}
-            onmouseout=${() => setShowDistribution(false)}>Distribution</div>
+        <div class=hostSwitch onclick=${click}>Switch</div>
         <div class=hostNextQuestionButton>
             <${StickyButton} onClick=${props.onNext} color=blue text='Next Question' />
         </div>
