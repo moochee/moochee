@@ -31,12 +31,12 @@ describe('Games', () => {
     })
 
     it('returns 0 running games initially', () => {
-        expect(games.getRunningGames()).toEqual(0)
+        expect(games.getNumberOfRunningGames()).toEqual(0)
     })
 
     it('returns 1 running games when hosting a game', async () => {
         await games.host(null, events)
-        expect(games.getRunningGames()).toEqual(1)
+        expect(games.getNumberOfRunningGames()).toEqual(1)
     })
 
     it('will consider a game as expired after two days and delete it', async () => {
@@ -45,9 +45,9 @@ describe('Games', () => {
         try {
             await games.host()
             clock.tick(1000 * 60 * 60 * 3 - 1)
-            expect(games.getRunningGames()).toEqual(1)
+            expect(games.getNumberOfRunningGames()).toEqual(1)
             clock.tick(1)
-            expect(games.getRunningGames()).toEqual(0)
+            expect(games.getNumberOfRunningGames()).toEqual(0)
         } finally {
             clock.uninstall()
         }

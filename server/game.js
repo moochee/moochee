@@ -1,12 +1,15 @@
 'use strict'
 
 import crypto from 'crypto'
+import Players from './players.js'
+import Avatars from './avatars.js'
 
-export default function Game(quiz, players, timer, events) {
+export default function Game(quiz, timer, events) {
     let currentQuestionIndex = -1
     let guessTimeoutId
     let roundStartTime
     let createdAt = Date.now()
+    let players = new Players(new Avatars())
     const NETWORK_DELAY_IN_SECONDS = 2
 
     this.id = crypto.randomUUID()

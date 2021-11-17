@@ -30,7 +30,7 @@ export default function create(auth, directory, dedicatedOrigin) {
     app.get('/api/v1/runningGames', (_, res) => {
         res.set('Content-Type', 'text/plain')
             .status(200)
-            .send(String(games.getRunningGames()))
+            .send(String(games.getNumberOfRunningGames()))
     })
 
     app.use(express.json())

@@ -1,23 +1,19 @@
 'use strict'
 
 import Game from '../game.js'
-import Avatars from '../avatars.js'
-import Players from '../players.js'
 
 describe('Game', () => {
-    let game, quiz, players, events, avatars, timer
-    const ALICE = 'Alice', BOB = 'Bob', JENNY = 'Jenny'
+    let game, quiz, timer, events
+    const ALICE = 'Alice', BOB = 'Bob'
 
     beforeEach(async () => {
         quiz = { title: 'sample quiz', questions: [] }
+        timer = { setTimeout: () => null, clearTimeout: () => null, secondsToGuess: null }
         events = {
             publish: function (_, message) { this.publishedMessage = message },
             notifyHost: function () { this.hostNotified = true }
         }
-        avatars = new Avatars([['x'], ['y']])
-        players = new Players(avatars)
-        timer = { setTimeout: () => null, clearTimeout: () => null, secondsToGuess: null }
-        game = new Game(quiz, players, timer, events)
+        game = new Game(quiz, timer, events)
     })
 
     it('sets score, avatar and presents quiz title when player joins a game', () => {
@@ -32,12 +28,6 @@ describe('Game', () => {
     it('sends error when player name exists', () => {
         game.join(ALICE)
         expect(() => game.join(ALICE)).toThrowError()
-    })
-
-    it('send error when reaching max. number of players', () => {
-        game.join(ALICE)
-        game.join(BOB)
-        expect(() => game.join(JENNY)).toThrowError()
     })
 
     it('presents first question without correct answer and seconds to guess when first round starts', () => {
