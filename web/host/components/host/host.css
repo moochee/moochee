@@ -33,11 +33,13 @@
 
 .hostPodium {
     height: 100%;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .hostSwitch {
     position: absolute;
-    left: 48%;
+    left: 46%;
     bottom: 15%;
     color: lightgray;
     font-size: 2vh;

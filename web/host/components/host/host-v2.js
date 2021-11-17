@@ -47,14 +47,16 @@ const PodiumPage = function (props) {
 
     const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
     const scoreboardBlock = !showDistribution ? html`<${Scoreboard} ranking=${props.players} />` : ''
+    const switcher = html`<div class=hostSwitch onclick=${click}>Switch</div>`
+    const nextQuestionButton = html`<div class=hostNextQuestionButton>
+        <${StickyButton} onClick=${props.onNext} color=blue text='Next Question' />
+    </div>`
 
     return html`<div class=hostPodium>
         ${distributionBlock}
         ${scoreboardBlock}
-        <div class=hostSwitch onclick=${click}>Switch</div>
-        <div class=hostNextQuestionButton>
-            <${StickyButton} onClick=${props.onNext} color=blue text='Next Question' />
-        </div>
+        ${switcher}
+        ${nextQuestionButton}
     </div>`
 }
 
@@ -62,27 +64,23 @@ const PodiumFinalPage = function (props) {
     const [canBackHome, setCanBackHome] = useState(false)
     const [showDistribution, setShowDistribution] = useState(true)
 
-    useEffect(() => {
-        const finalPodiumTimeoutId = setTimeout(() => {
-            props.stopMusic()
-            setShowDistribution(false)
-        }, 6000)
-        const backHomeTimeoutId = setTimeout(() => setCanBackHome(true), 26000)
-        return () => {
-            clearTimeout(finalPodiumTimeoutId)
-            clearTimeout(backHomeTimeoutId)
-        }
-    }, [])
+    const showPodiumFinal = () => {
+        props.stopMusic()
+        setShowDistribution(false)
+        setTimeout(() => setCanBackHome(true), 20000)
+    }
 
     const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
-    const podiumFinalBlack = !showDistribution ? html`<${PodiumFinal} players=${props.players} volume=${props.volume} />` : ''
+    const switchToPodiumFinal = showDistribution ? html`<div class=hostSwitch onclick=${showPodiumFinal}>Final Podium</div>` : ''
+    const podiumFinalBlock = !showDistribution ? html`<${PodiumFinal} players=${props.players} volume=${props.volume} />` : ''
     const backHomeButton = canBackHome ? html`<div class=hostBackHomeButton>
         <${StickyButton} onClick=${props.onBackHome} color=blue text='Home 🔥' />
     </div>` : ''
 
     return html`<div class=hostPodium>
         ${distributionBlock}
-        ${podiumFinalBlack}
+        ${switchToPodiumFinal}
+        ${podiumFinalBlock}
         ${backHomeButton}
     </div>`
 }
