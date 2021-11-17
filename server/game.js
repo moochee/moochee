@@ -79,7 +79,8 @@ export default function Game(quiz, timer, events) {
     }
 
     this.disconnect = (name) => {
-        const avatar = players.remove(name)
+        const avatar = players.getAvatar(name)
+        players.remove(name)
         if (avatar) events.publish(this.id, { event: 'playerDisconnected', args: [avatar] })
     }
 

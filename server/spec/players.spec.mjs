@@ -80,6 +80,17 @@ describe('Players', () => {
         expect(players.isAllGuessed()).toBe(false)
     })
 
+    it('return avatar of an existing player', () => {
+        players.add(ALICE)
+        const avatar = players.getAvatar(ALICE)
+        expect(avatar).toBeDefined()
+    })
+
+    it('return null of an non-existing player', () => {
+        const avatar = players.getAvatar(ALICE)
+        expect(avatar).toBeNull()
+    })
+
     it('remove a player', () => {
         players.add(ALICE)
         players.remove(ALICE)
