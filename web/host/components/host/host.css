@@ -43,6 +43,7 @@
     bottom: 15%;
     color: lightgray;
     font-size: 2vh;
+    transform: translate(-50%, -50%);
 }
 
 .hostSwitch:hover {
