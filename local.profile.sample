@@ -21,9 +21,4 @@ export VCAP_SERVICES='{
     }
   ]
 }'
-export VCAP_APPLICATION='{
-  "uris": [
-      "localhost:3000"
-  ]
-}'
 export DEDICATED_ORIGIN=http://localhost:3000
