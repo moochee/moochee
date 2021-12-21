@@ -5,16 +5,46 @@ import httpServer from '../http-server.js'
 import dummyConfig from './auth-config/dummy-config.js'
 import Auth from '../auth.js'
 
+const noAuthMiddleware = (req, res, next) => next()
+const noAuth = { setup: () => noAuthMiddleware }
+
 describe('Server', () => {
     let client
 
-    describe('endpoint protection', () => {
-        beforeAll(() => {
-            client = request(httpServer(new Auth(dummyConfig)))
+    // REVISE check if we can find a smarter way or if the test is even valuable enough
+    describe('endpoint redirection', () => {
+        it('will redirect request with the global url to the instance-specific url', async () => {
+            const server = httpServer(noAuth, null, 'http://localhost-instance-specific:3001')
+            server.listen(3001)
+            client = request('http://localhost:3001')
+            await client.get('/').expect(302).expect('location', 'http://localhost-instance-specific:3001')
+            server.close()
         })
 
+        it('will not redirect request with the instance-specific url', async () => {
+            const server = httpServer(noAuth, null, 'http://localhost:3001')
+            server.listen(3001)
+            client = request('http://localhost:3001')
+            await client.get('/').expect(200)
+            server.close()
+        })
+    })
+
+    describe('endpoint protection', () => {
+        let server
+
+        beforeAll(() => {
+            server = httpServer(new Auth(dummyConfig), null, 'http://localhost:3001')
+            server.listen(3001)
+            client = request('http://localhost:3001')
+        })
+
+        afterAll(() => {
+            server.close()
+        })
+        
         it('protects host page at root by redirecting to login page', async () => {
-            await client.get('/').expect(302)
+            await client.get('/').expect(302).expect('location', '/login')
         })
 
         it('protects game API page at root by redirecting to login page', async () => {
@@ -42,10 +72,16 @@ describe('Server', () => {
     })
 
     describe('game API', () => {
+        let server
+
         beforeAll(() => {
-            const noAuthMiddleware = (req, res, next) => next()
-            const noAuth = { setup: () => noAuthMiddleware }
-            client = request(httpServer(noAuth, 'quiz', 'http://localhost'))
+            server = httpServer(noAuth, 'quiz', 'http://localhost:3001')
+            server.listen(3001)
+            client = request('http://localhost:3001')
+        })
+
+        afterAll(() => {
+            server.close()
         })
 
         it('supports creating a new game', async () => {

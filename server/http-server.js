@@ -21,6 +21,14 @@ export default function create(auth, directory, dedicatedOrigin) {
         httpServer.close()
     })
 
+    app.get('/', (req, res, next) => {
+        if (req.hostname === new URL(dedicatedOrigin).hostname) {
+            next()
+        } else {
+            res.status(302).set('location', dedicatedOrigin).end()
+        }
+    })
+
     const login = auth.setup(app)
 
     app.use('/public', express.static('web/public'))
