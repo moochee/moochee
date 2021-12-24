@@ -11,6 +11,7 @@ export default function getAuthConfig() {
         CLIENT_ID: uaa.credentials.clientid,
         CLIENT_SECRET: uaa.credentials.clientsecret,
         REDIRECT_URI: `${host}/login/callback`,
+        // REVISE this looks hacky...
         SESSION_SECRET: process.env.SESSION_SECRET || uaa.credentials.clientsecret
     }
 }
