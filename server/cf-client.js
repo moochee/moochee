@@ -1,6 +1,6 @@
 import https from 'https'
 
-const Client = function (api, username, password) {
+export default function Client(api, username, password) {
     let token = '', tokenExpiryTime = 0
 
     const get = (url, headers) => {
@@ -26,6 +26,7 @@ const Client = function (api, username, password) {
         })
     }
 
+    // REVISE need to have proper error handling e.g. when authentication fails
     const assertLoggedIn = async () => {
         if (Date.now() > tokenExpiryTime) {
             const apiInfo = await get(`${api}/v2/info`, { 'Accept': 'application/json' })
@@ -48,6 +49,9 @@ const Client = function (api, username, password) {
     }
 }
 
-const client = new Client('https://api.cf.sap.hana.ondemand.com', 'username', 'password')
-const appId = '069a7e96-4fff-4377-a60c-9ab8e12fcae3'
-client.post(`/v3/apps/${appId}/actions/stop`)
+// const user = process.env['CF_USER']
+// console.log(user)
+// const pw = process.env['CF_PW']
+// const client = new Client('https://api.cf.sap.hana.ondemand.com', user, pw)
+// const appId = '069a7e96-4fff-4377-a60c-9ab8e12fcae3'
+// client.post(`/v3/apps/${appId}/actions/stop`).catch(console.error)
