@@ -5,9 +5,8 @@ import express from 'express'
 import quizSocketServer from './quiz-socket-server.js'
 import quizRouter from './quiz-router.js'
 import QuizService from './quiz-service.js'
-import Client from './cf-client.js'
 
-export default function create(auth, directory, dedicatedOrigin) {
+export default function create(client, auth, directory, dedicatedOrigin) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
@@ -17,16 +16,13 @@ export default function create(auth, directory, dedicatedOrigin) {
     app.post('/api/v1/stop', (req, res) => {
         // TODO shut down only when all games finished
         // TODO check if this doesn't cause trouble on CF, e.g. CF should not try to re-start on exit code 0
-        const username = process.env['CF_USER']
-        const password = process.env['CF_PW']
-        const client = new Client('https://api.cf.sap.hana.ondemand.com', username, password)        
-        const appId = JSON.parse(process.env.VCAP_APPLICATION).application_id
-        client.post(`/v3/apps/${appId}/actions/stop`)
+        client.stop()
         console.log('received shutdown signal')
         res.status(202).end()
     })
 
     process.on('SIGTERM', () => {
+        console.log('shutdown signal received')
         httpServer.close()
     })
 

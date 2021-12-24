@@ -43,9 +43,10 @@ export default function Client(api, username, password) {
         }
     }
 
-    this.post = async (path) => {
+    this.stop = async () => {
         await assertLoggedIn()
-        return post(`${api}${path}`, { 'Authorization': `bearer ${token}` }, '')
+        const appId = JSON.parse(process.env.VCAP_APPLICATION).application_id
+        return post(`${api}/v3/apps/${appId}/actions/stop`, { 'Authorization': `bearer ${token}` }, '')
     }
 }
 

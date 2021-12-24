@@ -14,7 +14,7 @@ describe('Server', () => {
     // REVISE check if we can find a smarter way or if the test is even valuable enough
     describe('endpoint redirection', () => {
         it('will redirect request with the global url to the instance-specific url', async () => {
-            const server = httpServer(noAuth, null, 'http://localhost-instance-specific:3001')
+            const server = httpServer(null, noAuth, null, 'http://localhost-instance-specific:3001')
             server.listen(3001)
             client = request('http://localhost:3001')
             await client.get('/').expect(302).expect('location', 'http://localhost-instance-specific:3001')
@@ -22,7 +22,7 @@ describe('Server', () => {
         })
 
         it('will not redirect request with the instance-specific url', async () => {
-            const server = httpServer(noAuth, null, 'http://localhost:3001')
+            const server = httpServer(null, noAuth, null, 'http://localhost:3001')
             server.listen(3001)
             client = request('http://localhost:3001')
             await client.get('/').expect(200)
@@ -34,7 +34,7 @@ describe('Server', () => {
         let server
 
         beforeAll(() => {
-            server = httpServer(new Auth(dummyConfig), null, 'http://localhost:3001')
+            server = httpServer(null, new Auth(dummyConfig), null, 'http://localhost:3001')
             server.listen(3001)
             client = request('http://localhost:3001')
         })
@@ -75,7 +75,7 @@ describe('Server', () => {
         let server
 
         beforeAll(() => {
-            server = httpServer(noAuth, 'quiz', 'http://localhost:3001')
+            server = httpServer(null, noAuth, 'quiz', 'http://localhost:3001')
             server.listen(3001)
             client = request('http://localhost:3001')
         })
