@@ -13,7 +13,8 @@ describe('Integration', () => {
     beforeEach(async () => {
         const httpServer = createServer()
         const quizService = new QuizService()
-        server = quizSocketServer(httpServer, quizService)
+        const noExpiryTimer = { onTimeout: () => null }
+        server = quizSocketServer(httpServer, quizService, noExpiryTimer)
         games = server.games
         port = await new Promise((resolve) => {
             httpServer.listen(() => resolve(httpServer.address().port))

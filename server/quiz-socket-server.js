@@ -4,10 +4,12 @@ import { WebSocketServer } from 'ws'
 import Events from './events.js'
 import Games from './games.js'
 
-export default function create(server, quizService) {
+export default function create(server, quizService, gameExpiryTimer) {
     const webSocketServer = new WebSocketServer({ server })
     const events = new Events(webSocketServer)
-    const games = new Games(quizService, events)
+
+    const games = new Games(quizService, events, gameExpiryTimer)
+    
     webSocketServer.games = games
 
     webSocketServer.on('connection', (webSocket) => {

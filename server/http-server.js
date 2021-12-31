@@ -6,7 +6,7 @@ import quizSocketServer from './quiz-socket-server.js'
 import quizRouter from './quiz-router.js'
 import QuizService from './quiz-service.js'
 
-export default function create(client, auth, directory, dedicatedOrigin) {
+export default function create(client, auth, directory, dedicatedOrigin, gameExpiryTimer) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
@@ -14,18 +14,13 @@ export default function create(client, auth, directory, dedicatedOrigin) {
     })
 
     app.post('/api/v1/stop', (req, res) => {
-        // TODO shut down only when all games finished
-        // TODO check if this doesn't cause trouble on CF, e.g. CF should not try to re-start on exit code 0
-        console.log('received shutdown signal')
-        // games.requestShutdown(() => client.stop())
         res.status(202).end()
-        client.stop()
+        games.requestShutdown(() => client.stop())
     })
 
     process.on('SIGTERM', () => {
         console.log('sigterm received')
         httpServer.close()
-        process.exit(0)
     })
 
     app.get('/', (req, res, next) => {
@@ -63,7 +58,7 @@ export default function create(client, auth, directory, dedicatedOrigin) {
 
     const httpServer = http.createServer(app)
     const quizService = new QuizService(directory)
-    const games = quizSocketServer(httpServer, quizService).games
+    const games = quizSocketServer(httpServer, quizService, gameExpiryTimer).games
 
     return httpServer
 }

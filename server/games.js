@@ -2,9 +2,9 @@
 
 import Game from './game.js'
 
-export default function Games(quizService, events) {
+export default function Games(quizService, events, expiryTimer) {
     let games = []
-    // let shutdownCallback = null
+    let shutdownCallback = null
 
     const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
 
@@ -12,12 +12,12 @@ export default function Games(quizService, events) {
         const quiz = await quizService.get(quizId)
         const game = new Game(quiz, timer, events)
         games.push(game)
-        setTimeout(function deleteGameAfterTwoDays(game) {
+        expiryTimer.onTimeout(() => {
             games.splice(games.indexOf(game), 1)
-            // if (shutdownCallback && games === 0) {
-            //     shutdownCallback()
-            // }
-        }, 1000 * 60 * 60 * 3)
+            if (shutdownCallback && games.length === 0){
+                shutdownCallback()
+            }
+        })
         return game
     }
 
@@ -27,9 +27,12 @@ export default function Games(quizService, events) {
         return game
     }
 
-    // this.requestShutdown = (callback) => {
-    //     shutdownCallback = callback
-    // }
+    this.requestShutdown = (callback) => {
+        if (games.length === 0)
+            callback()
+        else
+            shutdownCallback = callback
+    }
 
     this.getNumberOfRunningGames = () => {
         return games.length

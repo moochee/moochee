@@ -3,11 +3,12 @@
 import Games from '../games.js'
 
 describe('Games', () => {
-    let games, events
+    let games, events, expiryCallback
 
     beforeEach(() => {
         const quizService = { get: async () => ({ title: 'sample quiz' }) }
-        games = new Games(quizService)
+        const expiryTimerSpy = { onTimeout: (cb) => expiryCallback = cb }
+        games = new Games(quizService, null, expiryTimerSpy)
     })
 
     it('returns game with id when hosting a new game', async () => {
@@ -40,16 +41,17 @@ describe('Games', () => {
     })
 
     it('will consider a game as expired after two days and delete it', async () => {
-        const clock = jasmine.clock()
-        clock.install()
-        try {
-            await games.host()
-            clock.tick(1000 * 60 * 60 * 3 - 1)
-            expect(games.getNumberOfRunningGames()).toEqual(1)
-            clock.tick(1)
-            expect(games.getNumberOfRunningGames()).toEqual(0)
-        } finally {
-            clock.uninstall()
-        }
+        // const clock = jasmine.clock()
+        // clock.install()
+        // try {
+        await games.host()
+        // clock.tick(1000 * 60 * 60 * 3 - 1)
+        expect(games.getNumberOfRunningGames()).toEqual(1)
+        expiryCallback()
+        // clock.tick(1)
+        expect(games.getNumberOfRunningGames()).toEqual(0)
+        // } finally {
+        //     clock.uninstall()
+        // }
     })
 })
