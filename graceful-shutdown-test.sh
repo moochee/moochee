@@ -5,7 +5,7 @@ echoerr() { >&2 echo $@; }
 echo 'starting server'
 
 source local.profile
-node server/gorilla.js &
+node server/gorilla.js ./local-client.js &
 pid=$!
 
 attempts=0

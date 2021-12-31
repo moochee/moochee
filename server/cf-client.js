@@ -1,6 +1,6 @@
 import https from 'https'
 
-export default function Client(api, username, password) {
+const Client = function (api, username, password) {
     let token = '', tokenExpiryTime = 0
 
     const get = (url, headers) => {
@@ -48,6 +48,12 @@ export default function Client(api, username, password) {
         const appId = JSON.parse(process.env.VCAP_APPLICATION).application_id
         return post(`${api}/v3/apps/${appId}/actions/stop`, { 'Authorization': `bearer ${token}` }, '')
     }
+}
+
+export default function create() {
+    const username = process.env['CF_USER']
+    const password = process.env['CF_PW']
+    return new Client('https://api.cf.sap.hana.ondemand.com', username, password)
 }
 
 // const user = process.env['CF_USER']

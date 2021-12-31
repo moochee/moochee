@@ -4,6 +4,8 @@ import Game from './game.js'
 
 export default function Games(quizService, events) {
     let games = []
+    // let shutdownCallback = null
+
     const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
 
     this.host = async (quizId) => {
@@ -12,6 +14,9 @@ export default function Games(quizService, events) {
         games.push(game)
         setTimeout(function deleteGameAfterTwoDays(game) {
             games.splice(games.indexOf(game), 1)
+            // if (shutdownCallback && games === 0) {
+            //     shutdownCallback()
+            // }
         }, 1000 * 60 * 60 * 3)
         return game
     }
@@ -21,6 +26,10 @@ export default function Games(quizService, events) {
         if (!game) throw new Error(`can't find game with id ${id}`)
         return game
     }
+
+    // this.requestShutdown = (callback) => {
+    //     shutdownCallback = callback
+    // }
 
     this.getNumberOfRunningGames = () => {
         return games.length

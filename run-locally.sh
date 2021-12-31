@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
 source ./local.profile
-npm start
+node server/gorilla.js ./local-client.js

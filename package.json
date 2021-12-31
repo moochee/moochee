@@ -4,7 +4,7 @@
   "description": "An interactive multi-person quiz game",
   "scripts": {
     "dev": "source local.profile && npm start",
-    "start": "node server/gorilla.js",
+    "start": "node server/gorilla.js ./cf-client.js",
     "lint": "eslint server web **/*.mjs",
     "test": "jasmine server/spec/**/*.spec.mjs",
     "coverage": "c8 jasmine server/spec/**/*.spec.mjs",

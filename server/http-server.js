@@ -16,14 +16,16 @@ export default function create(client, auth, directory, dedicatedOrigin) {
     app.post('/api/v1/stop', (req, res) => {
         // TODO shut down only when all games finished
         // TODO check if this doesn't cause trouble on CF, e.g. CF should not try to re-start on exit code 0
-        client.stop()
         console.log('received shutdown signal')
+        // games.requestShutdown(() => client.stop())
         res.status(202).end()
+        client.stop()
     })
 
     process.on('SIGTERM', () => {
-        console.log('shutdown signal received')
+        console.log('sigterm received')
         httpServer.close()
+        process.exit(0)
     })
 
     app.get('/', (req, res, next) => {

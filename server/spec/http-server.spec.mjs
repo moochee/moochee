@@ -93,4 +93,18 @@ describe('Server', () => {
             expect(url.pathname).toMatch(/\/.+/)
         })
     })
+
+    describe('server shutdown', () => {
+        let server
+
+        xit('will delay shutdown until all games are finished', async () => {
+            // TODO make the timeout configurable, ie inject something we can control to expire a game
+            server = httpServer(null, noAuth, 'quiz', 'http://localhost:3001')
+            server.listen(3001)
+            client = request('http://localhost:3001')
+            // TODO send POST to create 1 game
+            // TODO send shutdown signal and assert nothing happens
+            // TODO expire game, server shoudl stop
+        })
+    })
 })
