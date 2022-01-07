@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gorilla</title>
+    <meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='HandheldFriendly' content='true'>
+
+    <link rel='icon' href='/favicon.svg' />
+</head>
+
+<body>
+    <script type='module'>
+        import { html, render, useEffect, useState, useRef } from '/public/lib/preact-3.1.0.standalone.module.js'
+        import loadCss from '/public/load-css.js'
+        loadCss('/public/style.css')
+        loadCss('/public/font/komikatext_regular_macroman/stylesheet.css')
+        import StickyCard from '/public/components/sticky/sticky-card.js'
+        import StickyButton from '/public/components/sticky/sticky-button.js'
+        import Shell from '/public/components/shell/shell.js'
+        import Distribution from '/public/components/distribution/distribution.js'
+        import Scoreboard from '/public/components/scoreboard/scoreboard.js'
+        loadCss('/components/host/host.css')
+
+        const distribution = {
+            "text": "Which one below is not mentioned in fairy tales of the Mid-Autumn Festival?",
+            "answers": [
+                { "id": "A", "text": "Chang’e, the goddess of the moon", "count": 25 },
+                { "id": "B", "text": "Pied magpie", "count": 2, "correct": true },
+                { "id": "C", "text": "Osmanthus tree", "count": 1 },
+                { "id": "D", "text": "Jade Rabbit", "count": 0 }
+            ],
+            totalQuestions: 1
+        }
+
+        const ranking = [
+            { avatar: '🐻', oldScore: 20000, score: 20000, oldRank: 1, rank: 2 },
+            { avatar: '🦊', oldScore: 600, score: 20001, oldRank: 2, rank: 1 },
+            { avatar: '🐰', oldScore: 500, score: 600, oldRank: 3, rank: 3 },
+            { avatar: '🐹', oldScore: 400, score: 500, oldRank: 4, rank: 4 },
+            { avatar: '🐭', oldScore: 300, score: 400, oldRank: 5, rank: 5 },
+        ]
+
+        const PodiumPage = function (props) {
+            const [showDistribution, setShowDistribution] = useState(true)
+
+            const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
+            const scoreboardBlock = !showDistribution ? html`<${Scoreboard} ranking=${props.players} />` : ''
+            const showScoreboardButton = showDistribution ? html`<div class=hostNextButton>
+                <${StickyButton} onClick=${() => setShowDistribution(false)} color=blue text='Show Scoreboard' />
+            </div>` : ''
+            const nextQuestionButton = !showDistribution ? html`<div class=hostNextButton>
+                <${StickyButton} onClick=${props.onNext} />
+            </div>` : ''
+
+            return html`<div class=hostPodium>
+                ${distributionBlock}
+                ${scoreboardBlock}
+                ${showScoreboardButton}
+                ${nextQuestionButton}
+            </div>`
+        }
+
+        const blank = html`<div></div>`
+        // const Page = function () {
+        //     return html`${Shell} headerLeft='test quiz' headerRight=${blank} footerLeft='5 Players' footerRight=${blank} fullScreenContent='true'>
+        //         <${PodiumPage} result=${distribution} players=${ranking} />
+        //     <//>`
+        // }
+
+        render(html`<${Shell} headerLeft='test quiz' headerRight=${blank} footerLeft='5 Players' footerRight=${blank} fullScreenContent=${true}>
+                <${PodiumPage} result=${distribution} players=${ranking} />
+        <//>`, document.body)
+        // render(html`<${Page} />`, document.body)
+    </script>
+</body>
+
+</html>

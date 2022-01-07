@@ -5,7 +5,7 @@
     height: 100%;
 }
 
-.hostNextQuestionButton, .hostBackHomeButton {
+.hostNextButton, .hostBackHomeButton {
     position: absolute;
     right: 0;
     bottom: 10%;
