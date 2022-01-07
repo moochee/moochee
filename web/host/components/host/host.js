@@ -48,7 +48,7 @@ const PodiumPage = function (props) {
     const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
     const scoreboardBlock = !showDistribution ? html`<${Scoreboard} ranking=${props.players} />` : ''
     const switcher = html`<div class=hostSwitch onclick=${click}>Switch</div>`
-    const nextQuestionButton = html`<div class=hostNextQuestionButton>
+    const nextQuestionButton = html`<div class=hostNextButton>
         <${StickyButton} onClick=${props.onNext} color=blue text='Next Question' />
     </div>`
 
