@@ -43,6 +43,7 @@ const Client = function (api, username, password) {
         }
     }
 
+    // TODO rather delete the app instead of stop
     this.stop = async () => {
         await assertLoggedIn()
         const appId = JSON.parse(process.env.VCAP_APPLICATION).application_id
