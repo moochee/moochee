@@ -6,7 +6,11 @@ The name is to honor the [first computer game of which one of the authors looked
 
 ## Add New Quiz?
 
-All quizzes are located in [/quiz](https://github.tools.sap/acdc/gorilla/tree/master/quiz) folder as JSON file. New quiz can be added by [sending a pull request](https://github.tools.sap/acdc/gorilla/new/master/quiz). 
+There are 2 types of quiz:
+- **Private quiz** is available only to its creator
+  - Click the icon ⚙️ on the top right corner after sso
+- **Public quiz** is available to all who can login in via sso
+  - All public quizzes are located in [/quiz](https://github.tools.sap/acdc/gorilla/tree/master/quiz) folder as JSON file. New public quiz can be added by [sending a pull request](https://github.tools.sap/acdc/gorilla/new/master/quiz). 
 
 ## Dev How-To
 
