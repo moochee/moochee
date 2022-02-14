@@ -1,0 +1,32 @@
+{
+  "title": "Service to Service Communication",
+  "questions": [
+      {
+          "text": "What is NOT a characteristic of an end-to-end test scenario?",
+          "answers": [
+              { "text": "Blazingly fast", "correct": true },
+              { "text": "Slower" },
+              { "text": "Harder to setup (compared to in-process)" },
+              { "text": "Error-prone" }
+          ]
+      },
+      {
+          "text": "You have two services with an SLA of 99% each. One service depends on the other. The overal uptime is therefore about ...?",
+          "answers": [
+              { "text": "100%" },
+              { "text": "98%", "correct": true },
+              { "text": "99%" },
+              { "text": "10%" }
+          ]
+      },
+      {
+          "text": "In your tests, you mock the HTTP call via an in-process HTTP mock. The test therefore are",
+          "answers": [
+              { "text": "Slower (compared to an E2E scenario)" },
+              { "text": "Way more flaky" },
+              { "text": "Faster (compared to an E2E scenario)", "correct": true },
+              { "text": "Giving you the highest safety net possible" }
+          ]
+      }
+  ]
+}

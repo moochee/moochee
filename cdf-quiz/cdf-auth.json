@@ -1,0 +1,23 @@
+{
+  "title": "Auth",
+  "questions": [
+      {
+          "text": "Which of the following is NOT a segment of a JWT?",
+          "answers": [
+              { "text": "Public Key", "correct": true },
+              { "text": "Signature" },
+              { "text": "Header" },
+              { "text": "Payload" }
+          ]
+      },
+      {
+          "text": "In a web application (Oauth 2.0 context), the resource owner is usually the …?",
+          "answers": [
+              { "text": "Identity Provider" },
+              { "text": "Client" },
+              { "text": "End user", "correct": true },
+              { "text": "Dude" }
+          ]
+      }
+  ]
+}
