@@ -1,0 +1,41 @@
+{
+  "title": "Persistence",
+  "questions": [
+      {
+          "text": "What does the C in ACID stand for?",
+          "answers": [
+              { "text": "Cacheability" },
+              { "text": "Concurrency" },
+              { "text": "Consistency", "correct": true },
+              { "text": "Client-Server" }
+          ]
+      },
+      {
+          "text": "What are the risks of applying a schema migration to a production database?",
+          "answers": [
+              { "text": "There could be unknown implied dependencies in the data", "correct": true },
+              { "text": "A migration never follows ACID standards" },
+              { "text": "Databases can only be changed in a specific time frame" },
+              { "text": "Migration tools usually cost a lot of money" }
+          ]
+      },
+      {
+          "text": "An ORM is used for ...?",
+          "answers": [
+              { "text": "Testing database objects" },
+              { "text": "Translating between objects and JSON data" },
+              { "text": "Syncing database connections" },
+              { "text": "Translating between objects and table entries", "correct": true }
+          ]
+      },
+      {
+          "text": "What is connection pooling used for?",
+          "answers": [
+              { "text": "To test databases" },
+              { "text": "To generate typical database boilerplate code" },
+              { "text": "To maintain database connections for later reuse", "correct": true },
+              { "text": "To cool down connections on hot summer days" }
+          ]
+      }
+  ]
+}

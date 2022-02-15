@@ -1,0 +1,32 @@
+{
+  "title": "Continuous Delivery",
+  "questions": [
+      {
+          "text": "What is a benefit of Continuous Delivery?",
+          "answers": [
+              { "text": "Slower time to market" },
+              { "text": "Reduced deployment risk", "correct": true },
+              { "text": "Higher costs" },
+              { "text": "Increased deployment risk" }
+          ]
+      },
+      {
+          "text": "Which of the following is a NO principal/method of CD?",
+          "answers": [
+              { "text": "Automate almost everything" },
+              { "text": "Done means released (production)" },
+              { "text": "Build only once" },
+              { "text": "If it hurts, don't do it again", "correct": true }
+          ]
+      },
+      {
+          "text": "Deployment pipeline stages should ...?",
+          "answers": [
+              { "text": "use several codelines" },
+              { "text": "have 3 stages at max" },
+              { "text": "provide feedback on every code change", "correct": true },
+              { "text": "only be used for bug fixes" }
+          ]
+      }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "title": "Microservices",
+  "questions": [
+      {
+          "text": "Which of the following is NOT a public cloud requirement?",
+          "answers": [
+              { "text": "Bare Metal Servers", "correct": true },
+              { "text": "Boundless Scalability" },
+              { "text": "High Availability" },
+              { "text": "Fast Innovation" }
+          ]
+      },
+      {
+          "text": "What is a typical characteristic for a well-designed modular monolith?",
+          "answers": [
+              { "text": "Independent deployability" },
+              { "text": "Free choice of technology" },
+              { "text": "Perfect system utilization" },
+              { "text": "In-process module communication", "correct": true }
+          ]
+      },
+      {
+          "text": "What is a typical characteristic for a well-designed microservice architecture?",
+          "answers": [
+              { "text": "Independent deployability", "correct": true },
+              { "text": "Tight coupling" },
+              { "text": "Guaranteed transactional consistency for all data" },
+              { "text": "Easy code sharing" }
+          ]
+      }
+  ]
+}

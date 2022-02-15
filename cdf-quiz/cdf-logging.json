@@ -1,0 +1,59 @@
+{
+  "title": "Logging",
+  "questions": [
+      {
+          "text": "How much should be logged?",
+          "answers": [
+              { "text": "As much as necessaray, as much as possible" },
+              { "text": "As much as necessary, as little as possible", "correct": true },
+              { "text": "As little as necessary, as much as possible" },
+              { "text": "As little as necessary, as little as possible" }
+          ]
+      },
+      {
+          "text": "Some information must not be logged. But what can be logged?",
+          "answers": [
+              { "text": "Passwords" },
+              { "text": "Confidential Information" },
+              { "text": "Sensitive Data" },
+              { "text": "Request Metadata", "correct": true }
+          ]
+      },
+      {
+          "text": "Which of the following is a typical log level?",
+          "answers": [
+              { "text": "WARN", "correct": true },
+              { "text": "DANGER" },
+              { "text": "OF_INTEREST" },
+              { "text": "BLOATED" }
+          ]
+      },
+      {
+          "text": "Which of the following is a typical log output format?",
+          "answers": [
+              { "text": "PARSELTONGUE" },
+              { "text": "JSON", "correct": true },
+              { "text": "MORSE" },
+              { "text": "C" }
+          ]
+      },
+      {
+          "text": "What is the default Log level in production?",
+          "answers": [
+              { "text": "ERROR" },
+              { "text": "WARN", "correct": true },
+              { "text": "INFO" },
+              { "text": "DEBUG" }
+          ]
+      },
+      {
+          "text": "Which in the following is logging best practice?",
+          "answers": [
+              { "text": "Always indicate severity with \"!!!\"" },
+              { "text": "Log as much as possible, as little as necessary" },
+              { "text": "Log ERROR and WARN early in development", "correct": true },
+              { "text": "Make logging helpful to debug the application" }
+          ]
+      }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+    "title": "Distributed Logging",
+    "questions": [
+        {
+            "text": "Scattered logs is the challenge of...",
+            "answers": [
+                { "text": "Missing standardization of logs" },
+                { "text": "Logs distributed on different processes", "correct": true },
+                { "text": "Some logs being lost" },
+                { "text": "Too many cluttered logs" }
+            ]
+        },
+        {
+            "text": "What should you do to standardize your logs?",
+            "answers": [
+                { "text": "Store logs from different services in central repo" },
+                { "text": "Propagate context info through multiple microservices" },
+                { "text": "Use a structured log format (e.g. JSON)", "correct": true },
+                { "text": "Use correlation IDs" }
+            ]
+        },
+        {
+            "text": "A correlation id is used to...?",
+            "answers": [
+                { "text": "uniquely identify logs" },
+                { "text": "correlate between logs", "correct": true },
+                { "text": "correlate logs with the process that created them" },
+                { "text": "identify log messages emitted at the same time" }
+            ]
+        }
+    ]
+}
