@@ -56,10 +56,3 @@ export default function create() {
     const password = process.env['CF_PW']
     return new Client('https://api.cf.sap.hana.ondemand.com', username, password)
 }
-
-// const user = process.env['CF_USER']
-// console.log(user)
-// const pw = process.env['CF_PW']
-// const client = new Client('https://api.cf.sap.hana.ondemand.com', user, pw)
-// const appId = '069a7e96-4fff-4377-a60c-9ab8e12fcae3'
-// client.post(`/v3/apps/${appId}/actions/stop`).catch(console.error)
