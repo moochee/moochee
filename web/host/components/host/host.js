@@ -5,12 +5,9 @@ import loadCss from '/public/load-css.js'
 import AudioControl from '/public/components/audio/audio-control.js'
 import Shell from '/public/components/shell/shell.js'
 import Countdown from '/public/components/countdown.js'
-import Scoreboard from '/public/components/scoreboard/scoreboard.js'
-import Distribution from '/public/components/distribution/distribution.js'
-import PodiumFinal from '/public/components/podium-final/podium-final.js'
 import StickyCard from '/public/components/sticky/sticky-card.js'
-import StickyButton from '/public/components/sticky/sticky-button.js'
 import Waiting from './waiting.js'
+import Transition from './transition.js'
 
 loadCss('/components/host/host.css')
 
@@ -32,56 +29,6 @@ const QuestionAndAnswers = function (props) {
         <div class=hostCountdown>
             <${Countdown} seconds=${props.countDown} />
         </div>
-    </div>`
-}
-
-const PodiumPage = function (props) {
-    const [showDistribution, setShowDistribution] = useState(true)
-
-    useEffect(() => {
-        const timeoutId = setTimeout(() => setShowDistribution(false), 6000)
-        return () => clearTimeout(timeoutId)
-    }, [])
-
-    const click = () => showDistribution ? setShowDistribution(false) : setShowDistribution(true)
-
-    const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
-    const scoreboardBlock = !showDistribution ? html`<${Scoreboard} ranking=${props.players} />` : ''
-    const switcher = html`<div class=hostSwitch onclick=${click}>Switch</div>`
-    const nextQuestionButton = html`<div class=hostNextButton>
-        <${StickyButton} onClick=${props.onNext} color=blue text='Next Question' />
-    </div>`
-
-    return html`<div class=hostPodium>
-        ${distributionBlock}
-        ${scoreboardBlock}
-        ${switcher}
-        ${nextQuestionButton}
-    </div>`
-}
-
-const PodiumFinalPage = function (props) {
-    const [canBackHome, setCanBackHome] = useState(false)
-    const [showDistribution, setShowDistribution] = useState(true)
-
-    const showPodiumFinal = () => {
-        props.stopMusic()
-        setShowDistribution(false)
-        setTimeout(() => setCanBackHome(true), 20000)
-    }
-
-    const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
-    const switchToPodiumFinal = showDistribution ? html`<div class=hostSwitch onclick=${showPodiumFinal}>Final Podium</div>` : ''
-    const podiumFinalBlock = !showDistribution ? html`<${PodiumFinal} players=${props.players} volume=${props.volume} />` : ''
-    const backHomeButton = canBackHome ? html`<div class=hostBackHomeButton>
-        <${StickyButton} onClick=${props.onBackHome} color=blue text='Home 🔥' />
-    </div>` : ''
-
-    return html`<div class=hostPodium>
-        ${distributionBlock}
-        ${switchToPodiumFinal}
-        ${podiumFinalBlock}
-        ${backHomeButton}
     </div>`
 }
 
@@ -123,11 +70,13 @@ export default function Host(props) {
         setIsRoundFinished(false)
     }
 
+    // REVISE if we don't do the previous state / ranking calculation on the server, we should at least have a unit test
     const updateScoreboard = (oldScoreboard, newScoreboard) => {
         const updatedScoreboard = newScoreboard.map((entry, index) => {
             const oldEntry = oldScoreboard.find(e => e.avatar === entry.avatar) || {}
             return { ...entry, rank: index + 1, oldScore: oldEntry.score, oldRank: oldEntry.rank }
         })
+        // REVISE the sorting smells like spaghetti - coupling to the scoreboard view which relies on a particular order
         updatedScoreboard.sort((a, b) => a.oldRank - b.oldRank)
         return updatedScoreboard
     }
@@ -192,18 +141,28 @@ export default function Host(props) {
     const waitingToStart = !question && !isRoundFinished
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} client=${props.client} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />` : ''
-    const podiumBlock = isRoundFinished && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} result=${status.result} onNext=${nextRound} />` : ''
-    const podiumFinalBlock = isRoundFinished && isFinal ? html`<${PodiumFinalPage} players=${status.scoreboard} result=${status.result} volume=${volume} onBackHome=${props.onBackHome} stopMusic=${stopMusic}/>` : ''
+    // REVISE need to get terminology straight wrt result vs. distribution
+    const transitionBlock = isRoundFinished 
+        ? html`<${Transition}
+            isFinal=${isFinal}
+            distribution=${status.result}
+            scoreboard=${status.scoreboard}
+            onNextRound=${nextRound}
+            onBackHome=${props.onBackHome}
+            onStopMusic=${stopMusic}
+            volume={volume} />`
+        : ''
+
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`
-    const blankFooterRight = html`<div></div>`
-
-    return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='${players.length} Players' footerRight=${blankFooterRight} fullScreenContent=${isRoundFinished}>
+    const blank = html`<div></div>`
+    
+    // REVISE right now it seems more and more obvious that the shell should be included in the pages, and not be surrounding the pages
+    return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='${players.length} Players' footerRight=${blank} fullScreenContent=${isRoundFinished}>
         <audio ref=${music} volume=${volume} loop src=/public/components/positive-funny-background-music-for-video-games.mp3></audio>
         <audio ref=${tap} volume=${volume} src=/public/components/tap.mp3></audio>
         ${waitingToStartBlock}
         ${questionBlock}
-        ${podiumBlock}
-        ${podiumFinalBlock}
+        ${transitionBlock}
     <//>`
 }
