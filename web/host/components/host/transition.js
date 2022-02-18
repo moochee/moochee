@@ -28,7 +28,7 @@ const PodiumPage = function (props) {
         <button onclick=${props.onBackHome}>Home 🔥</button>
     </div>` : ''
     return html`<div class=transition>
-        <${Podium} players=${props.scoreboard} volume=${props.volume} />
+        <${Podium} scoreboard=${props.scoreboard} volume=${props.volume} />
         ${backHomeButton}
     </div>`
 }

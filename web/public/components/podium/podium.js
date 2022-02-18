@@ -37,7 +37,7 @@ export default function PodiumFinal(props) {
             <div class=podiumAvatar>${player.avatar}</div>
         </div>`
     }
-    const first3Players = props.players.filter(p => p.rank <= 3)
+    const first3Players = props.scoreboard.filter(p => p.rank <= 3)
     first3Players.sort((a, b) => a.rank - b.rank)
     const podiumPlayersHtml = first3Players.map((p, index) => playerToRankHtml(p, index + 1))
 
