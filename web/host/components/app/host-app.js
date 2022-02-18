@@ -30,7 +30,7 @@ const HostGameWeb = function (props) {
         return () => props.client.unsubscribe('gameStarted')
     }, [])
 
-    const home = () => setState({})
+    const home = () => setState({ atEntrance: true, gameId: '', quizTitle: '', origin: '', client: null })
 
     const {atEntrance, client, gameId, quizTitle} = state
 
