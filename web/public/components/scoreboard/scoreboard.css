@@ -1,6 +1,7 @@
 /* TODO should we make it bounce? */
 
-.ranking {
+.scoreboard {
+    padding-top: 10vh;
     display: flex;
     justify-content: center;
     height: 100%;
@@ -9,54 +10,40 @@
     background: content-box radial-gradient(grey, black);
 }
 
-.rankingMove {
-    animation: rankingMove 1s linear forwards;
+/* REVISE could we classify all 3 categories as "move"? Maybe opacity change is not needed if it moves out of the visible areas and we set the overflow setting to disabled scrolling */
+
+.scoreboardMove {
+    animation: scoreboardMove 1s linear forwards;
     animation-delay: 2s;
 }
 
-@keyframes rankingMove {
+@keyframes scoreboardMove {
     to {
         transform: translateY(calc(var(--positions) * 100 * 1%));
     }
 }
 
-.rankingInvisible {
-    opacity: 0;
-}
-
-.rankingMoveOut {
-    animation: rankingMoveOut 1s linear forwards;
+.scoreboardMoveOut {
+    animation: scoreboardMoveOut 1s linear forwards;
     animation-delay: 2s;
 }
 
-@keyframes rankingMoveOut {
+@keyframes scoreboardMoveOut {
     to {
         opacity: 0;
         transform: translateY(500%);
     }
 }
 
-.rankingMoveIn {
+.scoreboardMoveIn {
     opacity: 0;
-    animation: rankingMoveIn 1s linear forwards;
+    animation: scoreboardMoveIn 1s linear forwards;
     animation-delay: 2s;
 }
 
-@keyframes rankingMoveIn {
+@keyframes scoreboardMoveIn {
     to {
         opacity: 1;
         transform: translateY(calc(var(--positions) * 100 * 1%));
-    }
-}
-
-.rankingAppear {
-    opacity: 0;
-    animation: rankingAppear 1s linear forwards;
-    animation-delay: 0.2s;
-}
-
-@keyframes rankingAppear {
-    to {
-        opacity: 1;
     }
 }
