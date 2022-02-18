@@ -9,10 +9,10 @@ npm test
 
 echo 'Integration stage'
 cf target -s gorilla-quiz-test
-./deploy.sh -test
+./deploy.sh $CF_USER $CF_PASS -test # CF_PW?
 
 read -p 'Press enter to continue to production'
 
 echo 'Production stage'
 cf target -s gorilla-quiz
-./deploy.sh
+./deploy.sh $CF_USER $CF_PASS
