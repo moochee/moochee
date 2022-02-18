@@ -23,7 +23,7 @@ export default function Game(quiz, timer, events) {
     }
 
     this.nextRound = () => {
-        // TODO: may need to save round result before moving to next round (or do it in finishRound)
+        // TODO may need to save round result before moving to next round (or do it in finishRound)
         // so we don't need frontend to hand previous score in scoreboard
         roundStartTime = new Date()
 
@@ -33,6 +33,7 @@ export default function Game(quiz, timer, events) {
         guessTimeoutId = timer.setTimeout(() => this.finishRound(question), timeToGuess)
 
         const question = quiz.questions[++currentQuestionIndex]
+        // FIXME saw a console error here when testing, presumably the 1-question test quiz, double-check it
         question.answers.forEach(a => a.count = 0)
         const questionWithoutCorrectAnswer = {
             id: currentQuestionIndex + 1, text: question.text,
