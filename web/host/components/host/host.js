@@ -150,7 +150,7 @@ export default function Host(props) {
             onNextRound=${nextRound}
             onBackHome=${props.onBackHome}
             onStopMusic=${stopMusic}
-            volume={volume} />`
+            volume=${volume} />`
         : ''
 
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
