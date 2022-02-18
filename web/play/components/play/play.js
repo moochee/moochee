@@ -4,9 +4,8 @@ import { html, useState, useEffect } from '/public/lib/preact-3.1.0.standalone.m
 import loadCss from '/public/load-css.js'
 import Shell from '/public/components/shell/shell.js'
 import Countdown from '/public/components/countdown.js'
-import Distribution from '/public/components/distribution/distribution.js'
-import Scoreboard from '/public/components/scoreboard/scoreboard.js'
 import StickyButton from '/public/components/sticky/sticky-button.js'
+import Transition from './transition.js'
 
 loadCss('/play/components/play/play.css')
 
@@ -43,40 +42,6 @@ const QuestionAndAnswers = function (props) {
         <div class=playCountdown>
             <${Countdown} seconds=${props.countDown} />
         </div>
-    </div>`
-}
-
-const PodiumPage = function (props) {
-    const [showDistribution, setShowDistribution] = useState(true)
-
-    useEffect(() => {
-        const timeoutId = setTimeout(() => setShowDistribution(false), 6000)
-        return () => clearTimeout(timeoutId)
-    }, [])
-
-    const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
-    const scoreboardBlock = !showDistribution ? html`<${Scoreboard} ranking=${props.players} />` : ''
-
-    return html`<div class=playPodium>
-        ${distributionBlock}
-        ${scoreboardBlock}
-    </div>`
-}
-
-const PodiumFinalPage = function (props) {
-    const [showDistribution, setShowDistribution] = useState(true)
-
-    useEffect(() => {
-        const timeoutId = setTimeout(() => setShowDistribution(false), 6000)
-        return () => clearTimeout(timeoutId)
-    }, [])
-
-    const distributionBlock = showDistribution ? html`<${Distribution} distribution=${props.result} />` : ''
-    const gameOverBlock = !showDistribution ? html`<h2 style='padding-top: 10vh'>Game Over. Watch the host's screen NOW!</h2>` : ''
-
-    return html`<div class=playPodium>
-        ${distributionBlock}
-        ${gameOverBlock}
     </div>`
 }
 
@@ -160,15 +125,17 @@ export default function Play(props) {
     const waitingToStart = !question && !isRoundFinished && !waitingForOtherResponses
     const waitingToStartBlock = waitingToStart ? html`<${WaitingToStart} avatar=${props.playerAvatar} otherPlayers=${props.otherPlayers} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} onGuess=${guess} />` : ''
-    const podiumBlock = isRoundFinished && !isFinal ? html`<${PodiumPage} players=${status.scoreboard} result=${status.result} />` : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
-    const podiumFinalBlock = isRoundFinished && isFinal ? html`<${PodiumFinalPage} result=${status.result} />` : ''
+
+    const transitionBlock = isRoundFinished ? html`<${Transition}
+        isFinal=${isFinal}
+        distribution=${status.result}
+        scoreboard=${status.scoreboard} />` : ''
 
     return html`<${Shell} headerLeft=${props.quizTitle} footerLeft='${props.playerAvatar} ${props.playerName}' footerRight='Score: ${score}' fullScreenContent=${isRoundFinished}>
         ${waitingToStartBlock}
         ${questionBlock}
-        ${podiumBlock}
+        ${transitionBlock}
         ${waitingBlockForOtherResponses}
-        ${podiumFinalBlock}
     <//>`
 }
