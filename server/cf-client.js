@@ -26,7 +26,7 @@ const Client = function (api, username, password) {
         })
     }
 
-    // REVISE need to have proper error handling e.g. when authentication fails
+    // FIXME need to have proper error handling e.g. when authentication fails
     const assertLoggedIn = async () => {
         if (Date.now() > tokenExpiryTime) {
             const apiInfo = await get(`${api}/v2/info`, { 'Accept': 'application/json' })
@@ -43,7 +43,6 @@ const Client = function (api, username, password) {
         }
     }
 
-    // TODO rather delete the app instead of stop
     this.stop = async () => {
         await assertLoggedIn()
         const appId = JSON.parse(process.env.VCAP_APPLICATION).application_id

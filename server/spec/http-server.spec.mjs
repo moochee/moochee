@@ -98,23 +98,6 @@ describe('Server', () => {
     describe('server shutdown', () => {
         let server
         afterEach(() => server.close())
-        // xit('will delay shutdown until all games are finished', async () => {
-        //     // TODO make the timeout configurable, ie inject something we can control to expire a game
-        //     const stopClientSpy = {
-        //         stopped: false,
-        //         stop: function () {
-        //             this.stopped = true
-        //         }
-        //     }
-        //     server = httpServer(stopClientSpy, noAuth, 'quiz', 'http://localhost:3001')
-        //     server.listen(3001)
-        //     client = request('http://localhost:3001')
-        //     await client.post('/api/v1/games').send({ quizId: 'cc-dist-logging.json' }).expect(201)
-        //     await client.post('/api/v1/stop').expect(202)
-        //     expect(stopClientSpy.stopped).toBeFalse()
-        //     // TODO expire game, server should stop
-        //     expect(stopClientSpy.stopped).toBeTrue()
-        // })
 
         it('will delay shutdown until all games are finished', async () => {
             const stopClientFake = {
