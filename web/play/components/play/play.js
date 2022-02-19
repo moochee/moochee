@@ -90,14 +90,7 @@ export default function Play(props) {
     }
 
     const onGameFinished = (status) => {
-        setIsRoundFinished(true)
-        setQuestion(null)
-        setWaitingForOtherResponses(false)
-        setStatus(() => {
-            setScore(status.scoreboard.find(r => r.avatar === props.playerAvatar).score)
-            return { ...status }
-        })
-        setCountDown(null)
+        onRoundFinished(status)
         setIsFinal(true)
     }
 
