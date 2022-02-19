@@ -26,7 +26,6 @@ const Client = function (api, username, password) {
         })
     }
 
-    // FIXME need to have proper error handling e.g. when authentication fails
     const assertLoggedIn = async () => {
         if (Date.now() > tokenExpiryTime) {
             const apiInfo = await get(`${api}/v2/info`, { 'Accept': 'application/json' })
@@ -38,15 +37,22 @@ const Client = function (api, username, password) {
                 'Authorization': 'Basic Y2Y6'
             }
             const loginResponse = await post(`${loginInfo.links.login}/oauth/token`, headers, data)
+            if (!loginResponse.access_token) {
+                throw new Error(JSON.stringify(loginResponse))
+            }
             token = loginResponse.access_token
             tokenExpiryTime = Date.now() + loginResponse.expires_in * 1000
         }
     }
 
     this.stop = async () => {
-        await assertLoggedIn()
-        const appId = JSON.parse(process.env.VCAP_APPLICATION).application_id
-        return post(`${api}/v3/apps/${appId}/actions/stop`, { 'Authorization': `bearer ${token}` }, '')
+        try {
+            await assertLoggedIn()
+            const appId = JSON.parse(process.env.VCAP_APPLICATION).application_id
+            return post(`${api}/v3/apps/${appId}/actions/stop`, { 'Authorization': `bearer ${token}` }, '')
+        } catch (error) {
+            console.error(error)
+        }
     }
 }
 

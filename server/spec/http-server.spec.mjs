@@ -147,7 +147,6 @@ describe('Server', () => {
         it('will not shutdown when requested, when there are still remaining games', async () => {
             const stopClientFake = {
                 stop: () => {
-                    console.log('stopping server')
                     server.close()
                 }
             }
