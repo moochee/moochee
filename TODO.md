@@ -1,6 +1,4 @@
 # TODO
-- **Improvement**: zero downtime deployment of stateful app
-- **Feature**: implement an easy-to-use quiz creator
 - **Feature** implement 'player is on fire', e.g. when climbed 3 times, or guessed right 3 times, or ...
 - **Improvement**: calculate old/new score/ranking in backend
 - **Bugfix**: music not working on Safari (incl iPhone) - need to use history.pushState (done already for host, not yet for players) _AND_ make sure the .play is triggered synchronously on a user interaction; right now there's multiple things making it async: a) we have an animation when clicking the sticky and b) we first call the backend to get the gameId before we enter the room. Possible solution: start the music immediately on click, but keep it muted, and unmute only once the "room" is entered successfully. Can there be other solutions? Related articles:
@@ -8,17 +6,16 @@
   - https://developer.apple.com/forums/thread/94522
   - https://stackoverflow.com/questions/31776548/why-cant-javascript-play-audio-files-on-iphone-safari
   - https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html
-- **Tech Improve**: try implement both a WebSocket client and an HttpRestClient, both should work to be "plugged in" without changing the code
 - **Feature**: define secondsToGuess per quiz and per question in quiz json
-- **Bugfix**: in scoreboard no. 1 overlaps with no. 2 in some cases
 - **Feature**: show 3s count down before starting the first question
 - **Improvement**: add mutation tests
 - **Feature**: support logout
 - **Feature**: have a nice landing page to introduce Gorilla
 - **Feature**: support images in quiz
 
-
 # DONE
+- implement an easy-to-use quiz creator
+- zero downtime deployment of stateful app
 - auto-close a game 30min after it was started
 - secure the app with sso
 - play sound on host when player guesses to create more intensive competition atmosphere
