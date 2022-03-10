@@ -31,7 +31,7 @@
         {
             "text": "In which order are the artefacts written?",
             "answers":[
-                {"text": "productioncode, then test code"},
+                {"text": "production code, then test code"},
                 {"text": "Write test code only on Wednesday"},
                 {"text": "Write them simultanneously"},
                 {"text": "test code first, then production code", "correct":true}
