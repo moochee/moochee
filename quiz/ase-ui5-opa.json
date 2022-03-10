@@ -35,16 +35,7 @@
                 {"text": "Tracks the sprint refinement"},
                 {"text": "Debugging of OPA tests"},
                 {"text": "Tool to identify controls", "correct":true}
-            ]
-        },
-        {
-            "text": "OPA gives the following object except",
-            "answers":[
-                {"text": "Fork"},
-                {"text": "Arrangement"},
-                {"text": "Actions"},
-                {"text": "Assertion"}
-            ]
-        }
-    ]
+            ] 
+         }
+    ]  
 }
