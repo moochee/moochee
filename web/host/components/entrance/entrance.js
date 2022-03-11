@@ -37,6 +37,7 @@ export default function Entrance(props) {
         props.client.host(quizId, quizTitle)
     }
 
+    // TODO improve UX for input field: have a placeholder text, check it looks acceptable on mobile as well
     // TODO add capability to add tags from quiz builder
     // TODO do another filter for the title
     // TODO consider fuzzz search / partial search for title
