@@ -5,7 +5,7 @@
             "text": "Test needs to be....",
             "answers": [
                 {"text": "Red before changing production code"},
-                {"text": "green before writing production code", "correct": true},
+                {"text": "Green before writing production code", "correct": true},
                 {"text": "Always green"},
                 {"text": "Always red"}
             ]
@@ -13,8 +13,8 @@
         {
             "text": "What does TDD codify?",
             "answers": [
-                {"text": "requirements", "correct":true},
-                {"text": "hopes"},
+                {"text": "Requirements", "correct":true},
+                {"text": "Hopes"},
                 {"text": "Best bets"},
                 {"text": "Local regulations"}
             ]
@@ -22,7 +22,7 @@
         {
             "text": "TDD leads to ....",
             "answers": [
-                {"text": "error free code"},
+                {"text": "Error free code"},
                 {"text": "Strong coupled code"},
                 {"text": "Decoupled code", "correct":true},
                 {"text": "Sore muscles"}
@@ -31,10 +31,10 @@
         {
             "text": "In which order are the artefacts written?",
             "answers":[
-                {"text": "production code, then test code"},
+                {"text": "Productioncode, then test code"},
                 {"text": "Write test code only on Wednesday"},
                 {"text": "Write them simultanneously"},
-                {"text": "test code first, then production code", "correct":true}
+                {"text": "Test code first, then production code", "correct":true}
             ]
         }
     ]
