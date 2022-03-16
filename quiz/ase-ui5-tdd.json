@@ -4,7 +4,7 @@
         {
             "text": "Test needs to be....",
             "answers": [
-                {"text": "red before changing production code"},
+                {"text": "Red before changing production code"},
                 {"text": "green before writing production code", "correct": true},
                 {"text": "Always green"},
                 {"text": "Always red"}
