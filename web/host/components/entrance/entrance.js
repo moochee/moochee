@@ -34,8 +34,7 @@ export default function Entrance(props) {
         props.client.host(quizId, quizTitle)
     }
 
-    // TODO populate the search input field from the hash if there is one
-    // TODO do another filter for the title
+    // TODO visualize tags on the quiz elements
     // TODO add capability to add tags from quiz builder
     // TODO on input display a top 5 result list, only adjust that directly on input
     const filteredQuizzes = quizzes.filter(q => {
@@ -52,6 +51,7 @@ export default function Entrance(props) {
         <div style='display: flex;'>
             <input class=entranceSearch
                     placeholder=Search...
+                    value=${searchTerm}
                     onChange=${event => location.hash = event.target.value}>
             </input>
             <${AdminButton} />
