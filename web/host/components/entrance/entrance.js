@@ -17,12 +17,9 @@ export default function Entrance(props) {
     const [quizzes, setQuizzes] = useState([])
 
     const colors = ['green', 'blue', 'orange', 'purple']
-    
-    const hashChanged = () => {
-        setSearchTerm(location.hash.substring(1))
-    }
 
     useEffect(() => {
+        const hashChanged = () => setSearchTerm(location.hash.substring(1))
         const getQuizzes = async () => {
             const quizList = await (await fetch('/api/v1/quizzes')).json()
             quizList.forEach((entry, index) => entry.color = colors[index % 4])
