@@ -1,6 +1,7 @@
 {
-    "Title": "Test Driven Developement",
-    "Questions": [
+    "title": "Test Driven Developement",
+    "tags": ["agile", "ase"],
+    "questions": [
         {
             "text": "Test needs to be....",
             "answers": [

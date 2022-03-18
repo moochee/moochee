@@ -1,6 +1,6 @@
 {
     "title": "Cloud Development - Distributed Logging",
-    "tags": ["logging"],
+    "tags": ["cloud", "logging"],
     "questions": [
         {
             "text": "Scattered logs is the challenge of...",
