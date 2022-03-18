@@ -43,6 +43,7 @@ export default function Entrance(props) {
     // TODO on input display a top 5 result list, only adjust that directly on input
     const filteredQuizzes = quizzes.filter(q => {
         return q.tags.includes(searchTerm) 
+            || q.title.toLowerCase().includes(searchTerm.toLowerCase()) 
             || !searchTerm
     })
 
