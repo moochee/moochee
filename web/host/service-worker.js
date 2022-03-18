@@ -6,7 +6,7 @@ self.addEventListener('install', () => {
 
 self.addEventListener('activate', (event) => {
     event.waitUntil(self.clients.claim().then(() => {
-        // TODO remove this probably by end of 2021
+        // REVISE remove this probably by end of 2021
         //      currently needed to force-update users which are running an old UI old version
         //      this old UI version also cached the index.html, which created trouble when auth session expired
         caches.open('static-v2').then(async (cache) => {
