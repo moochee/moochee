@@ -5,8 +5,10 @@
     height: 100%;
 }
 
-.entranceTitle {
-    font-size: min(4vw, 7.11vh);
+.entranceSearch {
+    font-family: inherit;
+    font-size: .7em;
+    margin-right: 1em;
 }
 
 .entranceQuizzes {
