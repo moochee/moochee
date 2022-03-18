@@ -1,5 +1,6 @@
 {
     "title": "Distributed Logging",
+    "tags": ["cdf"],
     "questions": [
         {
             "text": "Scattered logs is the challenge of...",

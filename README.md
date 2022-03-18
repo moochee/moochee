@@ -11,7 +11,7 @@ There are 2 types of quiz:
   - Click the icon ⚙️ on the top right corner after sso
 - **Public Quiz** is available to all who can login via sso
   - All public quizzes are located in [/quiz](https://github.tools.sap/acdc/gorilla/tree/master/quiz) as JSON. New one can be added by [sending a pull request](https://github.tools.sap/acdc/gorilla/new/master/quiz). 
-- **Cloud Development Fundamentals Quiz** The questions based on the [Cloud Development Fundamentlas training modules](https://pages.github.tools.sap/cloud-curriculum/materials/) were added into the [/cdf-quiz](https://github.tools.sap/acdc/gorilla/tree/master/cdf-quiz) folder. To use them in the training, just copy them into the `/quiz` folder.
+- **Cloud Development Fundamentals Quiz** The questions based on the [Cloud Development Fundamentals training modules](https://pages.github.tools.sap/cloud-curriculum/materials/) can be used by filtering for `cdf`.
 
 ## Dev How-To
 

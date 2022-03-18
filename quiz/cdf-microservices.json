@@ -1,5 +1,6 @@
 {
   "title": "Microservices",
+  "tags": ["cdf"],
   "questions": [
       {
           "text": "Which of the following is NOT a public cloud requirement?",

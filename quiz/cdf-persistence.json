@@ -1,5 +1,6 @@
 {
   "title": "Persistence",
+  "tags": ["cdf"],
   "questions": [
       {
           "text": "What does the C in ACID stand for?",
