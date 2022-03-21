@@ -1,5 +1,6 @@
 {
   "title": "Service to Service Communication",
+  "tags": ["cdf", "fun"],
   "questions": [
       {
           "text": "What is NOT a characteristic of an end-to-end test scenario?",
