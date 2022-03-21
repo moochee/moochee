@@ -1,6 +1,6 @@
 {
   "title": "Cloud Platforms - Cloud Foundry",
-  "tags": ["cdf"],
+  "tags": ["cdf", "fun"],
   "questions": [
       {
           "text": "The command to deploy your CF app is cf ...?",

@@ -1,6 +1,6 @@
 {
   "title": "Logging",
-  "tags": ["cdf"],
+  "tags": ["cdf", "fun"],
   "questions": [
       {
           "text": "How much should be logged?",
