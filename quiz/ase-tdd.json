@@ -4,9 +4,9 @@
         {
             "text": "Test needs to be....",
             "answers": [
-                {"text": "Red before changing production code"},
-                {"text": "Green before writing production code", "correct": true},
                 {"text": "Always green"},
+                {"text": "Green before writing production code"},
+                {"text": "Red before changing production code", "correct": true},
                 {"text": "Always red"}
             ]
         },
@@ -29,9 +29,9 @@
             ]
         },
         {
-            "text": "In which order are the artefacts written?",
+            "text": "In which order are the artifacts written?",
             "answers":[
-                {"text": "Productioncode, then test code"},
+                {"text": "Production code, then test code"},
                 {"text": "Write test code only on Wednesday"},
                 {"text": "Write them simultanneously"},
                 {"text": "Test code first, then production code", "correct":true}

@@ -5,7 +5,7 @@
             "text": "What is the outcome of a Sprint?",
             "answers": [
                 { "text": "Backlog Item" },
-                { "text": "Delivery Unit" },
+                { "text": "Documentation" },
                 { "text": "Product Increment", "correct": true },
                 { "text": "Sprint Goal" }                
             ]
@@ -29,7 +29,7 @@
             ]
         },
         {
-            "text": "What of the below topics is seen as an external quality?",
+            "text": "Which of the below topic is seen as an external quality?",
             "answers": [
                 { "text": "Extensibility" },
                 { "text": "Readability" },
