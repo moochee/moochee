@@ -1,6 +1,9 @@
 {
     "title": "Scrum & ASE Onboarding",
-    "tags": ["agile", "ase"],
+    "tags": [
+        "agile",
+        "ase"
+    ],
     "questions": [
         {
             "text": "What is the outcome of a Sprint?",
@@ -9,7 +12,7 @@
                     "text": "Backlog Item"
                 },
                 {
-                    "text": "Delivery Unit"
+                    "text": "Documentation"
                 },
                 {
                     "text": "Product Increment",
@@ -57,7 +60,7 @@
             ]
         },
         {
-            "text": "What of the below topics is seen as an external quality?",
+            "text": "Which of the below topic is seen as an external quality?",
             "answers": [
                 {
                     "text": "Extensibility"

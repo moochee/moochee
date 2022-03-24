@@ -3,7 +3,7 @@
     "tags": ["agile", "ase", "ui5"],
     "questions": [
         {
-            "text": "How do structure OPA test",
+            "text": "How do you structure OPA test",
             "answers": [
                 {"text": "In journeys", "correct": true},
                 {"text": "In tours"},
@@ -12,7 +12,7 @@
             ]
         },
         {
-            "text": "What is the scope of OPA test",
+            "text": "What is the scope of an OPA test",
             "answers":[
                 {"text": "Framework functionality"},
                 {"text": "Test UI and BE together"},
