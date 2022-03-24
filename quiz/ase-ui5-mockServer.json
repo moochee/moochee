@@ -1,6 +1,7 @@
 {
-    "Title": "Mock Server",
-    "Questions": [
+    "title": "Mock Server",
+    "tags": ["agile", "ase", "ui5"],
+    "questions": [
         {
             "text": "What is the main purpose of the mockserver?",
             "answers": [

@@ -8,8 +8,6 @@ loadCss('/public/components/scoreboard/scoreboard.css')
 // REVISE move remaining styling to css
 
 export default function Scoreboard(props) {
-    // TODO tryout counter animation using css @property https://css-tricks.com/animating-number-counters/
-
     // REVISE still some spaghetti - this works because the scoreboard is sorted by oldRank elsewhere
     const top5oldAndNew = props.scoreboard.filter(entry => {
         return (entry.rank <= 5 || entry.oldRank <= 5)

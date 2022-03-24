@@ -30,7 +30,6 @@ export default function AudioControl(props) {
         props.onVolume(volumeSlider.current.value)
     }
 
-    // TODO the slider should not appear on small screens, anyway on a phone users manage volume through the hardware buttons, iPhone even disallows setting it through software
     return html`<div class=audioControl>
         <span class=muteButtonon onClick=${toggleMute}>${muted ? '🔇' : '🔈'}</span>
         <input class=volumeSlider ref=${volumeSlider} onChange=${adjustVolume} type=range min=0 step=0.01 max=1></input>

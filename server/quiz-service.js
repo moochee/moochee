@@ -20,8 +20,8 @@ export default function QuizService(directory) {
         for (let dirent of dirents) {
             if (dirent.isDirectory()) continue
             try {
-                const quizTitle = (await this.get(dirent.name)).title
-                publicQuizzes.push({ id: dirent.name, title: quizTitle })
+                const quiz = await this.get(dirent.name)
+                publicQuizzes.push({ id: dirent.name, title: quiz.title, tags: quiz.tags })
             } catch (error) {
                 console.error(dirent.name, error)
             }
@@ -54,7 +54,8 @@ export default function QuizService(directory) {
             try {
                 const quiz = await this.getPrivate(dirent.name)
                 if (quiz.author === author || !quiz.isPrivate) {
-                    quizzes.push({ id: dirent.name, title: quiz.title })
+                    // REVISE once the quiz builder has the capability to add tags AND we migrated existing date, remove the default tags: []
+                    quizzes.push({ id: dirent.name, title: quiz.title, tags: [] })
                 }
             } catch (error) {
                 console.error(dirent.name, error)

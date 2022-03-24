@@ -1,5 +1,6 @@
 {
     "title": "Tech-Bingo",
+    "tags": ["tech"],
     "questions": [
         {
             "text": "example",

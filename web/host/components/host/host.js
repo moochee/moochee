@@ -70,7 +70,7 @@ export default function Host(props) {
         setIsRoundFinished(false)
     }
 
-    // REVISE if we don't do the previous state / ranking calculation on the server, we should at least have a unit test
+    // REVISE better do the previous state / ranking calculation on the server, otherwise at least have a unit test for this here
     const updateScoreboard = (oldScoreboard, newScoreboard) => {
         const updatedScoreboard = newScoreboard.map((entry, index) => {
             const oldEntry = oldScoreboard.find(e => e.avatar === entry.avatar) || {}

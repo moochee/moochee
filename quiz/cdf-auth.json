@@ -1,5 +1,6 @@
 {
   "title": "Auth",
+  "tags": ["cdf", "fun"],
   "questions": [
       {
           "text": "Which of the following is NOT a segment of a JWT?",

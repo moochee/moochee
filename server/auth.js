@@ -50,7 +50,6 @@ export default function Auth(config) {
 
         app.get('/login', passport.authenticate(OPENID_CONNECT))
 
-        // TODO: provide a failure url
         app.get('/login/callback', passport.authenticate(OPENID_CONNECT, {
             successRedirect: '/',
             failureRedirect: '/'

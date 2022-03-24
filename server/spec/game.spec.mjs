@@ -141,6 +141,6 @@ describe('Game', () => {
         expect(events.publishedMessage.args[0].scoreboard[1].score).toBe(0)
     })
 
-    // TODO shouldn't we have a test for increasing the score based on faster response time?
-    // TODO add a test for the intermediate results - server should NOT present the player names
+    // REVISE shouldn't we have a test for increasing the score based on faster response time?
+    // REVISE add a test for the intermediate results - server should NOT present the player names
 })

@@ -12,10 +12,6 @@
 
 <body>
     <script type='application/javascript'>
-        // TODO below prototype works on iOS - now build an audio control from it
-        //      - should bind to some 'phase' like lobby, quiz start, intermediate solution, final podium, ...
-        //      - depending on the phase, it plays nicely fitting music
-        //      - later we can make it configurable, e.g. add your own theme :-)
         async function play() {
             document.getElementById('audioChannel1').play()
             document.getElementById('audioChannel1').muted = false

@@ -1,5 +1,6 @@
 {
     "title": "Cloud Expert 1",
+    "tags": ["cloud"],
     "questions": [
         {
             "text": "What is the target platform in SAP Cloud Strategy?",
