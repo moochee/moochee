@@ -1,7 +1,10 @@
 #!/bin/sh -e
 
-# REVISE get rid of local profile, e.g. use some no-auth approach or dummy uaa data
-source local.profile
+export VCAP_SERVICES='{
+    "xsuaa": [{"name": "gorilla-uaa","credentials": {"clientid": "a", "clientsecret": "b", "url": ""}}],
+    "fs-storage": [{"name": "gorilla-fs","volume_mounts": [{"container_dir": "./quizzes"}]}]
+}'
+
 node server/gorilla.js ./local-client.js &
 pid=$!
 
