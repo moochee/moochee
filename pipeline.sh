@@ -3,16 +3,15 @@
 ./assert-clean-local-repo.sh
 
 echo 'Local stage'
+npm ci
 npm run lint
 npm test
 ./graceful-shutdown-test.sh
 
 echo 'Integration stage'
 cf target -s gorilla-quiz-test
-./deploy.sh $CF_USER $CF_PASS -test # CF_PW?
+./deploy.sh dummy-cf-user dummy-cf-pw -test #TODO use CF tech user and supply creds through env
 
-read -p 'Press enter to continue to production'
-
-echo 'Production stage'
-cf target -s gorilla-quiz
-./deploy.sh $CF_USER $CF_PASS
+#echo 'Production stage'
+#cf target -s gorilla-quiz
+#./deploy.sh dummy-cf-user dummy-cf-pw #TODO use CF tech user and supply creds through env
