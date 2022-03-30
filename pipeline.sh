@@ -8,12 +8,13 @@ npm run lint
 npm test
 ./graceful-shutdown-test.sh
 
-cf login -a https://api.cf.sap.hana.ondemand.com -u $CF_USER -p $CF_PW -o cc-acdc-tools
+cf api https://api.cf.sap.hana.ondemand.com
+cf auth $CF_USER $CF_PW
 
 echo 'Integration stage'
-cf target -s gorilla-quiz-test
+cf target -o cc-acdc-tools -s gorilla-quiz-test
 ./deploy.sh $CF_USER $CF_PW -test
 
 echo 'Production stage'
-cf target -s gorilla-quiz
+cf target -o cc-acdc-tools -s gorilla-quiz
 ./deploy.sh $CF_USER $CF_PW
