@@ -1,0 +1,68 @@
+{
+    "title": "kubectl (1.19)",
+    "tags": ["kubernetes", "devops", "kubectl"],
+    "questions": [
+        {
+            "text": "Which command does restart a deployment?",
+            "answers": [
+                { "text": "kubectl restart deployment/<deployment>" },
+                { "text": "kubectl rollout restart deployment/<deployment>", "correct": true },
+                { "text": "kubectl deployment restart deployment/<deployment>" },
+                { "text": "kubectl <deployment> --restart" }
+            ]
+        },
+        {
+            "text": "How can you watch your pods or changes to them?",
+            "answers": [
+                { "text": "kubectl watch pods -lapp=<app>" },
+                { "text": "kubectl get pods -lapp=<app> --watch", "correct": true },
+                { "text": "kubectl watch -lapp=<app>" },
+                { "text": "kubectl watch <app>" }
+            ]
+        },
+        {
+            "text": "An abstraction in kubernetes which defines a logical set of pods and a policy to access them is a ...",
+            "answers": [
+                { "text": "ReplicaSet" },
+                { "text": "Node" },
+                { "text": "Service", "correct": true },
+                { "text": "Kubelet" }
+            ]
+        },
+        {
+            "text": "To get the YML output of \"kubectl get pod my-pod\" you have to",
+            "answers": [
+                { "text": "add \"-f yaml\"" },
+                { "text": "add \"-f=yaml\"" },
+                { "text": "add \"-o yaml\"", "correct": true }
+            ]
+        },
+        {
+            "text": "Which command does swiftly roll back a deployment?",
+            "answers": [
+                { "text": "kubectl rollback deployment/<deployment>" },
+                { "text": "kubectl rollout undo deployment/<deployment>", "correct": true },
+                { "text": "kubectl rollout rollback deployment/<deployment>" },
+                { "text": "kubectl undo deployment/<deployment>" }
+            ]
+        },
+        {
+            "text": "Which command tells you a pods last crash reason?",
+            "answers": [
+                { "text": "kubectl get pod <podname>" },
+                { "text": "kubectl describe pod <podname>", "correct": true },
+                { "text": "kubectl get pod <podname> --last-termination-reason" },
+                { "text": "kubectl describe <deployment>" }
+            ]
+        },
+        {
+            "text": "Which command shows you the logs of a container C before it restarted?",
+            "answers": [
+                { "text": "kubectl logs <podname> -r 1 -c C" },
+                { "text": "kubectl get logs -p <podname>/C" },
+                { "text": "kubectl logs -p <podname> -c C", "correct": true },
+                { "text": "kubectl logs <podname>/C --before-restart" }
+            ]
+        }
+    ]
+}
