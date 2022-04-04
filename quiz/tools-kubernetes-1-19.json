@@ -1,6 +1,6 @@
 {
     "title": "kubectl (1.19)",
-    "tags": ["kubernetes", "devops", "kubectl"],
+    "tags": ["k8s", "kubernetes", "devops", "kubectl"],
     "questions": [
         {
             "text": "Which command does restart a deployment?",
