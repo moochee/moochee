@@ -30,7 +30,9 @@ const Client = function (api, username, password) {
         if (Date.now() > tokenExpiryTime) {
             const apiInfo = await get(`${api}/v2/info`, { 'Accept': 'application/json' })
             const loginInfo = await get(`${apiInfo.authorization_endpoint}/login`, { 'Accept': 'application/json' })
-            const data = `grant_type=password&password=${password}&username=${username}&scope=`
+            const pw = encodeURIComponent(password)
+            const user = encodeURIComponent(username)
+            const data = `grant_type=password&password=${pw}&username=${user}&scope=`
             const headers = {
                 'Accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded',
