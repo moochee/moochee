@@ -44,7 +44,7 @@ export default function Entrance(props) {
     })
 
     const quizList = filteredQuizzes.map(q => {
-        return html`<${StickyButton} key=${q.id} onClick=${() => host(q.id, q.title)} text=${q.title} color=${q.color} />`
+        return html`<${StickyButton} key=${q.id} onClick=${() => host(q.id, q.title)} text=${q.title} color=${q.color} tags=${q.tags}/>`
     })
 
     const headerRight = html`
