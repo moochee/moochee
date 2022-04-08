@@ -29,7 +29,47 @@
     position: absolute;
     left: 15%;
     right: 20%;
-    top: 50%;
+    top: 45%;
     text-align: center;
     transform: translate(0, -50%) rotate(-3deg);
+}
+
+.stickyButton .tags {
+    width: 70%;
+    position: absolute;
+    right: 15%;
+    bottom: 10%;
+    transform: translate(0, -50%) rotate(-3deg);
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    flex-wrap: nowrap;
+}
+
+
+.stickyButton .tag.green {
+    background-color: #164b2c;
+}
+
+.stickyButton .tag.purple {
+    background-color: #5a1264;
+}
+
+.stickyButton .tag.orange {
+    background-color: #a47c15;
+}
+
+.stickyButton .tag.blue {
+    background-color: #353552;
+}
+
+.stickyButton .tag {
+    font-size: min(2vw, 1.5vh);
+    color: white;
+    padding: 1%;
+    margin: 1%;
+    text-overflow: ellipsis;
+    max-width: 20%;
+    white-space: nowrap;
+    overflow: hidden;
 }
