@@ -69,7 +69,7 @@
     padding: 1%;
     margin: 1%;
     text-overflow: ellipsis;
-    max-width: 42%;
+    max-width: 20%;
     white-space: nowrap;
     overflow: hidden;
 }
