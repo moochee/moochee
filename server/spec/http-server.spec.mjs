@@ -63,13 +63,6 @@ describe('Server', () => {
         it('allows anonymous access to play page', async () => {
             await client.get('/play/').expect(200)
         })
-
-        it('allows anonymous access to number of running games', async () => {
-            await client.get('/api/v1/runningGames')
-                .expect('content-type', /text\/plain/)
-                .expect(200)
-                .expect(response => expect(response.text).toEqual('0'))
-        })
     })
 
     describe('game API', () => {

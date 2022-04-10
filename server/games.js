@@ -38,9 +38,4 @@ export default function Games(quizService, events, expiryTimer) {
             shutdownCallback = callback
         }
     }
-
-    // REVISE consider clean this up, unless we want to use it for the status endpoint (fair enough)
-    this.getNumberOfRunningGames = () => {
-        return games.length
-    }
 }

@@ -36,13 +36,6 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
     app.use('/public', express.static('web/public'))
     app.use('/play', express.static('web/play'))
 
-    // REVISE to be deleted later
-    app.get('/api/v1/runningGames', (_, res) => {
-        res.set('Content-Type', 'text/plain')
-            .status(200)
-            .send(String(games.getNumberOfRunningGames()))
-    })
-
     app.use(express.json())
     app.use('/api/v1/quizzes', quizRouter(directory))
 
