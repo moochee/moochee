@@ -1,12 +1,6 @@
 #!/bin/sh -e
 
-export VCAP_SERVICES='{
-    "xsuaa": [{"name": "gorilla-uaa","credentials": {"clientid": "a", "clientsecret": "b", "url": ""}}],
-    "fs-storage": [{"name": "gorilla-fs","volume_mounts": [{"container_dir": "./quizzes"}]}]
-}'
-export PORT=3000
-
-node server/gorilla.js ./local-client.js &
+node server/gorilla.js ./local-bindings.js &
 pid=$!
 
 attempts=0

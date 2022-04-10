@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "An interactive multi-person quiz game",
   "scripts": {
-    "dev": "source local.profile && npm start",
-    "start": "node server/gorilla.js ./cf-client.js",
+    "start": "node server/gorilla.js ./prod-bindings.js",
+    "start:dev": "node server/gorilla.js ./local-bindings.js",
     "lint": "eslint server web **/*.mjs",
     "test": "jasmine server/spec/**/*.spec.mjs",
     "coverage": "c8 jasmine server/spec/**/*.spec.mjs",

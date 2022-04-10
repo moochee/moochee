@@ -1,19 +1,15 @@
 'use strict'
 
 import httpServer from './http-server.js'
-import getAuthConfig from './auth-config.js'
-import getFSDirectory from './fs-directory.js'
-import Auth from './auth.js'
 
 // REVISE check if with newer Node.js version we can use top-level await
 const init = async () => {
+    // REVISE maybe this could also be moved to the bindings
     const gameExpiryTimer = {
-        onTimeout : (callback) => setTimeout(callback, 1000 * 60 * 60 * 3)
+        onTimeout: (callback) => setTimeout(callback, 1000 * 60 * 60 * 3)
     }
-    const client = await import(process.argv[2])
-    const directory = getFSDirectory()
-    const server = httpServer(client.default(), new Auth(getAuthConfig()), directory, process.env.DEDICATED_ORIGIN, gameExpiryTimer)
-    const port = process.env.PORT || 3000
+    const { appStopper, auth, privateQuizzesDir, dedicatedOrigin, port } = (await import(process.argv[2])).default
+    const server = httpServer(appStopper, auth, privateQuizzesDir, dedicatedOrigin, gameExpiryTimer)
     server.listen(port, () => console.log(`Gorilla started at ${port}`))
 }
 

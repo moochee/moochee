@@ -15,10 +15,14 @@ There are 2 types of quiz:
 ## Dev How-To
 
 After cloning you can:
-- Copy `local.profile.sample` to `local.profile`
-  - Assign proper values to `clientid`, `clientsecret` and `url`
 - Run the tests: `npm test`
-- Start the server: `./run-locally.sh`
+- Start the server: `npm run start:dev`
+
+If you want to enable authentication locally:
+- Copy `local.profile.sample` to `local.profile`
+- Assign proper values to `clientid`, `clientsecret` and `url`
+- Source the local.profile / export the environment variables
+- Start the server: `npm start`
 
 Besides Node.js, no extra tools are needed, cause big toolchains suck.
 
