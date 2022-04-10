@@ -50,15 +50,15 @@ export default function Auth(config) {
 
         app.get('/login', passport.authenticate(OPENID_CONNECT))
 
-        app.get('/login/callback', passport.authenticate(OPENID_CONNECT, {
-            successRedirect: '/',
-            failureRedirect: '/'
-        }))
+        app.get('/login/callback',
+            passport.authenticate(OPENID_CONNECT, { failureRedirect: '/' }),
+            (req, res) => res.redirect(req.session.originalUrl))
 
         return (req, res, next) => {
             if (req.originalUrl === '/service-worker.js') return next()
             if (req.originalUrl === '/favicon.ico') return res.status(204).end()
             if (!req.isAuthenticated()) {
+                req.session.originalUrl = req.originalUrl
                 return res.redirect('/login')
             }
             next()
