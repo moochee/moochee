@@ -15,7 +15,7 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
 
     app.post('/api/v1/stop', (req, res) => {
         res.status(202).end()
-        games.requestShutdown(() => client.stop())
+        games.onNoRunningGames(() => client.stop())
     })
 
     process.on('SIGTERM', () => {

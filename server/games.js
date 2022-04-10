@@ -29,9 +29,7 @@ export default function Games(quizService, events, expiryTimer) {
         return game
     }
 
-    // REVISE inappropriate name, better alternatives might be 'onAllGamesFinished' or 'whenAllGamesFinished'.
-    //        shutdown logic belongs to the server/application layer, related terminology should not leak in the domain layer
-    this.requestShutdown = (callback) => {
+    this.onNoRunningGames = (callback) => {
         if (games.length === 0) {
             callback()
         } else {
