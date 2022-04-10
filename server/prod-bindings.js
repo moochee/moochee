@@ -24,5 +24,5 @@ export default {
     appStopper: createClient(),
     privateQuizzesDir: privateQuizzesDir,
     dedicatedOrigin: dedicatedOrigin,
-    port: 3000
+    port: process.env.PORT
 }
