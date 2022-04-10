@@ -1,7 +1,6 @@
 'use strict'
 
 import WebSocket from 'ws'
-import update from './leaderboard-updater.js'
 
 export default function Events(webSocketServer) {
     this.publish = (gameId, message) => {
@@ -11,7 +10,6 @@ export default function Events(webSocketServer) {
                 c.send(messageString)
             }
         })
-        process.env.UPDATE_LEADERBOARD ? update(message) : null
     }
 
     this.notifyHost = (gameId, message) => {
