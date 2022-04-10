@@ -14,20 +14,24 @@ describe('Server', () => {
 
     // REVISE check if we can find a smarter way or if the test is even valuable enough
     describe('endpoint redirection', () => {
-        it('will redirect request with the global url to the instance-specific url', async () => {
-            const server = httpServer(null, noAuth, null, 'http://localhost-instance-specific:3001', noExpiryTimer)
-            server.listen(3001)
-            client = request('http://localhost:3001')
-            await client.get('/').expect(302).expect('location', 'http://localhost-instance-specific:3001')
+        let server
+
+        afterEach(() => {
             server.close()
         })
 
-        it('will not redirect request with the instance-specific url', async () => {
-            const server = httpServer(null, noAuth, null, 'http://localhost:3001', noExpiryTimer)
+        it('will redirect request with the global url to the instance-specific url', async () => {
+            server = httpServer(null, noAuth, null, 'http://localhost-instance-specific:3001', noExpiryTimer)
             server.listen(3001)
-            client = request('http://localhost:3001')
+            client = request('http://localhost:3001/?test')
+            await client.get('/').expect(302).expect('location', 'http://localhost-instance-specific:3001/?test/')
+        })
+
+        it('will not redirect request with the instance-specific url', async () => {
+            server = httpServer(null, noAuth, null, 'http://localhost:3001', noExpiryTimer)
+            server.listen(3001)
+            client = request('http://localhost:3001/?test')
             await client.get('/').expect(200)
-            server.close()
         })
     })
 

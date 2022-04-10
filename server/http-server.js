@@ -27,7 +27,7 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
         if (req.hostname === new URL(dedicatedOrigin).hostname) {
             next()
         } else {
-            res.status(302).set('location', dedicatedOrigin).end()
+            res.status(302).set('location', `${dedicatedOrigin}${req.url}`).end()
         }
     })
 
