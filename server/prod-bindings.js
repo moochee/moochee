@@ -1,6 +1,6 @@
 'use strict'
 
-import createClient from './cf-client.js'
+import CFClient from './cf-client.js'
 import Auth from './auth.js'
 
 const dedicatedOrigin = process.env.DEDICATED_ORIGIN
@@ -19,9 +19,11 @@ const authConfig = {
 
 const privateQuizzesDir = serviceEnvs.find(f => f.name === 'gorilla-fs').volume_mounts[0].container_dir
 
+const cfUser = process.env['CF_USER'], cfPw = process.env['CF_PW']
+
 export default {
     auth: new Auth(authConfig),
-    appStopper: createClient(),
+    appStopper: new CFClient('https://api.cf.sap.hana.ondemand.com', cfUser, cfPw),
     privateQuizzesDir: privateQuizzesDir,
     dedicatedOrigin: dedicatedOrigin,
     port: process.env.PORT

@@ -1,7 +1,7 @@
 import https from 'https'
 
 // REVISE consider adding a test for this, cannot easily be tested via deploy process due to async nature
-const Client = function (api, username, password) {
+export default function CFClient(api, username, password) {
     let token = '', tokenExpiryTime = 0
 
     const get = (url, headers) => {
@@ -57,10 +57,4 @@ const Client = function (api, username, password) {
             console.error(error)
         }
     }
-}
-
-export default function create() {
-    const username = process.env['CF_USER']
-    const password = process.env['CF_PW']
-    return new Client('https://api.cf.sap.hana.ondemand.com', username, password)
 }
