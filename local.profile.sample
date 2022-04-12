@@ -1,24 +1,17 @@
 export SESSION_SECRET=SuperStrongSecret
 export VCAP_SERVICES='{
-  "xsuaa": [
-    {
-      "name": "gorilla-uaa",
-      "credentials": {
-        "clientid": "",
-        "clientsecret": "",
-        "url": ""
-      }
-    }
-  ],
-  "fs-storage": [
-    {
-      "name": "gorilla-fs",
-      "volume_mounts": [
-        {
-          "container_dir": "./quizzes"
+    "xsuaa": [{
+        "name": "gorilla-uaa",
+        "credentials": {
+            "clientid": "",
+            "clientsecret": "",
+            "url": ""
         }
-      ]
-    }
-  ]
+    }],
+    "fs-storage": [{
+        "name": "gorilla-fs",
+        "volume_mounts": [{ "container_dir": "./quizzes" }]
+    }]
 }'
 export DEDICATED_ORIGIN=http://localhost:3000
+export PORT=3000

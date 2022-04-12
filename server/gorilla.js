@@ -8,4 +8,4 @@ const gameExpiryTimer = {
 }
 const { appStopper, auth, privateQuizzesDir, dedicatedOrigin, port } = (await import(process.argv[2])).default
 const server = httpServer(appStopper, auth, privateQuizzesDir, dedicatedOrigin, gameExpiryTimer)
-server.listen(port, () => console.log(`Gorilla started at ${port}`))
+server.listen(port, () => console.log(`Gorilla started at ${server.address().port}`))
