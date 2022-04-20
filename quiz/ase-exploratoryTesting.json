@@ -1,0 +1,42 @@
+{
+    "Title": "Exploratory Testing",
+    "Questions" :  [
+        {
+            "Text": "Exploratory testing is like ",
+            "answers": [
+                {"text": "Ad hoc testing"},
+                {"text": "Sprint testing"},
+                {"text": "Scripted testing"},
+                {"text": "None of these", "correct": true}
+            ]
+        },
+        {
+            "Text": ".... is NOT exploratory testing ingredients",
+            "answers": [
+                {"text": "Time box"},
+                {"text": "Backlog", "correct": true},
+                {"text": "Mission"},
+                {"text": "Protocol"}
+            ]
+        },
+        {
+            "Text": ".... is NOT Exploratory testing  tours",
+            "answers": [
+                {"text": "Captain tours"},
+                {"text": "Landmark tours"},
+                {"text": "FedEx tours"},
+                {"text": "Supermodel tours"}
+            ]
+        },
+        {
+            "text": "The anto-social tour focuses on ...",
+            "answers": [
+                {"text": "Important features"},
+                {"text": "Breakfast menu"},
+                {"text": "Product best flow"},
+                {"text": "Always do the opposite"}
+            ]
+        }
+
+    ]
+}
