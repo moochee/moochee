@@ -11,7 +11,7 @@
             ]
         },
         {
-            "Text": ".... is NOT exploratory testing ingredients",
+            "Text": ".... is NOT exploratory testing ingredient",
             "answers": [
                 {"text": "Time box"},
                 {"text": "Backlog", "correct": true},
@@ -20,9 +20,9 @@
             ]
         },
         {
-            "Text": ".... is NOT Exploratory testing  tours",
+            "Text": ".... is NOT an Exploratory testing  tours",
             "answers": [
-                {"text": "Captain tours"},
+                {"text": "Captain tours", "correct": true},
                 {"text": "Landmark tours"},
                 {"text": "FedEx tours"},
                 {"text": "Supermodel tours"}
@@ -34,9 +34,8 @@
                 {"text": "Important features"},
                 {"text": "Breakfast menu"},
                 {"text": "Product best flow"},
-                {"text": "Always do the opposite"}
+                {"text": "Always do the opposite", "correct": true}
             ]
         }
-
     ]
 }
