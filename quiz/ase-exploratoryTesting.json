@@ -1,8 +1,8 @@
 {
-    "Title": "Exploratory Testing",
-    "Questions" :  [
+    "title": "Exploratory Testing",
+    "questions" :  [
         {
-            "Text": "Exploratory testing is like ",
+            "text": "Exploratory testing is like ",
             "answers": [
                 {"text": "Ad hoc testing"},
                 {"text": "Sprint testing"},
@@ -11,7 +11,7 @@
             ]
         },
         {
-            "Text": ".... is NOT exploratory testing ingredient",
+            "text": ".... is NOT exploratory testing ingredient",
             "answers": [
                 {"text": "Time box"},
                 {"text": "Backlog", "correct": true},
@@ -20,7 +20,7 @@
             ]
         },
         {
-            "Text": ".... is NOT an Exploratory testing  tours",
+            "text": ".... is NOT an Exploratory testing  tours",
             "answers": [
                 {"text": "Captain tours", "correct": true},
                 {"text": "Landmark tours"},
