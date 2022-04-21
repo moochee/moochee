@@ -21,7 +21,7 @@
             ]
         },
         {
-            "text": "What can not be mocked out-of-the-box?",
+            "text": "What can NOT be mocked out-of-the-box?",
             "answers":[
                 {"text": "Filters"},
                 {"text": "Expands"},
