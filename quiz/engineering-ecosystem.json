@@ -101,38 +101,39 @@
             ]
         },
         {
-            "text": "",
+            "text": "SAP Engineering Ecosystem is also an ecosystem of communities. What do many of them have in common?",
             "answers": [
                 {
-                    "text": "",
+                    "text": "Shared principles",
                     "correct": true
                 },
                 {
-                    "text": ""
+                    "text": "A common board"
                 },
                 {
-                    "text": ""
+                    "text": "Central decision making"
                 },
                 {
-                    "text": ""
+                    "text": "Guidance over an \"as-is\" state",
+                    "correct": true
                 }
             ]
         },
         {
-            "text": "",
+            "text": "When was the SAP Engineering Ecosystem established?",
             "answers": [
                 {
-                    "text": "",
+                    "text": "2009"
+                },
+                {
+                    "text": "2019"
+                },
+                {
+                    "text": "2018",
                     "correct": true
                 },
                 {
-                    "text": ""
-                },
-                {
-                    "text": ""
-                },
-                {
-                    "text": ""
+                    "text": "2022"
                 }
             ]
         }
