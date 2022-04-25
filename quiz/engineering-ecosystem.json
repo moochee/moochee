@@ -11,10 +11,10 @@
                     "text": "SAP Central Engineering Team"
                 },
                 {
-                    "text": "Open Source Community"
+                    "text": "Rollout Channel"
                 },
                 {
-                    "text": "Grass Root Network",
+                    "text": "Grass Root Community",
                     "correct": true
                 },
                 {
@@ -104,7 +104,7 @@
             "text": "SAP Engineering Ecosystem is also an ecosystem of communities. What do many of them have in common?",
             "answers": [
                 {
-                    "text": "Shared principles",
+                    "text": "Shared purpose and guiding principles",
                     "correct": true
                 },
                 {
@@ -112,10 +112,6 @@
                 },
                 {
                     "text": "Central decision making"
-                },
-                {
-                    "text": "Guidance over an \"as-is\" state",
-                    "correct": true
                 }
             ]
         },
