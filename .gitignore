@@ -4,3 +4,5 @@ coverage
 quiz/*-test.json
 quizzes/*.*
 *.profile
+whitesource
+wss-unified-agent.jar
