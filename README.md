@@ -21,7 +21,7 @@ After cloning you can:
 If you want to run locally with same bindings as in production, e.g. enabling security:
 - Copy `app.profile.sample` to `app.profile`
 - Assign proper values to `clientid`, `clientsecret` and `url`
-- Source the local.profile / export the environment variables
+- Source the app.profile / export the environment variables
 - Start the server: `npm start`
 
 Besides Node.js, no extra tools are needed, cause big toolchains suck.
