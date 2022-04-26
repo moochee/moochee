@@ -18,8 +18,8 @@ After cloning you can:
 - Run the tests: `npm test`
 - Start the server: `npm run start:dev`
 
-If you want to enable authentication locally:
-- Copy `local.profile.sample` to `local.profile`
+If you want to run locally with same bindings as in production, e.g. enabling security:
+- Copy `app.profile.sample` to `app.profile`
 - Assign proper values to `clientid`, `clientsecret` and `url`
 - Source the local.profile / export the environment variables
 - Start the server: `npm start`
