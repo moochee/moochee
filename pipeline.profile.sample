@@ -1,0 +1,7 @@
+# environment variables required to run the pipeline
+export CF_USER=
+export CF_PW=
+export WS_APIKEY=
+export WS_USERKEY=
+export WS_PRODUCTTOKEN=
+export WS_PROJECTTOKEN=
