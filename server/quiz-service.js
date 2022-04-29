@@ -55,7 +55,8 @@ export default function QuizService(directory) {
                 const quiz = await this.getPrivate(dirent.name)
                 if (quiz.author === author || !quiz.isPrivate) {
                     // REVISE once the quiz builder has the capability to add tags AND we migrated existing date, remove the default tags: []
-                    quizzes.push({ id: dirent.name, title: quiz.title, tags: [] })
+                    // REVISE add test for quiz builder
+                    quizzes.push({ id: dirent.name, title: quiz.title, tags: quiz.tags || [] })
                 }
             } catch (error) {
                 console.error(dirent.name, error)
@@ -66,7 +67,7 @@ export default function QuizService(directory) {
 
     this.create = async (quiz, isPrivate, author) => {
         const quizContent = { ...quiz, isPrivate, author }
-        const shortId = (+new Date).toString(36).slice(-5)
+        const shortId = Date.now().toString(36).slice(-5)
         const fileName = `${directory}/${shortId}.json`
         await writeFile(fileName, JSON.stringify(quizContent))
         return quizContent

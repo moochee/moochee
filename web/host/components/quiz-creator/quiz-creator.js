@@ -56,6 +56,7 @@ function QuestionAndAnswers(props) {
 export default function QuizCreator() {
     const [title, setTitle] = useState('Untitled Quiz')
     const [initialTitle] = useState(title)
+    const [tags, setTags] = useState('')
     const q1 = {
         text: 'Untitled Question?',
         answers: [
@@ -69,6 +70,8 @@ export default function QuizCreator() {
 
     const updateTitle = (e) => setTitle(e.target.innerText)
 
+    const updateTags = (e) => setTags(e.target.value)
+
     const create = () => {
         const createQuiz = async (newQuiz) => {
             await fetch('/api/v1/quizzes', {
@@ -81,7 +84,8 @@ export default function QuizCreator() {
             })
         }
         const quiz = {
-            title,
+            title: title,
+            tags: tags ? tags.split(' ') : [],
             questions: questions.map(q => ({ text: q.text, answers: q.answers.filter(a => a.text.trim() !== '') }))
         }
         createQuiz(quiz).then(() => backToAdmin())
@@ -131,6 +135,7 @@ export default function QuizCreator() {
         <div class=quizCreator>
             <h1 class=quizCreatorTitle contenteditable=true 
                 oninput=${updateTitle} dangerouslySetInnerHTML=${{ __html: initialTitle }} />
+            <input class=quizCreatorTags oninput=${updateTags} placeholder='Add tags, separated by space.'/>
             <div class=quizCreatorQuestions>
                 ${questionsBlock}
                 <p/><p/><p/><p/><p/><p/>

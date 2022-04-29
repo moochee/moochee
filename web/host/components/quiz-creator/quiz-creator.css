@@ -71,3 +71,11 @@
     width: 2vh;
     height: 2vh;
 }
+
+.quizCreatorTags {
+    width: 15em;
+    height: 3em;
+    text-align: center;
+    font-family: inherit;
+    font-size: inherit;
+}

@@ -39,7 +39,6 @@ export default function Entrance(props) {
         props.client.host(quizId, quizTitle)
     }
 
-    // TODO add capability to add tags from quiz builder
     const filteredQuizzes = quizzes.filter(q => {
         return q.tags.includes(searchTerm) 
             || q.title.toLowerCase().includes(searchTerm.toLowerCase()) 
