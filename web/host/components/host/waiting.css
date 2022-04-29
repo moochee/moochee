@@ -46,6 +46,7 @@
     font-size: min(20vh, 20vw);
     overflow-y: auto;
     justify-content: center;
+    align-items: center ;
 }
 
 .hostWaitingPlayerInfo.hostWaitingNoPlayersYet {

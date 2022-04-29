@@ -47,7 +47,7 @@ export default function Waiting(props) {
     const playerInfo = props.players.map(p => html`<div key=${p} class=hostWaitingBounceIn>${p}</div>`)
     const players = props.players.length > 0
         ? html`<div class=hostWaitingPlayerInfo>${playerInfo}</div>`
-        : html`<div class='hostWaitingPlayerInfo hostWaitingNoPlayersYet'>Let people scan the QR code or send them the join URL</div>`
+        : html`<div class='hostWaitingPlayerInfo hostWaitingNoPlayersYet'>Let people scan the QR code or send them the join URL.</div>`
 
     const startButton = props.canStart ? html`<${StickyButton} onClick=${start} color=blue text=Start />` : ''
 
