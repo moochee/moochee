@@ -8,7 +8,6 @@ export default function Game(quiz, timer, events) {
     let currentQuestionIndex = -1
     let guessTimeoutId
     let roundStartTime
-    let createdAt = Date.now()
     let players = new Players(new Avatars())
     const NETWORK_DELAY_IN_SECONDS = 2
 
@@ -81,8 +80,4 @@ export default function Game(quiz, timer, events) {
         players.remove(name)
         if (avatar) events.publish(this.id, { event: 'playerDisconnected', args: [avatar] })
     }
-
-    this.setCreatedAt = (timestamp) => createdAt = timestamp
-
-    this.getCreatedAt = () => createdAt
 }
