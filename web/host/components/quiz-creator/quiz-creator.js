@@ -70,6 +70,7 @@ export default function QuizCreator() {
 
     const updateTitle = (e) => setTitle(e.target.innerText)
 
+    // TODO disallow comma
     const updateTags = (e) => setTags(e.target.value)
 
     const create = () => {
