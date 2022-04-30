@@ -3,17 +3,6 @@
 import { readFile, readdir, writeFile, access, mkdir, rm } from 'fs/promises'
 
 export default function QuizService(directory) {
-    this.get = async (quizId) => {
-        const quizPath = `./quiz/${quizId}`
-        let quiz
-        try {
-            quiz = JSON.parse(await readFile(quizPath, 'utf8'))
-        } catch (error) {
-            quiz = this.getPrivate(quizId)
-        }
-        return quiz
-    }
-
     this.getAll = async (author) => {
         const dirents = await readdir('./quiz', { withFileTypes: true })
         let publicQuizzes = []
@@ -29,19 +18,6 @@ export default function QuizService(directory) {
         const quizzes = await this.getAllPrivate(author)
         quizzes.push.apply(quizzes, publicQuizzes)
         return quizzes
-    }
-
-    this.getPrivate = async (quizId) => {
-        const quizPath = `${directory}/${quizId}`
-        return JSON.parse(await readFile(quizPath, 'utf8'))
-    }
-
-    const createDirectoryIfNotExists = async () => {
-        try {
-            await access(directory)
-        } catch (error) {
-            await mkdir(directory)
-        }
     }
 
     this.getAllPrivate = async (author) => {
@@ -63,6 +39,30 @@ export default function QuizService(directory) {
             }
         }
         return quizzes
+    }
+    
+    this.get = async (quizId) => {
+        const quizPath = `./quiz/${quizId}`
+        let quiz
+        try {
+            quiz = JSON.parse(await readFile(quizPath, 'utf8'))
+        } catch (error) {
+            quiz = this.getPrivate(quizId)
+        }
+        return quiz
+    }
+
+    this.getPrivate = async (quizId) => {
+        const quizPath = `${directory}/${quizId}`
+        return JSON.parse(await readFile(quizPath, 'utf8'))
+    }
+
+    const createDirectoryIfNotExists = async () => {
+        try {
+            await access(directory)
+        } catch (error) {
+            await mkdir(directory)
+        }
     }
 
     this.create = async (quiz, isPrivate, author) => {
