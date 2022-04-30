@@ -1,6 +1,6 @@
 'use strict'
 
-import QuizService from "../quiz-service.js"
+import QuizService from '../quiz-service.js'
 
 describe('Quiz service', () => {
     const TEST_DIR = './quizzes'
