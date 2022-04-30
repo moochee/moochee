@@ -4,6 +4,7 @@ import { html, useState, useEffect } from '/public/lib/preact-3.1.0.standalone.m
 import Entrance from '/components/entrance/entrance.js'
 import Host from '/components/host/host.js'
 import QuizCreator from '/components/quiz-creator/quiz-creator.js'
+import QuizEditor from '/components/quiz-creator/quiz-editor.js'
 import Admin from '/components/admin/admin.js'
 import QuizSocketClient from '/public/quiz-socket-client.js'
 
@@ -54,6 +55,9 @@ export default function HostApp(props) {
     let page
     if (hash.indexOf('#/create') > -1) {
         page = html`<${QuizCreator} />`
+    } else if (hash.indexOf('#/edit') > -1 ) {
+        const id = hash.split('/')[2]
+        page = html`<${QuizEditor} id=${id} />`
     } else if (hash.indexOf('#/admin') > -1) {
         page = html`<${Admin} />`
     } else {

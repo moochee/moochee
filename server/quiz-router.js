@@ -53,5 +53,31 @@ export default function create(directory) {
         }
     })
 
+    router.get('/:id', async (req, res) => {
+        if (!req.isAuthenticated()) {
+            return res.status(401).end('Not authenticated!')
+        }
+        try {
+            const quiz = await quizService.getPrivate(req.params.id)
+            res.status(200).send(quiz).end()
+        } catch (error) {
+            console.error(error)
+            res.status(500).end()
+        }
+    })
+
+    router.put('/:id', async (req, res) => {
+        if (!req.isAuthenticated()) {
+            return res.status(401).end('Not authenticated!')
+        }
+        try {
+            await quizService.update(req.params.id, req.body)
+            res.status(200).end()
+        } catch (error) {
+            console.error(error)
+            res.status(500).end()
+        }
+    })
+
     return router
 }

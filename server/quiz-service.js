@@ -74,11 +74,13 @@ export default function QuizService(directory) {
     }
 
     this.delete = async (id) => {
-        try {
-            const fileName = `${directory}/${id}`
-            await rm(fileName)
-        } catch (error) {
-            console.error(id, error)
-        }
+        const fileName = `${directory}/${id}`
+        await rm(fileName)
+    }
+
+    this.update = async (id, quiz) => {
+        const fileName = `${directory}/${id}`
+        await writeFile(fileName, JSON.stringify(quiz))
+        return quiz
     }
 }

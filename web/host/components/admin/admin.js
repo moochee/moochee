@@ -26,9 +26,15 @@ export default function Admin() {
             const response = await fetch(`/api/v1/quizzes/${q.id}`, { method: 'DELETE' })
             if (response.ok) setQuizzes(oldQuizzes => { return oldQuizzes.filter(o => o.id !== q.id) })
         }
+        const editQuiz = async () => {
+            window.location.href = `/#/edit/${q.id}`
+        }
         return html`<div key=${q.id} class=adminQuiz>
             <${StickyCard} onClick=${deleteQuiz} text=${q.title} color=${q.color} />
-            <button id=${i} onclick=${deleteQuiz} class=adminSmallButton>Delete</button>
+            <div class=quizCreatorActions>
+                <button id=edit_${i} onclick=${editQuiz} class=adminSmallButton>Edit</button>
+                <button id=delete_${i} onclick=${deleteQuiz} class=adminSmallButton>Delete</button>
+            </div>
         </div>`
     })
 
