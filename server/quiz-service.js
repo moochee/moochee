@@ -66,11 +66,10 @@ export default function QuizService(directory) {
     }
 
     this.create = async (quiz, isPrivate, author) => {
+        const id = `${Date.now().toString(36).slice(-5)}.json`
         const quizContent = { ...quiz, isPrivate, author }
-        const shortId = Date.now().toString(36).slice(-5)
-        const fileName = `${directory}/${shortId}.json`
-        await writeFile(fileName, JSON.stringify(quizContent))
-        return quizContent
+        await writeFile(`${directory}/${id}`, JSON.stringify(quizContent))
+        return id
     }
 
     this.delete = async (id) => {
@@ -78,9 +77,9 @@ export default function QuizService(directory) {
         await rm(fileName)
     }
 
-    this.update = async (id, quiz) => {
-        const fileName = `${directory}/${id}`
-        await writeFile(fileName, JSON.stringify(quiz))
-        return quiz
+    this.update = async (id, quiz, isPrivate, author) => {
+        const quizContent = { ...quiz, isPrivate, author }
+        await writeFile(`${directory}/${id}`, JSON.stringify(quizContent))
+        return id
     }
 }

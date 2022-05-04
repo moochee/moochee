@@ -13,7 +13,8 @@ export default function create(directory) {
         }
         try {
             const authorEmail = req.user.claims.email
-            const quiz = await quizService.create(req.body, true, authorEmail)
+            const id = await quizService.create(req.body, true, authorEmail)
+            const quiz = await quizService.getPrivate(id)
             res.status(200).send(quiz).end()
         } catch (error) {
             console.error(error)
@@ -71,7 +72,8 @@ export default function create(directory) {
             return res.status(401).end('Not authenticated!')
         }
         try {
-            await quizService.update(req.params.id, req.body)
+            const author = req.user.id
+            await quizService.update(req.params.id, req.body, true, author)
             res.status(200).end()
         } catch (error) {
             console.error(error)
