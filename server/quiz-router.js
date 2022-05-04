@@ -72,7 +72,7 @@ export default function create(directory) {
             return res.status(401).end('Not authenticated!')
         }
         try {
-            const author = req.user.id
+            const author = req.user.claims.email
             await quizService.update(req.params.id, req.body, true, author)
             res.status(200).end()
         } catch (error) {
