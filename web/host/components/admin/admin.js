@@ -7,6 +7,7 @@ import StickyCard from '/public/components/sticky/sticky-card.js'
 
 loadCss('/components/admin/admin.css')
 
+// TODO display tags
 export default function Admin() {
     const [quizzes, setQuizzes] = useState([])
 
