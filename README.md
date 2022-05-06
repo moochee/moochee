@@ -10,7 +10,7 @@ There are 2 types of quiz:
 - **Private Quiz** is available only to its creator
   - Click the icon ⚙️ on the top right corner after sso
 - **Public Quiz** is available to all who can login via sso
-  - All public quizzes are located in [/quiz](https://github.tools.sap/learning-experience/gorilla-quiz/tree/main/quiz) as JSON. New one can be added by [sending a pull request](https://github.tools.sap/learning-experience/gorilla-quiz/new/master/quiz). 
+  - All public quizzes are located in [/quiz](https://github.tools.sap/learning-experience/gorilla-quiz/tree/main/quiz) as JSON. New one can be added by [sending a pull request](https://github.tools.sap/learning-experience/gorilla-quiz/new/main/quiz). 
 
 ## Dev How-To
 
