@@ -12,9 +12,9 @@
             ]
         },
         {
-            "text": ".... is NOT exploratory testing ingredient",
+            "text": ".... is NOT an exploratory testing ingredient",
             "answers": [
-                {"text": "Time box"},
+                {"text": "Timebox"},
                 {"text": "Backlog", "correct": true},
                 {"text": "Mission"},
                 {"text": "Protocol"}
@@ -30,7 +30,7 @@
             ]
         },
         {
-            "text": "The anto-social tour focuses on ...",
+            "text": "The Antisocial tour focuses on ...",
             "answers": [
                 {"text": "Important features"},
                 {"text": "Breakfast menu"},
