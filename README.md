@@ -1,6 +1,6 @@
 # gorilla
 
-A multi-person interactive quiz app: https://acdc-gorilla.cfapps.sap.hana.ondemand.com/ (sso required)
+A multi-person interactive quiz app: https://gorilla.cfapps.eu12.hana.ondemand.com/ (sso required)
 
 The name is to honor the [first computer game of which one of the authors looked and debugged into the source code](https://archive.org/details/GorillasQbasic).
 
@@ -10,7 +10,7 @@ There are 2 types of quiz:
 - **Private Quiz** is available only to its creator
   - Click the icon ⚙️ on the top right corner after sso
 - **Public Quiz** is available to all who can login via sso
-  - All public quizzes are located in [/quiz](https://github.tools.sap/acdc/gorilla/tree/master/quiz) as JSON. New one can be added by [sending a pull request](https://github.tools.sap/acdc/gorilla/new/master/quiz). 
+  - All public quizzes are located in [/quiz](https://github.tools.sap/learning-experience/gorilla-quiz/tree/main/quiz) as JSON. New one can be added by [sending a pull request](https://github.tools.sap/learning-experience/gorilla-quiz/new/master/quiz). 
 
 ## Dev How-To
 
