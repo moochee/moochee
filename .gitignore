@@ -2,7 +2,7 @@ node_modules
 .DS_Store
 coverage
 quiz/*-test.json
-quizzes/*.*
+quizzes/*
 *.profile
 whitesource
 wss-unified-agent.jar
