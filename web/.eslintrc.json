@@ -2,5 +2,9 @@
     "env": {
         "es2018": true,
         "browser": true
-    }
+    },
+    "ignorePatterns": [
+        "public/lib",
+        "public/design-ideas"
+    ]
 }
