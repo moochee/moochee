@@ -30,7 +30,7 @@ export default function QuizService(directory) {
             try {
                 const quiz = await this.getPrivate(dirent.name)
                 if (quiz.author === author || !quiz.isPrivate) {
-                    // REVISE once the quiz builder has the capability to add tags AND we migrated existing date, remove the default tags: []
+                    // REVISE once the quiz builder has the capability to add tags AND we migrated existing data, remove the default tags: []
                     // REVISE add test for quiz builder
                     quizzes.push({ id: dirent.name, title: quiz.title, tags: quiz.tags || [] })
                 }
