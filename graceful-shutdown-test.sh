@@ -15,9 +15,9 @@ done
 
 echo "server started (process $pid), requesting to stop"
 
-curl --fail -X POST http://localhost:3000/api/v1/stop
+set +e; curl --fail -X POST http://localhost:3000/api/v1/stop; set -e
 
-(sleep 5; if ps -p $pid > /dev/null; then echo 'timeout'; kill -9 $pid; fi;) &
+(sleep 2; if ps -o pid | grep "^\s*$pid\s*$"; then echo 'timeout'; kill -9 $pid; fi;) &
 timeoutPid=$!
 
 wait $pid
