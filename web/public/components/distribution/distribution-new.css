@@ -1,0 +1,45 @@
+.distributionQuestionAndAnswers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    /* background: #262626; */
+}
+
+.distributionQuestion {
+    text-align: center;
+    font-size: 4vh;
+    margin-block-end: 0.67em;
+}
+
+.distributionAnswers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.correctAnswerAppear {
+    opacity: 0;
+    animation: correctAnswerAppear 1s linear forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes correctAnswerAppear {
+    to {
+        opacity: 1;
+    }
+}
+
+.wrongAnswerAppear {
+    transform: scale(.8);
+    opacity: 0;
+    animation: wrongAnswerAppear 1s linear forwards;
+    animation-delay: 1s;
+}
+
+@keyframes wrongAnswerAppear {
+    to {
+        opacity: .4;
+    }
+}

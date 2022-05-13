@@ -1,0 +1,19 @@
+.card {
+    position: relative;
+    height: min(35vw, 30vh);
+    width: min(35vw, 30vh);
+    cursor: pointer;
+    border-style: none;
+    border-radius: min(1.6vw, 1.4vh);
+    font-family: inherit;
+    font-size: min(4vw, 3.5vh);
+    color: white;
+}
+
+.card .count {
+    color: white;
+    position: absolute;
+    bottom: 5%;
+    right: 8%;
+    font-size: min(5vw, 5vh);
+}
