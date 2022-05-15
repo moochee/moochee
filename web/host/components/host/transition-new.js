@@ -4,7 +4,7 @@ import { html, useState, useEffect } from '/public/lib/preact-3.1.0.standalone.m
 import loadCss from '/public/load-css.js'
 import Scoreboard from '/public/components/scoreboard/scoreboard.js'
 import Distribution from '/public/components/distribution/distribution-new.js'
-import Podium from '/public/components/podium/podium.js'
+import Podium from '/public/components/podium/podium-new.js'
 
 loadCss('/components/host/transition-new.css')
 
