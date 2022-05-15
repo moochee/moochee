@@ -20,6 +20,7 @@ export default function Waiting(props) {
     const [copied, setCopied] = useState('')
     const joinUrlInput = useRef()
 
+    // REVISE check if still needed, clipboard now supported according to https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API
     function iosCopyToClipboard(el) {
         const range = document.createRange()
         range.selectNodeContents(el)
