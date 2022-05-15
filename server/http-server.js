@@ -41,7 +41,7 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
 
     app.use('/', login)
 
-    app.post('/api/v1/games', login, async (req, res) => {
+    app.post('/api/v1/games', async (req, res) => {
         const game = await games.host(req.body.quizId)
         const url = `${dedicatedOrigin}/${game.id}`
         res.status(201).set('Location', url).end()
