@@ -1,6 +1,6 @@
 'use strict'
 
-import { html, useState, useEffect } from '/public/lib/preact-3.1.0.standalone.module.js'
+import { html, useState, useEffect } from '/lib/htm/preact/standalone.module.js'
 import Join from '/play/components/join/join.js'
 import Play from '/play/components/play/play.js'
 

@@ -1,6 +1,6 @@
 'use strict'
 
-import { html, useState, useEffect } from '/public/lib/preact-3.1.0.standalone.module.js'
+import { html, useState, useEffect } from '/lib/htm/preact/standalone.module.js'
 import Shell from '/public/components/shell/shell.js'
 import StickyInput from '/public/components/sticky/sticky-input.js'
 

@@ -1,6 +1,6 @@
 'use strict'
 
-import { html, useState, useRef, useEffect } from '/public/lib/preact-3.1.0.standalone.module.js'
+import { html, useState, useRef, useEffect } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 import StickyButton from '/public/components/sticky/sticky-button.js'
 import QrCreator from '/public/lib/qr-creator.es6.min.js'

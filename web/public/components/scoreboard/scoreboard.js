@@ -1,6 +1,6 @@
 'use strict'
 
-import { html, useEffect, useRef } from '/public/lib/preact-3.1.0.standalone.module.js'
+import { html, useEffect, useRef } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 
 loadCss('/public/components/scoreboard/scoreboard.css')

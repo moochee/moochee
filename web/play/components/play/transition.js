@@ -1,6 +1,6 @@
 'use strict'
 
-import { html, useState } from '/public/lib/preact-3.1.0.standalone.module.js'
+import { html, useState } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 import Scoreboard from '/public/components/scoreboard/scoreboard.js'
 import Distribution from '/public/components/distribution/distribution.js'
