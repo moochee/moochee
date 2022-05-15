@@ -12,9 +12,14 @@ const DistributionPage = function (props) {
     const buttonText = props.isFinal ? 'Show Podium' : 'Show Scoreboard'
     return html`<div class=transition>
         <${Distribution} distribution=${props.distribution} />
-        <div class=transitionButton>
-            <button onclick=${props.onShowNext}>${buttonText}</button>
-        </div>
+        <button onclick=${props.onShowNext}>${buttonText}</button>
+    </div>`
+}
+
+const ScoreboardPage = function (props) {
+    return html`<div class=transition>
+        <${Scoreboard} scoreboard=${props.scoreboard} />
+        <button onclick=${props.onNextRound}>Next Round</button>
     </div>`
 }
 
@@ -24,21 +29,10 @@ const PodiumPage = function (props) {
         props.onStopMusic()
         setTimeout(() => setCanBackHome(true), 20000)
     })
-    const backHomeButton = canBackHome ? html`<div class=transitionButton>
-        <button onclick=${props.onBackHome}>Home 🔥</button>
-    </div>` : ''
+    const backHomeButton = canBackHome ? html`<button onclick=${props.onBackHome}>Home 🔥</button>` : ''
     return html`<div class=transition>
         <${Podium} scoreboard=${props.scoreboard} volume=${props.volume} />
         ${backHomeButton}
-    </div>`
-}
-
-const ScoreboardPage = function (props) {
-    return html`<div class=transition>
-        <${Scoreboard} scoreboard=${props.scoreboard} />
-        <div class=transitionButton>
-            <button onclick=${props.onNextRound}>Next Round</button>
-        </div>
     </div>`
 }
 
@@ -47,9 +41,9 @@ export default function Transition(props) {
 
     if (showDistribution) {
         return html`<${DistributionPage} isFinal=${props.isFinal} distribution=${props.distribution} onShowNext=${() => setShowDistribution(false)} />`
-    } else if (props.isFinal) {
-        return html`<${PodiumPage} scoreboard=${props.scoreboard} onBackHome=${props.onBackHome} volume=${props.volume} onStopMusic=${props.onStopMusic} />`
-    } else {
+    } else if (!props.isFinal) {
         return html`<${ScoreboardPage} scoreboard=${props.scoreboard} onNextRound=${props.onNextRound} volume=${props.volume} onStopMusic=${props.onStopMusic} />`
+    } else {
+        return html`<${PodiumPage} scoreboard=${props.scoreboard} onBackHome=${props.onBackHome} volume=${props.volume} onStopMusic=${props.onStopMusic} />`
     }
 }

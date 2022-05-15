@@ -9,3 +9,25 @@ html {
     font-weight: lighter;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+button {
+    font-family: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+.background0 {
+    background-color: #5F3475;
+}
+
+.background1 {
+    background-color: #B993D0;
+}
+
+.background2 {
+    background-color: #6B5775;
+}
+
+.background3 {
+    background-color: #9E55C2;
+}
