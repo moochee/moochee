@@ -17,4 +17,3 @@ Jenkinsfile
 *.sh
 pre-commit
 *.md
-design-ideas
