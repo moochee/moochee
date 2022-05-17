@@ -1,14 +1,11 @@
 'use strict'
 
-if (navigator.serviceWorker) {
-    navigator.serviceWorker.register('/service-worker.js')
-}
-
 import { html, render } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 import QuizSocketClient from '/public/quiz-socket-client.js'
 import HostApp from '/components/app/host-app-new.js'
 
+// REVISE remove this style
 loadCss('/public/font/komikatext_regular_macroman/stylesheet.css')
 loadCss('/public/style-new.css')
 

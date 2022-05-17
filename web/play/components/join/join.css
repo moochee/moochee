@@ -15,6 +15,9 @@
 }
 
 .join button {
+    margin-top: .5em;
+    background: #999999;
+    color: white;
     width: 10.5em;
     height: 3em;
     font-family: inherit;

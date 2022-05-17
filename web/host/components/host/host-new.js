@@ -6,7 +6,7 @@ import loadCss from '/public/load-css.js'
 import AudioControl from '/public/components/audio/audio-control.js'
 import Shell from '/public/components/shell/shell.js'
 import Countdown from '/public/components/countdown.js'
-import Waiting from './waiting.js'
+import Waiting from './waiting-new.js'
 import Transition from './transition-new.js'
 
 loadCss('/components/host/host-new.css')
@@ -156,7 +156,7 @@ export default function Host(props) {
     // REVISE right now it seems more and more obvious that the shell should be included in the pages, and not be surrounding the pages
     return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='${players.length} Players' footerRight=${blank} fullScreenContent=${isRoundFinished}>
         <audio ref=${entranceMusic} volume=${volume} loop src=/public/21st_century.mp3></audio>
-        <audio ref=${quizMusic} volume=${volume} loop src=/public/Drive.mp3></audio>
+        <audio ref=${quizMusic} volume=${volume} loop src=/public/Attracting_drama.mp3></audio>
         <audio ref=${tap} volume=${volume} src=/public/components/tap.mp3></audio>
         ${waitingToStartBlock}
         ${questionBlock}
