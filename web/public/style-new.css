@@ -1,0 +1,41 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+html {
+    color: white;
+    background: #262626;
+    font-weight: lighter;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button {
+    font-family: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+.background0 {
+    /* background-color: #5F3475; */
+    background-color: #009026;
+    /* background-color: #6FD294; */
+}
+
+.background1 {
+    /* background-color: #B993D0; */
+    background-color: #006EB9;
+    /* background-color: #588EEB; */
+}
+
+.background2 {
+    /* background-color: #6B5775; */
+    background-color: #EFA90A;
+    /* background-color: #D8BB5F; */
+}
+
+.background3 {
+    /* background-color: #9E55C2; */
+    background-color: #750F77;
+    /* background-color: #EB855B */
+}

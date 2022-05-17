@@ -1,6 +1,6 @@
 'use strict'
 
-import { html, useState, useEffect, useRef } from '/public/lib/preact-3.1.0.standalone.module.js'
+import { html, useState, useEffect, useRef } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 import Shell from '/public/components/shell/shell.js'
 

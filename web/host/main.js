@@ -4,7 +4,7 @@ if (navigator.serviceWorker) {
     navigator.serviceWorker.register('/service-worker.js')
 }
 
-import { html, render } from '/public/lib/preact-3.1.0.standalone.module.js'
+import { html, render } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 import QuizSocketClient from '/public/quiz-socket-client.js'
 import HostApp from '/components/app/host-app.js'

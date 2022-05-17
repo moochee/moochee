@@ -35,13 +35,14 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
 
     app.use('/public', express.static('web/public'))
     app.use('/play', express.static('web/play'))
+    app.use('/lib/htm/preact/standalone.module.js', express.static('./node_modules/htm/preact/standalone.module.js'))
 
     app.use(express.json())
     app.use('/api/v1/quizzes', quizRouter(directory))
 
     app.use('/', login)
 
-    app.post('/api/v1/games', login, async (req, res) => {
+    app.post('/api/v1/games', async (req, res) => {
         const game = await games.host(req.body.quizId)
         const url = `${dedicatedOrigin}/${game.id}`
         res.status(201).set('Location', url).end()

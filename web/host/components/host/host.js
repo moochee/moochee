@@ -1,6 +1,7 @@
 'use strict'
 
-import { html, useState, useEffect, useRef } from '/public/lib/preact-3.1.0.standalone.module.js'
+// REVISE maybe an entire 'Game' should be split out which can also host the transition, so this class only orchestrates waiting/game
+import { html, useState, useEffect, useRef } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 import AudioControl from '/public/components/audio/audio-control.js'
 import Shell from '/public/components/shell/shell.js'

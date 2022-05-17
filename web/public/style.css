@@ -5,4 +5,5 @@ html, body {
 
 html {
     font-family: komika_textregular;
+    background: linear-gradient(to top, #aeccf0, #ffffff);
 }

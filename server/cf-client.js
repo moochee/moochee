@@ -1,8 +1,8 @@
 import https from 'https'
 
 // REVISE consider adding a test for this, cannot easily be tested via deploy process due to async nature
-export default function CFClient(api, username, password) {
-    let token = '', tokenExpiryTime = 0
+export default function CFClient(config) {
+    let jwt = '', jwtExpiryTime = 0
 
     const get = (url, headers) => {
         return send(url, { method: 'GET', headers })
@@ -28,11 +28,11 @@ export default function CFClient(api, username, password) {
     }
 
     const assertLoggedIn = async () => {
-        if (Date.now() > tokenExpiryTime) {
-            const apiInfo = await get(`${api}/v2/info`, { 'Accept': 'application/json' })
+        if (Date.now() > jwtExpiryTime) {
+            const apiInfo = await get(`${config.cf_api}/v2/info`, { 'Accept': 'application/json' })
             const loginInfo = await get(`${apiInfo.authorization_endpoint}/login`, { 'Accept': 'application/json' })
-            const pw = encodeURIComponent(password)
-            const user = encodeURIComponent(username)
+            const pw = encodeURIComponent(config.pw)
+            const user = encodeURIComponent(config.user)
             const data = `grant_type=password&password=${pw}&username=${user}&scope=`
             const headers = {
                 'Accept': 'application/json',
@@ -43,16 +43,15 @@ export default function CFClient(api, username, password) {
             if (!loginResponse.access_token) {
                 throw new Error(JSON.stringify(loginResponse))
             }
-            token = loginResponse.access_token
-            tokenExpiryTime = Date.now() + loginResponse.expires_in * 1000
+            jwt = loginResponse.access_token
+            jwtExpiryTime = Date.now() + loginResponse.expires_in * 1000
         }
     }
 
     this.stop = async () => {
         try {
             await assertLoggedIn()
-            const appId = JSON.parse(process.env.VCAP_APPLICATION).application_id
-            return post(`${api}/v3/apps/${appId}/actions/stop`, { 'Authorization': `bearer ${token}` }, '')
+            return post(`${config.api}/v3/apps/${config.appId}/actions/stop`, { 'Authorization': `bearer ${jwt}` }, '')
         } catch (error) {
             console.error(error)
         }

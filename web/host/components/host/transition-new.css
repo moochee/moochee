@@ -1,0 +1,19 @@
+.transition {
+    height: 100%;
+}
+
+.transition button {
+    position: absolute;
+    right: 2vw;
+    bottom: 12vh;
+    background: #999999;
+    font-size: min(3.5vw, 3.5vh);
+    border-radius: min(1.6vw, 1.4vh);
+    width: min(35vw, 35vh);
+    height: min(8.75vw, 8.75vh);
+    border-style: none;
+}
+
+button:hover {
+    transform: scale(1.1);
+}

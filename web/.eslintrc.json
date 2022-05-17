@@ -4,7 +4,6 @@
         "browser": true
     },
     "ignorePatterns": [
-        "public/lib",
-        "public/design-ideas"
+        "public/lib"
     ]
 }
