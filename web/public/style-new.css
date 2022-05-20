@@ -18,24 +18,48 @@ button {
 
 .background0 {
     /* background-color: #5F3475; */
-    background-color: #009026;
+    background-color: hsl(136, 100%, 28%);
+    /* background-color: #6FD294; */
+}
+
+.background0Secondary {
+    /* background-color: #5F3475; */
+    background-color: hsl(136, 100%, 20%);
     /* background-color: #6FD294; */
 }
 
 .background1 {
     /* background-color: #B993D0; */
-    background-color: #006EB9;
+    background-color: hsl(204, 100%, 36%);
+    /* background-color: #588EEB; */
+}
+
+.background1Secondary {
+    /* background-color: #B993D0; */
+    background-color: hsl(204, 100%, 28%);
     /* background-color: #588EEB; */
 }
 
 .background2 {
     /* background-color: #6B5775; */
-    background-color: #EFA90A;
+    background-color: hsl(42, 92%, 49%);
+    /* background-color: #D8BB5F; */
+}
+
+.background2Secondary {
+    /* background-color: #6B5775; */
+    background-color: hsl(42, 92%, 41%);
     /* background-color: #D8BB5F; */
 }
 
 .background3 {
     /* background-color: #9E55C2; */
-    background-color: #750F77;
+    background-color: hsl(299, 78%, 26%);
+    /* background-color: #EB855B */
+}
+
+.background3Secondary {
+    /* background-color: #9E55C2; */
+    background-color: hsl(299, 78%, 18%);
     /* background-color: #EB855B */
 }

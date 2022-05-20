@@ -1,7 +1,7 @@
 'use strict'
 
 import { html, useState, useEffect } from '/lib/htm/preact/standalone.module.js'
-import Entrance from '/components/entrance/entrance.js'
+import Entrance from '/components/entrance/entrance-new.js'
 import Host from '/components/host/host-new.js'
 import QuizCreator from '/components/quiz-creator/quiz-creator.js'
 import QuizEditor from '/components/quiz-creator/quiz-editor.js'
