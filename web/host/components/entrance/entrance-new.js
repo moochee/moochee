@@ -6,9 +6,9 @@ import Shell from '/public/components/shell/shell.js'
 
 loadCss('/components/entrance/entrance-new.css')
 
-function AdminButton() {
+const AdminButton = function() {
     const click = () => window.location.href = '/#/admin'
-    return html`<div class=entranceAdminButton onclick=${click}>⚙️</div>`
+    return html`<div onclick=${click}>⚙️</div>`
 }
 
 const QuizCard = function (props) {
@@ -28,16 +28,14 @@ const QuizCard = function (props) {
 }
 
 export default function Entrance(props) {
-    const [searchTerm, setSearchTerm] = useState(location.search.substring(1))
+    const [searchTerm, setSearchTerm] = useState(decodeURIComponent(location.search.substring(1)))
     const [quizzes, setQuizzes] = useState([])
-
-    const colors = ['green', 'blue', 'orange', 'purple']
 
     useEffect(() => {
         const searchChanged = (event) => setSearchTerm(event.state || '')
         const getQuizzes = async () => {
             const quizList = await (await fetch('/api/v1/quizzes')).json()
-            quizList.forEach((entry, index) => entry.color = colors[index % 4])
+            quizList.forEach((entry, i) => entry.backgroundClass=`background${i % 4}`)
             setQuizzes(quizList)
         }
         getQuizzes()
@@ -60,12 +58,12 @@ export default function Entrance(props) {
             || !searchTerm
     })
 
-    const quizList = filteredQuizzes.map((q, i) => {
+    const quizList = filteredQuizzes.map(q => {
         return html`<${QuizCard} 
             key=${q.id} 
             tags=${q.tags} 
             text=${q.title} 
-            backgroundClass=background${i % 4}
+            backgroundClass=${q.backgroundClass}
             onClick=${() => host(q.id, q.title)} />`
     })
 

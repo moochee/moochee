@@ -19,10 +19,6 @@
     justify-content: center;
 }
 
-.entranceAdminButton {
-    cursor: pointer;
-}
-
 .quizCard {
     user-select: none;
     position: relative;
@@ -39,8 +35,7 @@
 }
 
 .quizCard .tags {
-    /* width=100% - 2*8% (for the margin) */
-    width: 84%;
+    width: 84%; /* width = 100% - 2 * 8% (for the margin) */
     position: absolute;
     bottom: 5%;
     right: 8%;
