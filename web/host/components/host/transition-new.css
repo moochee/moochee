@@ -13,7 +13,3 @@
     height: min(8.75vw, 8.75vh);
     border-style: none;
 }
-
-button:hover {
-    transform: scale(1.1);
-}
