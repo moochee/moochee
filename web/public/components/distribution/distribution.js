@@ -1,40 +1,29 @@
 'use strict'
 
-import { html, useEffect, useRef } from '/lib/htm/preact/standalone.module.js'
+import { html } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
-import StickyCard from '/public/components/sticky/sticky-card.js'
 
 loadCss('/public/components/distribution/distribution.css')
 
+const Answer = function (props) {
+    return html`<div class='answer ${props.class}'>
+        ${props.text}
+        <div class=count>${props.count}</div>
+        <div class=correct>${props.correct ? '✓' : ''}</div>
+    </div>`
+}
+
 export default function Distribution(props) {
-
-    const distribution = useRef()
-    const setDimensions = () => {
-        const height = Math.min(window.innerHeight, window.innerWidth * 9 / 16) / 100
-        distribution.current.style.setProperty('--height', height)
-        distribution.current.style.setProperty('--width', height * 16 / 9)
-    }
-    useEffect(() => {
-        setDimensions()
-        window.addEventListener('resize', setDimensions)
-        return () => window.removeEventListener('resize', setDimensions)
-    }, [])
-
-    const colors = ['green', 'purple', 'blue', 'orange', 'red', 'yellow', 'petrol']
-
     const answersBlock = props.distribution.answers.map((answer, index) => {
-        const className = answer.correct ? 'correctAnswerAppear' : 'wrongAnswerAppear'
-        const countStyle = 'position: relative; bottom: 30%; right: 15%; font-size: min(5vw, 5vh); color: white; text-align: right;'
+        const className = answer.correct ? 'correctAnswer' : 'wrongAnswer'
+        const bg = `background${index}`
         return html`<div class=${className}>
-            <${StickyCard} key=${index} color=${colors[index]} text=${answer.text} info=${answer.count}/>
-            <div style=${countStyle}>${answer.count}</div>
+            <${Answer} key=${index} class=${bg} text=${answer.text} count=${answer.count} correct=${answer.correct} />
         </div>`
     })
 
-    return html`<div ref=${distribution} class=distributionQuestionAndAnswers>
-        <h1 class=distributionQuestion>${props.distribution.text}</h1>
-        <div class=distributionAnswers>
-            ${answersBlock}
-        </div>
+    return html`<div class=distribution>
+        <div class=question>${props.distribution.text}</div>
+        <div class=answers>${answersBlock}</div>
     </div>`
 }

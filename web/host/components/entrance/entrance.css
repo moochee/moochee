@@ -3,16 +3,19 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    font-family: komika_textregular;
 }
 
 .entranceSearch {
+    display: flex;
+}
+
+.entranceSearch input {
     font-family: inherit;
     font-size: .7em;
     margin-right: 1em;
 }
 
-.entranceQuizzes {
+.entrance .quizzes {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -20,6 +23,39 @@
     justify-content: center;
 }
 
-.entranceAdminButton {
-    cursor: pointer;
+.entrance .quizCard {
+    user-select: none;
+    position: relative;
+    height: min(30vw, 30vh);
+    width: min(30vw, 30vh);
+    border-style: none;
+    border-radius: min(1.5vw, 1.5vh);
+    font-size: min(3.5vw, 3.5vh);
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: .5em;
+}
+
+.entrance .quizCard .tags {
+    width: 84%; /* width = 100% - 2 * 8% (for the margin) */
+    position: absolute;
+    bottom: 5%;
+    right: 8%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    flex-wrap: nowrap;
+}
+
+.entrance .quizCard .tag {
+    font-size: min(2vw, 1.5vh);
+    color: white;
+    padding: 1%;
+    margin: 1%;
+    text-overflow: ellipsis;
+    max-width: 20%;
+    white-space: nowrap;
+    overflow: hidden;
 }

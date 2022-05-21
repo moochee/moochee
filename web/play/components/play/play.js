@@ -4,7 +4,6 @@ import { html, useState, useEffect } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 import Shell from '/public/components/shell/shell.js'
 import Countdown from '/public/components/countdown.js'
-import StickyButton from '/public/components/sticky/sticky-button.js'
 import Transition from './transition.js'
 
 loadCss('/play/components/play/play.css')
@@ -25,23 +24,18 @@ const WaitingToStart = function (props) {
 }
 
 const QuestionAndAnswers = function (props) {
-    const colors = ['green', 'purple', 'blue', 'orange', 'red', 'yellow', 'petrol']
-
-    const answersBlock = props.question.answers.map((answer, index) => {
-        return html`<${StickyButton} key=${index} color=${colors[index]} onClick=${() => props.onGuess(index)} text=${answer.text} />`
-    })
-
     const progress = `(${props.question.id}/${props.question.totalQuestions})`
 
-    return html`<div class=playQuestionAndAnswers>
-        <h1 class=playQuestion>${progress} ${props.question.text}</h1>
-        <div class=playAnswers>
-            ${answersBlock}
-        </div>
+    const answersBlock = props.question.answers.map((answer, i) => {
+        return html`
+            <button key=${i} class='answer background${i}' onClick=${() => props.onGuess(i)}>${answer.text}</button>
+        `
+    })
 
-        <div class=playCountdown>
-            <${Countdown} seconds=${props.countDown} />
-        </div>
+    return html`<div class=round>
+        <div class=question>${progress} ${props.question.text}</div>
+        <div class=answers>${answersBlock}</div>
+        <div class=countdown><${Countdown} seconds=${props.countDown} /></div>
     </div>`
 }
 

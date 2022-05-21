@@ -6,30 +6,22 @@ import loadCss from '/public/load-css.js'
 import AudioControl from '/public/components/audio/audio-control.js'
 import Shell from '/public/components/shell/shell.js'
 import Countdown from '/public/components/countdown.js'
-import StickyCard from '/public/components/sticky/sticky-card.js'
 import Waiting from './waiting.js'
 import Transition from './transition.js'
 
 loadCss('/components/host/host.css')
 
 const QuestionAndAnswers = function (props) {
-    const colors = ['green', 'purple', 'blue', 'orange', 'red', 'yellow', 'petrol']
-
-    const answersBlock = props.question.answers.map((answer, index) => {
-        return html`<${StickyCard} key=${index} color=${colors[index]} text=${answer.text} />`
-    })
-
     const progress = `(${props.question.id}/${props.question.totalQuestions})`
 
-    return html`<div class=hostQuestionAndAnswers>
-        <h1 class=hostQuestion>${progress} ${props.question.text}</h1>
-        <div class=hostAnswers>
-            ${answersBlock}
-        </div>
+    const answersBlock = props.question.answers.map((answer, index) => {
+        return html`<div key=${index} class='answer background${index}'>${answer.text}</div>`
+    })
 
-        <div class=hostCountdown>
-            <${Countdown} seconds=${props.countDown} />
-        </div>
+    return html`<div class=round>
+        <div class=question>${progress} ${props.question.text}</div>
+        <div class=answers>${answersBlock}</div>
+        <div class=countdown><${Countdown} seconds=${props.countDown} /></div>
     </div>`
 }
 
@@ -44,7 +36,8 @@ export default function Host(props) {
     const [volume, setVolume] = useState(1)
     const [statistics, setStatistics] = useState({ answerResults: [] })
 
-    const music = useRef({})
+    const entranceMusic = useRef({})
+    const quizMusic = useRef({})
     const tap = useRef({})
 
     const onPlayerJoined = (player) => {
@@ -66,6 +59,8 @@ export default function Host(props) {
     }
 
     const onRoundStarted = (newQuestion, secondsToGuess) => {
+        entranceMusic.current.pause()
+        quizMusic.current.play()
         setQuestion(newQuestion)
         setCountDown(secondsToGuess)
         setIsRoundFinished(false)
@@ -118,11 +113,11 @@ export default function Host(props) {
     }
 
     const stopMusic = () => {
-        music.current.pause()
+        quizMusic.current.pause()
     }
 
     useEffect(() => {
-        music.current.play()
+        entranceMusic.current.play()
         props.client.subscribe('playerJoined', onPlayerJoined)
         props.client.subscribe('roundStarted', onRoundStarted)
         props.client.subscribe('playerGuessed', onPlayerGuessed)
@@ -143,7 +138,7 @@ export default function Host(props) {
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} client=${props.client} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />` : ''
     // REVISE need to get terminology straight wrt result vs. distribution
-    const transitionBlock = isRoundFinished 
+    const transitionBlock = isRoundFinished
         ? html`<${Transition}
             isFinal=${isFinal}
             distribution=${status.result}
@@ -157,10 +152,11 @@ export default function Host(props) {
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`
     const blank = html`<div></div>`
-    
+
     // REVISE right now it seems more and more obvious that the shell should be included in the pages, and not be surrounding the pages
     return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='${players.length} Players' footerRight=${blank} fullScreenContent=${isRoundFinished}>
-        <audio ref=${music} volume=${volume} loop src=/public/components/positive-funny-background-music-for-video-games.mp3></audio>
+        <audio ref=${entranceMusic} volume=${volume} loop src=/public/21st_century.mp3></audio>
+        <audio ref=${quizMusic} volume=${volume} loop src=/public/Attracting_drama.mp3></audio>
         <audio ref=${tap} volume=${volume} src=/public/components/tap.mp3></audio>
         ${waitingToStartBlock}
         ${questionBlock}

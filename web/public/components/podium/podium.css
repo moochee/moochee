@@ -12,7 +12,6 @@
 
 .podiumRank1, .podiumRank2, .podiumRank3 {
     transform: translateX(-50%);
-    font-family: komika_textregular;
     font-size: calc(3 * var(--width) * 1px);
     color: white;
     position: absolute;

@@ -29,6 +29,7 @@ export default function QuizSocketClient(createWebSocket, isNewGameCreate) {
     }
 
     this.host = async (quizId, quizTitle) => {
+        // REVISE get rid of this switch and the related flag
         if (isNewGameCreate) {
             const response = await fetch('/api/v1/games', {
                 headers: { 'Content-Type': 'application/json' },

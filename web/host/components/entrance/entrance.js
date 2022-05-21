@@ -1,28 +1,41 @@
 'use strict'
 
-import {html, useEffect, useState} from '/lib/htm/preact/standalone.module.js'
+import { html, useEffect, useState } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 import Shell from '/public/components/shell/shell.js'
-import StickyButton from '/public/components/sticky/sticky-button.js'
 
 loadCss('/components/entrance/entrance.css')
 
-function AdminButton() {
+const AdminButton = function() {
     const click = () => window.location.href = '/#/admin'
-    return html`<div class=entranceAdminButton onclick=${click}>⚙️</div>`
+    return html`<div onclick=${click}>⚙️</div>`
+}
+
+const QuizCard = function (props) {
+    const tags = props.tags
+        .map(tag => html`<div class='tag ${props.backgroundClass}Secondary' title=${tag}>${tag}</div>`)
+        .slice(0, 4)
+
+    if (props.tags.length > 4) {
+        const tooltip = props.tags.slice(4).join(', ')
+        tags.push(html`<div class='tag ${props.backgroundClass}Secondary' title=${tooltip}>...</div>`)
+    }
+
+    return html`<button class='quizCard ${props.backgroundClass}' onClick=${props.onClick}>
+        ${props.text}
+        <div class=tags>${tags}</div>
+    </button>`
 }
 
 export default function Entrance(props) {
-    const [searchTerm, setSearchTerm] = useState(location.search.substring(1))
+    const [searchTerm, setSearchTerm] = useState(decodeURIComponent(location.search.substring(1)))
     const [quizzes, setQuizzes] = useState([])
-
-    const colors = ['green', 'blue', 'orange', 'purple']
 
     useEffect(() => {
         const searchChanged = (event) => setSearchTerm(event.state || '')
         const getQuizzes = async () => {
             const quizList = await (await fetch('/api/v1/quizzes')).json()
-            quizList.forEach((entry, index) => entry.color = colors[index % 4])
+            quizList.forEach((entry, i) => entry.backgroundClass=`background${i % 4}`)
             setQuizzes(quizList)
         }
         getQuizzes()
@@ -40,19 +53,23 @@ export default function Entrance(props) {
     }
 
     const filteredQuizzes = quizzes.filter(q => {
-        return q.tags.includes(searchTerm) 
-            || q.title.toLowerCase().includes(searchTerm.toLowerCase()) 
+        return q.tags.includes(searchTerm)
+            || q.title.toLowerCase().includes(searchTerm.toLowerCase())
             || !searchTerm
     })
 
     const quizList = filteredQuizzes.map(q => {
-        return html`<${StickyButton} key=${q.id} onClick=${() => host(q.id, q.title)} text=${q.title} color=${q.color} tags=${q.tags}/>`
+        return html`<${QuizCard}
+            key=${q.id}
+            tags=${q.tags}
+            text=${q.title}
+            backgroundClass=${q.backgroundClass}
+            onClick=${() => host(q.id, q.title)} />`
     })
 
     const headerRight = html`
-        <div style='display: flex;'>
-            <input class=entranceSearch
-                    placeholder=Search...
+        <div class=entranceSearch>
+            <input placeholder=Search...
                     value=${searchTerm}
                     onChange=${event => search(event.target.value)}>
             </input>
@@ -61,8 +78,9 @@ export default function Entrance(props) {
     `
 
     return html`<${Shell} headerLeft='Select your quiz' headerRight=${headerRight}>
+        <!-- REVISE why do we need nested divs? -->
         <div class=entrance>
-            <div class=entranceQuizzes>
+            <div class=quizzes>
                 ${quizList}
             </div>
         </div>
