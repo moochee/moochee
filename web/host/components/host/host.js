@@ -14,8 +14,8 @@ loadCss('/components/host/host.css')
 const QuestionAndAnswers = function (props) {
     const progress = `(${props.question.id}/${props.question.totalQuestions})`
 
-    const answersBlock = props.question.answers.map((answer, index) => {
-        return html`<div key=${index} class='answer background${index}'>${answer.text}</div>`
+    const answersBlock = props.question.answers.map((answer, i) => {
+        return html`<div key=${i} class='answer background${i % 4}'>${answer.text}</div>`
     })
 
     return html`<div class=round>
