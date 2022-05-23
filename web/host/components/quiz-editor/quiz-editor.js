@@ -37,7 +37,7 @@ const QuestionAndAnswers = function (props) {
             </div>
         `
     })
-    answersBlock.push(html`<button class='answer add' onClick=${addAnswer}>+</button>`)
+    answersBlock.push(html`<button class='answer addAnswer' onClick=${addAnswer}>+</button>`)
 
     const onInputQuestion = (event) => {
         const newState = JSON.parse(JSON.stringify(props.question))
@@ -45,7 +45,7 @@ const QuestionAndAnswers = function (props) {
         props.onUpdateQuestion(newState)
     }
 
-    return html`<div class=questions>
+    return html`<div class=questionAndAnswers>
         <input class=question placeholder=Question onInput=${onInputQuestion} value=${props.question.text}></input>
         <div class=answers>${answersBlock}</div>
     </div>`
@@ -140,6 +140,8 @@ export default function QuizEditor(props) {
         return html`
             <div key=${question.id}>
                 <${QuestionAndAnswers} question=${question} onUpdateQuestion=${updateQuestion} />
+            </div>
+            <div key=actions-${question.id} class=addDeleteQuestion>
                 <button onClick=${addQuestion}>+</button>
                 ${deleteButton}
             </div>

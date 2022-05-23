@@ -30,7 +30,7 @@
     background-color: transparent;
 }
 
-.quizEditor .questions {
+.quizEditor .questionAndAnswers,.questions {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,7 +46,13 @@
     text-align: center;
 }
 
-/* REVISE is this needed? */
+.quizEditor .answers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .quizEditor .answerEntry {
     position: relative
 }
@@ -75,11 +81,10 @@
     bottom: 8%;
 }
 
-.quizEditor .answers {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
+/* REVISE is this needed? */
+.quizEditor .answer .correct {
+    width: 2vh;
+    height: 2vh;
 }
 
 /* REVISE is this needed? */
@@ -98,37 +103,16 @@
     margin: .5em;
 }
 
-.quizEditor .answer.add {
-    background-color: gray;
+.quizEditor .addAnswer {
+    background-color: #999999;
 }
 
-/* REVISE is this needed? */
-.quizEditor .addDeleteQuestion {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1vh
-}
-
-/* REVISE is this needed? */
-.quizEditor .addDelete {
-    width: 5vh;
-    height: 5vh;
-    font-size: min(2vh, 2vw);
-    border-radius: 50%;
-    color: gray;
-}
-
-/* REVISE is this needed? */
-.quizCreatorButton {
-    width: 15vh;
-    height: 5vh;
-    font-size: 3vh;
-    font-family: inherit;
-}
-
-/* REVISE is this needed? */
-.quizEditor .answer .correct {
-    width: 2vh;
-    height: 2vh;
+.quizEditor .addDeleteQuestion button {
+    background-color: #999999;
+    border-style: none;
+    border-radius: min(1.5vw, 1.5vh);
+    font-size: min(3.5vw, 3.5vh);
+    height: min(6vw, 6vh);
+    width: min(6vw, 6vh);
+    margin: .5em;
 }
