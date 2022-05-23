@@ -3,11 +3,27 @@
 import { html, useEffect, useState } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 import Shell from '/public/components/shell/shell.js'
-import StickyCard from '/public/components/sticky/sticky-card.js'
 
 loadCss('/components/admin/admin.css')
 
-// TODO display tags
+const Quiz = function (props) {
+    const tags = props.tags
+        .map(tag => html`<div class='tag ${props.backgroundClass}Secondary' title=${tag}>${tag}</div>`)
+        .slice(0, 4)
+
+    if (props.tags.length > 4) {
+        const tooltip = props.tags.slice(4).join(', ')
+        tags.push(html`<div class='tag ${props.backgroundClass}Secondary' title=${tooltip}>...</div>`)
+    }
+
+    return html`<div class='quiz ${props.backgroundClass}'>
+        ${props.title}
+        <div class=tags>${tags}</div>
+        <button title=edit onClick=${props.onEdit} class=editButton>✎</button>
+        <button title=delete onClick=${props.onDelete} class=deleteButton>✕</button>
+    </div>`
+}
+
 export default function Admin() {
     const [quizzes, setQuizzes] = useState([])
 
@@ -23,33 +39,27 @@ export default function Admin() {
     }, [])
 
     const quizList = quizzes.map((q, i) => {
-        const deleteQuiz = async () => {
+        const del = async () => {
             const response = await fetch(`/api/v1/quizzes/${q.id}`, { method: 'DELETE' })
             if (response.ok) setQuizzes(oldQuizzes => { return oldQuizzes.filter(o => o.id !== q.id) })
         }
-        const editQuiz = async () => {
+        const edit = async () => {
             window.location.href = `/#/edit/${q.id}`
         }
-        return html`<div key=${q.id} class=adminQuiz>
-            <${StickyCard} onClick=${deleteQuiz} text=${q.title} color=${q.color} />
-            <div class=quizCreatorActions>
-                <button id=edit_${i} onclick=${editQuiz} class=adminSmallButton>Edit</button>
-                <button id=delete_${i} onclick=${deleteQuiz} class=adminSmallButton>Delete</button>
-            </div>
+
+        const bg = `background${i % 4}`
+        return html`<div  class=entry>
+            <${Quiz} key=${q.id} tags=${q.tags} title=${q.title} backgroundClass=${bg} onEdit=${edit} onDelete=${del} />
         </div>`
     })
-
+    quizList.push(html`<a title=add class='quiz add' href='/#/create'>+</a>`)
+    
     const quizArea = quizzes.length > 0 ?
-        html`<div class=adminQuizzes>${quizList}</div>` :
+        html`<div class=quizzes>${quizList}</div>` :
         html`<h1>No quiz found!</h1>`
 
-    return html`<${Shell} headerCenter='Manage My Quizzes'>
-        <div class=admin>
-            <div class=adminActions>
-                <a href='/#/create'>Create New Quiz</a>
-                <a href='/'>Back Home</a>
-            </div>
-            ${quizArea}
-        </div>
+    const back=html`<a class=adminBack href='/'>${'<'}</a>`
+    return html`<${Shell} headerLeft=${back} headerCenter='Manage My Quizzes'>
+        <div class=admin>${quizArea}</div>
     <//>`
 }

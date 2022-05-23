@@ -5,16 +5,12 @@
     height: 100%;
 }
 
-.adminActions {
-    margin-top: 2vh;
-    font-size: 2vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1vh;
+.adminBack {
+    color: inherit;
+    text-decoration: none;
 }
 
-.adminQuizzes {
+.admin .quizzes {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -22,15 +18,62 @@
     justify-content: center;
 }
 
-.adminQuiz {
+.admin .quiz {
+    position: relative;
+    height: min(30vw, 30vh);
+    width: min(30vw, 30vh);
+    border-style: none;
+    border-radius: min(1.5vw, 1.5vh);
+    font-size: min(3.5vw, 3.5vh);
     display: flex;
-    flex-direction: column;
+    text-align: center;
     align-items: center;
+    justify-content: center;
+    margin: .5em;
 }
 
-.adminSmallButton {
-    width: 10vh;
-    height: 5vh;
-    font-size: 2vh;
-    font-family: inherit;
+.admin .quiz.add {
+    background-color: gray;
+    color: inherit;
+    text-decoration: none;
+}
+
+.admin .quiz .editButton {
+    background-color: transparent;
+    border-style: none;
+    position: absolute;
+    font-size: min(3vh, 3vw);
+    left: 5%;
+    top: 5%;
+}
+
+.admin .quiz .deleteButton {
+    background-color: transparent;
+    border-style: none;
+    position: absolute;
+    font-size: min(3vh, 3vw);
+    right: 5%;
+    top: 5%;
+}
+
+.admin .quiz .tags {
+    width: 84%; /* width = 100% - 2 * 8% (for the margin) */
+    position: absolute;
+    bottom: 5%;
+    right: 8%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    flex-wrap: nowrap;
+}
+
+.admin .quiz .tag {
+    font-size: min(2vw, 1.5vh);
+    color: white;
+    padding: 1%;
+    margin: 1%;
+    text-overflow: ellipsis;
+    max-width: 20%;
+    white-space: nowrap;
+    overflow: hidden;
 }
