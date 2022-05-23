@@ -1,31 +1,31 @@
-.host .round {
+.hostRound {
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 100%;
 }
 
-.host .round .question {
+.hostRound .question {
     text-align: center;
     font-size: 4vh;
     margin-block-end: 0.67em;
 }
 
-.host .round .answers {
+.hostRound .answers {
     display: flex;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.host .round .countdown {
+.hostRound .countdown {
     position: absolute;
     bottom: 2vh;
     right: 4vh;
     font-size: 5vh;
 }
 
-.host .round .answer {
+.hostRound .answer {
     user-select: none;
     cursor: default;
     position: relative;

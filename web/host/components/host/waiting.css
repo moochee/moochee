@@ -53,12 +53,18 @@
     font-size: min(6vh, 6vw);
 }
 
-.hostWaitingStartButton {
+.hostWaiting .startButton {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    opacity: 0.9;
+    right: 1em;
+    bottom: 1em;
+    background-color: #999999;
+    font-size: min(3.5vw, 3.5vh);
+    border-radius: min(1.6vw, 1.4vh);
+    width: min(35vw, 35vh);
+    height: min(8.75vw, 8.75vh);
+    border-style: none;
 }
+
 
 @media (orientation: landscape) {
     .hostWaitingSplitContainer {

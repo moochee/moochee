@@ -2,7 +2,6 @@
 
 import { html, useState, useRef, useEffect } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
-import StickyButton from '/public/components/sticky/sticky-button.js'
 import QrCreator from '/public/lib/qr-creator.es6.min.js'
 
 loadCss('/components/host/waiting.css')
@@ -50,7 +49,7 @@ export default function Waiting(props) {
         ? html`<div class=hostWaitingPlayerInfo>${playerInfo}</div>`
         : html`<div class='hostWaitingPlayerInfo hostWaitingNoPlayersYet'>Let people scan the QR code or send them the join URL.</div>`
 
-    const startButton = props.canStart ? html`<${StickyButton} onClick=${start} color=blue text=Start />` : ''
+    const startButton = props.canStart ? html`<button class=startButton onClick=${start}>Start</button>` : ''
 
     return html`<div class=hostWaiting>
         <div class=hostWaitingJoinUrl>
@@ -62,6 +61,7 @@ export default function Waiting(props) {
             <${QRCode} url=${joinUrl} />
             ${players}
         </div>
-        <div class=hostWaitingStartButton>${startButton}</div>
+
+        ${startButton}
     </div>`
 }

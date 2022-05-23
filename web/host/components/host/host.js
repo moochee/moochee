@@ -18,7 +18,7 @@ const QuestionAndAnswers = function (props) {
         return html`<div key=${i} class='answer background${i % 4}'>${answer.text}</div>`
     })
 
-    return html`<div class=round>
+    return html`<div class=hostRound>
         <div class=question>${progress} ${props.question.text}</div>
         <div class=answers>${answersBlock}</div>
         <div class=countdown><${Countdown} seconds=${props.countDown} /></div>
