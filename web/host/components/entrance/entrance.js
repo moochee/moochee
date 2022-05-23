@@ -11,7 +11,7 @@ const AdminButton = function() {
     return html`<div onclick=${click}>⚙️</div>`
 }
 
-const QuizCard = function (props) {
+const Quiz = function (props) {
     const tags = props.tags
         .map(tag => html`<div class='tag ${props.backgroundClass}Secondary' title=${tag}>${tag}</div>`)
         .slice(0, 4)
@@ -21,7 +21,7 @@ const QuizCard = function (props) {
         tags.push(html`<div class='tag ${props.backgroundClass}Secondary' title=${tooltip}>...</div>`)
     }
 
-    return html`<button class='quizCard ${props.backgroundClass}' onClick=${props.onClick}>
+    return html`<button class='quiz ${props.backgroundClass}' onClick=${props.onClick}>
         ${props.text}
         <div class=tags>${tags}</div>
     </button>`
@@ -59,7 +59,7 @@ export default function Entrance(props) {
     })
 
     const quizList = filteredQuizzes.map(q => {
-        return html`<${QuizCard}
+        return html`<${Quiz}
             key=${q.id}
             tags=${q.tags}
             text=${q.title}

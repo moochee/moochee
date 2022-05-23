@@ -23,7 +23,7 @@
     justify-content: center;
 }
 
-.entrance .quizCard {
+.entrance .quiz {
     user-select: none;
     position: relative;
     height: min(30vw, 30vh);
@@ -38,7 +38,7 @@
     margin: .5em;
 }
 
-.entrance .quizCard .tags {
+.entrance .quiz .tags {
     width: 84%; /* width = 100% - 2 * 8% (for the margin) */
     position: absolute;
     bottom: 5%;
@@ -49,7 +49,7 @@
     flex-wrap: nowrap;
 }
 
-.entrance .quizCard .tag {
+.entrance .quiz .tag {
     font-size: min(2vw, 1.5vh);
     color: white;
     padding: 1%;
