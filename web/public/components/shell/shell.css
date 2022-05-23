@@ -7,7 +7,7 @@
     font-size: min(5vw, 5vh);
     width: 100%;
     position: fixed;
-    background: black;
+    background-color: black;
     color: white;
     height: 10%;
     display: flex;

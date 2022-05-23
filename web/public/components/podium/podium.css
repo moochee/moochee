@@ -1,7 +1,7 @@
 /* Positioning must be relative to the podium. We set --height / --width in our js code on resize to use it here */
 
 .podium {
-    background: black;
+    background-color: black;
     height: 100%;
     background-image: url(pedestal-4762661_1920.jpg);
     background-repeat: no-repeat;
