@@ -10,6 +10,10 @@ html {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+input {
+    font-family: inherit;
+}
+
 button {
     font-family: inherit;
     color: inherit;
