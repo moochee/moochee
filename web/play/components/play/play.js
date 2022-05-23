@@ -28,7 +28,7 @@ const QuestionAndAnswers = function (props) {
 
     const answersBlock = props.question.answers.map((answer, i) => {
         return html`
-            <button key=${i} class='answer background${i}' onClick=${() => props.onGuess(i)}>${answer.text}</button>
+            <button key=${i} class='answer background${i % 4}' onClick=${() => props.onGuess(i)}>${answer.text}</button>
         `
     })
 

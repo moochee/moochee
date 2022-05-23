@@ -16,7 +16,7 @@ const Answer = function (props) {
 export default function Distribution(props) {
     const answersBlock = props.distribution.answers.map((answer, index) => {
         const className = answer.correct ? 'correctAnswer' : 'wrongAnswer'
-        const bg = `background${index}`
+        const bg = `background${index % 4}`
         return html`<div class=${className}>
             <${Answer} key=${index} class=${bg} text=${answer.text} count=${answer.count} correct=${answer.correct} />
         </div>`
