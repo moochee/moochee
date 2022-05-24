@@ -54,12 +54,8 @@ export default function Admin() {
     })
     quizList.push(html`<a title=add class='quiz add' href='/#/create'>+</a>`)
     
-    const quizArea = quizzes.length > 0 ?
-        html`<div class=quizzes>${quizList}</div>` :
-        html`<h1>No quiz found!</h1>`
-
     const back=html`<a class=adminBack href='/'>${'<'}</a>`
     return html`<${Shell} headerLeft=${back} headerCenter='Manage My Quizzes'>
-        <div class=admin>${quizArea}</div>
+        <div class=admin><div class=quizzes>${quizList}</div></div>
     <//>`
 }
