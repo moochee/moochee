@@ -34,6 +34,7 @@ export default function Host(props) {
     const [isFinal, setIsFinal] = useState(false)
     const [countDown, setCountDown] = useState(null)
     const [volume, setVolume] = useState(1)
+    const [previousVolume, setPreviousVolume] = useState(1)
     const [statistics, setStatistics] = useState({ answerResults: [] })
 
     const entranceMusic = useRef({})
@@ -59,6 +60,7 @@ export default function Host(props) {
     }
 
     const onRoundStarted = (newQuestion, secondsToGuess) => {
+        setVolume(previousVolume)
         entranceMusic.current.pause()
         quizMusic.current.play()
         setQuestion(newQuestion)
@@ -90,6 +92,8 @@ export default function Host(props) {
     }
 
     const onRoundFinished = (status) => {
+        setPreviousVolume(volume)
+        setVolume(volume / 3)
         setIsRoundFinished(true)
         setQuestion(null)
         setStatus(oldStatus => ({
