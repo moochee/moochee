@@ -1,0 +1,83 @@
+{
+    "title": "Refactoring",
+    "tags": ["agile", "ase"],
+    "questions": [
+        {
+            "text": "What's the Problem with the 'Grand Redesign in the Sky'?",
+            "answers": [
+                {"text": "Long, costly and unclear if we succeed", "correct": true},
+                {"text": "No problem, it's the preferred approach"},
+                {"text": "We might end up where we started", "correct": true}
+            ]
+        },
+        {
+            "text": "Which is NOT a clean code principle?",
+            "answers": [
+                {"text": "Readability"},
+                {"text": "Testability"},
+                {"text": "Consistency"},
+                {"text": "Performance", "correct": true}
+            ]
+        },
+        {
+            "text": "Which object name contains 'noise words'?",
+            "answers": [
+                {"text": "CustomerData", "correct": true},
+                {"text": "CustomerInfo", "correct": true},
+                {"text": "CustomerObject", "correct": true},
+                {"text": "Customer"}
+            ]
+        },
+        {
+            "text": "What follows from the 'Single Responsibility' principle?",
+            "answers":[
+                {"text": "No function longer than 20 lines"},
+                {"text": "No class/file longer than 100 lines"},
+                {"text": "Functions/classes should be cohesive", "correct": true},
+                {"text": "No more than 2 other classes used"}
+            ]
+        },
+        {
+            "text": "How to apply the 'Dependency Inversion' principle?",
+            "answers":[
+                {"text": "Just flip the dependency"},
+                {"text": "Depend on abstraction, not implementation", "correct": true},
+                {"text": "Install a DI framework"}
+            ]
+        },
+        {
+            "text": "Why does the 'Dependency Inversion' principle help?",
+            "answers":[
+                {"text": "It makes the code more flexible", "correct": true},
+                {"text": "It reduces dependencies"},
+                {"text": "It makes the code more testable", "correct": true},
+                {"text": "It improves performance"}
+            ]
+        },
+        {
+            "text": "Which activity is a refactoring?",
+            "answers":[
+                {"text": "Fix bug"},
+                {"text": "Add feature"},
+                {"text": "Improve performance"},
+                {"text": "Improve code structure", "correct": true}
+            ]
+        },
+        {
+            "text": "What is a good refactoring approach?",
+            "answers":[
+                {"text": "Edit and pray"},
+                {"text": "Big bang"},
+                {"text": "Baby steps", "correct": true}
+            ]
+        },
+        {
+            "text": "What do you need to refactor effectively & efficiently?",
+            "answers":[
+                {"text": "Good tests that you trust", "correct": true},
+                {"text": "An IDE"},
+                {"text": "A fast computer"}
+            ]
+        }
+    ]
+}
