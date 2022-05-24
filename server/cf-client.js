@@ -29,7 +29,7 @@ export default function CFClient(config) {
 
     const assertLoggedIn = async () => {
         if (Date.now() > jwtExpiryTime) {
-            const apiInfo = await get(`${config.cf_api}/v2/info`, { 'Accept': 'application/json' })
+            const apiInfo = await get(`${config.api}/v2/info`, { 'Accept': 'application/json' })
             const loginInfo = await get(`${apiInfo.authorization_endpoint}/login`, { 'Accept': 'application/json' })
             const pw = encodeURIComponent(config.pw)
             const user = encodeURIComponent(config.user)
