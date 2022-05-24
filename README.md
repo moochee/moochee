@@ -83,7 +83,8 @@ _For the second reason, we compiled a list of our learnings here!_
 
 ### Music
 
-Music was taken from https://www.freesoundslibrary.com/positive-funny-background-music-for-video-games/
+Music is from the [SAP Sound Library](https://video.sap.com/channel/The+SAP++Sound+Library/47514541)
+Fireworks audio effect is from [https://www.freesoundslibrary.com/](https://www.freesoundslibrary.com/sounds-of-fireworks-exploding/)
 
 ```
 "Free Sounds Library"
@@ -97,9 +98,10 @@ Licence: License: Attribution 4.0 International (CC BY 4.0). You are allowed to 
 
 ### Visuals
 
-- Avatats are standard built emojis
+- Avatats are standard built-in emojis
 - Cloud Curriculum and Agile+Cloud Development Competencies logo are our own logo
-- Other visuals are taken from https://pixabay.com/ or from https://freesvg.org/ and subject to the licenses below
+- Pedestal image is from [https://pixabay.com/](https://pixabay.com/illustrations/pedestal-ranking-podium-winner-4762661/) and subject to the Simplified Pixabay License
+- Fireworks visuals are from https://freesvg.org/ ([green](https://freesvg.org/green-fireworks-vector-image) | [blue](https://freesvg.org/blue-fireworks-vector-drawing) | [pink](https://freesvg.org/pink-fireworks-vector-illustration)) and subject to the CC0 1.0 license
 
 ```
 Simplified Pixabay License (https://pixabay.com/service/license/)

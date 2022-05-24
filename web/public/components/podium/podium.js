@@ -44,9 +44,9 @@ export default function PodiumFinal(props) {
     return html`<div ref=${podium} class='podium podiumAnimated'>
         <audio ref=${music} volume=${props.volume} src=/public/Celebration.mp3></audio>
         <audio ref=${fireworks} volume=${props.volume} loop src=/public/components/podium/sounds-of-fireworks-exploding.mp3></audio>
-        <img class=firework1 src=/public/components/podium/fireworks-152949.svg />
-        <img class=firework2 src=/public/components/podium/celebration-152950.svg />
-        <img class=firework3 src=/public/components/podium/celebration-152951.svg />
+        <img class=firework1 src=/public/components/podium/fireworks-blue.svg />
+        <img class=firework2 src=/public/components/podium/fireworks-green.svg />
+        <img class=firework3 src=/public/components/podium/fireworks-pink.svg />
         ${podiumPlayersHtml}
     </div>`
 }
