@@ -129,7 +129,7 @@ describe('Game', () => {
     })
 
     it('should get zero score if the last player answered correctly after timeout', () => {
-        quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }, { text: 'a2' }] }]
+        quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }, { text: 'a2', correct: true }] }]
         events.publish = function (_, message) { this.publishedMessage = message }
         game.join(ALICE)
         game.join(BOB)

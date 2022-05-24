@@ -30,6 +30,7 @@ export default function Game(quiz, timer, events) {
         guessTimeoutId = timer.setTimeout(() => this.finishRound(question), timeToGuess)
 
         const question = quiz.questions[++currentQuestionIndex]
+        question.answers.sort(() => Math.random() - .5)
         question.answers.forEach(a => a.count = 0)
         const questionWithoutCorrectAnswer = {
             id: currentQuestionIndex + 1, text: question.text,
