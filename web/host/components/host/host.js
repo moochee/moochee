@@ -34,6 +34,8 @@ export default function Host(props) {
     const [isFinal, setIsFinal] = useState(false)
     const [countDown, setCountDown] = useState(null)
     const [volume, setVolume] = useState(1)
+    // REVISE This whole handling is clunky: used to lower volume during transition and restore original volume later.
+    //        The solution is hacky and incomplete. Extract a clean game.js including transition to fix cleanly.
     const [previousVolume, setPreviousVolume] = useState(1)
     const [statistics, setStatistics] = useState({ answerResults: [] })
 
@@ -110,6 +112,7 @@ export default function Host(props) {
         console.log(status)
         onRoundFinished(status)
         setIsFinal(true)
+        setVolume(previousVolume)
     }
 
     const nextRound = () => {
