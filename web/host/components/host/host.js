@@ -33,10 +33,9 @@ export default function Host(props) {
     const [status, setStatus] = useState({ scoreboard: [] })
     const [isFinal, setIsFinal] = useState(false)
     const [countDown, setCountDown] = useState(null)
-    const [volume, setVolume] = useState(1)
     // REVISE This whole handling is clunky: used to lower volume during transition and restore original volume later.
     //        The solution is hacky and incomplete. Extract a clean game.js including transition to fix cleanly.
-    const [previousVolume, setPreviousVolume] = useState(1)
+    const [volume, setVolume] = useState({current: 1, previous: 1})
     const [statistics, setStatistics] = useState({ answerResults: [] })
 
     const entranceMusic = useRef({})
@@ -62,7 +61,7 @@ export default function Host(props) {
     }
 
     const onRoundStarted = (newQuestion, secondsToGuess) => {
-        setVolume(previousVolume)
+        setVolume(volume => ({ ...volume, current: volume.previous }))
         entranceMusic.current.pause()
         quizMusic.current.play()
         setQuestion(newQuestion)
@@ -94,8 +93,7 @@ export default function Host(props) {
     }
 
     const onRoundFinished = (status) => {
-        setPreviousVolume(volume)
-        setVolume(volume / 3)
+        setVolume(volume => ({ previous: volume.current, current: volume.current / 3 }))
         setIsRoundFinished(true)
         setQuestion(null)
         setStatus(oldStatus => ({
@@ -112,7 +110,7 @@ export default function Host(props) {
         console.log(status)
         onRoundFinished(status)
         setIsFinal(true)
-        setVolume(previousVolume)
+        setVolume(volume => ({ ...volume, current: volume.previous }))
     }
 
     const nextRound = () => {
@@ -121,6 +119,10 @@ export default function Host(props) {
 
     const stopMusic = () => {
         quizMusic.current.pause()
+    }
+
+    const updateVolume = (newVolume) => {
+        setVolume({ current: newVolume, previous: newVolume })
     }
 
     useEffect(() => {
@@ -157,14 +159,14 @@ export default function Host(props) {
         : ''
 
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
-    const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`
+    const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${updateVolume} />`
     const blank = html`<div></div>`
 
     // REVISE right now it seems more and more obvious that the shell should be included in the pages, and not be surrounding the pages
     return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='${players.length} Players' footerRight=${blank} fullScreenContent=${isRoundFinished}>
-        <audio ref=${entranceMusic} volume=${volume} loop src=/public/21st_century.mp3></audio>
-        <audio ref=${quizMusic} volume=${volume} loop src=/public/Attracting_drama.mp3></audio>
-        <audio ref=${tap} volume=${volume} src=/public/components/tap.mp3></audio>
+        <audio ref=${entranceMusic} volume=${volume.current} loop src=/public/21st_century.mp3></audio>
+        <audio ref=${quizMusic} volume=${volume.current} loop src=/public/Attracting_drama.mp3></audio>
+        <audio ref=${tap} volume=${volume.current} src=/public/components/tap.mp3></audio>
         ${waitingToStartBlock}
         ${questionBlock}
         ${transitionBlock}
