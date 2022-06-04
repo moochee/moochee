@@ -41,7 +41,7 @@ export default function create(client, auths, directory, dedicatedOrigin, gameEx
     app.use(express.json())
     app.use('/api/v1/quizzes', quizRouter(directory))
 
-    app.use('/tryout', anonymousLogin)
+    app.use('/tryout', anonymousLogin, express.static('web/host'))
     app.use('/', googleLogin)
 
     app.post('/api/v1/games', async (req, res) => {
