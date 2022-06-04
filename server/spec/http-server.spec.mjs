@@ -59,10 +59,6 @@ describe('Server', () => {
             await client.get('/api/v1/games').expect(302)
         })
 
-        it('allows anonymous access to service worker at root', async () => {
-            await client.get('/service-worker.js').expect(200)
-        })
-
         it('allows anonymous access to favicon.ico at root', async () => {
             await client.get('/favicon.ico').expect(204)
         })
