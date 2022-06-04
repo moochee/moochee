@@ -12,6 +12,12 @@
     font-size: min(4vh, 4vw);
 }
 
+.quizEditor .tagsLine {
+    width: 100%;
+    text-align: center;
+    font-size: inherit;
+}
+
 .quizEditor .tags {
     margin-top: 1em;
     width: 30%;

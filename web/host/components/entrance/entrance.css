@@ -9,6 +9,10 @@
     display: flex;
 }
 
+.entranceAdmin {
+    cursor: pointer; 
+}
+
 .entranceSearch input {
     font-family: inherit;
     font-size: .7em;

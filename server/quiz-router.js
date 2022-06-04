@@ -13,8 +13,8 @@ export default function create(directory) {
         }
         try {
             const authorEmail = req.user.claims.email
-            const id = await quizService.create(req.body, true, authorEmail)
-            const quiz = await quizService.getPrivate(id)
+            const id = await quizService.create(req.body, authorEmail)
+            const quiz = await quizService.get(id)
             res.status(200).send(quiz).end()
         } catch (error) {
             console.error(error)
@@ -29,8 +29,8 @@ export default function create(directory) {
         try {
             const authorEmail = req.user.claims.email
             let quizList
-            if (req.query.private) {
-                quizList = await quizService.getAllPrivate(authorEmail)
+            if (req.query.mine) {
+                quizList = await quizService.getAllMine(authorEmail)
             } else {
                 quizList = await quizService.getAll(authorEmail)
             }
@@ -59,7 +59,7 @@ export default function create(directory) {
             return res.status(401).end('Not authenticated!')
         }
         try {
-            const quiz = await quizService.getPrivate(req.params.id)
+            const quiz = await quizService.get(req.params.id)
             res.status(200).send(quiz).end()
         } catch (error) {
             console.error(error)
@@ -73,7 +73,7 @@ export default function create(directory) {
         }
         try {
             const author = req.user.claims.email
-            await quizService.update(req.params.id, req.body, true, author)
+            await quizService.update(req.params.id, req.body, author)
             res.status(200).end()
         } catch (error) {
             console.error(error)

@@ -31,7 +31,7 @@ export default function Admin() {
 
     useEffect(() => {
         const getQuizzes = async () => {
-            const quizList = await (await fetch('/api/v1/quizzes?private=true')).json()
+            const quizList = await (await fetch('/api/v1/quizzes?mine=true')).json()
             quizList.forEach((entry, index) => entry.color = colors[index % 7])
             setQuizzes(quizList)
         }

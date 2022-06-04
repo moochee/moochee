@@ -18,12 +18,12 @@ describe('Quiz service', () => {
         expect(all.length).toBeGreaterThan(0)
     })
 
-    it('returns zero or more quizzes when getting all private quizzes', async () => {
-        const allPrivate = await quizService.getAllPrivate(TEST_USER)
-        expect(allPrivate.length).toBeGreaterThanOrEqual(0)
+    it('returns zero or more quizzes when getting all mine quizzes', async () => {
+        const myQuizzes = await quizService.getAllMine(TEST_USER)
+        expect(myQuizzes.length).toBeGreaterThanOrEqual(0)
     })
 
-    it('return quiz title when getting public quiz ase-tdd.json', () => {
+    it('return quiz title when getting legacy quiz ase-tdd.json', () => {
         expect(quiz.title).toBeDefined()
     })
 })

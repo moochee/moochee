@@ -71,6 +71,7 @@ const removeIDs = (quiz) => {
 export default function QuizEditor(props) {
     const [title, setTitle] = useState('Untitled quiz')
     const [tags, setTags] = useState('')
+    const [isPublic, setIsPublic] = useState(false)
     const [questions, setQuestions] = useState([createTemplateQuestion()])
 
     useEffect(() => {
@@ -81,6 +82,7 @@ export default function QuizEditor(props) {
                 // REVISE if all quizzes have tags, this is not needed any longer
                 const tagsString = quiz.tags ? quiz.tags.join(' ') : ''
                 setTags(tagsString)
+                setIsPublic(!quiz.isPrivate)
                 setQuestions(quiz.questions)
             }
         }
@@ -91,6 +93,8 @@ export default function QuizEditor(props) {
 
     // TODO disallow comma
     const updateTags = (e) => setTags(e.target.value)
+
+    const updateIsPublic = (e) => setIsPublic(e.target.checked)
 
     const save = () => {
         const saveQuiz = async (quiz) => {
@@ -112,6 +116,7 @@ export default function QuizEditor(props) {
         const updatedQuiz = {
             title: title,
             tags: tags ? tags.split(' ') : [],
+            isPrivate: !isPublic,
             questions: questions.map(q => ({ text: q.text, answers: q.answers.filter(a => a.text.trim() !== '') }))
         }
         saveQuiz(updatedQuiz).then(() => backToAdmin())
@@ -159,7 +164,11 @@ export default function QuizEditor(props) {
     return html`<${Shell} headerCenter=${header} footerLeft=${blank} footerRight=${actions}>
         <div class=quizEditor>
             <input class=title value=${title} onInput=${updateTitle} placeholder=Title/>
-            <input class=tags value=${tags} onInput=${updateTags} placeholder='Add tags, separated by space.'/>
+            <div class=tagsLine>
+                <input class=tags value=${tags} onInput=${updateTags} placeholder='Add tags, separated by space.'/>
+                <input type=checkbox id=isPublic oninput=${updateIsPublic} checked=${isPublic}/>
+                <label for=isPublic>Public?</label>
+            </div>
             <hr/>
             <div class=questions>${questionsBlock}</div>
         </div>

@@ -12,7 +12,7 @@ describe('Integration', () => {
 
     beforeEach(async () => {
         const httpServer = createServer()
-        const quizService = new QuizService()
+        const quizService = new QuizService('./quiz')
         const noExpiryTimer = { onTimeout: () => null }
         server = quizSocketServer(httpServer, quizService, noExpiryTimer)
         games = server.games
