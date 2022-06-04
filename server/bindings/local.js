@@ -1,19 +1,7 @@
 'use strict'
 
 import { exec } from 'child_process'
-
-const FakeAuth = function () {
-    this.setup = (app) => {
-        app.use((req, res, next) => {
-            req.isAuthenticated = () => true
-            req.user = { claims: { email: 'john.doe@acme.org' } }
-            next()
-        })
-        return (req, res, next) => {
-            next()
-        }
-    }
-}
+import FakeAuth from '../auths/fake.js'
 
 const LocalProcessStopper = function () {
     this.stop = () => {
@@ -26,7 +14,7 @@ const LocalProcessStopper = function () {
 }
 
 export default {
-    auth: new FakeAuth(),
+    auths: { googgle: new FakeAuth(), anonymous: new FakeAuth() },
     appStopper: new LocalProcessStopper(),
     privateQuizzesDir: './quizzes',
     dedicatedOrigin: 'http://localhost:3000',

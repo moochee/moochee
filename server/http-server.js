@@ -6,7 +6,7 @@ import quizSocketServer from './quiz-socket-server.js'
 import quizRouter from './quiz-router.js'
 import QuizService from './quiz-service.js'
 
-export default function create(client, auth, directory, dedicatedOrigin, gameExpiryTimer) {
+export default function create(client, auths, directory, dedicatedOrigin, gameExpiryTimer) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
@@ -31,7 +31,8 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
         }
     })
 
-    const login = auth.setup(app)
+    const anonymousLogin = auths.anonymous.setup(app)
+    const googleLogin = auths.google.setup(app)
 
     app.use('/public', express.static('web/public'))
     app.use('/play', express.static('web/play'))
@@ -40,7 +41,8 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
     app.use(express.json())
     app.use('/api/v1/quizzes', quizRouter(directory))
 
-    app.use('/', login)
+    app.use('/tryout', anonymousLogin)
+    app.use('/', googleLogin)
 
     app.post('/api/v1/games', async (req, res) => {
         const game = await games.host(req.body.quizId)

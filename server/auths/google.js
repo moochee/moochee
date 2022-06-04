@@ -4,7 +4,7 @@ import passport from 'passport'
 import session from 'cookie-session'
 import { Issuer, Strategy } from 'openid-client'
 
-export default function Auth(config) {
+export default function GoogleAuth(config) {
     this.setup = (app) => {
         const OPENID_CONNECT = 'oidc'
 

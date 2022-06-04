@@ -3,12 +3,14 @@
 import request from 'supertest'
 import httpServer from '../http-server.js'
 import dummyConfig from './auth-config/dummy-config.js'
-import Auth from '../auth.js'
+import GoogleAuth from '../auths/google.js'
 import QuizService from '../quiz-service.js'
 import dummyQuiz from './quiz/dummy-quiz.js'
 
 const noAuthMiddleware = (req, res, next) => next()
 const noAuth = { setup: () => noAuthMiddleware }
+const noAuths = { anonymous: noAuth, google: noAuth }
+const googleAuths = { anonymous: noAuth, google: new GoogleAuth(dummyConfig) }
 const noExpiryTimer = { onTimeout: () => null }
 const dummyDirectory = 'quizzes'
 
@@ -24,14 +26,14 @@ describe('Server', () => {
         })
 
         it('will redirect request with the global url to the instance-specific url', async () => {
-            server = httpServer(null, noAuth, null, 'http://localhost-instance-specific:3001', noExpiryTimer)
+            server = httpServer(null, noAuths, null, 'http://localhost-instance-specific:3001', noExpiryTimer)
             server.listen(3001)
             client = request('http://localhost:3001/?test')
             await client.get('/').expect(302).expect('location', 'http://localhost-instance-specific:3001/?test/')
         })
 
         it('will not redirect request with the instance-specific url', async () => {
-            server = httpServer(null, noAuth, null, 'http://localhost:3001', noExpiryTimer)
+            server = httpServer(null, noAuths, null, 'http://localhost:3001', noExpiryTimer)
             server.listen(3001)
             client = request('http://localhost:3001/?test')
             await client.get('/').expect(200)
@@ -42,7 +44,7 @@ describe('Server', () => {
         let server
 
         beforeAll(() => {
-            server = httpServer(null, new Auth(dummyConfig), null, 'http://localhost:3001', noExpiryTimer)
+            server = httpServer(null, googleAuths, null, 'http://localhost:3001', noExpiryTimer)
             server.listen(3001)
             client = request('http://localhost:3001')
         })
@@ -72,7 +74,7 @@ describe('Server', () => {
         let server
 
         beforeAll(async () => {
-            server = httpServer(null, noAuth, dummyDirectory, 'http://localhost:3001', noExpiryTimer)
+            server = httpServer(null, noAuths, dummyDirectory, 'http://localhost:3001', noExpiryTimer)
             server.listen(3001)
             client = request('http://localhost:3001')
             quizService = new QuizService(dummyDirectory)
@@ -117,7 +119,7 @@ describe('Server', () => {
                     this.callback = cb
                 }
             }
-            server = httpServer(stopClientFake, noAuth, dummyDirectory, 'http://localhost:3001', gameExpiryTimer)
+            server = httpServer(stopClientFake, noAuths, dummyDirectory, 'http://localhost:3001', gameExpiryTimer)
             server.listen(3001)
             client = request('http://localhost:3001')
             await client.post('/api/v1/games').send({ quizId }).expect(201)
@@ -143,7 +145,7 @@ describe('Server', () => {
                     this.callback = cb
                 }
             }
-            server = httpServer(stopClientFake, noAuth, dummyDirectory, 'http://localhost:3001', gameExpiryTimer)
+            server = httpServer(stopClientFake, noAuths, dummyDirectory, 'http://localhost:3001', gameExpiryTimer)
             server.listen(3001)
             client = request('http://localhost:3001')
             await client.post('/api/v1/games').send({ quizId }).expect(201)
@@ -165,7 +167,7 @@ describe('Server', () => {
                     this.callbacks.push(cb)
                 }
             }
-            server = httpServer(stopClientFake, noAuth, dummyDirectory, 'http://localhost:3001', gameExpiryTimer)
+            server = httpServer(stopClientFake, noAuths, dummyDirectory, 'http://localhost:3001', gameExpiryTimer)
             server.listen(3001)
             client = request('http://localhost:3001')
             await client.post('/api/v1/games').send({ quizId }).expect(201)

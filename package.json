@@ -7,8 +7,8 @@
         "url": "https://github.com/moochee/moochee-app"
     },
     "scripts": {
-        "start": "node server/gorilla.js ./prod-bindings.js",
-        "start:dev": "node server/gorilla.js ./local-bindings.js",
+        "start": "node server/main.js ./bindings/prod.js",
+        "dev": "node server/main.js ./bindings/local.js",
         "lint": "eslint server web **/*.mjs",
         "test": "jasmine server/spec/**/*.spec.mjs",
         "coverage": "c8 jasmine server/spec/**/*.spec.mjs",

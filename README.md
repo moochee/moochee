@@ -6,7 +6,7 @@ A multi-person interactive quiz app
 
 After cloning you can:
 - Run the tests: `npm test`
-- Start the server: `npm run start:dev`
+- Start the server: `npm run dev`
 
 If you want to run locally with same bindings as in production, e.g. enabling security:
 - Copy `app.profile.sample` to `app.profile`
