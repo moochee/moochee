@@ -5,7 +5,6 @@ import FakeAuth from '../auths/fake.js'
 
 const dedicatedOrigin = process.env.DEDICATED_ORIGIN
 const authConfig = {
-    IDP: process.env.IDP,
     CLIENT_ID: process.env.CLIENT_ID,
     CLIENT_SECRET: process.env.CLIENT_SECRET,
     REDIRECT_URI: `${dedicatedOrigin}/login/callback`,

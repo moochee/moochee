@@ -25,8 +25,8 @@ export default function GoogleAuth(config) {
         app.use(passport.session())
 
         const idp = new Issuer({
-            issuer: config.IDP,
-            authorization_endpoint: `${config.IDP}/o/oauth2/v2/auth`,
+            issuer: 'https://accounts.google.com',
+            authorization_endpoint: 'https://accounts.google.com/o/oauth2/v2/auth',
             token_endpoint: 'https://oauth2.googleapis.com/token',
             jwks_uri: 'https://www.googleapis.com/oauth2/v3/certs'
         })
