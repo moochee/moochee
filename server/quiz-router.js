@@ -12,8 +12,8 @@ export default function create(directory) {
             return res.status(401).end('Not authenticated!')
         }
         try {
-            const authorEmail = req.user.claims.email
-            const id = await quizService.create(req.body, authorEmail)
+            const author = req.user.id
+            const id = await quizService.create(req.body, author)
             const quiz = await quizService.get(id)
             res.status(200).send(quiz).end()
         } catch (error) {
@@ -27,12 +27,12 @@ export default function create(directory) {
             return res.status(401).end('Not authenticated!')
         }
         try {
-            const authorEmail = req.user.claims.email
+            const author = req.user.id
             let quizList
             if (req.query.mine) {
-                quizList = await quizService.getAllMine(authorEmail)
+                quizList = await quizService.getAllMine(author)
             } else {
-                quizList = await quizService.getAll(authorEmail)
+                quizList = await quizService.getAll(author)
             }
             res.status(200).send(quizList).end()
         } catch (error) {
@@ -72,7 +72,7 @@ export default function create(directory) {
             return res.status(401).end('Not authenticated!')
         }
         try {
-            const author = req.user.claims.email
+            const author = req.user.id
             await quizService.update(req.params.id, req.body, author)
             res.status(200).end()
         } catch (error) {
