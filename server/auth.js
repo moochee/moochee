@@ -25,16 +25,15 @@ export default function Auth(config) {
         app.use(passport.session())
 
         const idp = new Issuer({
-            issuer: `${config.IDP}/oauth/token`,
-            authorization_endpoint: `${config.IDP}/oauth/authorize`,
-            token_endpoint: `${config.IDP}/oauth/token`,
-            jwks_uri: `${config.IDP}/token_keys`
+            issuer: config.IDP,
+            authorization_endpoint: `${config.IDP}/o/oauth2/v2/auth`,
+            token_endpoint: 'https://oauth2.googleapis.com/token',
+            jwks_uri: 'https://www.googleapis.com/oauth2/v3/certs'
         })
         const client = new idp.Client({
             client_id: config.CLIENT_ID,
             client_secret: config.CLIENT_SECRET,
-            redirect_uris: [config.REDIRECT_URI],
-            token_endpoint_auth_method: 'client_secret_post' //xsuaa needs this
+            redirect_uris: [config.REDIRECT_URI]
         })
 
         passport.use(OPENID_CONNECT,
@@ -42,7 +41,6 @@ export default function Auth(config) {
                 const claims = tokenSet.claims()
                 return done(null, {
                     id: claims.sub,
-                    name: claims.first_name + ' ' + claims.last_name,
                     claims: claims
                 })
             })
@@ -55,7 +53,6 @@ export default function Auth(config) {
             (req, res) => res.redirect(req.session.originalUrl))
 
         return (req, res, next) => {
-            if (req.originalUrl === '/service-worker.js') return next()
             if (req.originalUrl === '/favicon.ico') return res.status(204).end()
             if (!req.isAuthenticated()) {
                 req.session.originalUrl = req.originalUrl
