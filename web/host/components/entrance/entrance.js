@@ -77,7 +77,7 @@ export default function Entrance(props) {
         </div>
     `
 
-    return html`<${Shell} headerLeft='Select your quiz' headerRight=${headerRight}>
+    return html`<${Shell} headerLeft='😸 Moochee' headerRight=${headerRight}>
         <!-- REVISE why do we need nested divs? -->
         <div class=entrance>
             <div class=quizzes>

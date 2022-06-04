@@ -10,8 +10,8 @@ export default function AudioControl(props) {
     const [muted, setMuted] = useState(false)
 
     useEffect(() => {
-        const isMuted = localStorage.getItem('gorilla-quiz.muted') === 'true'
-        const volume = Number(localStorage.getItem('gorilla-quiz.volume') || 1)
+        const isMuted = localStorage.getItem('moochee-quiz.muted') === 'true'
+        const volume = Number(localStorage.getItem('moochee-quiz.volume') || 1)
         setMuted(isMuted)
         volumeSlider.current.value = volume
         props.onVolume(isMuted ? 0 : volume)
@@ -19,14 +19,14 @@ export default function AudioControl(props) {
 
     const toggleMute = () => {
         const newState = !muted
-        localStorage.setItem('gorilla-quiz.muted', String(newState))
+        localStorage.setItem('moochee-quiz.muted', String(newState))
         setMuted(newState)
         props.onVolume(newState ? 0 : volumeSlider.current.value)
     }
 
     const adjustVolume = () => {
         setMuted(false)
-        localStorage.setItem('gorilla-quiz.volume', String(volumeSlider.current.value))
+        localStorage.setItem('moochee-quiz.volume', String(volumeSlider.current.value))
         props.onVolume(volumeSlider.current.value)
     }
 

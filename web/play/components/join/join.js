@@ -10,7 +10,7 @@ export default function Join(props) {
     const [playerName, setPlayerName] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const name = useRef(null)
-    const nameKey = 'gorilla-quiz.name'
+    const nameKey = 'moochee-quiz.name'
 
     const onJoiningFailed = (error) => {
         setErrorMessage(error)
@@ -34,7 +34,7 @@ export default function Join(props) {
         props.client.join(props.gameId, name)
     }
 
-    return html`<${Shell} headerCenter='Welcome to the 🦍 Quiz'>
+    return html`<${Shell} headerCenter='Welcome to Moochee Quiz'>
         <div class=join>
             <h1>Join Game</h1>
             <input ref=${name} placeholder='Enter your name' maxLength=30 value=${playerName}
