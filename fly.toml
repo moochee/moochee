@@ -1,4 +1,4 @@
-# fly.toml file generated for moochee on 2022-05-10T21:00:59-07:00
+# fly.toml file generated for moochee-app on 2022-06-04T16:06:05-07:00
 
 app = "moochee-app"
 
@@ -17,8 +17,8 @@ processes = []
   auto_rollback = true
 
 [mounts]
-  destination = "/var/data"
-  source = "quiz_data"
+  source="quiz_data"
+  destination="/var/quiz_data"
 
 [[services]]
   http_checks = []
