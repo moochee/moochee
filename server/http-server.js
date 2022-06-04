@@ -38,18 +38,17 @@ export default function create(client, auths, directory, dedicatedOrigin, gameEx
     app.use('/play', express.static('web/play'))
     app.use('/lib/htm/preact/standalone.module.js', express.static('./node_modules/htm/preact/standalone.module.js'))
 
+    app.use('/tryout', anonymousLogin, express.static('web/host'))
+
     app.use(express.json())
     app.use('/api/v1/quizzes', quizRouter(directory))
-
-    app.use('/tryout', anonymousLogin, express.static('web/host'))
-    app.use('/', googleLogin)
-
     app.post('/api/v1/games', async (req, res) => {
         const game = await games.host(req.body.quizId)
         const url = `${dedicatedOrigin}/${game.id}`
         res.status(201).set('Location', url).end()
     })
 
+    app.use('/', googleLogin)
     app.use('/', express.static('web/host'))
 
     const httpServer = http.createServer(app)
