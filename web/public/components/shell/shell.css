@@ -46,11 +46,11 @@
 }
 
 .shellFooterLeft.shellLogo {
-    background-image: url(cloud-curriculum.svg);
+    background-image: none;
 }
 
 .shellFooterRight.shellLogo {
-    background-image: url(acdc.svg);
+    background-image: none;
 }
 
 .shellContentFit, .shellContentFullscreen {
