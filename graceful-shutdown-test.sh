@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-node server/gorilla.js ./local-bindings.js &
+node server/main.js ./bindings/local.js &
 pid=$!
 
 attempts=0
