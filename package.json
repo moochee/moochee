@@ -1,10 +1,10 @@
 {
-    "name": "gorilla",
+    "name": "moochee-app",
     "version": "1.0.0",
     "description": "An interactive multi-person quiz game",
     "repository": {
         "type": "git",
-        "url": "https://github.tools.sap/learning-experience/gorilla-quiz"
+        "url": "https://github.com/moochee/moochee-app"
     },
     "scripts": {
         "start": "node server/gorilla.js ./prod-bindings.js",
