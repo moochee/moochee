@@ -1,7 +1,7 @@
 'use strict'
 
 import passport from 'passport'
-import session from 'express-session'
+import session from 'cookie-session'
 import { Issuer, Strategy } from 'openid-client'
 
 export default function Auth(config) {
