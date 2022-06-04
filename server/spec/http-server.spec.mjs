@@ -4,13 +4,16 @@ import request from 'supertest'
 import httpServer from '../http-server.js'
 import dummyConfig from './auth-config/dummy-config.js'
 import Auth from '../auth.js'
+import QuizService from '../quiz-service.js'
+import dummyQuiz from './quiz/dummy-quiz.js'
 
 const noAuthMiddleware = (req, res, next) => next()
 const noAuth = { setup: () => noAuthMiddleware }
 const noExpiryTimer = { onTimeout: () => null }
+const dummyDirectory = 'quizzes'
 
 describe('Server', () => {
-    let client
+    let client, quizService, quizId
 
     // REVISE check if we can find a smarter way or if the test is even valuable enough
     describe('endpoint redirection', () => {
@@ -72,19 +75,22 @@ describe('Server', () => {
     describe('game API', () => {
         let server
 
-        beforeAll(() => {
-            server = httpServer(null, noAuth, 'quiz', 'http://localhost:3001', noExpiryTimer)
+        beforeAll(async () => {
+            server = httpServer(null, noAuth, dummyDirectory, 'http://localhost:3001', noExpiryTimer)
             server.listen(3001)
             client = request('http://localhost:3001')
+            quizService = new QuizService(dummyDirectory)
+            quizId = await quizService.create(dummyQuiz, 'test@example.com')
         })
 
-        afterAll(() => {
+        afterAll(async () => {
+            await quizService.delete(quizId)
             server.close()
         })
 
         it('supports creating a new game', async () => {
             // REVISE maybe it's better to make it a unit test, i.e. inject some dummy 'games' or 'quizService'
-            const response = await client.post('/api/v1/games').send({ quizId: 'cc-dist-logging.json' })
+            const response = await client.post('/api/v1/games').send({ quizId })
                 .expect(201).expect('Location', /.+/)
             const url = new URL(response.headers['location'])
             expect(url.hostname).toEqual('localhost')
@@ -96,6 +102,15 @@ describe('Server', () => {
         let server
         afterEach(() => server.close())
 
+        beforeAll(async () => {
+            quizService = new QuizService(dummyDirectory)
+            quizId = await quizService.create(dummyQuiz, 'test@example.com')
+        })
+
+        afterAll(async () => {
+            await quizService.delete(quizId)
+        })
+
         it('will delay shutdown until all games are finished', async () => {
             const stopClientFake = {
                 stop: () => server.close()
@@ -106,10 +121,10 @@ describe('Server', () => {
                     this.callback = cb
                 }
             }
-            server = httpServer(stopClientFake, noAuth, 'quiz', 'http://localhost:3001', gameExpiryTimer)
+            server = httpServer(stopClientFake, noAuth, dummyDirectory, 'http://localhost:3001', gameExpiryTimer)
             server.listen(3001)
             client = request('http://localhost:3001')
-            await client.post('/api/v1/games').send({ quizId: 'cc-dist-logging.json' }).expect(201)
+            await client.post('/api/v1/games').send({ quizId }).expect(201)
             await client.post('/api/v1/stop').expect(202)
             await client.get('/api/v1/status').expect(200)
             gameExpiryTimer.callback()
@@ -132,10 +147,10 @@ describe('Server', () => {
                     this.callback = cb
                 }
             }
-            server = httpServer(stopClientFake, noAuth, 'quiz', 'http://localhost:3001', gameExpiryTimer)
+            server = httpServer(stopClientFake, noAuth, dummyDirectory, 'http://localhost:3001', gameExpiryTimer)
             server.listen(3001)
             client = request('http://localhost:3001')
-            await client.post('/api/v1/games').send({ quizId: 'cc-dist-logging.json' }).expect(201)
+            await client.post('/api/v1/games').send({ quizId }).expect(201)
             await client.get('/api/v1/status').expect(200)
             gameExpiryTimer.callback()
             await client.get('/api/v1/status').expect(200)
@@ -154,11 +169,11 @@ describe('Server', () => {
                     this.callbacks.push(cb)
                 }
             }
-            server = httpServer(stopClientFake, noAuth, 'quiz', 'http://localhost:3001', gameExpiryTimer)
+            server = httpServer(stopClientFake, noAuth, dummyDirectory, 'http://localhost:3001', gameExpiryTimer)
             server.listen(3001)
             client = request('http://localhost:3001')
-            await client.post('/api/v1/games').send({ quizId: 'cc-dist-logging.json' }).expect(201)
-            await client.post('/api/v1/games').send({ quizId: 'cc-dist-logging.json' }).expect(201)
+            await client.post('/api/v1/games').send({ quizId }).expect(201)
+            await client.post('/api/v1/games').send({ quizId }).expect(201)
             expect(gameExpiryTimer.callbacks.length).toBe(2)
             await client.post('/api/v1/stop').expect(202)
             await client.get('/api/v1/status').expect(200)

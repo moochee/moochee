@@ -1,29 +1,37 @@
 'use strict'
 
 import QuizService from '../quiz-service.js'
+import dummyQuiz from './quiz/dummy-quiz.js'
+
+const dummyDirectory = 'quizzes'
+const dummyAuthor = 'test@example.com'
+
 
 describe('Quiz service', () => {
-    const TEST_DIR = './quizzes'
-    const TEST_USER = 'test.user@sap.com'
-    const TEST_PUBLIC_QUIZ = 'ase-tdd.json'
-    let quizService, quiz
 
-    beforeEach(async () => {
-        quizService = new QuizService(TEST_DIR)
-        quiz = await quizService.get(TEST_PUBLIC_QUIZ)
+    let quizService, quizId
+
+    beforeAll(async () => {
+        quizService = new QuizService(dummyDirectory)
+        quizId = await quizService.create(dummyQuiz, dummyAuthor)
+    })
+
+    afterAll(async () => {
+        await quizService.delete(quizId)
     })
 
     it('returns at least one quiz when getting all quizzes', async () => {
-        const all = await quizService.getAll(TEST_USER)
+        const all = await quizService.getAll(dummyAuthor)
         expect(all.length).toBeGreaterThan(0)
     })
 
     it('returns zero or more quizzes when getting all mine quizzes', async () => {
-        const myQuizzes = await quizService.getAllMine(TEST_USER)
+        const myQuizzes = await quizService.getAllMine(dummyAuthor)
         expect(myQuizzes.length).toBeGreaterThanOrEqual(0)
     })
 
-    it('return quiz title when getting legacy quiz ase-tdd.json', () => {
+    it('returns quiz title when getting an existing quiz', async () => {
+        const quiz = await quizService.get(quizId)
         expect(quiz.title).toBeDefined()
     })
 })

@@ -5,14 +5,16 @@ import WebSocket from 'ws'
 import quizSocketServer from '../quiz-socket-server.js'
 import QuizSocketClient from '../../web/public/quiz-socket-client.js'
 import QuizService from '../quiz-service.js'
+import dummyQuiz from './quiz/dummy-quiz.js'
 
 describe('Integration', () => {
-    let server, port, hostClient, playerClient, games
-    const ALICE = 'Alice'
+    let server, port, hostClient, playerClient, games, quizService, quizId
+    const ALICE = 'Alice', dummyAuthor = 'test@example.com'
 
     beforeEach(async () => {
         const httpServer = createServer()
-        const quizService = new QuizService('./quiz')
+        quizService = new QuizService('quizzes')
+        quizId = await quizService.create(dummyQuiz, dummyAuthor)
         const noExpiryTimer = { onTimeout: () => null }
         server = quizSocketServer(httpServer, quizService, noExpiryTimer)
         games = server.games
@@ -23,13 +25,14 @@ describe('Integration', () => {
         playerClient = new QuizSocketClient(() => new WebSocket(`ws://localhost:${port}`))
     })
 
-    afterEach(() => {
+    afterEach(async () => {
+        await quizService.delete(quizId)
         server.close()
     })
 
     it('should be possible to join a public game', async () => {
         const gameId = await new Promise(resolve => {
-            hostClient.host('cc-dist-logging.json')
+            hostClient.host(quizId)
             hostClient.subscribe('gameStarted', resolve)
         })
         await new Promise(resolve => {
@@ -46,7 +49,7 @@ describe('Integration', () => {
         })
         await new Promise(resolve => {
             hostClient.nextRound(gameId)
-            playerClient.guess(gameId, ALICE, 2)
+            playerClient.guess(gameId, ALICE, 0)
             playerClient.subscribe('gameFinished', resolve)
         })
         await new Promise(resolve => {
@@ -56,7 +59,7 @@ describe('Integration', () => {
     })
 
     it('should be possible to join as host for a game that was already created', async () => {
-        const game = await games.host('cc-dist-logging.json')
+        const game = await games.host(quizId)
 
         await new Promise((resolve) => {
             hostClient.joinAsHost(game.id)

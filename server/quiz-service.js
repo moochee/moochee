@@ -21,26 +21,7 @@ export default function QuizService(directory) {
                 console.error(dirent.name, error)
             }
         }
-        // REVISE remove after all legacy quizzes moved from git repo to file volume
-        const legacyQuizzes = await this.getAllLegacy()
-        quizzes.push.apply(quizzes, legacyQuizzes)
 
-        return quizzes
-    }
-
-    // REVISE remove after all legacy quizzes moved from git repo to file volume
-    this.getAllLegacy = async () => {
-        const dirents = await readdir('./quiz', { withFileTypes: true })
-        let quizzes = []
-        for (let dirent of dirents) {
-            if (dirent.isDirectory()) continue
-            try {
-                const quiz = await this.get(dirent.name)
-                quizzes.push({ id: dirent.name, title: quiz.title, tags: quiz.tags })
-            } catch (error) {
-                console.error(dirent.name, error)
-            }
-        }
         return quizzes
     }
 
@@ -63,22 +44,15 @@ export default function QuizService(directory) {
         return quizzes
     }
     
-    // REVISE after all legacy quizzes moved from git repo to file volume
     this.get = async (quizId) => {
         const quizPath = `${directory}/${quizId}`
         let quiz
         try {
             quiz = JSON.parse(await readFile(quizPath, 'utf8'))
         } catch (error) {
-            quiz = this.getLegacy(quizId)
+            console.error(quizPath, error)
         }
         return quiz
-    }
-
-    // REVISE remove after all legacy quizzes moved from git repo to file volume
-    this.getLegacy = async (quizId) => {
-        const quizPath = `./quiz/${quizId}`
-        return JSON.parse(await readFile(quizPath, 'utf8'))
     }
 
     const createDirectoryIfNotExists = async () => {
@@ -90,6 +64,8 @@ export default function QuizService(directory) {
     }
 
     this.create = async (quiz, author) => {
+        await createDirectoryIfNotExists()
+
         const id = `${Date.now().toString(36).slice(-5)}.json`
         const quizContent = { ...quiz, author }
         await writeFile(`${directory}/${id}`, JSON.stringify(quizContent))
