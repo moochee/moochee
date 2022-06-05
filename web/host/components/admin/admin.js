@@ -4,7 +4,7 @@ import { html, useEffect, useState } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 import Shell from '/public/components/shell/shell.js'
 
-loadCss('components/admin/admin.css')
+loadCss('/tryout/components/admin/admin.css')
 
 const Quiz = function (props) {
     const tags = props.tags

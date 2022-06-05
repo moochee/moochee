@@ -4,7 +4,7 @@ import { html, useState, useEffect } from '/lib/htm/preact/standalone.module.js'
 import Shell from '/public/components/shell/shell.js'
 
 import loadCss from '/public/load-css.js'
-loadCss('components/quiz-editor/quiz-editor.css')
+loadCss('/tryout/components/quiz-editor/quiz-editor.css')
 
 const QuestionAndAnswers = function (props) {
     const addAnswer = () => {

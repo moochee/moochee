@@ -4,7 +4,7 @@ import { html, useEffect, useState } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 import Shell from '/public/components/shell/shell.js'
 
-loadCss('components/entrance/entrance.css')
+loadCss('/tryout/components/entrance/entrance.css')
 
 const AdminButton = function() {
     const click = () => window.location.href = '/#/admin'
