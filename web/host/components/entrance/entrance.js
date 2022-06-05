@@ -7,7 +7,7 @@ import Shell from '/public/components/shell/shell.js'
 loadCss('/tryout/components/entrance/entrance.css')
 
 const AdminButton = function() {
-    const click = () => window.location.href = '/#/admin'
+    const click = () => window.location.href = '#/admin'
     return html`<div class=entranceAdmin onclick=${click}>⚙️</div>`
 }
 

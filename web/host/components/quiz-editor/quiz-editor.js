@@ -122,7 +122,7 @@ export default function QuizEditor(props) {
         saveQuiz(updatedQuiz).then(() => backToAdmin())
     }
 
-    const backToAdmin = () => window.location.href = '/#/admin'
+    const backToAdmin = () => window.location.href = '#/admin'
 
     const questionsBlock = questions.map((question, index) => {
         const addQuestion = () => setQuestions(oldQuestions => {

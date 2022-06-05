@@ -44,7 +44,7 @@ export default function Admin() {
             if (response.ok) setQuizzes(oldQuizzes => { return oldQuizzes.filter(o => o.id !== q.id) })
         }
         const edit = async () => {
-            window.location.href = `/#/edit/${q.id}`
+            window.location.href = `#/edit/${q.id}`
         }
 
         const bg = `background${i % 4}`
@@ -52,7 +52,7 @@ export default function Admin() {
             <${Quiz} key=${q.id} tags=${q.tags} title=${q.title} backgroundClass=${bg} onEdit=${edit} onDelete=${del} />
         </div>`
     })
-    quizList.push(html`<a title=add class='quiz add' href='/#/create'>+</a>`)
+    quizList.push(html`<a title=add class='quiz add' href='#/create'>+</a>`)
     
     const back=html`<a class=adminBack href='/'>${'<'}</a>`
     return html`<${Shell} headerLeft=${back} headerCenter='Manage My Quizzes'>
