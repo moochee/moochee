@@ -40,6 +40,13 @@ export default function create(client, auths, directory, dedicatedOrigin, gameEx
     app.use(express.json())
     app.use('/api/v1/quizzes', quizRouter(directory))
 
+    app.use('/tryout', (req, res, next) => {
+        req.isAuthenticated = () => true
+        req.user = { id: 'john.doe@acme.org' }
+        next()
+    })
+    app.use('/tryout', express.static('web/host'))
+
     app.use('/', googleLogin)
 
     app.post('/api/v1/games', async (req, res) => {
