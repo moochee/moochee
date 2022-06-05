@@ -37,15 +37,15 @@ export default function create(client, auths, directory, dedicatedOrigin, gameEx
     app.use('/play', express.static('web/play'))
     app.use('/lib/htm/preact/standalone.module.js', express.static('./node_modules/htm/preact/standalone.module.js'))
 
-    app.use(express.json())
-    app.use('/api/v1/quizzes', quizRouter(directory))
-
     app.use('/tryout', (req, res, next) => {
         req.isAuthenticated = () => true
         req.user = { id: 'john.doe@acme.org' }
         next()
     })
     app.use('/tryout', express.static('web/host'))
+
+    app.use(express.json())
+    app.use('/api/v1/quizzes', quizRouter(directory))
 
     app.use('/', googleLogin)
 
