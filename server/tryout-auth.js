@@ -1,7 +1,7 @@
 'use strict'
 
 export default function TryoutAuth() {
-    this.setup = (app) => {
+    this.setup = () => {
         return (req, res, next) => {
             if (!req.isAuthenticated) {
                 req.isAuthenticated = () => true
