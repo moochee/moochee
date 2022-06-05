@@ -1,10 +1,10 @@
 'use strict'
 
 import { html, useState, useEffect } from '/lib/htm/preact/standalone.module.js'
-import Entrance from '/components/entrance/entrance.js'
-import Host from '/components/host/host.js'
-import QuizEditor from '/components/quiz-editor/quiz-editor.js'
-import Admin from '/components/admin/admin.js'
+import Entrance from 'components/entrance/entrance.js'
+import Host from 'components/host/host.js'
+import QuizEditor from 'components/quiz-editor/quiz-editor.js'
+import Admin from 'components/admin/admin.js'
 import QuizSocketClient from '/public/quiz-socket-client.js'
 
 const HostGameWeb = function (props) {

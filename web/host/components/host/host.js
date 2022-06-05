@@ -9,7 +9,7 @@ import Countdown from '/public/components/countdown.js'
 import Waiting from './waiting.js'
 import Transition from './transition.js'
 
-loadCss('/components/host/host.css')
+loadCss('components/host/host.css')
 
 const QuestionAndAnswers = function (props) {
     const progress = `(${props.question.id}/${props.question.totalQuestions})`

@@ -4,7 +4,7 @@ import { html, useState, useRef, useEffect } from '/lib/htm/preact/standalone.mo
 import loadCss from '/public/load-css.js'
 import QrCreator from '/public/lib/qr-creator.es6.min.js'
 
-loadCss('/components/host/waiting.css')
+loadCss('components/host/waiting.css')
 
 const QRCode = function (props) {
     const appendQr = useRef(null)

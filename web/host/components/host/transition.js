@@ -6,7 +6,7 @@ import Scoreboard from '/public/components/scoreboard/scoreboard.js'
 import Distribution from '/public/components/distribution/distribution.js'
 import Podium from '/public/components/podium/podium.js'
 
-loadCss('/components/host/transition.css')
+loadCss('components/host/transition.css')
 
 const DistributionPage = function (props) {
     const buttonText = props.isFinal ? 'Show Podium' : 'Show Scoreboard'

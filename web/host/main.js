@@ -3,7 +3,7 @@
 import { html, render } from '/lib/htm/preact/standalone.module.js'
 import loadCss from '/public/load-css.js'
 import QuizSocketClient from '/public/quiz-socket-client.js'
-import HostApp from '/components/app/host-app.js'
+import HostApp from 'components/app/host-app.js'
 
 loadCss('/public/style.css')
 
