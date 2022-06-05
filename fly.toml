@@ -1,4 +1,4 @@
-# fly.toml file generated for moochee-app on 2022-06-04T16:06:05-07:00
+# fly.toml file generated for moochee-app on 2022-06-05T07:52:02-07:00
 
 app = "moochee-app"
 
@@ -6,19 +6,18 @@ kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
-[build]
-  builder = "heroku/buildpacks:20"
+[mounts]
+  source = "quiz_data"
+  destination = "/var/quiz_data"
 
 [env]
-  PORT = "8080"
+  DEDICATED_ORIGIN = "https://moochee-app.fly.dev"
+  QUIZZES_DIR = "/var/quiz_data"
+  PORT = 8080
 
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
-
-[mounts]
-  source="quiz_data"
-  destination="/var/quiz_data"
 
 [[services]]
   http_checks = []
