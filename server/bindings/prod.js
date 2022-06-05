@@ -2,6 +2,7 @@
 
 import GoogleAuth from '../auths/google.js'
 import FakeAuth from '../auths/fake.js'
+import CFClient from './cf-client.js'
 
 const dedicatedOrigin = process.env.DEDICATED_ORIGIN
 const authConfig = {
@@ -12,10 +13,12 @@ const authConfig = {
 }
 
 const quizzesDir = process.env.QUIZZES_DIR
+console
 
 export default {
     auths: { anonymous: new FakeAuth(), google: new GoogleAuth(authConfig) },
-    quizzesDir: quizzesDir,
+    appStopper: new CFClient(null),
+    privateQuizzesDir: quizzesDir,
     dedicatedOrigin: dedicatedOrigin,
-    port: process.env.PORT || 3000
+    port: process.env.PORT
 }

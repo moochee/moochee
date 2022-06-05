@@ -16,7 +16,7 @@ const LocalProcessStopper = function () {
 export default {
     auths: { google: new FakeAuth(), anonymous: new FakeAuth() },
     appStopper: new LocalProcessStopper(),
-    privateQuizzesDir: './quizzes',
+    privateQuizzesDir: 'quizzes',
     dedicatedOrigin: 'http://localhost:3000',
     port: 3000
 }

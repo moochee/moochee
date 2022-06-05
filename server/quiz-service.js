@@ -56,6 +56,7 @@ export default function QuizService(directory) {
     }
 
     const createDirectoryIfNotExists = async () => {
+        console.log(directory)
         try {
             await access(directory)
         } catch (error) {
