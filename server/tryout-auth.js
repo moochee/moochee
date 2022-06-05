@@ -7,7 +7,7 @@ export default function TryoutAuth() {
                 req.isAuthenticated = () => true
                 req.user = { id: 'john.doe@acme.org' }
             }
-            next()
+            next(req)
         }
     }
 }
