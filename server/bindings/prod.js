@@ -1,7 +1,6 @@
 'use strict'
 
-import GoogleAuth from '../auths/google.js'
-import FakeAuth from '../auths/fake.js'
+import GoogleAuth from '../google-auth.js'
 
 const dedicatedOrigin = process.env.DEDICATED_ORIGIN
 const authConfig = {
@@ -20,7 +19,7 @@ const FakeAppStopper = function () {
 const quizzesDir = process.env.QUIZZES_DIR
 
 export default {
-    auths: { anonymous: new FakeAuth(), google: new GoogleAuth(authConfig) },
+    auth: new GoogleAuth(authConfig),
     appStopper: new FakeAppStopper(),
     privateQuizzesDir: quizzesDir,
     dedicatedOrigin: dedicatedOrigin,

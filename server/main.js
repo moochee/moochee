@@ -6,6 +6,6 @@ import httpServer from './http-server.js'
 const gameExpiryTimer = {
     onTimeout: (callback) => setTimeout(callback, 1000 * 60 * 60 * 3)
 }
-const { appStopper, auths, privateQuizzesDir, dedicatedOrigin, port } = (await import(process.argv[2])).default
-const server = httpServer(appStopper, auths, privateQuizzesDir, dedicatedOrigin, gameExpiryTimer)
+const { appStopper, auth, privateQuizzesDir, dedicatedOrigin, port } = (await import(process.argv[2])).default
+const server = httpServer(appStopper, auth, privateQuizzesDir, dedicatedOrigin, gameExpiryTimer)
 server.listen(port, () => console.log(`Moochee started at ${server.address().port}`))
