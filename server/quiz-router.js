@@ -8,9 +8,6 @@ export default function create(directory) {
     const quizService = new QuizService(directory)
 
     router.post('/', async (req, res) => {
-        if (!req.isAuthenticated()) {
-            return res.status(401).end('Not authenticated!')
-        }
         try {
             const author = req.user.id
             const id = await quizService.create(req.body, author)
@@ -23,9 +20,6 @@ export default function create(directory) {
     })
 
     router.get('/', async (req, res) => {
-        if (!req.isAuthenticated()) {
-            return res.status(401).end('Not authenticated!')
-        }
         try {
             const author = req.user.id
             let quizList
@@ -42,9 +36,6 @@ export default function create(directory) {
     })
 
     router.delete('/:id', async (req, res) => {
-        if (!req.isAuthenticated()) {
-            return res.status(401).end('Not authenticated!')
-        }
         try {
             await quizService.delete(req.params.id)
             res.status(200).end()
@@ -55,9 +46,6 @@ export default function create(directory) {
     })
 
     router.get('/:id', async (req, res) => {
-        if (!req.isAuthenticated()) {
-            return res.status(401).end('Not authenticated!')
-        }
         try {
             const quiz = await quizService.get(req.params.id)
             res.status(200).send(quiz).end()
@@ -68,9 +56,6 @@ export default function create(directory) {
     })
 
     router.put('/:id', async (req, res) => {
-        if (!req.isAuthenticated()) {
-            return res.status(401).end('Not authenticated!')
-        }
         try {
             const author = req.user.id
             await quizService.update(req.params.id, req.body, author)
