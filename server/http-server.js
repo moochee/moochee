@@ -31,24 +31,23 @@ export default function create(client, auths, directory, dedicatedOrigin, gameEx
         }
     })
 
-    const anonymousLogin = auths.anonymous.setup(app)
     const googleLogin = auths.google.setup(app)
 
     app.use('/public', express.static('web/public'))
     app.use('/play', express.static('web/play'))
     app.use('/lib/htm/preact/standalone.module.js', express.static('./node_modules/htm/preact/standalone.module.js'))
 
-    app.use('/tryout', anonymousLogin, express.static('web/host'))
-
     app.use(express.json())
     app.use('/api/v1/quizzes', quizRouter(directory))
+
+    app.use('/', googleLogin)
+
     app.post('/api/v1/games', async (req, res) => {
         const game = await games.host(req.body.quizId)
         const url = `${dedicatedOrigin}/${game.id}`
         res.status(201).set('Location', url).end()
     })
 
-    app.use('/', googleLogin)
     app.use('/', express.static('web/host'))
 
     const httpServer = http.createServer(app)
