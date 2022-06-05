@@ -43,7 +43,8 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
     app.use('/tryout', express.static('web/host'))
 
     app.use(express.json())
-    app.use('/api/v1/quizzes', tryoutAuth, quizRouter(directory))
+    app.use('/api/v1/quizzes', tryoutAuth)
+    app.use('/api/v1/quizzes', quizRouter(directory))
 
     app.post('/api/v1/games', tryoutAuth, async (req, res) => {
         const game = await games.host(req.body.quizId)
