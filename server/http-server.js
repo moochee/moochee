@@ -38,7 +38,7 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
     app.use('/play', express.static('web/play'))
     app.use('/lib/htm/preact/standalone.module.js', express.static('./node_modules/htm/preact/standalone.module.js'))
 
-    const tryoutAuth = new TryoutAuth().setup()
+    const tryoutAuth = (new TryoutAuth()).setup()
     app.use('/tryout', tryoutAuth)
     app.use('/tryout', express.static('web/host'))
 
@@ -46,7 +46,7 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
     app.use('/api/v1/quizzes', tryoutAuth)
     app.use('/api/v1/quizzes', quizRouter(directory))
 
-    app.post('/api/v1/games', tryoutAuth, async (req, res) => {
+    app.post('/api/v1/games', async (req, res) => {
         const game = await games.host(req.body.quizId)
         const url = `${dedicatedOrigin}/${game.id}`
         res.status(201).set('Location', url).end()
