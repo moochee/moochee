@@ -35,7 +35,7 @@ export default function Host(props) {
     const [countDown, setCountDown] = useState(null)
     // REVISE This whole handling is clunky: used to lower volume during transition and restore original volume later.
     //        The solution is hacky and incomplete. Extract a clean game.js including transition to fix cleanly.
-    const [volume, setVolume] = useState({current: 1, previous: 1})
+    const [volume, setVolume] = useState({current: .2, previous: .2})
     const [statistics, setStatistics] = useState({ answerResults: [] })
 
     const entranceMusic = useRef({})
