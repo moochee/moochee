@@ -8,7 +8,7 @@ loadCss('/tryout/components/entrance/entrance.css')
 
 const AdminButton = function() {
     const click = () => window.location.href = '#/admin'
-    return html`<div class=entranceAdmin onclick=${click}>⚙️</div>`
+    return html`<div class=entranceAdmin onclick=${click}>+</div>`
 }
 
 const Quiz = function (props) {
