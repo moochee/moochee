@@ -6,7 +6,7 @@ const dedicatedOrigin = process.env.DEDICATED_ORIGIN
 const authConfig = {
     CLIENT_ID: process.env.CLIENT_ID,
     CLIENT_SECRET: process.env.CLIENT_SECRET,
-    REDIRECT_URI: `${dedicatedOrigin}/login/callback`,
+    REDIRECT_URI: 'https://app.moochee.us/login/callback',
     SESSION_SECRET: process.env.SESSION_SECRET
 }
 
