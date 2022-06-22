@@ -8,7 +8,6 @@ COPY package*.json ./
 COPY server ./server/
 COPY web ./web/
 
-RUN npm set-script prepare ""
 RUN npm ci --only=production
 
 EXPOSE 8080
