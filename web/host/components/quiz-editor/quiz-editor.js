@@ -119,10 +119,10 @@ export default function QuizEditor(props) {
             isPrivate: !isPublic,
             questions: questions.map(q => ({ text: q.text, answers: q.answers.filter(a => a.text.trim() !== '') }))
         }
-        saveQuiz(updatedQuiz).then(() => backToAdmin())
+        saveQuiz(updatedQuiz).then(() => backToHome())
     }
 
-    const backToAdmin = () => window.location.href = '#/admin'
+    const backToHome = () => window.location.href = '#/'
 
     const questionsBlock = questions.map((question, index) => {
         const addQuestion = () => setQuestions(oldQuestions => {
@@ -157,7 +157,7 @@ export default function QuizEditor(props) {
     const actions = html`
         <div class=quizEditorMainActions>
             <button onclick=${save}>✓ Save</button>
-            <button onclick=${backToAdmin}>✕ Cancel</button>
+            <button onclick=${backToHome}>✕ Cancel</button>
         </div>
     `
     return html`<${Shell} headerCenter=${header} footerRight=${actions}>
