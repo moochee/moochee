@@ -1,7 +1,7 @@
 .join {
     display: flex;
     flex-direction: column;
-    height: 80%;
+    height: 100%;
     align-items: center;
     justify-content: center;
 }
@@ -10,16 +10,13 @@
     width: 10em;
     height: 3em;
     text-align: center;
-    font-family: inherit;
-    font-size: inherit;
 }
 
 .join button {
     margin-top: .5em;
-    background-color: #999999;
+    background-color: hsl(218, 79%, 63%);
+    border-color: hsl(218, 79%, 63%);
     color: white;
     width: 10.5em;
     height: 3em;
-    font-family: inherit;
-    font-size: inherit;
 }

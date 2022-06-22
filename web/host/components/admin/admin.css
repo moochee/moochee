@@ -12,13 +12,13 @@
 
 .admin .quizzes {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     overflow-y: auto;
     justify-content: center;
 }
 
 .admin .quiz {
+    color: white;
     position: relative;
     height: min(30vw, 30vh);
     width: min(30vw, 30vh);
@@ -34,26 +34,25 @@
 
 .admin .quiz.add {
     background-color: #999999;
-    color: inherit;
+    color: white;
     text-decoration: none;
 }
 
-.admin .quiz .editButton {
+.admin .quiz .editButton, .admin .quiz .deleteButton {
     background-color: transparent;
+    color: white;
     border-style: none;
     position: absolute;
     font-size: min(3vh, 3vw);
-    left: 5%;
     top: 5%;
 }
 
+.admin .quiz .editButton {
+    left: 5%;
+}
+
 .admin .quiz .deleteButton {
-    background-color: transparent;
-    border-style: none;
-    position: absolute;
-    font-size: min(3vh, 3vw);
     right: 5%;
-    top: 5%;
 }
 
 .admin .quiz .tags {
@@ -62,7 +61,6 @@
     bottom: 5%;
     right: 8%;
     display: flex;
-    flex-direction: row;
     justify-content: end;
     flex-wrap: nowrap;
 }
@@ -73,7 +71,6 @@
     padding: 1%;
     margin: 1%;
     text-overflow: ellipsis;
-    max-width: 20%;
     white-space: nowrap;
     overflow: hidden;
 }

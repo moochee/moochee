@@ -68,11 +68,11 @@
         const Page = function() {
             const [volume, setVolume] = useState(1)
 
-            const isFinal = false
+            const isFinal = true
             const isIos = navigator.userAgent.match(/ipad|iphone/i)
             const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`
 
-            return html`<${Shell} headerLeft='test quiz' headerRight=${audioControl} footerLeft='5 Players' footerRight='-' fullScreenContent=${true}>
+            return html`<${Shell} headerLeft='Passionate Product Ownership' headerRight=${audioControl} footerLeft='5 Players' footerRight='-' fullScreenContent=${true}>
                 <${Transition} volume=${volume} isFinal=${isFinal} distribution=${distribution} scoreboard=${scoreboard} onNextRound=${() => alert('next round')} onBackHome=${() => alert('back home')} onStopMusic=${() => console.log('stopping music')} />
             <//>`
         }

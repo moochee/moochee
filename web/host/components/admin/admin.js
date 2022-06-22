@@ -48,7 +48,7 @@ export default function Admin() {
         }
 
         const bg = `background${i % 4}`
-        return html`<div  class=entry>
+        return html`<div class=entry>
             <${Quiz} key=${q.id} tags=${q.tags} title=${q.title} backgroundClass=${bg} onEdit=${edit} onDelete=${del} />
         </div>`
     })

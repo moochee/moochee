@@ -1,71 +1,82 @@
 .shell {
     height: 100%;
-    width: 100%;
 }
 
-.shellHeader, .shellFooter {
+.shell .header, .shell .footer {
     font-size: min(5vw, 5vh);
-    width: 100%;
+    width: 90%;
+    margin-left: 5%;
     position: fixed;
-    background-color: black;
-    color: white;
+    color: #767171;
     height: 10%;
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 
-.shellHeaderLeft, .shellFooterLeft {
+.shell .headerLeft, .shell .footerLeft {
     margin-left: 1vw;
     margin-right: 1vw;
 }
 
-.shellHeaderCenter {
+.shell .headerCenter {
     margin-left: auto;
 }
 
-.shellHeaderRight, .shellFooterRight {
+.shell .headerRight, .shell .footerRight {
     margin-left: auto;
     margin-right: 1vw;
 }
 
-.shellHeader {
+.shell .header {
+    z-index: 1; /* REVISE needed so that background bubbles do not overlay header text.
+                     needed because the transition screen requires full screen, which in turn is because of a design smell.
+                     If REVISE in host.js line 122 / play.js get done (move shell inside the sub components), 
+                     this can be fixed cleanly (full screen for shell is only needed for the final podium, 
+                     which doesn't have the bubble background anyway */
     top: 0;
 }
 
-.shellFooter {
+.shell .footer {
     bottom: 0;
 }
 
-.shellFooterLeft.shellLogo, .shellFooterRight.shellLogo {
-    width: 50%;
-    height: 100%;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
+.shell .headerSeparator, .shell .footerSeparator {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    position: fixed;
 }
 
-.shellFooterLeft.shellLogo {
-    background-image: none;
+.shell .headerSeparator {
+    top: 10%;
 }
 
-.shellFooterRight.shellLogo {
-    background-image: none;
+.shell .footerSeparator {
+    bottom: 10%;
 }
 
-.shellContentFit, .shellContentFullscreen {
+.shell .contentFit, .shell .contentFullscreen {
+    background-image: url(bubbles.svg);
     overflow: hidden;
     /* seems without position:fixed and width:100% it automatically becomes scrollable on mobile phone, even if the content is not overflowing */
     position: fixed;
     width: 100%;
 }
 
-.shellContentFullscreen {
+.shell .contentFullscreen {
     height: 100%;
     padding-top: 0vh;
 }
 
-.shellContentFit {
+.shell .contentFit {
     height: 80%;
-    padding-top: 10vh;
+    margin-top: 10vh;
+}
+
+.shell svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }

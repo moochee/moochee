@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     height: 100%;
-    color: white;
     font-size: 5vh;
     background: content-box radial-gradient(grey, black);
 }

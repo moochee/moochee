@@ -15,25 +15,23 @@
 .quizEditor .tagsLine {
     width: 100%;
     text-align: center;
-    font-size: inherit;
 }
 
 .quizEditor .tags {
     margin-top: 1em;
     width: 30%;
     text-align: center;
-    font-size: inherit;
 }
 
 .quizEditor hr {
-    width: 90%;
+    width: 80%;
 }
 
 .quizEditorMainActions button {
     margin-right: 1em;
-    font-size: inherit;
     border: none;
     background-color: transparent;
+    color: inherit;
 }
 
 .quizEditor .questionAndAnswers,.questions {
@@ -54,16 +52,14 @@
 
 .quizEditor .answers {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
 }
 
 .quizEditor .answerEntry {
-    position: relative
+    position: relative;
 }
 
-/* REVISE do we really need all these properties? */
 .quizEditor .answerEntry .delete {
     background-color: transparent;
     border-style: none;
@@ -87,21 +83,13 @@
     bottom: 8%;
 }
 
-/* REVISE is this needed? */
-.quizEditor .answer .correct {
-    width: 2vh;
-    height: 2vh;
-}
-
-/* REVISE is this needed? */
 .quizEditor .answer {
-    position: relative;
     height: min(30vw, 30vh);
     width: min(30vw, 30vh);
     border-style: none;
     border-radius: min(1.5vw, 1.5vh);
     font-size: min(3.5vw, 3.5vh);
-    color: inherit;
+    color: white;
     display: flex;
     text-align: center;
     align-items: center;
@@ -115,6 +103,7 @@
 
 .quizEditor .addDeleteQuestion button {
     background-color: #999999;
+    color: white;
     border-style: none;
     border-radius: min(1.5vw, 1.5vh);
     font-size: min(3.5vw, 3.5vh);

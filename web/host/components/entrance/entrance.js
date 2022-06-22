@@ -14,10 +14,10 @@ const AdminButton = function() {
 const Quiz = function (props) {
     const tags = props.tags
         .map(tag => html`<div class='tag ${props.backgroundClass}Secondary' title=${tag}>${tag}</div>`)
-        .slice(0, 4)
+        .slice(0, 3)
 
-    if (props.tags.length > 4) {
-        const tooltip = props.tags.slice(4).join(', ')
+    if (props.tags.length > 3) {
+        const tooltip = props.tags.slice(3).join(', ')
         tags.push(html`<div class='tag ${props.backgroundClass}Secondary' title=${tooltip}>...</div>`)
     }
 
@@ -76,8 +76,7 @@ export default function Entrance(props) {
             <${AdminButton} />
         </div>
     `
-
-    return html`<${Shell} headerLeft='😸 Moochee' headerRight=${headerRight}>
+    return html`<${Shell} headerLeft='Select Quiz' headerRight=${headerRight} footerRight='😸 Moochee Quiz'>
         <!-- REVISE why do we need nested divs? -->
         <div class=entrance>
             <div class=quizzes>

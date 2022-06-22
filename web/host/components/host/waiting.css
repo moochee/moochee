@@ -8,13 +8,10 @@
 
 .hostWaitingJoinUrl {
     display: flex;
-    flex-direction: row;
     height: 3em;
 }
 
 .hostWaitingJoinUrl input {
-    font-family: inherit;
-    font-size: 1em;
     width: 100%;
     margin-right: auto;
 }
@@ -41,7 +38,6 @@
 
 .hostWaitingPlayerInfo {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     font-size: min(20vh, 20vw);
     overflow-y: auto;
@@ -57,12 +53,13 @@
     position: absolute;
     right: 1em;
     bottom: 1em;
-    background-color: #999999;
+    color: white;
+    background-color: hsl(218, 79%, 63%);
+    border-style: none;
     font-size: min(3.5vw, 3.5vh);
     border-radius: min(1.6vw, 1.4vh);
     width: min(35vw, 35vh);
     height: min(8.75vw, 8.75vh);
-    border-style: none;
 }
 
 

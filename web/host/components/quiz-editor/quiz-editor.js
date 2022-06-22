@@ -160,8 +160,7 @@ export default function QuizEditor(props) {
             <button onclick=${backToAdmin}>✕ Cancel</button>
         </div>
     `
-    const blank = html`<div></div>`
-    return html`<${Shell} headerCenter=${header} footerLeft=${blank} footerRight=${actions}>
+    return html`<${Shell} headerCenter=${header} footerRight=${actions}>
         <div class=quizEditor>
             <input class=title value=${title} onInput=${updateTitle} placeholder=Title/>
             <div class=tagsLine>

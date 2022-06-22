@@ -119,6 +119,7 @@ export default function Play(props) {
         distribution=${status.result}
         scoreboard=${status.scoreboard} />` : ''
 
+    // REVISE right now it seems more and more obvious that the shell should be included in the pages, and not be surrounding the pages
     return html`<${Shell} headerLeft=${props.quizTitle} footerLeft='${props.playerAvatar} ${props.playerName}' footerRight='Score: ${score}' fullScreenContent=${isRoundFinished}>
         ${waitingToStartBlock}
         ${questionBlock}
