@@ -36,6 +36,20 @@ describe('Server', () => {
             client = request('http://localhost:3001/?test')
             await client.get('/').expect(200)
         })
+
+        it('will redirect tryout request with the global url to the instance-specific url', async () => {
+            server = httpServer(null, noAuth, null, 'http://localhost-instance-specific:3001', noExpiryTimer)
+            server.listen(3001)
+            client = request('http://localhost:3001')
+            await client.get('/tryout').expect(302).expect('location', 'http://localhost-instance-specific:3001/tryout')
+        })
+
+        it('will redirect login callback request with the global url to the instance-specific url', async () => {
+            server = httpServer(null, noAuth, null, 'http://localhost-instance-specific:3001', noExpiryTimer)
+            server.listen(3001)
+            client = request('http://localhost:3001')
+            await client.get('/login/callback').expect(302).expect('location', 'http://localhost-instance-specific:3001/login/callback')
+        })
     })
 
     describe('endpoint protection', () => {

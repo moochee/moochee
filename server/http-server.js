@@ -34,6 +34,7 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
 
     app.get('/', redirect)
     app.get('/tryout', redirect)
+    app.get('/login/callback', redirect)
 
     app.use('/public', express.static('web/public'))
     app.use('/play', express.static('web/play'))
