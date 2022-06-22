@@ -25,10 +25,6 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
     })
 
     const redirect = (req, res, next) => {
-        console.log(`req.hostname: ${req.hostname}`)
-        console.log(`dedicatedOrigin: ${dedicatedOrigin}`)
-        console.log(`req.url: ${req.url}`)
-
         if (req.hostname === new URL(dedicatedOrigin).hostname) {
             next()
         } else {
