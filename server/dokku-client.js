@@ -6,7 +6,7 @@ export default function DokkuClient() {
     this.stop = () => {
         const appName = process.env.APP_NAME
         return new Promise((resolve, reject) => {
-            exec(`/usr/bin/dokku ps:stop ${appName}`, (error) => {
+            exec(`/app/bin/dokku ps:stop ${appName}`, (error) => {
                 return error ? reject(error) : resolve()
             })
         })
