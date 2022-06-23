@@ -1,6 +1,7 @@
 'use strict'
 
 import GoogleAuth from '../google-auth.js'
+import DokkuClient from '../dokku-client.js'
 
 const dedicatedOrigin = process.env.DEDICATED_ORIGIN
 const authConfig = {
@@ -10,17 +11,11 @@ const authConfig = {
     SESSION_SECRET: process.env.SESSION_SECRET
 }
 
-const FakeAppStopper = function () {
-    this.stop = () => {
-        console.log('App stopper to be implemented!')
-    }
-}
-
 const quizzesDir = process.env.QUIZZES_DIR
 
 export default {
     auth: new GoogleAuth(authConfig),
-    appStopper: new FakeAppStopper(),
+    appStopper: new DokkuClient(),
     privateQuizzesDir: quizzesDir,
     dedicatedOrigin: dedicatedOrigin,
     port: process.env.PORT
