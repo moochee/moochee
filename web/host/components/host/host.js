@@ -163,9 +163,9 @@ export default function Host(props) {
 
     // REVISE right now it seems more and more obvious that the shell should be included in the pages, and not be surrounding the pages
     return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='${players.length} Players' fullScreenContent=${isRoundFinished}>
-        <audio ref=${entranceMusic} volume=${volume.current} loop src=/public/21st_century.mp3></audio>
-        <audio ref=${quizMusic} volume=${volume.current} loop src=/public/Attracting_drama.mp3></audio>
-        <audio ref=${tap} volume=${volume.current} src=/public/components/tap.mp3></audio>
+        <audio ref=${entranceMusic} volume=${volume.current} loop src=/public/sounds/21st_century.mp3></audio>
+        <audio ref=${quizMusic} volume=${volume.current} loop src=/public/sounds/Attracting_drama.mp3></audio>
+        <audio ref=${tap} volume=${volume.current} src=/public/sounds/Tap.mp3></audio>
         ${waitingToStartBlock}
         ${questionBlock}
         ${transitionBlock}
