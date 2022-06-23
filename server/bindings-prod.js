@@ -3,11 +3,12 @@
 import GoogleAuth from './google-auth.js'
 import DokkuClient from './dokku-client.js'
 
-const dedicatedOrigin = process.env.DEDICATED_ORIGIN
+const HTTPS = 'https://'
+
 const authConfig = {
     CLIENT_ID: process.env.CLIENT_ID,
     CLIENT_SECRET: process.env.CLIENT_SECRET,
-    REDIRECT_URI: 'https://app.moochee.us/login/callback',
+    REDIRECT_URI: `${HTTPS}app.${process.env.DOMAIN_NAME}/login/callback`,
     SESSION_SECRET: process.env.SESSION_SECRET
 }
 
@@ -17,6 +18,6 @@ export default {
     auth: new GoogleAuth(authConfig),
     appStopper: new DokkuClient(),
     privateQuizzesDir: quizzesDir,
-    dedicatedOrigin: dedicatedOrigin,
+    dedicatedOrigin: `${HTTPS}${process.env.APP_NAME}.${process.env.DOMAIN_NAME}`,
     port: process.env.PORT
 }
