@@ -1,7 +1,7 @@
 'use strict'
 
-import GoogleAuth from '../google-auth.js'
-import DokkuClient from '../dokku-client.js'
+import GoogleAuth from './google-auth.js'
+import DokkuClient from './dokku-client.js'
 
 const dedicatedOrigin = process.env.DEDICATED_ORIGIN
 const authConfig = {

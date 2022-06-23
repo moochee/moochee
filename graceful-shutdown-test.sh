@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-node server/main.js ./bindings/local.js &
+node server/main.js ./bindings-local.js &
 pid=$!
 
 attempts=0

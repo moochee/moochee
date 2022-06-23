@@ -7,12 +7,12 @@
         "url": "https://github.com/moochee/moochee-app"
     },
     "scripts": {
-        "start": "node server/main.js ./bindings/prod.js",
-        "dev": "node server/main.js ./bindings/local.js",
+        "start": "node server/main.js ./bindings-prod.js",
+        "dev": "node server/main.js ./bindings-local.js",
         "lint": "eslint server web **/*.mjs",
         "test": "jasmine server/spec/**/*.spec.mjs",
         "coverage": "c8 jasmine server/spec/**/*.spec.mjs",
-        "prepare": "test -f pre-commit && cp pre-commit .git/hooks/pre-commit"
+        "prepare": "cp pre-commit .git/hooks/pre-commit"
     },
     "type": "module",
     "keywords": [],

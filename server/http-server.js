@@ -36,6 +36,8 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
     app.get('/tryout', redirect)
     app.get('/login/callback', redirect)
 
+    const login = auth.setup(app)
+
     app.use('/public', express.static('web/public'))
     app.use('/play', express.static('web/play'))
     app.use('/lib/htm/preact/standalone.module.js', express.static('./node_modules/htm/preact/standalone.module.js'))
@@ -52,7 +54,6 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
         res.status(201).set('Location', url).end()
     })
 
-    const login = auth.setup(app)
     app.use('/', login)
     app.use('/', express.static('web/host'))
 
