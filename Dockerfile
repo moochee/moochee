@@ -6,6 +6,10 @@ ENV USER=dokku
 ENV UID=1000
 ENV GID=1000
 
+RUN addgroup \
+    -g "$GID" \
+    "$USER"
+
 RUN adduser \
     --disabled-password \
     --gecos "" \
