@@ -3,7 +3,6 @@ FROM node:14-alpine
 RUN apk add --no-cache bash sudo
 
 ENV USER=dokku
-ENV UID=1000
 
 RUN addgroup \
     "$USER"
@@ -14,7 +13,6 @@ RUN adduser \
     --home "$(pwd)" \
     --ingroup "$USER" \
     --no-create-home \
-    --uid "$UID" \
     "$USER"
 
 ENV NODE_ENV=production
