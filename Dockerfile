@@ -1,6 +1,6 @@
 FROM node:14-alpine
 
-RUN apk add --no-cache bash
+RUN apk add --no-cache bash sudo
 
 ENV NODE_ENV=production
 
