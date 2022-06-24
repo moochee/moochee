@@ -6,7 +6,10 @@ export default function DokkuClient() {
     this.stop = () => {
         const appName = process.env.APP_NAME
         return new Promise((resolve, reject) => {
-            exec(`/host/usr/bin/dokku ps:stop ${appName}`, { shell: 'bash'}, (error) => {
+            exec(`/host/usr/bin/dokku ps:stop ${appName}`, { 
+                shell: 'bash',
+                env: {'DOKKU_LIB_PATH': '/host/var/lib/dokku'}
+            }, (error) => {
                 return error ? reject(error) : resolve()
             })
         })
