@@ -4,10 +4,8 @@ RUN apk add --no-cache bash sudo
 
 ENV USER=dokku
 ENV UID=1000
-ENV GID=1000
 
 RUN addgroup \
-    -g "$GID" \
     "$USER"
 
 RUN adduser \
