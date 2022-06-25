@@ -1,12 +1,11 @@
 'use strict'
 
-import { html, useState, useEffect } from '/lib/htm/preact/standalone.module.js'
-import loadCss from '/public/load-css.js'
-import Shell from '/public/components/shell/shell.js'
-import Countdown from '/public/components/countdown.js'
+import { html, useState, useEffect } from '../../../../node_modules/htm/preact/standalone.mjs'
+import Shell from '../../../public/components/shell/shell.js'
+import Countdown from '../../../public/components/countdown.js'
 import Transition from './transition.js'
 
-loadCss('/play/components/play/play.css')
+window.loadCss('/web/play/components/play/play.css')
 
 const WaitingToStart = function (props) {
     const otherPlayers = props.otherPlayers.map(p => html`<div key=${p} class='playWaitingAvatar playWaitingBounceIn'>${p}</div>`)

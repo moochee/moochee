@@ -1,8 +1,8 @@
 'use strict'
 
-import { html, useState, useEffect } from '/lib/htm/preact/standalone.module.js'
-import Join from '/play/components/join/join.js'
-import Play from '/play/components/play/play.js'
+import { html, useState, useEffect } from '../../../../node_modules/htm/preact/standalone.mjs'
+import Join from '../join/join.js'
+import Play from '../play/play.js'
 
 const PlayGameWeb = function (props) {
     const [atJoinGame, setAtJoinGame] = useState(true)
@@ -24,10 +24,10 @@ const PlayGameWeb = function (props) {
     }
 
     useEffect(() => {
-        addEventListener('hashchange', hashChanged)
+        window.addEventListener('hashchange', hashChanged)
         props.client.subscribe('joiningOk', onJoiningOk)
         return () => {
-            removeEventListener('hashchange', hashChanged)
+            window.removeEventListener('hashchange', hashChanged)
             props.client.unsubscribe('joiningOk')
         }
     }, [])
@@ -55,8 +55,8 @@ export default function PlayApp(props) {
     }
 
     useEffect(() => {
-        addEventListener('hashchange', hashChanged)
-        return () => removeEventListener('hashchange', hashChanged)
+        window.addEventListener('hashchange', hashChanged)
+        return () => window.removeEventListener('hashchange', hashChanged)
     }, [])
 
     const gameId = (hash.indexOf('#/game/') > -1) ? hash.split('/')[2] : ''

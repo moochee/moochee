@@ -1,19 +1,18 @@
 'use strict'
 
-import { html, useState } from '/lib/htm/preact/standalone.module.js'
-import loadCss from '/public/load-css.js'
-import Scoreboard from '/public/components/scoreboard/scoreboard.js'
-import Distribution from '/public/components/distribution/distribution.js'
-import Podium from '/public/components/podium/podium.js'
+import { html, useState } from '../../../../node_modules/htm/preact/standalone.mjs'
+import Scoreboard from '../../../public/components/scoreboard/scoreboard.js'
+import Distribution from '../../../public/components/distribution/distribution.js'
+import Podium from '../../../public/components/podium/podium.js'
 
-loadCss('/play/components/play/transition.css')
+window.loadCss('/web/play/components/play/transition.css')
 
 const DistributionPage = function (props) {
     const buttonText = props.isFinal ? 'Podium' : 'Next'
     return html`<div class=transition>
         <${Distribution} distribution=${props.distribution} />
         <div class=transitionButton>
-            <button onclick=${props.onShowNext}>${buttonText}</button>
+            <button onClick=${props.onShowNext}>${buttonText}</button>
         </div>
     </div>`
 }

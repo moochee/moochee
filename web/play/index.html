@@ -7,8 +7,13 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
     <meta name='HandheldFriendly' content='true'>
 
-    <link rel='icon' href='/public/favicon.svg' />
-    <script src='/play/main.js' type='module'></script>
+    <link rel='icon' href='/web/public/favicon.svg' />
+    <script src='/web/public/load-css.js'>
+    </script>
+    <script type='module'>
+        import init from '/web/play/main.js'
+        init()
+    </script>
 </head>
 
 <body>

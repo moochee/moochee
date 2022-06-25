@@ -1,10 +1,9 @@
 'use strict'
 
-import { html, useState, useEffect, useRef } from '/lib/htm/preact/standalone.module.js'
-import loadCss from '/public/load-css.js'
-import Shell from '/public/components/shell/shell.js'
+import { html, useState, useEffect, useRef } from '../../../../node_modules/htm/preact/standalone.mjs'
+import Shell from '../../../public/components/shell/shell.js'
 
-loadCss('/play/components/join/join.css')
+window.loadCss('/web/play/components/join/join.css')
 
 export default function Join(props) {
     const [playerName, setPlayerName] = useState('')
