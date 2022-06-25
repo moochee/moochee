@@ -1,10 +1,9 @@
 'use strict'
 
-import { html, useState, useRef, useEffect } from '/lib/htm/preact/standalone.module.js'
-import loadCss from '/public/load-css.js'
-import QrCreator from '/public/lib/qr-creator.es6.min.js'
+import { html, useState, useRef, useEffect } from '../../../../node_modules/htm/preact/standalone.mjs'
+import QrCreator from '/web/public/lib/qr-creator.es6.min.js'
 
-loadCss('/tryout/components/host/waiting.css')
+window.loadCss('/web/host/components/host/waiting.css')
 
 const QRCode = function (props) {
     const appendQr = useRef(null)

@@ -1,6 +1,6 @@
 'use strict'
 
-import { html, useState, useEffect } from '/lib/htm/preact/standalone.module.js'
+import { html, useState, useEffect } from '../../../../node_modules/htm/preact/standalone.mjs'
 import Entrance from '../entrance/entrance.js'
 import Host from '../host/host.js'
 import QuizEditor from '../quiz-editor/quiz-editor.js'
@@ -54,8 +54,8 @@ export default function HostApp(props) {
     }
 
     useEffect(() => {
-        addEventListener('hashchange', hashChanged)
-        return () => removeEventListener('hashchange', hashChanged)
+        window.addEventListener('hashchange', hashChanged)
+        return () => window.removeEventListener('hashchange', hashChanged)
     }, [])
 
     let page

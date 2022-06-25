@@ -1,9 +1,8 @@
 'use strict'
 
-import { html } from '/lib/htm/preact/standalone.module.js'
-import loadCss from '/public/load-css.js'
+import { html } from '../../../../node_modules/htm/preact/standalone.mjs'
 
-loadCss('/public/components/shell/shell.css')
+window.loadCss('/web/public/components/shell/shell.css')
 
 export default function Shell(props) {
     const contentClass = props.fullScreenContent ? 'contentFullscreen' : 'contentFit'

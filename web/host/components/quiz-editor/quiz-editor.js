@@ -1,10 +1,9 @@
 'use strict'
 
-import { html, useState, useEffect } from '/lib/htm/preact/standalone.module.js'
-import Shell from '/public/components/shell/shell.js'
+import { html, useState, useEffect } from '../../../../node_modules/htm/preact/standalone.mjs'
+import Shell from '../../../public/components/shell/shell.js'
 
-import loadCss from '/public/load-css.js'
-loadCss('/tryout/components/quiz-editor/quiz-editor.css')
+window.loadCss('/web/host/components/quiz-editor/quiz-editor.css')
 
 const QuestionAndAnswers = function (props) {
     const addAnswer = () => {

@@ -1,10 +1,9 @@
 'use strict'
 
-import { html, useState, useEffect } from '/lib/htm/preact/standalone.module.js'
-import Shell from '/public/components/shell/shell.js'
+import { html, useState, useEffect } from '../../../../node_modules/htm/preact/standalone.mjs'
+import Shell from '../../../public/components/shell/shell.js'
 
-import loadCss from '/public/load-css.js'
-loadCss('/tryout/components/quiz-info/quiz-info.css')
+window.loadCss('/web/host/components/quiz-info/quiz-info.css')
 
 export default function(props) {
     const [title, setTitle] = useState('')
@@ -36,7 +35,7 @@ export default function(props) {
 
     return html`<${Shell} headerLeft=${back} headerCenter=${title} footerRight=${actions}>
         <div class=quizInfo>
-            <ol class=questions>${questionsBlock}</ol>
+            <ol>${questionsBlock}</ol>
         </div>
     <//>`
 }

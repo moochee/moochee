@@ -1,14 +1,13 @@
 'use strict'
 
-import { html, useEffect, useState } from '/lib/htm/preact/standalone.module.js'
-import loadCss from '/public/load-css.js'
-import Shell from '/public/components/shell/shell.js'
+import { html, useEffect, useState } from '../../../../node_modules/htm/preact/standalone.mjs'
+import Shell from '../../../public/components/shell/shell.js'
 
-loadCss('/tryout/components/entrance/entrance.css')
+window.loadCss('/web/host/components/entrance/entrance.css')
 
 const AdminButton = function() {
-    const click = () => window.location.href = '#/admin'
-    return html`<div class=entranceAdmin onclick=${click}>+</div>`
+    const click = () => window.location.href = '/#/admin'
+    return html`<div class=entranceAdmin onClick=${click}>⚙</div>`
 }
 
 const Quiz = function (props) {
@@ -29,19 +28,19 @@ const Quiz = function (props) {
 }
 
 export default function Entrance(props) {
-    const [searchTerm, setSearchTerm] = useState(decodeURIComponent(location.search.substring(1)))
+    const [searchTerm, setSearchTerm] = useState(decodeURIComponent(window.location.search.substring(1)))
     const [quizzes, setQuizzes] = useState([])
 
     useEffect(() => {
         const searchChanged = (event) => setSearchTerm(event.state || '')
         const getQuizzes = async () => {
-            const quizList = await (await fetch('/api/v1/quizzes')).json()
+            const quizList = await (await fetch(`${window.location.origin}/api/v1/quizzes`)).json()
             quizList.forEach((entry, i) => entry.backgroundClass=`background${i % 4}`)
             setQuizzes(quizList)
         }
         getQuizzes()
-        addEventListener('popstate', searchChanged)
-        return () => removeEventListener('popstate', searchChanged)
+        window.addEventListener('popstate', searchChanged)
+        return () => window.removeEventListener('popstate', searchChanged)
     }, [])
 
     const search = (term) => {

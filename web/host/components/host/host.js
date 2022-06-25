@@ -1,15 +1,14 @@
 'use strict'
 
 // REVISE maybe an entire 'Game' should be split out which can also host the transition, so this class only orchestrates waiting/game
-import { html, useState, useEffect, useRef } from '/lib/htm/preact/standalone.module.js'
-import loadCss from '/public/load-css.js'
-import AudioControl from '/public/components/audio/audio-control.js'
-import Shell from '/public/components/shell/shell.js'
-import Countdown from '/public/components/countdown.js'
+import { html, useState, useEffect, useRef } from '../../../../node_modules/htm/preact/standalone.mjs'
+import AudioControl from '../../../public/components/audio/audio-control.js'
+import Shell from '../../../public/components/shell/shell.js'
+import Countdown from '../../../public/components/countdown.js'
 import Waiting from './waiting.js'
 import Transition from './transition.js'
 
-loadCss('/tryout/components/host/host.css')
+window.loadCss('/web/host/components/host/host.css')
 
 const QuestionAndAnswers = function (props) {
     const progress = `(${props.question.id}/${props.question.totalQuestions})`
@@ -163,14 +162,14 @@ export default function Host(props) {
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
 
 
-    const isIos = navigator.userAgent.match(/ipad|iphone/i)
+    const isIos = window.navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${updateVolume} />`
 
     // REVISE right now it seems more and more obvious that the shell should be included in the pages, and not be surrounding the pages
     return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='${players.length} ${players.length < 2 ? 'Player' : 'Players'}' fullScreenContent=${isRoundFinished}>
-        <audio ref=${entranceMusic} volume=${volume.current} loop src=/public/sounds/21st_century.mp3></audio>
-        <audio ref=${quizMusic} volume=${volume.current} loop src=/public/sounds/Attracting_drama.mp3></audio>
-        <audio ref=${tap} volume=${volume.current} src=/public/sounds/Tap.mp3></audio>
+        <audio ref=${entranceMusic} volume=${volume.current} loop src=/web/public/sounds/21st_century.mp3></audio>
+        <audio ref=${quizMusic} volume=${volume.current} loop src=/web/public/sounds/Attracting_drama.mp3></audio>
+        <audio ref=${tap} volume=${volume.current} src=/web/public/sounds/Tap.mp3></audio>
         ${waitingToStartBlock}
         ${questionBlock}
         ${transitionBlock}

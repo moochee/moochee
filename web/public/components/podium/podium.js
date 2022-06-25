@@ -1,10 +1,9 @@
 'use strict'
 
-import { html, useEffect, useRef } from '/lib/htm/preact/standalone.module.js'
-import loadCss from '/public/load-css.js'
+import { html, useEffect, useRef } from '../../../../node_modules/htm/preact/standalone.mjs'
 
-loadCss('/public/components/podium/podium.css')
-loadCss('/public/components/podium/podium-animations.css')
+window.loadCss('/web/public/components/podium/podium.css')
+window.loadCss('/web/public/components/podium/podium-animations.css')
 
 export default function PodiumFinal(props) {
     const music = useRef({})
@@ -42,11 +41,11 @@ export default function PodiumFinal(props) {
     const podiumPlayersHtml = first3Players.map((p, index) => playerToRankHtml(p, index + 1))
 
     return html`<div ref=${podium} class='podium podiumAnimated'>
-        <audio ref=${music} volume=${props.volume.current} src=/public/sounds/Celebration.mp3></audio>
-        <audio ref=${fireworks} volume=${props.volume.current} loop src=/public/components/podium/sounds-of-fireworks-exploding.mp3></audio>
-        <img class=firework1 src=/public/components/podium/fireworks-blue.svg />
-        <img class=firework2 src=/public/components/podium/fireworks-green.svg />
-        <img class=firework3 src=/public/components/podium/fireworks-pink.svg />
+        <audio ref=${music} volume=${props.volume.current} src=/web/public/sounds/Celebration.mp3></audio>
+        <audio ref=${fireworks} volume=${props.volume.current} loop src=/web/public/components/podium/sounds-of-fireworks-exploding.mp3></audio>
+        <img class=firework1 src=/web/public/components/podium/fireworks-blue.svg />
+        <img class=firework2 src=/web/public/components/podium/fireworks-green.svg />
+        <img class=firework3 src=/web/public/components/podium/fireworks-pink.svg />
         ${podiumPlayersHtml}
     </div>`
 }

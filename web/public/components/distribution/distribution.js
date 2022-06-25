@@ -1,9 +1,8 @@
 'use strict'
 
-import { html } from '/lib/htm/preact/standalone.module.js'
-import loadCss from '/public/load-css.js'
+import { html } from '../../../../node_modules/htm/preact/standalone.mjs'
 
-loadCss('/public/components/distribution/distribution.css')
+window.loadCss('/web/public/components/distribution/distribution.css')
 
 const Answer = function (props) {
     return html`<div class='answer ${props.class}'>

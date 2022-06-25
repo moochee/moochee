@@ -1,6 +1,6 @@
 'use strict'
 
-import { html, useState, useEffect } from '/lib/htm/preact/standalone.module.js'
+import { html, useState, useEffect } from '../../../node_modules/htm/preact/standalone.mjs'
 
 export default function Countdown(props) {
     const [secondsLeft, setSecondsLeft] = useState(props.seconds)

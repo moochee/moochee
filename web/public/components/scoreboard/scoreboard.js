@@ -1,9 +1,8 @@
 'use strict'
 
-import { html, useEffect, useRef } from '/lib/htm/preact/standalone.module.js'
-import loadCss from '/public/load-css.js'
+import { html, useEffect, useRef } from '../../../../node_modules/htm/preact/standalone.mjs'
 
-loadCss('/public/components/scoreboard/scoreboard.css')
+window.loadCss('/web/public/components/scoreboard/scoreboard.css')
 
 // REVISE move remaining styling to css
 

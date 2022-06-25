@@ -4,7 +4,6 @@ import http from 'http'
 import express from 'express'
 import quizSocketServer from './quiz-socket-server.js'
 import quizRouter from './quiz-router.js'
-import TryoutAuth from './tryout-auth.js'
 
 export default function create(client, auth, quizService, dedicatedOrigin, gameExpiryTimer, historyService) {
     const app = express()
@@ -25,23 +24,22 @@ export default function create(client, auth, quizService, dedicatedOrigin, gameE
 
     const login = auth.setup(app)
 
-    app.use('/public', express.static('web/public'))
+    app.use('/web/public', express.static('web/public'))
+    app.use('/web/play', express.static('web/play'))
     app.use('/play', express.static('web/play'))
-    app.use('/lib/htm/preact/standalone.module.js', express.static('./node_modules/htm/preact/standalone.module.js'))
-
-    app.use('/tryout', express.static('web/host'))
-
+    app.use('/node_modules/htm/preact/standalone.mjs', express.static('node_modules/htm/preact/standalone.mjs'))
     app.use(express.json())
-    const tryoutAuth = (new TryoutAuth()).setup()
-    app.use('/api/v1/quizzes', tryoutAuth, quizRouter(quizService.dir))
+    app.use('/api/v1/quizzes', quizRouter(quizService.dir))
 
-    app.post('/api/v1/games', tryoutAuth, async (req, res) => {
+    app.use('/', login)
+
+    app.post('/api/v1/games', async (req, res) => {
         const game = await games.host(req.body.quizId, req.user?.id)
         const url = `${dedicatedOrigin}/${game.id}`
         res.status(201).set('Location', url).end()
     })
 
-    app.use('/', login)
+    app.use('/web/host', express.static('web/host'))
     app.use('/', express.static('web/host'))
 
     const httpServer = http.createServer(app)
