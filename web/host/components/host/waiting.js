@@ -1,14 +1,14 @@
 import { html, useState, useRef, useEffect } from '../../../../node_modules/htm/preact/standalone.mjs'
-import QrCreator from '/web/public/lib/qr-creator.es6.min.js'
 
 window.loadCss('/web/host/components/host/waiting.css')
 
 const QRCode = function (props) {
-    const appendQr = useRef(null)
-    useEffect(() => {
-        QrCreator.render({ text: props.url, background: '#ffffff', size: 1024 }, appendQr.current)
+    const qrContainer = useRef(null)
+    useEffect(async () => {
+        const svg = await (await fetch(`${window.location.origin}/qr-code?url=${encodeURIComponent(props.url)}`)).text()
+        qrContainer.current.innerHTML = svg
     }, [])
-    return html`<canvas class=hostWaitingQrCode ref=${appendQr} />`
+    return html`<div class=hostWaitingQrCode ref=${qrContainer}></div>`
 }
 
 export default function Waiting(props) {

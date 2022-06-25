@@ -2,6 +2,7 @@ import http from 'http'
 import express from 'express'
 import quizSocketServer from './quiz-socket-server.js'
 import quizRouter from './quiz-router.js'
+import qr from 'qr-image'
 
 export default function create(client, auth, quizService, dedicatedOrigin, gameExpiryTimer, historyService) {
     const app = express()
@@ -21,6 +22,7 @@ export default function create(client, auth, quizService, dedicatedOrigin, gameE
     app.use('/web/play', express.static('web/play'))
     app.use('/play', express.static('web/play'))
     app.use('/node_modules/htm/preact/standalone.mjs', express.static('node_modules/htm/preact/standalone.mjs'))
+    app.get('/qr-code', (req, res) => res.send(qr.imageSync(req.query.url, { type: 'svg' })))
     app.use(express.json())
     app.use('/api/v1/quizzes', quizRouter(quizService.dir))
 
