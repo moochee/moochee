@@ -45,7 +45,7 @@ export default function Entrance(props) {
 
     const search = (term) => {
         setSearchTerm(term)
-        history.pushState(term, '', `/?${term}`)
+        history.pushState(term, '', `${window.location.pathname}?${term}`)
     }
 
     const host = (quizId, quizTitle) => {
