@@ -42,8 +42,8 @@ export default function PodiumFinal(props) {
     const podiumPlayersHtml = first3Players.map((p, index) => playerToRankHtml(p, index + 1))
 
     return html`<div ref=${podium} class='podium podiumAnimated'>
-        <audio ref=${music} volume=${props.volume} src=/public/sounds/Celebration.mp3></audio>
-        <audio ref=${fireworks} volume=${props.volume} loop src=/public/components/podium/sounds-of-fireworks-exploding.mp3></audio>
+        <audio ref=${music} volume=${props.volume.current} src=/public/sounds/Celebration.mp3></audio>
+        <audio ref=${fireworks} volume=${props.volume.current} loop src=/public/components/podium/sounds-of-fireworks-exploding.mp3></audio>
         <img class=firework1 src=/public/components/podium/fireworks-blue.svg />
         <img class=firework2 src=/public/components/podium/fireworks-green.svg />
         <img class=firework3 src=/public/components/podium/fireworks-pink.svg />
