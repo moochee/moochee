@@ -27,7 +27,6 @@
 .hostRound .answer {
     color: white;
     user-select: none;
-    cursor: default;
     position: relative;
     height: min(28vw, 28vh);
     width: min(28vw, 28vh);

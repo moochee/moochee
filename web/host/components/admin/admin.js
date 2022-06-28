@@ -16,12 +16,11 @@ const Quiz = function (props) {
         tags.push(html`<div class='tag ${props.backgroundClass}Secondary' title=${tooltip}>...</div>`)
     }
 
-    return html`<div class='quiz ${props.backgroundClass}'>
+    return html`<button class='quiz ${props.backgroundClass}' onClick=${props.onEdit}>
         ${props.title}
         <div class=tags>${tags}</div>
-        <button title=edit onClick=${props.onEdit} class=editButton>✎</button>
         <button title=delete onClick=${props.onDelete} class=deleteButton>✕</button>
-    </div>`
+    </button>`
 }
 
 export default function Admin() {
@@ -48,9 +47,7 @@ export default function Admin() {
         }
 
         const bg = `background${i % 4}`
-        return html`<div class=entry>
-            <${Quiz} key=${q.id} tags=${q.tags} title=${q.title} backgroundClass=${bg} onEdit=${edit} onDelete=${del} />
-        </div>`
+        return html`<${Quiz} key=${q.id} tags=${q.tags} title=${q.title} backgroundClass=${bg} onEdit=${edit} onDelete=${del} />`
     })
     quizList.push(html`<a title=add class='quiz add' href='#/create'>+</a>`)
     
