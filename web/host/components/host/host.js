@@ -33,6 +33,7 @@ export default function Host(props) {
     const [status, setStatus] = useState({ scoreboard: [] })
     const [isFinal, setIsFinal] = useState(false)
     const [countDown, setCountDown] = useState(null)
+    const [waitingForOtherResponses, setWaitingForOtherResponses] = useState(false)
     // REVISE This whole handling is clunky: used to lower volume during transition and restore original volume later.
     //        The solution is hacky and incomplete. Extract a clean game.js including transition to fix cleanly.
     const [volume, setVolume] = useState({current: .2, previous: .2})
@@ -67,6 +68,7 @@ export default function Host(props) {
         setQuestion(newQuestion)
         setCountDown(secondsToGuess)
         setIsRoundFinished(false)
+        setWaitingForOtherResponses(false)
     }
 
     // REVISE better do the previous state / ranking calculation on the server, otherwise at least have a unit test for this here
@@ -103,6 +105,7 @@ export default function Host(props) {
             result: status.result, answerResults: updateAnswerResults(oldStatistics.answerResults, status.result)
         }))
         setCountDown(null)
+        setWaitingForOtherResponses(false)
     }
 
     const onGameFinished = (status) => {
@@ -125,10 +128,13 @@ export default function Host(props) {
         setVolume({ current: newVolume, previous: newVolume })
     }
 
+    // FIXME: hard code for now, should be changed to current user name
+    const HOST_NAME = 'guest'
+
     const guess = (answerIndex) => {
-        props.client.guess(props.gameId, 'host', answerIndex)
+        props.client.guess(props.gameId, HOST_NAME, answerIndex)
         setQuestion(null)
-        //setWaitingForOtherResponses(true)
+        setWaitingForOtherResponses(true)
     }
 
     useEffect(() => {
@@ -139,7 +145,7 @@ export default function Host(props) {
         props.client.subscribe('roundFinished', onRoundFinished)
         props.client.subscribe('gameFinished', onGameFinished)
         props.client.subscribe('playerDisconnected', onPlayerDisconnected)
-        props.client.join(props.gameId, 'host')
+        props.client.join(props.gameId, HOST_NAME)
         return () => {
             props.client.unsubscribe('playerJoined', onPlayerJoined)
             props.client.unsubscribe('roundStarted', onRoundStarted)
@@ -150,7 +156,7 @@ export default function Host(props) {
         }
     }, [])
 
-    const waitingToStart = !question && !isRoundFinished
+    const waitingToStart = !question && !isRoundFinished && !waitingForOtherResponses
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} client=${props.client} />` : ''
     const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} onGuess=${guess} />` : ''
     // REVISE need to get terminology straight wrt result vs. distribution
@@ -164,6 +170,8 @@ export default function Host(props) {
             onStopMusic=${stopMusic}
             volume=${volume} />`
         : ''
+    const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
+
 
     const isIos = navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${updateVolume} />`
@@ -176,5 +184,6 @@ export default function Host(props) {
         ${waitingToStartBlock}
         ${questionBlock}
         ${transitionBlock}
+        ${waitingBlockForOtherResponses}
     <//>`
 }
