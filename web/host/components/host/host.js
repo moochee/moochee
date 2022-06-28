@@ -15,7 +15,7 @@ const QuestionAndAnswers = function (props) {
     const progress = `(${props.question.id}/${props.question.totalQuestions})`
 
     const answersBlock = props.question.answers.map((answer, i) => {
-        return html`<div key=${i} class='answer background${i % 4}'>${answer.text}</div>`
+        return html`<button key=${i} class='answer background${i % 4}' onClick=${() => props.onGuess(i)}>${answer.text}</button>`
     })
 
     return html`<div class=hostRound>
@@ -125,6 +125,12 @@ export default function Host(props) {
         setVolume({ current: newVolume, previous: newVolume })
     }
 
+    const guess = (answerIndex) => {
+        props.client.guess(props.gameId, 'host', answerIndex)
+        setQuestion(null)
+        //setWaitingForOtherResponses(true)
+    }
+
     useEffect(() => {
         entranceMusic.current.play()
         props.client.subscribe('playerJoined', onPlayerJoined)
@@ -133,6 +139,7 @@ export default function Host(props) {
         props.client.subscribe('roundFinished', onRoundFinished)
         props.client.subscribe('gameFinished', onGameFinished)
         props.client.subscribe('playerDisconnected', onPlayerDisconnected)
+        props.client.join(props.gameId, 'host')
         return () => {
             props.client.unsubscribe('playerJoined', onPlayerJoined)
             props.client.unsubscribe('roundStarted', onRoundStarted)
@@ -145,7 +152,7 @@ export default function Host(props) {
 
     const waitingToStart = !question && !isRoundFinished
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} client=${props.client} />` : ''
-    const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />` : ''
+    const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} onGuess=${guess} />` : ''
     // REVISE need to get terminology straight wrt result vs. distribution
     const transitionBlock = isRoundFinished
         ? html`<${Transition}
@@ -162,7 +169,7 @@ export default function Host(props) {
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${updateVolume} />`
 
     // REVISE right now it seems more and more obvious that the shell should be included in the pages, and not be surrounding the pages
-    return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='${players.length} Players' fullScreenContent=${isRoundFinished}>
+    return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='${players.length} ${players.length < 2 ? 'Player' : 'Players'}' fullScreenContent=${isRoundFinished}>
         <audio ref=${entranceMusic} volume=${volume.current} loop src=/public/sounds/21st_century.mp3></audio>
         <audio ref=${quizMusic} volume=${volume.current} loop src=/public/sounds/Attracting_drama.mp3></audio>
         <audio ref=${tap} volume=${volume.current} src=/public/sounds/Tap.mp3></audio>
