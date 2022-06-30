@@ -38,7 +38,8 @@ export default function Admin() {
     }, [])
 
     const quizList = quizzes.map((q, i) => {
-        const del = async () => {
+        const del = async (event) => {
+            event.stopPropagation()
             const response = await fetch(`/api/v1/quizzes/${q.id}`, { method: 'DELETE' })
             if (response.ok) setQuizzes(oldQuizzes => { return oldQuizzes.filter(o => o.id !== q.id) })
         }
