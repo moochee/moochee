@@ -78,8 +78,8 @@
     color: white;
     user-select: none;
     position: relative;
-    height: min(28vw, 28vh);
-    width: min(28vw, 28vh);
+    height: min(32vw, 32vh);
+    width: min(32vw, 32vh);
     padding: min(1vw, 1vh);
     border-style: none;
     border-radius: min(1.5vw, 1.5vh);
