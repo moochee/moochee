@@ -20,8 +20,8 @@
 .admin .quiz {
     color: white;
     position: relative;
-    height: min(30vw, 30vh);
-    width: min(30vw, 30vh);
+    height: min(28vw, 28vh);
+    width: min(28vw, 28vh);
     border-style: none;
     border-radius: min(1.5vw, 1.5vh);
     font-size: min(3.5vw, 3.5vh);
