@@ -37,7 +37,6 @@ export default function Host(props) {
     // REVISE This whole handling is clunky: used to lower volume during transition and restore original volume later.
     //        The solution is hacky and incomplete. Extract a clean game.js including transition to fix cleanly.
     const [volume, setVolume] = useState({current: .2, previous: .2})
-    const [statistics, setStatistics] = useState({ answerResults: [] })
 
     const entranceMusic = useRef({})
     const quizMusic = useRef({})
@@ -82,14 +81,6 @@ export default function Host(props) {
         return updatedScoreboard
     }
 
-    const updateAnswerResults = (oldAnswerResults, newAnswerResults) => {
-        console.log(oldAnswerResults)
-        console.log(newAnswerResults)
-        const updatedAnswerResults = [oldAnswerResults, newAnswerResults]
-        console.log(updatedAnswerResults)
-        return updatedAnswerResults.flat()
-    }
-
     const onPlayerGuessed = () => {
         tap.current.play()
     }
@@ -101,16 +92,11 @@ export default function Host(props) {
         setStatus(oldStatus => ({
             result: status.result, scoreboard: updateScoreboard(oldStatus.scoreboard, status.scoreboard)
         }))
-        setStatistics(oldStatistics => ({
-            result: status.result, answerResults: updateAnswerResults(oldStatistics.answerResults, status.result)
-        }))
         setCountDown(null)
         setWaitingForOtherResponses(false)
     }
 
     const onGameFinished = (status) => {
-        console.log(statistics)
-        console.log(status)
         onRoundFinished(status)
         setIsFinal(true)
         setVolume(volume => ({ ...volume, current: volume.previous }))
