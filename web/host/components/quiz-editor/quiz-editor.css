@@ -10,6 +10,7 @@
     width: 80%;
     text-align: center;
     font-size: min(4vh, 4vw);
+    color: inherit;
 }
 
 .quizEditor .tagsLine {
@@ -86,7 +87,6 @@
 .quizEditor .answer {
     height: min(28vw, 28vh);
     width: min(28vw, 28vh);
-    padding: min(1vw, 1vh);
     border-style: none;
     border-radius: min(1.5vw, 1.5vh);
     font-size: min(3.5vw, 3.5vh);
