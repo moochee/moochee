@@ -18,6 +18,6 @@ export default {
     auth: new GoogleAuth(authConfig),
     appStopper: new DokkuClient(),
     privateQuizzesDir: quizzesDir,
-    dedicatedOrigin: `${HTTPS}${process.env.APP_NAME}.${process.env.DOMAIN_NAME}`,
+    dedicatedOrigin: `${HTTPS}app.${process.env.DOMAIN_NAME}`,
     port: process.env.PORT
 }
