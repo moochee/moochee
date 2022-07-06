@@ -123,6 +123,7 @@ export default function QuizEditor(props) {
     }
 
     const backToHome = () => window.location.href = '#/'
+    const backToAdmin = () => window.location.href = '#/admin'
 
     const questionsBlock = questions.map((question, index) => {
         const addQuestion = () => setQuestions(oldQuestions => {
@@ -157,7 +158,7 @@ export default function QuizEditor(props) {
     const actions = html`
         <div class=quizEditorMainActions>
             <button onclick=${save}>✓ Save</button>
-            <button onclick=${backToHome}>✕ Cancel</button>
+            <button onclick=${backToAdmin}>✕ Cancel</button>
         </div>
     `
     return html`<${Shell} headerCenter=${header} footerRight=${actions}>
