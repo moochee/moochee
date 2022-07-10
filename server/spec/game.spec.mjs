@@ -78,7 +78,7 @@ describe('Game', () => {
         quiz.questions = [{ text: 'q1', answers: [] }]
         game.nextRound()
         game.finishRound(quiz.questions[0])
-        expect(events.publishedMessage).toEqual({ event: 'gameFinished', args: [jasmine.any(Object)] })
+        expect(events.publishedMessage).toEqual({ event: 'gameFinished', args: [jasmine.any(Object), quiz.title]})
     })
 
     it('notifies host whenever player guessed', () => {

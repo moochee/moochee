@@ -30,5 +30,6 @@ export default {
     appStopper: new LocalProcessStopper(),
     privateQuizzesDir: 'quizzes',
     dedicatedOrigin: 'http://localhost:3000',
-    port: 3000
+    port: 3000,
+    historyDir: 'history'
 }

@@ -16,7 +16,8 @@ describe('Integration', () => {
         quizService = new QuizService('quizzes')
         quizId = await quizService.create(dummyQuiz, dummyAuthor)
         const noExpiryTimer = { onTimeout: () => null }
-        server = quizSocketServer(httpServer, quizService, noExpiryTimer)
+        const dummyHistoryService = { create: () => null } 
+        server = quizSocketServer(httpServer, quizService, noExpiryTimer, dummyHistoryService)
         games = server.games
         port = await new Promise((resolve) => {
             httpServer.listen(() => resolve(httpServer.address().port))

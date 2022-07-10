@@ -70,7 +70,7 @@ export default function Game(quiz, timer, events) {
         const scoreboard = [...players.getResult()]
         scoreboard.sort((a, b) => b.score - a.score)
         if (isLastQuestion()) {
-            events.publish(this.id, { event: 'gameFinished', args: [{ result, scoreboard }] })
+            events.publish(this.id, { event: 'gameFinished', args: [{ result, scoreboard }, this.quizTitle ] })
         } else {
             events.publish(this.id, { event: 'roundFinished', args: [{ result, scoreboard }] })
         }

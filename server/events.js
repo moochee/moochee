@@ -2,7 +2,7 @@
 
 import WebSocket from 'ws'
 
-export default function Events(webSocketServer) {
+export default function Events(webSocketServer, historyService) {
     this.publish = (gameId, message) => {
         const messageString = JSON.stringify(message)
         webSocketServer.clients.forEach(c => {
@@ -10,6 +10,10 @@ export default function Events(webSocketServer) {
                 c.send(messageString)
             }
         })
+        if (message.event === 'gameFinished') {
+            const historyItem = { gameId, title: message.args[1], scoreboard: message.args[0].scoreboard.map(({name, score}) => ({name, score})) }
+            historyService.create( historyItem, 'john.doe@acme.org' )
+        }
     }
 
     this.notifyHost = (gameId, message) => {

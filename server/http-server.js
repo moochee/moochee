@@ -6,8 +6,9 @@ import quizSocketServer from './quiz-socket-server.js'
 import quizRouter from './quiz-router.js'
 import QuizService from './quiz-service.js'
 import TryoutAuth from './tryout-auth.js'
+import HistoryService from './history-service.js'
 
-export default function create(client, auth, directory, dedicatedOrigin, gameExpiryTimer) {
+export default function create(client, auth, directory, dedicatedOrigin, gameExpiryTimer, historyDir) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
@@ -59,7 +60,8 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
 
     const httpServer = http.createServer(app)
     const quizService = new QuizService(directory)
-    const games = quizSocketServer(httpServer, quizService, gameExpiryTimer).games
+    const historyService = new HistoryService(historyDir)
+    const games = quizSocketServer(httpServer, quizService, gameExpiryTimer, historyService).games
 
     return httpServer
 }
