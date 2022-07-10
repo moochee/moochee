@@ -72,7 +72,7 @@ export default function Entrance(props) {
         <div class=entranceSearch>
             <input placeholder=Search...
                     value=${searchTerm}
-                    onChange=${event => search(event.target.value)}>
+                    onkeyup=${event => search(event.target.value)}>
             </input>
             <${AdminButton} />
         </div>
