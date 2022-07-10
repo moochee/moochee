@@ -54,8 +54,9 @@ export default function Entrance(props) {
     }
 
     const filteredQuizzes = quizzes.filter(q => {
-        return q.tags.includes(searchTerm)
-            || q.title.toLowerCase().includes(searchTerm.toLowerCase())
+        const lowerCaseTerm = searchTerm.toLowerCase() 
+        return q.tags.some(t => t.toLowerCase().includes(lowerCaseTerm))
+            || q.title.toLowerCase().includes(lowerCaseTerm)
             || !searchTerm
     })
 
