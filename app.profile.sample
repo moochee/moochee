@@ -2,7 +2,6 @@
 export SESSION_SECRET=SuperStrongSecret
 export CLIENT_ID=GoogleClientId
 export CLIENT_SECRET=GoogleClientSecret
-export REDIRECT_URI=http://localhost:3000/login/callback
 export DEDICATED_ORIGIN=http://localhost:3000
 export QUIZZES_DIR=quizzes
 export HISTORY_DIR=history

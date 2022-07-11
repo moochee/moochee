@@ -1,7 +1,8 @@
 'use strict'
 
 import passport from 'passport'
-import session from 'cookie-session'
+import session from 'express-session'
+import memorystore from 'memorystore'
 import { Issuer, Strategy } from 'openid-client'
 
 export default function GoogleAuth(config) {
@@ -15,10 +16,14 @@ export default function GoogleAuth(config) {
             done(null, user)
         })
 
+        const MemoryStore = memorystore(session)
+        const twentyFourHours = 86400000
         app.use(session({
-            secret: config.SESSION_SECRET,
+            cookie: { maxAge: twentyFourHours },
+            store: new MemoryStore({ checkPeriod: twentyFourHours }),
             resave: false,
-            saveUninitialized: false
+            saveUninitialized: false,
+            secret: config.SESSION_SECRET
         }))
 
         app.use(passport.initialize())
@@ -39,10 +44,7 @@ export default function GoogleAuth(config) {
         passport.use(OPENID_CONNECT,
             new Strategy({ client }, (tokenSet, done) => {
                 const claims = tokenSet.claims()
-                return done(null, {
-                    id: claims.sub,
-                    claims: claims
-                })
+                return done(null, { id: claims.sub })
             })
         )
 
@@ -50,7 +52,8 @@ export default function GoogleAuth(config) {
 
         app.get('/login/callback',
             passport.authenticate(OPENID_CONNECT, { failureRedirect: '/' }),
-            (req, res) => res.redirect(req.session.originalUrl))
+            (req, res) => res.redirect('/')
+        )
 
         return (req, res, next) => {
             if (req.originalUrl === '/favicon.ico') return res.status(204).end()

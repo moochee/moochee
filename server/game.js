@@ -4,7 +4,7 @@ import crypto from 'crypto'
 import Players from './players.js'
 import Avatars from './avatars.js'
 
-export default function Game(quiz, timer, events) {
+export default function Game(quiz, timer, events, host) {
     let currentQuestionIndex = -1
     let guessTimeoutId
     let roundStartTime
@@ -12,7 +12,6 @@ export default function Game(quiz, timer, events) {
     const NETWORK_DELAY_IN_SECONDS = 2
 
     this.id = crypto.randomUUID()
-
     this.quizTitle = quiz.title
 
     this.join = (name) => {
@@ -70,7 +69,7 @@ export default function Game(quiz, timer, events) {
         const scoreboard = [...players.getResult()]
         scoreboard.sort((a, b) => b.score - a.score)
         if (isLastQuestion()) {
-            events.publish(this.id, { event: 'gameFinished', args: [{ result, scoreboard }, this.quizTitle ] })
+            events.publish(this.id, { event: 'gameFinished', args: [{ result, scoreboard }, quiz.title, host ] })
         } else {
             events.publish(this.id, { event: 'roundFinished', args: [{ result, scoreboard }] })
         }

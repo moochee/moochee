@@ -4,7 +4,7 @@ import Game from '../game.js'
 
 describe('Game', () => {
     let game, quiz, timer, events
-    const ALICE = 'Alice', BOB = 'Bob'
+    const ALICE = 'Alice', BOB = 'Bob', HOST = 'Host'
 
     beforeEach(async () => {
         quiz = { title: 'sample quiz', questions: [] }
@@ -13,7 +13,7 @@ describe('Game', () => {
             publish: function (_, message) { this.publishedMessage = message },
             notifyHost: function () { this.hostNotified = true }
         }
-        game = new Game(quiz, timer, events)
+        game = new Game(quiz, timer, events, HOST)
     })
 
     it('sets score, avatar and presents quiz title when player joins a game', () => {
@@ -78,7 +78,7 @@ describe('Game', () => {
         quiz.questions = [{ text: 'q1', answers: [] }]
         game.nextRound()
         game.finishRound(quiz.questions[0])
-        expect(events.publishedMessage).toEqual({ event: 'gameFinished', args: [jasmine.any(Object), quiz.title]})
+        expect(events.publishedMessage).toEqual({ event: 'gameFinished', args: [jasmine.any(Object), quiz.title, HOST]})
     })
 
     it('notifies host whenever player guessed', () => {

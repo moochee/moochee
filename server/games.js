@@ -8,9 +8,9 @@ export default function Games(quizService, events, expiryTimer) {
 
     const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
 
-    this.host = async (quizId) => {
+    this.host = async (quizId, host) => {
         const quiz = await quizService.get(quizId)
-        const game = new Game(quiz, timer, events)
+        const game = new Game(quiz, timer, events, host)
         games.push(game)
         expiryTimer.onTimeout(() => {
             games.splice(games.indexOf(game), 1)

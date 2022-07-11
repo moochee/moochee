@@ -7,50 +7,18 @@ import GoogleAuth from '../google-auth.js'
 import QuizService from '../quiz-service.js'
 import dummyQuiz from './quiz/dummy-quiz.js'
 
-const noAuthMiddleware = (req, res, next) => next()
+const noAuthMiddleware = (req, res, next) => {
+    req.isAuthenticated = () => true
+    req.user = { id: 'john.doe@acme.org' }
+    next()
+}
 const noAuth = { setup: () => noAuthMiddleware }
+
 const noExpiryTimer = { onTimeout: () => null }
 const dummyDirectory = 'quizzes'
 
 describe('Server', () => {
     let client, quizService, quizId
-
-    // REVISE check if we can find a smarter way or if the test is even valuable enough
-    describe('endpoint redirection', () => {
-        let server
-
-        afterEach(() => {
-            server.close()
-        })
-
-        it('will redirect request with the global url to the instance-specific url', async () => {
-            server = httpServer(null, noAuth, null, 'http://localhost-instance-specific:3001', noExpiryTimer)
-            server.listen(3001)
-            client = request('http://localhost:3001/?test')
-            await client.get('/').expect(302).expect('location', 'http://localhost-instance-specific:3001/?test/')
-        })
-
-        it('will not redirect request with the instance-specific url', async () => {
-            server = httpServer(null, noAuth, null, 'http://localhost:3001', noExpiryTimer)
-            server.listen(3001)
-            client = request('http://localhost:3001/?test')
-            await client.get('/').expect(200)
-        })
-
-        it('will redirect tryout request with the global url to the instance-specific url', async () => {
-            server = httpServer(null, noAuth, null, 'http://localhost-instance-specific:3001', noExpiryTimer)
-            server.listen(3001)
-            client = request('http://localhost:3001')
-            await client.get('/tryout').expect(302).expect('location', 'http://localhost-instance-specific:3001/tryout')
-        })
-
-        it('will redirect login callback request with the global url to the instance-specific url', async () => {
-            server = httpServer(null, noAuth, null, 'http://localhost-instance-specific:3001', noExpiryTimer)
-            server.listen(3001)
-            client = request('http://localhost:3001')
-            await client.get('/login/callback').expect(302).expect('location', 'http://localhost-instance-specific:3001/login/callback')
-        })
-    })
 
     describe('endpoint protection', () => {
         let server

@@ -25,18 +25,6 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
         httpServer.close()
     })
 
-    const redirect = (req, res, next) => {
-        if (req.hostname === new URL(dedicatedOrigin).hostname) {
-            next()
-        } else {
-            res.status(302).set('location', `${dedicatedOrigin}${req.url}`).end()
-        }
-    }
-
-    app.get('/', redirect)
-    app.get('/tryout', redirect)
-    app.get('/login/callback', redirect)
-
     const login = auth.setup(app)
 
     app.use('/public', express.static('web/public'))
@@ -49,8 +37,8 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
     const tryoutAuth = (new TryoutAuth()).setup()
     app.use('/api/v1/quizzes', tryoutAuth, quizRouter(directory))
 
-    app.post('/api/v1/games', async (req, res) => {
-        const game = await games.host(req.body.quizId)
+    app.post('/api/v1/games', tryoutAuth, async (req, res) => {
+        const game = await games.host(req.body.quizId, req.user?.id)
         const url = `${dedicatedOrigin}/${game.id}`
         res.status(201).set('Location', url).end()
     })

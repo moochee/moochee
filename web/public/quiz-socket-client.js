@@ -1,6 +1,6 @@
 'use strict'
 
-export default function QuizSocketClient(createWebSocket, isNewGameCreate) {
+export default function QuizSocketClient(createWebSocket, createGame) {
     const socket = createWebSocket()
     const ready = new Promise((resolve) => socket.onopen = resolve)
 
@@ -24,32 +24,17 @@ export default function QuizSocketClient(createWebSocket, isNewGameCreate) {
         ready.then(() => socket.send(JSON.stringify(msg)))
     }
 
-    this.getQuizzes = () => {
-        send({ command: 'getQuizzes', args: [] })
+    this.host = async (quizId, quizTitle) => {
+        const gameId = await createGame(quizId)
+        this.joinAsHost(gameId, quizTitle)
     }
 
-    this.host = async (quizId, quizTitle) => {
-        // REVISE get rid of this switch and the related flag
-        if (isNewGameCreate) {
-            const response = await fetch('/api/v1/games', {
-                headers: { 'Content-Type': 'application/json' },
-                method: 'POST',
-                body: JSON.stringify({ quizId })
-            })
-            const targetUrl = new URL(response.headers.get('location'))
-            const gameId = targetUrl.pathname.substr(1)
-            subscribers['gameCreated'](targetUrl.host, gameId, quizTitle)
-            return
-        }
-        send({ command: 'host', args: [quizId] })
+    this.joinAsHost = (gameId, quizTitle) => {
+        send({ command: 'joinAsHost', args: [gameId, quizTitle] })
     }
 
     this.join = (gameId, playerName) => {
         send({ command: 'join', args: [gameId, playerName] })
-    }
-
-    this.joinAsHost = (gameId) => {
-        send({ command: 'joinAsHost', args: [gameId] })
     }
 
     this.nextRound = (gameId) => {

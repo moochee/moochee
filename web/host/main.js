@@ -8,6 +8,14 @@ import HostApp from './components/app/host-app.js'
 loadCss('/public/style.css')
 
 const wsUrl = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}`
-// REVISE get rid of this flag and the related switch
-const isNewGameCreate = window.location.hash.indexOf('?newGameCreate') > -1
-render(html`<${HostApp} client=${new QuizSocketClient(() => new WebSocket(wsUrl), isNewGameCreate)} />`, document.body)
+const createGame = async (quizId) => {
+    const response = await fetch('/api/v1/games', {
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+        body: JSON.stringify({ quizId })
+    })
+    const targetUrl = new URL(response.headers.get('location'))
+    const gameId = targetUrl.pathname.substring(1)
+    return gameId
+}
+render(html`<${HostApp} client=${new QuizSocketClient(() => new WebSocket(wsUrl), createGame)} />`, document.body)
