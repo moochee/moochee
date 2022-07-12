@@ -2,7 +2,7 @@
 
 import request from 'supertest'
 import httpServer from '../http-server.js'
-import dummyConfig from './auth-config/dummy-config.js'
+import dummyConfig from './dummy/auth-config.js'
 import GoogleAuth from '../google-auth.js'
 import QuizService from '../quiz-service.js'
 import dummyQuiz from './quiz/dummy-quiz.js'
