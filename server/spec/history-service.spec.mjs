@@ -1,7 +1,7 @@
 'use strict'
 
 import HistoryService from '../history-service.js'
-import dummyFinishedGame from './history/dummy-finished-game.js'
+import dummyHistoryItem from './dummy/history-item.js'
 
 const dummyDirectory = 'history'
 const dummyHost = 'test@example.com'
@@ -11,7 +11,7 @@ describe('History service', () => {
 
     beforeAll(async () => {
         historyService = new HistoryService(dummyDirectory)
-        historyItemId = await historyService.create(dummyFinishedGame, dummyHost)
+        historyItemId = await historyService.create(dummyHistoryItem, dummyHost)
     })
 
     afterAll(async () => {
