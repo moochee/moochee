@@ -5,7 +5,7 @@ import WebSocket from 'ws'
 import quizSocketServer from '../quiz-socket-server.js'
 import QuizSocketClient from '../../web/public/quiz-socket-client.js'
 import QuizService from '../quiz-service.js'
-import dummyQuiz from './quiz/dummy-quiz.js'
+import dummyQuiz from './dummy/quiz.js'
 
 xdescribe('Integration', () => {
     let server, port, hostClient, playerClient, games, quizService, quizId

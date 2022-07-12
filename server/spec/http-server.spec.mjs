@@ -5,7 +5,7 @@ import httpServer from '../http-server.js'
 import dummyConfig from './dummy/auth-config.js'
 import GoogleAuth from '../google-auth.js'
 import QuizService from '../quiz-service.js'
-import dummyQuiz from './quiz/dummy-quiz.js'
+import dummyQuiz from './dummy/quiz.js'
 
 const noAuthMiddleware = (req, res, next) => {
     req.isAuthenticated = () => true

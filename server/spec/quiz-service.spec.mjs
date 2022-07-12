@@ -1,7 +1,7 @@
 'use strict'
 
 import QuizService from '../quiz-service.js'
-import dummyQuiz from './quiz/dummy-quiz.js'
+import dummyQuiz from './dummy/quiz.js'
 
 const dummyDirectory = 'quizzes'
 const dummyAuthor = 'test@example.com'
