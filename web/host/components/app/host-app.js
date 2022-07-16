@@ -5,6 +5,7 @@ import Entrance from '../entrance/entrance.js'
 import Host from '../host/host.js'
 import QuizEditor from '../quiz-editor/quiz-editor.js'
 import Admin from '../admin/admin.js'
+import QuizInfo from '../quiz-info/quiz-info.js'
 
 const HostGameWeb = function (props) {
     const [state, setState] = useState({ atEntrance: true, gameId: '', quizTitle: '', origin: '', client: null })
@@ -47,6 +48,9 @@ export default function HostApp(props) {
         page = html`<${QuizEditor} id=${id} />`
     } else if (hash.indexOf('#/admin') > -1) {
         page = html`<${Admin} />`
+    } else if (hash.indexOf('#/show') > -1) {
+        const id = hash.split('/')[2]
+        page = html`<${QuizInfo} id=${id} />`
     } else {
         page = html`<${HostGameWeb} client=${props.client} />`
     }

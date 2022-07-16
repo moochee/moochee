@@ -1,0 +1,35 @@
+.quizInfo {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.quizInfo .title {
+    margin-top: 1em;
+    width: 80%;
+    text-align: center;
+    font-size: min(4vh, 4vw);
+    color: inherit;
+}
+
+.quizInfo .question {
+    background-color: transparent;
+    border-style: none;
+    font-size: min(3.5vh, 3.5vw);
+    color: inherit;
+    width: 80%;
+    text-align: center;
+}
+
+.quizInfo hr {
+    width: 80%;
+}
+
+.quizInfoMainActions button {
+    margin-right: 1em;
+    border: none;
+    background-color: transparent;
+    color: inherit;
+}
+

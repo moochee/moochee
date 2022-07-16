@@ -24,6 +24,7 @@ const Quiz = function (props) {
     return html`<button class='quiz ${props.backgroundClass}' onClick=${props.onClick}>
         ${props.text}
         <div class=tags>${tags}</div>
+        <button title=info onClick=${props.onInfo} class=infoButton>ℹ</button>
     </button>`
 }
 
@@ -61,11 +62,16 @@ export default function Entrance(props) {
     })
 
     const quizList = filteredQuizzes.map(q => {
+        const showInfo = (event) => {
+            event.stopPropagation()
+            window.location.href = `#/show/${q.id}`
+        }
         return html`<${Quiz}
             key=${q.id}
             tags=${q.tags}
             text=${q.title}
             backgroundClass=${q.backgroundClass}
+            onInfo=${showInfo}
             onClick=${() => host(q.id, q.title)} />`
     })
 

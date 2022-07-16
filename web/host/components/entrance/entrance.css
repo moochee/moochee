@@ -59,3 +59,13 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+.entrance .quiz .infoButton {
+    background-color: transparent;
+    color: white;
+    border-style: none;
+    position: absolute;
+    font-size: min(3vh, 3vw);
+    top: 5%;
+    right: 5%;
+}
