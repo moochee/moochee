@@ -4,11 +4,9 @@ import http from 'http'
 import express from 'express'
 import quizSocketServer from './quiz-socket-server.js'
 import quizRouter from './quiz-router.js'
-import QuizService from './quiz-service.js'
 import TryoutAuth from './tryout-auth.js'
-import HistoryService from './history-service.js'
 
-export default function create(client, auth, directory, dedicatedOrigin, gameExpiryTimer, historyDir) {
+export default function create(client, auth, quizService, dedicatedOrigin, gameExpiryTimer, historyService) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
@@ -35,7 +33,7 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
 
     app.use(express.json())
     const tryoutAuth = (new TryoutAuth()).setup()
-    app.use('/api/v1/quizzes', tryoutAuth, quizRouter(directory))
+    app.use('/api/v1/quizzes', tryoutAuth, quizRouter(quizService.dir))
 
     app.post('/api/v1/games', tryoutAuth, async (req, res) => {
         const game = await games.host(req.body.quizId, req.user?.id)
@@ -47,9 +45,11 @@ export default function create(client, auth, directory, dedicatedOrigin, gameExp
     app.use('/', express.static('web/host'))
 
     const httpServer = http.createServer(app)
-    const quizService = new QuizService(directory)
-    const historyService = new HistoryService(historyDir)
-    const games = quizSocketServer(httpServer, quizService, gameExpiryTimer, historyService).games
+    const socketServer = quizSocketServer(httpServer, quizService, gameExpiryTimer, historyService)
+    const games = socketServer.games
+
+    httpServer.games = games
+    httpServer.close = () => socketServer.close()
 
     return httpServer
 }

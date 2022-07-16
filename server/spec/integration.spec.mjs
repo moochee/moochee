@@ -1,28 +1,36 @@
 'use strict'
 
-import { createServer } from 'http'
 import WebSocket from 'ws'
-import quizSocketServer from '../quiz-socket-server.js'
+import httpServer from '../http-server.js'
 import QuizSocketClient from '../../web/public/quiz-socket-client.js'
 import QuizService from '../quiz-service.js'
 import dummyQuiz from './dummy/quiz.js'
+import dummyAuth from './dummy/auth.js'
+import fetch from 'node-fetch'
 
-xdescribe('Integration', () => {
-    let server, port, hostClient, playerClient, games, quizService, quizId
+describe('Integration', () => {
+    let server, port = 3010, hostClient, playerClient, quizService, quizId
     const ALICE = 'Alice', dummyAuthor = 'test@example.com'
 
     beforeEach(async () => {
-        const httpServer = createServer()
         quizService = new QuizService('quizzes')
         quizId = await quizService.create(dummyQuiz, dummyAuthor)
         const noExpiryTimer = { onTimeout: () => null }
-        const dummyHistoryService = { create: () => null } 
-        server = quizSocketServer(httpServer, quizService, noExpiryTimer, dummyHistoryService)
-        games = server.games
-        port = await new Promise((resolve) => {
-            httpServer.listen(() => resolve(httpServer.address().port))
-        })
-        hostClient = new QuizSocketClient(() => new WebSocket(`ws://localhost:${port}`))
+        const dummyHistoryService = { create: () => null }
+        const url = `http://localhost:${port}`
+        server = httpServer(null, dummyAuth, quizService, url, noExpiryTimer, dummyHistoryService)
+        await new Promise((resolve) => server.listen(port, () => resolve()))
+        const createGame = async (quizId) => {
+            const response = await fetch(`${url}/api/v1/games`, {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+                body: JSON.stringify({ quizId })
+            })
+            const targetUrl = new URL(response.headers.get('location'))
+            const gameId = targetUrl.pathname.substring(1)
+            return gameId
+        }
+        hostClient = new QuizSocketClient(() => new WebSocket(`ws://localhost:${port}`), createGame)
         playerClient = new QuizSocketClient(() => new WebSocket(`ws://localhost:${port}`))
     })
 
@@ -56,20 +64,6 @@ xdescribe('Integration', () => {
         await new Promise(resolve => {
             playerClient.disconnect()
             hostClient.subscribe('playerDisconnected', resolve)
-        })
-    })
-
-    it('should be possible to join as host for a game that was already created', async () => {
-        const game = await games.host(quizId)
-
-        await new Promise((resolve) => {
-            hostClient.joinAsHost(game.id)
-            hostClient.subscribe('hostJoined', resolve)
-        })
-
-        await new Promise((resolve) => {
-            playerClient.join(game.id, ALICE)
-            hostClient.subscribe('playerJoined', resolve)
         })
     })
 

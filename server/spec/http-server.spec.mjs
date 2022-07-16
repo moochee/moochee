@@ -6,27 +6,22 @@ import dummyConfig from './dummy/auth-config.js'
 import GoogleAuth from '../google-auth.js'
 import QuizService from '../quiz-service.js'
 import dummyQuiz from './dummy/quiz.js'
-
-const noAuthMiddleware = (req, res, next) => {
-    req.isAuthenticated = () => true
-    req.user = { id: 'john.doe@acme.org' }
-    next()
-}
-const noAuth = { setup: () => noAuthMiddleware }
+import dummyAuth from './dummy/auth.js'
 
 const noExpiryTimer = { onTimeout: () => null }
 const dummyDirectory = 'quizzes'
 
 describe('Server', () => {
-    let client, quizService, quizId
+    let server, client, quizService, quizId, port, url
 
     describe('endpoint protection', () => {
-        let server
 
         beforeAll(() => {
-            server = httpServer(null, new GoogleAuth(dummyConfig), null, 'http://localhost:3001', noExpiryTimer)
-            server.listen(3001)
-            client = request('http://localhost:3001')
+            port = 3001
+            url = `http://localhost:${port}`
+            server = httpServer(null, new GoogleAuth(dummyConfig), { dir: '' }, url, noExpiryTimer, null)
+            server.listen(port)
+            client = request(url)
         })
 
         afterAll(() => {
@@ -51,14 +46,15 @@ describe('Server', () => {
     })
 
     describe('game API', () => {
-        let server
 
         beforeAll(async () => {
-            server = httpServer(null, noAuth, dummyDirectory, 'http://localhost:3001', noExpiryTimer)
-            server.listen(3001)
-            client = request('http://localhost:3001')
             quizService = new QuizService(dummyDirectory)
             quizId = await quizService.create(dummyQuiz, 'test@example.com')
+            port = 3002
+            url = `http://localhost:${port}`
+            server = httpServer(null, dummyAuth, quizService, url, noExpiryTimer, null)
+            server.listen(port)
+            client = request(url)
         })
 
         afterAll(async () => {
@@ -73,90 +69,6 @@ describe('Server', () => {
             const url = new URL(response.headers['location'])
             expect(url.hostname).toEqual('localhost')
             expect(url.pathname).toMatch(/\/.+/)
-        })
-    })
-
-    describe('server shutdown', () => {
-        let server
-        afterEach(() => server.close())
-
-        beforeAll(async () => {
-            quizService = new QuizService(dummyDirectory)
-            quizId = await quizService.create(dummyQuiz, 'test@example.com')
-        })
-
-        afterAll(async () => {
-            await quizService.delete(quizId)
-        })
-
-        it('will delay shutdown until all games are finished', async () => {
-            const stopClientFake = {
-                stop: () => server.close()
-            }
-            const gameExpiryTimer = {
-                callback: null,
-                onTimeout: function (cb) {
-                    this.callback = cb
-                }
-            }
-            server = httpServer(stopClientFake, noAuth, dummyDirectory, 'http://localhost:3001', gameExpiryTimer)
-            server.listen(3001)
-            client = request('http://localhost:3001')
-            await client.post('/api/v1/games').send({ quizId }).expect(201)
-            await client.post('/api/v1/stop').expect(202)
-            await client.get('/api/v1/status').expect(200)
-            gameExpiryTimer.callback()
-            try {
-                await client.get('/api/v1/status').expect(200)
-                fail('should not be successful')
-            } catch (error) {
-                expect(error.message).toMatch(/ECONNREFUSED/u)
-            }
-        })
-
-        it('will not shutdown when not requested, even when all games are finished', async () => {
-            const stopClientFake = {
-                stop: () => server.close()
-            }
-            // REVISE see if it is simpler using jasmine.clock, like in games.spec, so we don't need injection through multiple classes
-            const gameExpiryTimer = {
-                callback: null,
-                onTimeout: function (cb) {
-                    this.callback = cb
-                }
-            }
-            server = httpServer(stopClientFake, noAuth, dummyDirectory, 'http://localhost:3001', gameExpiryTimer)
-            server.listen(3001)
-            client = request('http://localhost:3001')
-            await client.post('/api/v1/games').send({ quizId }).expect(201)
-            await client.get('/api/v1/status').expect(200)
-            gameExpiryTimer.callback()
-            await client.get('/api/v1/status').expect(200)
-        })
-
-        it('will not shutdown when requested, when there are still remaining games', async () => {
-            const stopClientFake = {
-                stop: () => {
-                    server.close()
-                }
-            }
-            // REVISE see if it is simpler using jasmine.clock, like in games.spec, so we don't need injection through multiple classes
-            const gameExpiryTimer = {
-                callbacks: [],
-                onTimeout: function (cb) {
-                    this.callbacks.push(cb)
-                }
-            }
-            server = httpServer(stopClientFake, noAuth, dummyDirectory, 'http://localhost:3001', gameExpiryTimer)
-            server.listen(3001)
-            client = request('http://localhost:3001')
-            await client.post('/api/v1/games').send({ quizId }).expect(201)
-            await client.post('/api/v1/games').send({ quizId }).expect(201)
-            expect(gameExpiryTimer.callbacks.length).toBe(2)
-            await client.post('/api/v1/stop').expect(202)
-            await client.get('/api/v1/status').expect(200)
-            gameExpiryTimer.callbacks[0]()
-            await client.get('/api/v1/status').expect(200)
         })
     })
 })

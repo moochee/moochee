@@ -3,6 +3,8 @@
 import { readFile, readdir, writeFile, access, mkdir, rm } from 'fs/promises'
 
 export default function QuizService(directory) {
+    this.dir = directory
+
     this.getAll = async (author) => {
         await createDirectoryIfNotExists()
 

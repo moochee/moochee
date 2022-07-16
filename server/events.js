@@ -12,7 +12,7 @@ export default function Events(webSocketServer, historyService) {
         })
         if (message.event === 'gameFinished') {
             const historyItem = { gameId, title: message.args[1], scoreboard: message.args[0].scoreboard.map(({name, score}) => ({name, score})) }
-            historyService.create( historyItem, message.args[2])
+            historyService.create(historyItem, message.args[2])
         }
     }
 

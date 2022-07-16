@@ -13,7 +13,7 @@ const authConfig = {
 export default {
     auth: new GoogleAuth(authConfig),
     appStopper: new DokkuClient(),
-    privateQuizzesDir: process.env.QUIZZES_DIR,
+    quizzesDir: process.env.QUIZZES_DIR,
     dedicatedOrigin: process.env.DEDICATED_ORIGIN,
     port: process.env.PORT,
     historyDir: process.env.HISTORY_DIR
