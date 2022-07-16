@@ -66,6 +66,6 @@
     border-style: none;
     position: absolute;
     font-size: min(3vh, 3vw);
-    top: 5%;
-    right: 5%;
+    top: 3%;
+    right: 3%;
 }
