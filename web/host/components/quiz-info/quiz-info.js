@@ -29,7 +29,7 @@ export default function(props) {
 
     const questionsBlock = questions.map((question) => {
         return html`
-            <div key=${question.id} class=question>${question.text}</div
+            <li key=${question.id} class=question>${question.text}</li>
         `
     })
 
@@ -42,7 +42,7 @@ export default function(props) {
 
     return html`<${Shell} headerLeft=${back} headerCenter=${title} footerRight=${actions}>
         <div class=quizInfo>
-            <div class=questions>${questionsBlock}</div>
+            <ol class=questions>${questionsBlock}</ol>
         </div>
     <//>`
 }

@@ -16,7 +16,7 @@
 .quizInfo .question {
     background-color: transparent;
     border-style: none;
-    font-size: min(3.5vh, 3.5vw);
+    font-size: min(4vh, 4vw);
     color: inherit;
     width: 80%;
     text-align: center;
