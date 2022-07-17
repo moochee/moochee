@@ -50,10 +50,6 @@ export default function Entrance(props) {
         history.pushState(term, '', url)
     }
 
-    const play = (quizId, quizTitle) => {
-        props.client.play(quizId, quizTitle)
-    }
-
     const filteredQuizzes = quizzes.filter(q => {
         const lowerCaseTerm = searchTerm.toLowerCase() 
         return q.tags.some(t => t.toLowerCase().includes(lowerCaseTerm))
@@ -72,7 +68,7 @@ export default function Entrance(props) {
             text=${q.title}
             backgroundClass=${q.backgroundClass}
             onInfo=${showInfo}
-            onClick=${() => play(q.id, q.title)} />`
+            onClick=${() => props.onPlay(q.id, q.title)} />`
     })
 
     const headerRight = html`

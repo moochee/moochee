@@ -19,14 +19,6 @@ export default function(props) {
         getQuiz()
     }, [])
 
-    const play = async () => {
-        props.onSetMode(true)
-        await props.client.host(props.id, title)
-    }
-    const host = async () => {
-        props.onSetMode(false)
-        await props.client.host(props.id, title)
-    }
     const back=html`<div class=quizInfoBack onclick=${() => props.onBackHome()}>${'<'}</div>`
 
     const questionsBlock = questions.map((question) => {
@@ -37,8 +29,8 @@ export default function(props) {
 
     const actions = html`
         <div class=quizInfoMainActions>
-            <button onclick=${play}>Play</button>
-            <button onclick=${host}>Host</button>
+            <button onclick=${() => props.onPlay(props.id, title)}>Play</button>
+            <button onclick=${() => props.onHost(props.id, title)}>Host</button>
         </div>
     `
 

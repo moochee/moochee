@@ -19,9 +19,16 @@ const HostGameWeb = function (props) {
         setState({ pageId: 'quiz-info', gameId: state.gameId, quizTitle: state.quizTitle, quizId })
     }
 
-    const onSetMode = (mode) => setHostIsPlayer(mode)
-
     const home = () => setState({ pageId: 'entrance', gameId: '', quizTitle: '', quizId: '' })
+
+    const hostAndPlay = async (quizId, quizTitle) => {
+        setHostIsPlayer(true)
+        await props.client.host(quizId, quizTitle)
+    }
+    const hostOnly = async (quizId, quizTitle) => {
+        setHostIsPlayer(false)
+        await props.client.host(quizId, quizTitle)
+    }
 
     useEffect(() => {
         props.client.subscribe('gameStarted', onGameStarted)
@@ -30,9 +37,9 @@ const HostGameWeb = function (props) {
 
     let page 
     if ( state.pageId === 'entrance' ) {
-        page = html`<${Entrance} client=${props.client} onShowInfo=${onShowInfo}/>`
+        page = html`<${Entrance} client=${props.client} onShowInfo=${onShowInfo} onPlay=${hostAndPlay} />`
     } else if (state.pageId === 'quiz-info') {
-        page = html`<${QuizInfo} client=${props.client} id=${state.quizId} onBackHome=${home} onSetMode=${onSetMode} />`
+        page = html`<${QuizInfo} id=${state.quizId} onBackHome=${home} onPlay=${hostAndPlay} onHost=${hostOnly} />`
     } else if (state.pageId === 'host') {
         page = html`<${Host} client=${props.client} gameId=${state.gameId} quizTitle=${state.quizTitle} hostIsPlayer=${hostIsPlayer} onBackHome=${home} />`
     }
