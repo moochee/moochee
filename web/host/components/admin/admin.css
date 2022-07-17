@@ -44,7 +44,7 @@
     border-style: none;
     position: absolute;
     font-size: min(3vh, 3vw);
-    top: 5%;
+    top: 2%;
 }
 
 .admin .quiz .editButton {
@@ -53,6 +53,7 @@
 
 .admin .quiz .deleteButton {
     right: 5%;
+    padding-right: 0px;
 }
 
 .admin .quiz .tags {
