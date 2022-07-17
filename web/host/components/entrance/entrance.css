@@ -67,5 +67,6 @@
     position: absolute;
     font-size: min(3vh, 3vw);
     top: min(0.5vw, 0.5vh);
-    right: min(0.5vw, 0.5vh);
+    right: min(1vw, 1vh);
+    padding-right: 0px;
 }
