@@ -64,7 +64,7 @@ export default function Entrance(props) {
     const quizList = filteredQuizzes.map(q => {
         const showInfo = (event) => {
             event.stopPropagation()
-            window.location.href = `#/show/${q.id}`
+            props.onShowInfo(q.id)
         }
         return html`<${Quiz}
             key=${q.id}

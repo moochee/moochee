@@ -131,7 +131,6 @@ export default function Host(props) {
         props.client.subscribe('roundFinished', onRoundFinished)
         props.client.subscribe('gameFinished', onGameFinished)
         props.client.subscribe('playerDisconnected', onPlayerDisconnected)
-        props.client.join(props.gameId, HOST_NAME)
         return () => {
             props.client.unsubscribe('playerJoined', onPlayerJoined)
             props.client.unsubscribe('roundStarted', onRoundStarted)
@@ -141,6 +140,10 @@ export default function Host(props) {
             props.client.unsubscribe('playerDisconnected', onPlayerDisconnected)
         }
     }, [])
+
+    useEffect(() => {
+        if (props.hostIsPlayer) props.client.join(props.gameId, HOST_NAME)
+    }, [props.gameId])
 
     const waitingToStart = !question && !isRoundFinished && !waitingForOtherResponses
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} client=${props.client} />` : ''

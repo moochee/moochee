@@ -33,3 +33,9 @@
     color: inherit;
 }
 
+.quizInfoBack {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+

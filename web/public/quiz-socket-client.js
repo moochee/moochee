@@ -26,11 +26,12 @@ export default function QuizSocketClient(createWebSocket, createGame) {
 
     this.host = async (quizId, quizTitle) => {
         const gameId = await createGame(quizId)
-        this.joinAsHost(gameId, quizTitle)
+        send({ command: 'joinAsHost', args: [gameId, quizTitle, false] })
     }
 
-    this.joinAsHost = (gameId, quizTitle) => {
-        send({ command: 'joinAsHost', args: [gameId, quizTitle] })
+    this.play = async (quizId, quizTitle) => {
+        const gameId = await createGame(quizId)
+        send({ command: 'joinAsHost', args: [gameId, quizTitle, true] })
     }
 
     this.join = (gameId, playerName) => {

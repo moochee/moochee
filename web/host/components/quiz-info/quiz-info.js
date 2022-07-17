@@ -12,19 +12,20 @@ export default function(props) {
 
     useEffect(() => {
         const getQuiz = async () => {
-            if (props.id) {
-                const quiz = await (await fetch(`/api/v1/quizzes/${props.id}`)).json()
-                setTitle(quiz.title)
-                setQuestions(quiz.questions)
-            }
+            const quiz = await (await fetch(`/api/v1/quizzes/${props.id}`)).json()
+            setTitle(quiz.title)
+            setQuestions(quiz.questions)
         }
         getQuiz()
     }, [])
 
-    const play = () => null
-    const host = () => null
-    const backToHome = () => window.location.href = '#/'
-    const back=html`<a class=adminBack href='#/'>${'<'}</a>`
+    const play = async () => {
+        await props.client.play(props.id, title)
+    }
+    const host = async () => {
+        await props.client.host(props.id, title)
+    }
+    const back=html`<div class=quizInfoBack onclick=${() => props.onBackHome()}>${'<'}</div>`
 
     const questionsBlock = questions.map((question) => {
         return html`
@@ -36,14 +37,11 @@ export default function(props) {
         <div class=quizInfoMainActions>
             <button onclick=${play}>Play</button>
             <button onclick=${host}>Host</button>
-            <button onclick=${backToHome}>Home</button>
         </div>
     `
 
-    return html`<${Shell} headerLeft=${back} headerCenter='Quiz Info' footerRight=${actions}>
+    return html`<${Shell} headerLeft=${back} headerCenter=${title} footerRight=${actions}>
         <div class=quizInfo>
-            <div class=title>${title}</div>
-            <hr/>
             <div class=questions>${questionsBlock}</div>
         </div>
     <//>`
