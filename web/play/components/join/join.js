@@ -34,7 +34,7 @@ export default function Join(props) {
         props.client.join(props.gameId, name)
     }
 
-    return html`<${Shell} headerLeft='😸 Moochee' headerCenter='Join Game'>
+    return html`<${Shell} headerCenter='Join Game'>
         <div class=join>
             <input ref=${name} placeholder='Enter your name' maxLength=30 value=${playerName}
                 onInput=${updatePlayerName} onKeyPress=${e => e.code === 'Enter' ? join() : null}></input>

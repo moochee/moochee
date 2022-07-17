@@ -8,32 +8,33 @@ import Admin from '../admin/admin.js'
 import QuizInfo from '../quiz-info/quiz-info.js'
 
 const HostGameWeb = function (props) {
-    const [state, setState] = useState({ pageId: 'entrance', gameId: '', quizTitle: '', quizId: '', hostIsPlayer: false })
+    const [state, setState] = useState({ pageId: 'entrance', gameId: '', quizTitle: '', quizId: '' })
+    const [hostIsPlayer, setHostIsPlayer] = useState(false)
 
-    const onGameStarted = (gameId, quizTitle, hostIsPlayer) => {
-        setState({ pageId: 'host', gameId, quizTitle, quizId, hostIsPlayer })
+    const onGameStarted = (gameId, quizTitle) => {
+        setState({ pageId: 'host', gameId, quizTitle, quizId: state.quizId })
     }
 
     const onShowInfo = (quizId) => {
-        setState({ pageId: 'quiz-info', gameId: '', quizTitle: '', quizId, hostIsPlayer })
+        setState({ pageId: 'quiz-info', gameId: state.gameId, quizTitle: state.quizTitle, quizId })
     }
+
+    const onSetMode = (mode) => setHostIsPlayer(mode)
+
+    const home = () => setState({ pageId: 'entrance', gameId: '', quizTitle: '', quizId: '' })
 
     useEffect(() => {
         props.client.subscribe('gameStarted', onGameStarted)
         return () => props.client.unsubscribe('gameStarted')
     }, [])
 
-    const home = () => setState({ pageId: 'entrance', gameId: '', quizTitle: '', quizId: '', hostIsPlayer: false })
-
-    const { pageId, gameId, quizTitle, quizId, hostIsPlayer } = state
-
     let page 
-    if ( pageId === 'entrance' ) {
+    if ( state.pageId === 'entrance' ) {
         page = html`<${Entrance} client=${props.client} onShowInfo=${onShowInfo}/>`
-    } else if (pageId === 'quiz-info') {
-        page = html`<${QuizInfo} client=${props.client} id=${quizId} onBackHome=${home} />`
-    } else if (pageId === 'host') {
-        page = html`<${Host} client=${props.client} gameId=${gameId} quizTitle=${quizTitle} hostIsPlayer=${hostIsPlayer} onBackHome=${home} />`
+    } else if (state.pageId === 'quiz-info') {
+        page = html`<${QuizInfo} client=${props.client} id=${state.quizId} onBackHome=${home} onSetMode=${onSetMode} />`
+    } else if (state.pageId === 'host') {
+        page = html`<${Host} client=${props.client} gameId=${state.gameId} quizTitle=${state.quizTitle} hostIsPlayer=${hostIsPlayer} onBackHome=${home} />`
     }
     return page
 }

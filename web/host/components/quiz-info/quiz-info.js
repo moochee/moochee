@@ -20,9 +20,11 @@ export default function(props) {
     }, [])
 
     const play = async () => {
-        await props.client.play(props.id, title)
+        props.onSetMode(true)
+        await props.client.host(props.id, title)
     }
     const host = async () => {
+        props.onSetMode(false)
         await props.client.host(props.id, title)
     }
     const back=html`<div class=quizInfoBack onclick=${() => props.onBackHome()}>${'<'}</div>`
