@@ -50,8 +50,8 @@ export default function Entrance(props) {
         history.pushState(term, '', url)
     }
 
-    const host = (quizId, quizTitle) => {
-        props.client.host(quizId, quizTitle)
+    const play = (quizId, quizTitle) => {
+        props.client.play(quizId, quizTitle)
     }
 
     const filteredQuizzes = quizzes.filter(q => {
@@ -72,7 +72,7 @@ export default function Entrance(props) {
             text=${q.title}
             backgroundClass=${q.backgroundClass}
             onInfo=${showInfo}
-            onClick=${() => host(q.id, q.title)} />`
+            onClick=${() => play(q.id, q.title)} />`
     })
 
     const headerRight = html`
