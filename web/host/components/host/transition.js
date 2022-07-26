@@ -9,7 +9,7 @@ import Podium from '/public/components/podium/podium.js'
 loadCss('/tryout/components/host/transition.css')
 
 const DistributionPage = function (props) {
-    const buttonText = props.isFinal ? 'Podium' : 'Scoreboard'
+    const buttonText = props.isFinal ? 'Podium' : 'Next'
     return html`<div class=transition>
         <${Distribution} distribution=${props.distribution} />
         <button onclick=${props.onShowNext}>${buttonText}</button>
