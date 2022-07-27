@@ -3,6 +3,11 @@ html, body {
     height: 100%;
 }
 
+@font-face {
+    font-family: Brevia;
+    src: url(Brevia-Medium.woff2);
+}
+
 html {
     color: #767671;
     /* color: #464646; */
@@ -10,7 +15,7 @@ html {
     /* background-color: #f6f6f6; */
     /* background-color: white; */
     /* font-weight: lighter; */
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Brevia, Verdana, Geneva, Tahoma, sans-serif;
 }
 
 input {
