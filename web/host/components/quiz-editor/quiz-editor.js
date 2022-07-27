@@ -9,7 +9,7 @@ loadCss('/tryout/components/quiz-editor/quiz-editor.css')
 const QuestionAndAnswers = function (props) {
     const addAnswer = () => {
         const newState = JSON.parse(JSON.stringify(props.question))
-        newState.answers.push({ id: crypto.randomUUID(), text: `Answer ${newState.answers.length + 1}` })
+        newState.answers.push({ id: crypto.randomUUID(), text: `Answer${newState.answers.length + 1}` })
         props.onUpdateQuestion(newState)
     }
 
@@ -53,9 +53,10 @@ const QuestionAndAnswers = function (props) {
 
 const createTemplateQuestion = () => ({
     id: crypto.randomUUID(),
-    text: 'Question?',
+    text: 'Question',
     answers: [
-        { id: crypto.randomUUID(), text: 'Answer 1', correct: true }, { id: crypto.randomUUID(), text: 'Answer 2' }
+        { id: crypto.randomUUID(), text: 'Answer1', correct: true }, { id: crypto.randomUUID(), text: 'Answer2' },
+        { id: crypto.randomUUID(), text: 'Answer3' }, { id: crypto.randomUUID(), text: 'Answer4' }
     ]
 })
 
@@ -69,7 +70,7 @@ const removeIDs = (quiz) => {
 }
 
 export default function QuizEditor(props) {
-    const [title, setTitle] = useState('Untitled quiz')
+    const [title, setTitle] = useState('Untitled')
     const [tags, setTags] = useState('')
     const [isPublic, setIsPublic] = useState(false)
     const [questions, setQuestions] = useState([createTemplateQuestion()])
