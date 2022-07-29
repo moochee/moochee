@@ -1,5 +1,3 @@
-'use strict'
-
 import request from 'supertest'
 import httpServer from '../http-server.js'
 import dummyConfig from './dummy/auth-config.js'

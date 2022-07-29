@@ -1,5 +1,3 @@
-'use strict'
-
 const DUMMY = 'dummy'
 
 export default {

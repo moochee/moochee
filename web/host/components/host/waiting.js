@@ -1,5 +1,3 @@
-'use strict'
-
 import { html, useState, useRef, useEffect } from '../../../../node_modules/htm/preact/standalone.mjs'
 import QrCreator from '/web/public/lib/qr-creator.es6.min.js'
 

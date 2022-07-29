@@ -1,5 +1,3 @@
-'use strict'
-
 import WebSocket from 'ws'
 
 export default function Events(webSocketServer, historyService) {

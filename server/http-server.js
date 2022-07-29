@@ -1,5 +1,3 @@
-'use strict'
-
 import http from 'http'
 import express from 'express'
 import quizSocketServer from './quiz-socket-server.js'

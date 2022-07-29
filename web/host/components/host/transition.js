@@ -1,5 +1,3 @@
-'use strict'
-
 import { html, useState, useEffect } from '../../../../node_modules/htm/preact/standalone.mjs'
 import Scoreboard from '../../../public/components/scoreboard/scoreboard.js'
 import Distribution from '../../../public/components/distribution/distribution.js'

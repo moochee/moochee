@@ -1,5 +1,3 @@
-'use strict'
-
 import HistoryService from '../history-service.js'
 import dummyHistoryItem from './dummy/history-item.js'
 

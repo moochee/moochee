@@ -1,5 +1,3 @@
-'use strict'
-
 import { html } from '../../../../node_modules/htm/preact/standalone.mjs'
 
 window.loadCss('/web/public/components/distribution/distribution.css')

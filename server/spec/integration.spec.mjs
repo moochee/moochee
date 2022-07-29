@@ -1,5 +1,3 @@
-'use strict'
-
 import WebSocket from 'ws'
 import httpServer from '../http-server.js'
 import QuizSocketClient from '../../web/public/quiz-socket-client.js'

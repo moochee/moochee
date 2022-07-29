@@ -1,5 +1,3 @@
-'use strict'
-
 import { WebSocketServer } from 'ws'
 import Events from './events.js'
 import Games from './games.js'

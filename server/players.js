@@ -1,5 +1,3 @@
-'use strict'
-
 export default function Players(avatars) {
     let players = []
 

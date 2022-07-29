@@ -1,5 +1,3 @@
-'use strict'
-
 import passport from 'passport'
 import session from 'express-session'
 import memorystore from 'memorystore'

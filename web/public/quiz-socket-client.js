@@ -1,5 +1,3 @@
-'use strict'
-
 export default function QuizSocketClient(createWebSocket, createGame) {
     const socket = createWebSocket()
     const ready = new Promise((resolve) => socket.onopen = resolve)

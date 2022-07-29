@@ -1,5 +1,3 @@
-'use strict'
-
 import { html, render } from '../../node_modules/htm/preact/standalone.mjs'
 import QuizSocketClient from '../public/quiz-socket-client.js'
 import PlayApp from './components/app/play-app.js'

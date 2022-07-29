@@ -1,5 +1,3 @@
-'use strict'
-
 import crypto from 'crypto'
 import Players from './players.js'
 import Avatars from './avatars.js'

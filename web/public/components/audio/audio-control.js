@@ -1,5 +1,3 @@
-'use strict'
-
 import { html, useState, useEffect, useRef } from '../../../../node_modules/htm/preact/standalone.mjs'
 
 window.loadCss('/web/public/components/audio/audio-control.css')

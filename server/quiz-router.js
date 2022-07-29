@@ -1,5 +1,3 @@
-'use strict'
-
 import { Router } from 'express'
 import QuizService from './quiz-service.js'
 

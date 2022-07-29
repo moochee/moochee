@@ -1,5 +1,3 @@
-'use strict'
-
 import { exec } from 'child_process'
 
 const FakeAuth = function () {

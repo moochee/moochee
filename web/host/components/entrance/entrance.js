@@ -1,5 +1,3 @@
-'use strict'
-
 import { html, useEffect, useState } from '../../../../node_modules/htm/preact/standalone.mjs'
 import Shell from '../../../public/components/shell/shell.js'
 

@@ -1,5 +1,3 @@
-'use strict'
-
 import { html, useState, useEffect } from '../../../../node_modules/htm/preact/standalone.mjs'
 import Entrance from '../entrance/entrance.js'
 import Host from '../host/host.js'

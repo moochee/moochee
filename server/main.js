@@ -1,5 +1,3 @@
-'use strict'
-
 import HistoryService from './history-service.js'
 import httpServer from './http-server.js'
 import QuizService from './quiz-service.js'

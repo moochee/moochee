@@ -1,5 +1,3 @@
-'use strict'
-
 import { html, useState, useEffect } from '../../../node_modules/htm/preact/standalone.mjs'
 
 export default function Countdown(props) {

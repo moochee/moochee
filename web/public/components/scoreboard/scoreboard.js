@@ -1,5 +1,3 @@
-'use strict'
-
 import { html, useEffect, useRef } from '../../../../node_modules/htm/preact/standalone.mjs'
 
 window.loadCss('/web/public/components/scoreboard/scoreboard.css')

@@ -1,5 +1,3 @@
-'use strict'
-
 import { readFile, readdir, writeFile, access, mkdir, rm } from 'fs/promises'
 
 export default function HistoryService(directory) {

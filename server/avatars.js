@@ -1,5 +1,3 @@
-'use strict'
-
 export default function Avatars(pools) {
     const priorityPools = pools || [
         Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐲🐙🦋🐞🦀'),

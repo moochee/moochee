@@ -1,5 +1,3 @@
-'use strict'
-
 import QuizService from '../quiz-service.js'
 import dummyQuiz from './dummy/quiz.js'
 

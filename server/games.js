@@ -1,5 +1,3 @@
-'use strict'
-
 import Game from './game.js'
 
 export default function Games(quizService, events, expiryTimer) {

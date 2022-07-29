@@ -1,5 +1,3 @@
-'use strict'
-
 // REVISE maybe an entire 'Game' should be split out which can also host the transition, so this class only orchestrates waiting/game
 import { html, useState, useEffect, useRef } from '../../../../node_modules/htm/preact/standalone.mjs'
 import AudioControl from '../../../public/components/audio/audio-control.js'

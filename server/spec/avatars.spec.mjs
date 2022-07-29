@@ -1,5 +1,3 @@
-'use strict'
-
 import Avatars from '../avatars.js'
 
 describe('Avatars', () => {

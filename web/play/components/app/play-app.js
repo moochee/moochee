@@ -1,5 +1,3 @@
-'use strict'
-
 import { html, useState, useEffect } from '../../../../node_modules/htm/preact/standalone.mjs'
 import Join from '../join/join.js'
 import Play from '../play/play.js'

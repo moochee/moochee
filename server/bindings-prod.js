@@ -1,5 +1,3 @@
-'use strict'
-
 import GoogleAuth from './google-auth.js'
 import DokkuClient from './dokku-client.js'
 
