@@ -72,7 +72,12 @@ export default function Game(quiz, timer, events, host) {
             events.publish(this.id, { event: 'roundFinished', args: [{ result, scoreboard }] })
         }
     }
+    
+    this.playerExists = (name, avatar) => {
+        return avatar === players.getAvatar(name)
+    }
 
+    // REVISE network layer leaking into business layer
     this.disconnect = (name) => {
         const avatar = players.getAvatar(name)
         players.remove(name)

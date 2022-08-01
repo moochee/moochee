@@ -33,6 +33,21 @@ export default function create(server, quizService, gameExpiryTimer, historyServ
                         webSocket.send(JSON.stringify({ event: 'joiningFailed', args: [error.message] }))
                     }
                 },
+                reJoin: () => {
+                    const [gameId, name, avatar] = args
+                    try {
+                        const game = games.get(gameId)
+                        if (game.playerExists(name, avatar)) {
+                            webSocket.gameId = gameId
+                            webSocket.playerName = name
+                            webSocket.send(JSON.stringify({ event: 'reJoiningOk', args: [] }))
+                        } else {
+                            throw new Error('Player does not exist')
+                        }
+                    } catch (error) {
+                        webSocket.send(JSON.stringify({ event: 'reJoiningFailed', args: [error.message] }))
+                    }
+                },
                 nextRound: () => {
                     const [gameId] = args
                     try {
@@ -55,16 +70,6 @@ export default function create(server, quizService, gameExpiryTimer, historyServ
 
             const commandHandler = commandHandlers[command]
             commandHandler ? commandHandler() : console.error(`No handler defined for command: ${command}`)
-        })
-
-        webSocket.on('close', () => {
-            if (!webSocket.gameId || !webSocket.playerName) return
-            try {
-                const game = games.get(webSocket.gameId)
-                game.disconnect(webSocket.playerName, events)
-            } catch (error) {
-                console.error(error)
-            }
         })
     })
 

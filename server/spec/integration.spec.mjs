@@ -59,12 +59,105 @@ describe('Integration', () => {
             playerClient.guess(gameId, ALICE, 0)
             playerClient.subscribe('gameFinished', resolve)
         })
+    })
+
+    xit('can re-connect the host and will receive events after the reconnection', async () => {
+        const instantSetTimeout = (cb) => cb()
+        let currentWSClient
+
+        hostClient = new QuizSocketClient(() => {
+            currentWSClient = new WebSocket(`ws://localhost:${port}`)
+            return currentWSClient
+        }, instantSetTimeout)
+
+        const gameId = await new Promise(resolve => {
+            hostClient.host('cc-dist-logging.json')
+            hostClient.subscribe('gameCreated', resolve)
+        })
+
         await new Promise(resolve => {
-            playerClient.disconnect()
-            hostClient.subscribe('playerDisconnected', resolve)
+            hostClient.joinAsHost(gameId)
+            hostClient.subscribe('hostJoined', resolve)
+        })
+
+        currentWSClient.close()
+
+        await new Promise(resolve => {
+            hostClient.subscribe('hostJoined', resolve)
+        })
+
+        await new Promise((resolve) => {
+            playerClient.join(gameId, ALICE)
+            hostClient.subscribe('playerJoined', resolve)
         })
     })
 
-    // REVISE add integration test that verifies properties contain values, and ideally even that the UI binds to it correctly
-    //      Rationale: when I renamed the quiz.text to quiz.title, I noticed that there were a lot of places to be adjusted, all the way up to the UI, and none of these was caught by a test
+    xit('can re-connect the player and will receive events after the reconnection', async () => {
+        const instantSetTimeout = (cb) => cb()
+        let currentWSClient
+
+        playerClient = new QuizSocketClient(() => {
+            currentWSClient = new WebSocket(`ws://localhost:${port}`)
+            return currentWSClient
+        }, instantSetTimeout, true)
+
+        const gameId = await new Promise(resolve => {
+            hostClient.host('cc-dist-logging.json')
+            hostClient.subscribe('gameCreated', resolve)
+        })
+
+        await new Promise(resolve => {
+            hostClient.joinAsHost(gameId)
+            hostClient.subscribe('hostJoined', resolve)
+        })
+
+        await new Promise((resolve) => {
+            playerClient.join(gameId, ALICE)
+            hostClient.subscribe('playerJoined', resolve)
+        })
+
+        currentWSClient.close()
+
+        await new Promise(resolve => {
+            playerClient.subscribe('reJoiningOk', resolve)
+        })
+
+        await new Promise((resolve) => {
+            playerClient.subscribe('roundStarted', resolve)
+            hostClient.nextRound(gameId)
+        })
+    })
+
+    xit('will fail if trying to re-connect with invalid information', async () => {
+        const instantSetTimeout = (cb) => cb()
+        let currentWSClient
+
+        playerClient = new QuizSocketClient(() => {
+            currentWSClient = new WebSocket(`ws://localhost:${port}`)
+            return currentWSClient
+        }, instantSetTimeout, true)
+
+        const gameId = await new Promise(resolve => {
+            hostClient.host('cc-dist-logging.json')
+            hostClient.subscribe('gameCreated', resolve)
+        })
+
+        await new Promise(resolve => {
+            hostClient.joinAsHost(gameId)
+            hostClient.subscribe('hostJoined', resolve)
+        })
+
+        await new Promise((resolve) => {
+            playerClient.join(gameId, ALICE)
+            hostClient.subscribe('playerJoined', resolve)
+        })
+
+        currentWSClient.send(JSON.stringify({ command: 'reJoin', args: [gameId, ALICE, '🤡'] }))
+
+        await new Promise(resolve => {
+            playerClient.subscribe('reJoiningFailed', resolve)
+        })
+
+        // TODO write one more test for negative case
+    })
 })

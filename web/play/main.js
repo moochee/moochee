@@ -6,5 +6,5 @@ window.loadCss('/web/public/style.css')
 
 export default function init() {
     const wsUrl = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}`
-    render(html`<${PlayApp} client=${new QuizSocketClient(() => new WebSocket(wsUrl))} />`, document.body)
+    render(html`<${PlayApp} client=${new QuizSocketClient(() => new WebSocket(wsUrl), () => null, setTimeout, true)} />`, document.body)
 }

@@ -15,11 +15,6 @@ export default function create(client, auth, quizService, dedicatedOrigin, gameE
         games.onNoRunningGames(() => client.stop())
     })
 
-    process.on('SIGTERM', () => {
-        console.log('sigterm received')
-        httpServer.close()
-    })
-
     const login = auth.setup(app)
 
     app.use('/web/public', express.static('web/public'))
@@ -43,9 +38,14 @@ export default function create(client, auth, quizService, dedicatedOrigin, gameE
     const httpServer = http.createServer(app)
     const socketServer = quizSocketServer(httpServer, quizService, gameExpiryTimer, historyService)
     const games = socketServer.games
-
-    httpServer.games = games
-    httpServer.close = () => socketServer.close()
+    
+    // REVISE maybe the sigterm handling should be outside, it will likely also eliminate the issue with the listeners piling up during tests
+    const onSigterm = () => httpServer.close()
+    httpServer.on('close', () => process.removeListener('SIGTERM', onSigterm))
+    process.on('SIGTERM', onSigterm)
+    // REVISE check why in some tests we will see multiple handlers, ideally maxListeners should be 1, not higher
+    // console.log(process.rawListeners('SIGTERM'))
+    process.setMaxListeners(8)
 
     return httpServer
 }
