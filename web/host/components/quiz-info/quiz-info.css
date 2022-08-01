@@ -19,7 +19,7 @@
     font-size: min(4vh, 4vw);
     color: inherit;
     width: 80%;
-    text-align: center;
+    text-align: left;
 }
 
 .quizInfo hr {
