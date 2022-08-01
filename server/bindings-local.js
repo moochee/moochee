@@ -25,11 +25,12 @@ const LocalProcessStopper = function () {
     }
 }
 
-export default {
-    auth: new FakeAuth(),
-    appStopper: new LocalProcessStopper(),
-    quizzesDir: 'quizzes',
-    dedicatedOrigin: 'http://localhost:3000',
-    port: 3000,
-    historyDir: 'history'
-}
+const appStopper = new LocalProcessStopper()
+const auth = new FakeAuth()
+const quizzesDir = 'quizzes'
+const dedicatedOrigin = 'http://localhost:3000'
+const port = 3000
+const gameExpiryTimer = { onTimeout: (callback) => setTimeout(callback, 1000 * 60 * 60 * 3)}
+const historyDir = 'history'
+
+export { appStopper, auth, quizzesDir, dedicatedOrigin, port, gameExpiryTimer, historyDir }

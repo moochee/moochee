@@ -10,11 +10,12 @@ const authConfig = {
     SESSION_SECRET: process.env.SESSION_SECRET
 }
 
-export default {
-    auth: new GoogleAuth(authConfig),
-    appStopper: new DokkuClient(),
-    quizzesDir: process.env.QUIZZES_DIR,
-    dedicatedOrigin: process.env.DEDICATED_ORIGIN,
-    port: process.env.PORT,
-    historyDir: process.env.HISTORY_DIR
-}
+const appStopper = new DokkuClient()
+const auth = new GoogleAuth(authConfig)
+const quizzesDir = process.env.QUIZZES_DIR
+const dedicatedOrigin = process.env.DEDICATED_ORIGIN
+const port = process.env.PORT
+const gameExpiryTimer = { onTimeout: (callback) => setTimeout(callback, 1000 * 60 * 60 * 3)}
+const historyDir = process.env.HISTORY_DIR
+
+export { appStopper, auth, quizzesDir, dedicatedOrigin, port, gameExpiryTimer, historyDir }
