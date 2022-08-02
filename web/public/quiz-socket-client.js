@@ -60,7 +60,7 @@ export default function QuizSocketClient(createWebSocket, createGame, timeout = 
 
     this.join = (gameId, playerName) => {
         currentGameId = gameId
-        this.subscribe('joiningOk', (title, n, a) => {
+        this.subscribe('playerJoined', (title, n, a) => {
             name = n
             avatar = a
         })

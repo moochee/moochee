@@ -13,7 +13,7 @@ const PlayGameWeb = function (props) {
         setAtJoinGame(true)
     }
 
-    const onJoiningOk = (quizTitle, name, avatar, otherPlayers) => {
+    const onPlayerJoined = (quizTitle, name, avatar, otherPlayers) => {
         setPlayerName(name)
         setPlayerAvatar(avatar)
         setOtherPlayers(otherPlayers)
@@ -23,10 +23,10 @@ const PlayGameWeb = function (props) {
 
     useEffect(() => {
         window.addEventListener('hashchange', hashChanged)
-        props.client.subscribe('joiningOk', onJoiningOk)
+        props.client.subscribe('playerJoined', onPlayerJoined)
         return () => {
             window.removeEventListener('hashchange', hashChanged)
-            props.client.unsubscribe('joiningOk')
+            props.client.unsubscribe('playerJoined')
         }
     }, [])
 

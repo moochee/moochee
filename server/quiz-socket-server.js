@@ -25,11 +25,12 @@ export default function create(server, quizService, gameExpiryTimer, historyServ
                     const [gameId, name] = args
                     try {
                         const game = games.get(gameId)
-                        const [avatar, otherPlayers] = game.join(name)
                         webSocket.gameId = gameId
                         webSocket.playerName = name
-                        webSocket.send(JSON.stringify({ event: 'joiningOk', args: [game.quizTitle, name, avatar, otherPlayers] }))
+                        game.join(name)
                     } catch (error) {
+                        webSocket.gameId = null
+                        webSocket.playerName = null
                         webSocket.send(JSON.stringify({ event: 'joiningFailed', args: [error.message] }))
                     }
                 },
@@ -70,6 +71,16 @@ export default function create(server, quizService, gameExpiryTimer, historyServ
 
             const commandHandler = commandHandlers[command]
             commandHandler ? commandHandler() : console.error(`No handler defined for command: ${command}`)
+        })
+
+        webSocket.on('close', () => {
+            if (!webSocket.gameId || !webSocket.playerName) return
+            try {
+                const game = games.get(webSocket.gameId)
+                game.disconnect(webSocket.playerName, events)
+            } catch (error) {
+                console.error(error)
+            }
         })
     })
 
