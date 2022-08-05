@@ -16,5 +16,5 @@ export default function init() {
         const gameId = targetUrl.pathname.substring(1)
         return gameId
     }
-    render(html`<${HostApp} client=${new QuizSocketClient(() => new WebSocket(wsUrl), createGame)} />`, document.body)
+    render(html`<${HostApp} client=${new QuizSocketClient(() => new WebSocket(wsUrl), createGame, () => null)} />`, document.body)
 }
