@@ -7,7 +7,7 @@ import dummyAuth from './dummy/auth.js'
 import fetch from 'node-fetch'
 
 describe('Integration', () => {
-    let server, port = 3010, hostClient, playerClient, quizService, quizId
+    let server, port = 3010, hostClient, playerClient, quizService, quizId, createGame
     const ALICE = 'Alice', dummyAuthor = 'test@example.com'
 
     beforeEach(async () => {
@@ -18,7 +18,7 @@ describe('Integration', () => {
         const url = `http://localhost:${port}`
         server = httpServer(null, dummyAuth, quizService, url, noExpiryTimer, dummyHistoryService)
         await new Promise((resolve) => server.listen(port, () => resolve()))
-        const createGame = async (quizId) => {
+        createGame = async (quizId) => {
             const response = await fetch(`${url}/api/v1/games`, {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST',
@@ -28,8 +28,6 @@ describe('Integration', () => {
             const gameId = targetUrl.pathname.substring(1)
             return gameId
         }
-        hostClient = new QuizSocketClient(() => new WebSocket(`ws://localhost:${port}`), createGame)
-        playerClient = new QuizSocketClient(() => new WebSocket(`ws://localhost:${port}`))
     })
 
     afterEach(async () => {
@@ -38,6 +36,9 @@ describe('Integration', () => {
     })
 
     it('should be possible to join a public game', async () => {
+        hostClient = new QuizSocketClient(() => new WebSocket(`ws://localhost:${port}`), createGame)
+        playerClient = new QuizSocketClient(() => new WebSocket(`ws://localhost:${port}`))
+
         const gameId = await new Promise(resolve => {
             hostClient.host(quizId)
             hostClient.subscribe('gameStarted', resolve)
@@ -61,29 +62,26 @@ describe('Integration', () => {
         })
     })
 
-    xit('can re-connect the host and will receive events after the reconnection', async () => {
+    it('can re-connect the host and will receive events after the reconnection', async () => {
         const instantSetTimeout = (cb) => cb()
         let currentWSClient
 
         hostClient = new QuizSocketClient(() => {
             currentWSClient = new WebSocket(`ws://localhost:${port}`)
             return currentWSClient
-        }, instantSetTimeout)
+        }, createGame, instantSetTimeout)
+        playerClient = new QuizSocketClient(() => new WebSocket(`ws://localhost:${port}`), 
+            () => null, instantSetTimeout, true)
 
         const gameId = await new Promise(resolve => {
-            hostClient.host('cc-dist-logging.json')
-            hostClient.subscribe('gameCreated', resolve)
-        })
-
-        await new Promise(resolve => {
-            hostClient.joinAsHost(gameId)
-            hostClient.subscribe('hostJoined', resolve)
+            hostClient.host(quizId)
+            hostClient.subscribe('gameStarted', resolve)
         })
 
         currentWSClient.close()
 
-        await new Promise(resolve => {
-            hostClient.subscribe('hostJoined', resolve)
+        await new Promise((resolve) => {
+            hostClient.subscribe('gameStarted', resolve)
         })
 
         await new Promise((resolve) => {
@@ -92,23 +90,19 @@ describe('Integration', () => {
         })
     })
 
-    xit('can re-connect the player and will receive events after the reconnection', async () => {
+    it('can re-connect the player and will receive events after the reconnection', async () => {
         const instantSetTimeout = (cb) => cb()
         let currentWSClient
 
+        hostClient = new QuizSocketClient(() => new WebSocket(`ws://localhost:${port}`), createGame)
         playerClient = new QuizSocketClient(() => {
             currentWSClient = new WebSocket(`ws://localhost:${port}`)
             return currentWSClient
-        }, instantSetTimeout, true)
+        }, () => null, instantSetTimeout, true)
 
         const gameId = await new Promise(resolve => {
-            hostClient.host('cc-dist-logging.json')
-            hostClient.subscribe('gameCreated', resolve)
-        })
-
-        await new Promise(resolve => {
-            hostClient.joinAsHost(gameId)
-            hostClient.subscribe('hostJoined', resolve)
+            hostClient.host(quizId)
+            hostClient.subscribe('gameStarted', resolve)
         })
 
         await new Promise((resolve) => {
@@ -128,23 +122,19 @@ describe('Integration', () => {
         })
     })
 
-    xit('will fail if trying to re-connect with invalid information', async () => {
+    it('will fail if trying to re-connect with invalid information', async () => {
         const instantSetTimeout = (cb) => cb()
         let currentWSClient
 
+        hostClient = new QuizSocketClient(() => new WebSocket(`ws://localhost:${port}`), createGame)
         playerClient = new QuizSocketClient(() => {
             currentWSClient = new WebSocket(`ws://localhost:${port}`)
             return currentWSClient
-        }, instantSetTimeout, true)
+        }, () => null, instantSetTimeout, true)
 
         const gameId = await new Promise(resolve => {
-            hostClient.host('cc-dist-logging.json')
-            hostClient.subscribe('gameCreated', resolve)
-        })
-
-        await new Promise(resolve => {
-            hostClient.joinAsHost(gameId)
-            hostClient.subscribe('hostJoined', resolve)
+            hostClient.host(quizId)
+            hostClient.subscribe('gameStarted', resolve)
         })
 
         await new Promise((resolve) => {
