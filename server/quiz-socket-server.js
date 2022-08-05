@@ -72,16 +72,6 @@ export default function create(server, quizService, gameExpiryTimer, historyServ
             const commandHandler = commandHandlers[command]
             commandHandler ? commandHandler() : console.error(`No handler defined for command: ${command}`)
         })
-
-        webSocket.on('close', () => {
-            if (!webSocket.gameId || !webSocket.playerName) return
-            try {
-                const game = games.get(webSocket.gameId)
-                game.disconnect(webSocket.playerName, events)
-            } catch (error) {
-                console.error(error)
-            }
-        })
     })
 
     return webSocketServer
