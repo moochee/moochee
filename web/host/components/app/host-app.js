@@ -35,7 +35,7 @@ const HostGameWeb = function (props) {
 
     let page 
     if ( state.pageId === 'entrance' ) {
-        page = html`<${Entrance} client=${props.client} onShowInfo=${onShowInfo} onPlay=${hostAndPlay} />`
+        page = html`<${Entrance} client=${props.client} onShowInfo=${onShowInfo} onPlay=${hostOnly} />`
     } else if (state.pageId === 'quiz-info') {
         page = html`<${QuizInfo} id=${state.quizId} onBackHome=${home} onPlay=${hostAndPlay} onHost=${hostOnly} />`
     } else if (state.pageId === 'host') {
