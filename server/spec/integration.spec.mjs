@@ -41,7 +41,7 @@ describe('Integration', () => {
 
         const gameId = await new Promise(resolve => {
             hostClient.host(quizId)
-            hostClient.subscribe('gameStarted', resolve)
+            hostClient.subscribe('hostJoined', resolve)
         })
         await new Promise(resolve => {
             playerClient.join(gameId, ALICE)
@@ -75,13 +75,13 @@ describe('Integration', () => {
 
         const gameId = await new Promise(resolve => {
             hostClient.host(quizId)
-            hostClient.subscribe('gameStarted', resolve)
+            hostClient.subscribe('hostJoined', resolve)
         })
 
         currentWSClient.close()
 
         await new Promise((resolve) => {
-            hostClient.subscribe('gameStarted', resolve)
+            hostClient.subscribe('hostJoined', resolve)
         })
 
         await new Promise((resolve) => {
@@ -102,7 +102,7 @@ describe('Integration', () => {
 
         const gameId = await new Promise(resolve => {
             hostClient.host(quizId)
-            hostClient.subscribe('gameStarted', resolve)
+            hostClient.subscribe('hostJoined', resolve)
         })
 
         await new Promise((resolve) => {
@@ -134,7 +134,7 @@ describe('Integration', () => {
 
         const gameId = await new Promise(resolve => {
             hostClient.host(quizId)
-            hostClient.subscribe('gameStarted', resolve)
+            hostClient.subscribe('hostJoined', resolve)
         })
 
         await new Promise((resolve) => {

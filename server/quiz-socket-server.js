@@ -19,7 +19,7 @@ export default function create(server, quizService, gameExpiryTimer, historyServ
                 joinAsHost: () => {
                     const [gameId, quizTitle] = args
                     webSocket.gameId = gameId
-                    webSocket.send(JSON.stringify({ event: 'gameStarted', args: [gameId, quizTitle] }))
+                    webSocket.send(JSON.stringify({ event: 'hostJoined', args: [gameId, quizTitle] }))
                 },
                 join: () => {
                     const [gameId, name] = args

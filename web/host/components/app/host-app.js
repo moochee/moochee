@@ -9,7 +9,7 @@ const HostGameWeb = function (props) {
     const [state, setState] = useState({ pageId: 'entrance', gameId: '', quizTitle: '', quizId: '' })
     const [hostIsPlayer, setHostIsPlayer] = useState(false)
 
-    const onGameStarted = (gameId, quizTitle) => {
+    const onHostJoined = (gameId, quizTitle) => {
         setState({ pageId: 'host', gameId, quizTitle, quizId: state.quizId })
     }
 
@@ -29,8 +29,8 @@ const HostGameWeb = function (props) {
     }
 
     useEffect(() => {
-        props.client.subscribe('gameStarted', onGameStarted)
-        return () => props.client.unsubscribe('gameStarted')
+        props.client.subscribe('hostJoined', onHostJoined)
+        return () => props.client.unsubscribe('hostJoined')
     }, [])
 
     let page 
