@@ -7,7 +7,7 @@ window.loadCss('/web/public/style.css')
 export default function init() {
     const wsUrl = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}`
     const createGame = async (quizId) => {
-        const response = await fetch('/api/v1/games', {
+        const response = await fetch(`${window.location.origin}/api/v1/games`, {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify({ quizId })
