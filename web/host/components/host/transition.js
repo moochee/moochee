@@ -16,7 +16,7 @@ const DistributionPage = function (props) {
 const ScoreboardPage = function (props) {
     return html`<div class=transition>
         <${Scoreboard} scoreboard=${props.scoreboard} />
-        <button onClick=${props.onNextRound}>Next Round</button>
+        <button onClick=${props.onNextRound}>Next Question</button>
     </div>`
 }
 
