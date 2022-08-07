@@ -140,7 +140,6 @@ export default function Host(props) {
 
     useEffect(() => {
         if (props.hostIsPlayer) props.client.join(props.gameId, HOST_NAME)
-        return () => { if (props.hostIsPlayer) props.client.disconnect() }
     }, [props.gameId, props.hostIsPlayer])
 
     const waitingToStart = !question && !isRoundFinished && !waitingForOtherResponses
