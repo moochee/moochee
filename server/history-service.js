@@ -1,3 +1,4 @@
+import { statSync } from 'fs'
 import { readFile, readdir, writeFile, access, mkdir, rm } from 'fs/promises'
 
 export default function HistoryService(directory) {
@@ -5,21 +6,21 @@ export default function HistoryService(directory) {
     this.getAllMine = async (host) => {
         await createDirectoryIfNotExists()
 
-        const dirents = await readdir(directory, { withFileTypes: true })
+        const files = await getSortedFiles(directory)
         let historyItems = []
-        for (let dirent of dirents) {
-            if (dirent.isDirectory() || dirent.name.slice(-5) !== '.json') continue
+        for (let file of files) {
+            if (file.slice(-5) !== '.json') continue
             try {
-                const historyItem = await this.get(dirent.name)
+                const historyItem = await this.get(file)
                 if (historyItem.host === host) {
                     historyItems.push({ 
-                        id: dirent.name, 
+                        id: file, 
                         title: historyItem.title, 
                         scoreboard: historyItem.scoreboard
                     })
                 }
             } catch (error) {
-                console.error(dirent.name, error)
+                console.error(file, error)
             }
         }
         return historyItems
@@ -42,6 +43,17 @@ export default function HistoryService(directory) {
         } catch (error) {
             await mkdir(directory)
         }
+    }
+
+    const getSortedFiles = async (directory) => {
+        const files = await readdir(directory)
+        return files
+            .map(fileName => ({
+                name: fileName,
+                time: statSync(`${directory}/${fileName}`).mtime.getTime(),
+            }))
+            .sort((a, b) => b.time - a.time)
+            .map(file => file.name)
     }
 
     this.create = async (historyItem, host) => {
