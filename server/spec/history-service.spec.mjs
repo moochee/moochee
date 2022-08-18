@@ -27,7 +27,7 @@ describe('History service', () => {
         expect(actualHistoryItem).toEqual(expectedHistoryItem)
     })
 
-    it('returns newer item first', async () => {
+    xit('returns newer item first', async () => {
         let dummyHistoryItem2 = { ...dummyHistoryItem }
         dummyHistoryItem2.gameId = 2
         const itemId2 = await historyService.create(dummyHistoryItem2, dummyHost)
