@@ -5,12 +5,18 @@ import GoogleAuth from '../google-auth.js'
 import QuizService from '../quiz-service.js'
 import dummyQuiz from './dummy/quiz.js'
 import dummyAuth from './dummy/auth.js'
+import HistoryService from '../history-service.js'
+import dummyHistoryItem from './dummy/history-item.js'
+
 
 const noExpiryTimer = { onTimeout: () => null }
 const dummyDirectory = 'quizzes'
 
+const dummyHistoryDir = 'history'
+const dummyHost = 'john.doe@acme.org'
+
 describe('Server', () => {
-    let server, client, quizService, quizId, port, url
+    let server, client, quizService, quizId, port, url, historyService, itemId
 
     describe('endpoint protection', () => {
 
@@ -67,6 +73,31 @@ describe('Server', () => {
             const url = new URL(response.headers['location'])
             expect(url.hostname).toEqual('localhost')
             expect(url.pathname).toMatch(/\/.+/)
+        })
+    })
+
+    describe('history API', () => {
+
+        beforeAll(async () => {
+            quizService = new QuizService(dummyDirectory)
+            historyService = new HistoryService(dummyHistoryDir)
+            itemId = await historyService.create(dummyHistoryItem, dummyHost)
+            port = 3003
+            url = `http://localhost:${port}`
+            server = httpServer(null, dummyAuth, quizService, url, noExpiryTimer, historyService)
+            server.listen(port)
+            client = request(url)
+        })
+
+        afterAll(async () => {
+            await historyService.delete(itemId)
+            server.close()
+        })
+
+        it('supports getting history by host', async () => {
+            const response = await client.get('/api/v1/history')
+                .expect(200)
+            expect(response.body.length).toBe(1)
         })
     })
 })

@@ -2,6 +2,7 @@ import http from 'http'
 import express from 'express'
 import quizSocketServer from './quiz-socket-server.js'
 import quizRouter from './quiz-router.js'
+import historyRouter from './history-router.js'
 import qr from 'qr-image'
 
 export default function create(client, auth, quizService, dedicatedOrigin, gameExpiryTimer, historyService) {
@@ -33,6 +34,8 @@ export default function create(client, auth, quizService, dedicatedOrigin, gameE
         const url = `${dedicatedOrigin}/${game.id}`
         res.status(201).set('Location', url).end()
     })
+
+    app.use('/api/v1/history', historyRouter(historyService))
 
     app.use('/web/host', express.static('web/host'))
     app.use('/', express.static('web/host'))
