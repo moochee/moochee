@@ -1,0 +1,33 @@
+.history {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.historyBack {
+    color: inherit;
+    text-decoration: none;
+}
+
+.history .items {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    justify-content: center;
+}
+
+.history .item {
+    color: white;
+    position: relative;
+    height: min(28vw, 28vh);
+    width: min(28vw, 28vh);
+    border-style: none;
+    border-radius: min(1.5vw, 1.5vh);
+    font-size: min(3.5vw, 3.5vh);
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: .5em;
+}

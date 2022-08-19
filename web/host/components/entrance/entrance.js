@@ -77,7 +77,14 @@ export default function Entrance(props) {
             <${AdminButton} />
         </div>
     `
-    return html`<${Shell} headerLeft='😸 Moochee' headerRight=${headerRight}>
+    
+    const footerRight = html`
+        <a class=entranceHistory href='#/history'>
+            Past Games
+        </a>
+    `
+
+    return html`<${Shell} headerLeft='😸 Moochee' headerRight=${headerRight} footerRight=${footerRight}>
         <!-- REVISE why do we need nested divs? -->
         <div class=entrance>
             <div class=quizzes>

@@ -4,6 +4,7 @@ import Host from '../host/host.js'
 import QuizEditor from '../quiz-editor/quiz-editor.js'
 import Admin from '../admin/admin.js'
 import QuizInfo from '../quiz-info/quiz-info.js'
+import History from '../game-history/history.js'
 
 const HostGameWeb = function (props) {
     const [state, setState] = useState({ pageId: 'entrance', gameId: '', quizTitle: '', quizId: '' })
@@ -64,6 +65,8 @@ export default function HostApp(props) {
         page = html`<${QuizEditor} id=${id} />`
     } else if (hash.indexOf('#/admin') > -1) {
         page = html`<${Admin} />`
+    } else if (hash.indexOf('#/history') > -1) {
+        page = html`<${History} />`
     } else {
         page = html`<${HostGameWeb} client=${props.client} />`
     }
