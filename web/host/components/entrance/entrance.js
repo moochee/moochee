@@ -80,7 +80,7 @@ export default function Entrance(props) {
     
     const footerRight = html`
         <a class=entranceHistory href='#/history'>
-            Past Games
+            History
         </a>
     `
 

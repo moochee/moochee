@@ -4,7 +4,7 @@ import Shell from '../../../public/components/shell/shell.js'
 window.loadCss('/web/host/components/game-history/history.css')
 
 const Item = function (props) {
-    return html`<button class='quiz ${props.backgroundClass}'>
+    return html`<button class='item ${props.backgroundClass}'>
         ${props.title}
     </button>`
 }
