@@ -4,12 +4,12 @@ import Shell from '../../../public/components/shell/shell.js'
 window.loadCss('/web/host/components/game-history/history.css')
 
 const Item = function (props) {
-    return html`<button class='item ${props.backgroundClass}'>
+    return html`<button class='item ${props.backgroundClass}' onClick=${props.onClick}>
         ${props.title}
     </button>`
 }
 
-export default function History() {
+const ItemList = function (props) {
     const [items, setItems] = useState([])
 
     const colors = ['green', 'blue', 'orange', 'purple', 'red', 'yellow', 'petrol']
@@ -23,13 +23,47 @@ export default function History() {
         getItems()
     }, [])
 
-    const itemList = items.map((t, i) => {
+    const itemList = items.map((item, i) => {
+        const click = () => {
+            props.onClick(item)
+        }
         const bg = `background${i % 4}`
-        return html`<${Item} key=${t.id} title=${t.title} backgroundClass=${bg} />`
+        return html`<${Item} key=${item.id} title=${item.title} backgroundClass=${bg} onClick=${click} />`
     })
     
     const back=html`<a class=historyBack href='#/'>${'<'}</a>`
-    return html`<${Shell} headerLeft=${back} headerCenter='Past Games'>
+    return html`<${Shell} headerLeft=${back} headerCenter='History'>
         <div class=history><div class=items>${itemList}</div></div>
     <//>`
+}
+
+const ItemDetail = function (props) {
+    const back=html`<div class=quizInfoBack onclick=${() => props.onBack()}>${'<'}</div>`
+
+    const scoreboardBlock = props.item.scoreboard.map((s, i) => {
+        return html`
+            <li key=${i} class=score>${s.name} - ${s.score}</li>
+        `
+    })
+    return html`<${Shell} headerLeft=${back} headerCenter='Scoreboard'>
+        <div class=history>
+            <ol>${scoreboardBlock}</ol>
+        </div>
+    <//>`
+}
+
+export default function History() {
+    const [inOverview, setInOverview] = useState(true)
+    const [item, setItem] = useState(null)
+
+    const click = (item) => {
+        setItem(item)
+        setInOverview(false)
+    }
+    const back = () => {
+        setItem(null)
+        setInOverview(true)
+    }
+
+    return inOverview ? html`<${ItemList} onClick=${click} />` : html`<${ItemDetail} item=${item} onBack=${back} />` 
 }

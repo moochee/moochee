@@ -31,3 +31,11 @@
     justify-content: center;
     margin: .5em;
 }
+
+.history .score {
+    background-color: transparent;
+    border-style: none;
+    font-size: min(3vh, 3vw);
+    color: inherit;
+    text-align: left;
+}
