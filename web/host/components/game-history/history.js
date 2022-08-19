@@ -45,7 +45,7 @@ const ItemDetail = function (props) {
             <li key=${i} class=score>${s.name} - ${s.score}</li>
         `
     })
-    return html`<${Shell} headerLeft=${back} headerCenter='Scoreboard'>
+    return html`<${Shell} headerLeft=${back} headerCenter=${props.item.title}>
         <div class=history>
             <ol>${scoreboardBlock}</ol>
         </div>
