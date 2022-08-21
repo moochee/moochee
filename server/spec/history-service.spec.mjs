@@ -26,13 +26,4 @@ describe('History service', () => {
         const expectedHistoryItem = { ...dummyHistoryItem, host: dummyHost}
         expect(actualHistoryItem).toEqual(expectedHistoryItem)
     })
-
-    xit('returns newer item first', async () => {
-        let dummyHistoryItem2 = { ...dummyHistoryItem }
-        dummyHistoryItem2.gameId = 2
-        const itemId2 = await historyService.create(dummyHistoryItem2, dummyHost)
-        const items = await historyService.getAllMine(dummyHost)
-        expect(items[0].id).toEqual(itemId2)
-        await historyService.delete(itemId2)
-    })
 })

@@ -6,7 +6,7 @@ window.loadCss('/web/host/components/game-history/history.css')
 const Item = function (props) {
     return html`<button class='item ${props.backgroundClass}' onClick=${props.onClick}>
         ${props.title}
-        <div class='numberOfPlayers background0Secondary'>${props.numberOfPlayers} players</div>
+        <div class='numberOfPlayers ${props.backgroundClass}Secondary'>${props.numberOfPlayers} player(s)</div>
     </button>`
 }
 
