@@ -33,6 +33,19 @@
     margin: .5em;
 }
 
+.history .item .numberOfPlayers {
+    position: absolute;
+    bottom: 5%;
+    right: 6%;
+    font-size: min(2vw, 1.5vh);
+    color: white;
+    padding: 1%;
+    margin: 1%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .history .score {
     background-color: transparent;
     border-style: none;
