@@ -45,7 +45,7 @@ describe('Integration', () => {
         })
         await new Promise(resolve => {
             playerClient.join(gameId, ALICE)
-            playerClient.subscribe('playerJoined', resolve)
+            playerClient.subscribe('joiningOk', resolve)
         })
         await new Promise(resolve => {
             hostClient.nextRound(gameId)

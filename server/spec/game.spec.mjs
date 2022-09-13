@@ -16,7 +16,7 @@ describe('Game', () => {
 
     it('sets score, avatar and presents quiz title when player joins a game', () => {
         game.join(ALICE)
-        expect(events.publishedMessage).toEqual({ event: 'playerJoined', args: [quiz.title, ALICE, jasmine.any(String), jasmine.any(Array)] })
+        expect(events.publishedMessage).toEqual({ event: 'playerJoined', args: [jasmine.any(String)] })
     })
 
     it('sends error when player joins with empty name', () => {

@@ -14,7 +14,8 @@ export default function Game(quiz, timer, events, host) {
 
     this.join = (name) => {
         const [avatar, otherPlayers] = players.add(name)
-        events.publish(this.id, { event: 'playerJoined', args: [quiz.title, name, avatar, otherPlayers] })
+        events.publish(this.id, { event: 'playerJoined', args: [avatar] })
+        return [avatar, otherPlayers]
     }
 
     this.nextRound = () => {

@@ -39,7 +39,7 @@ export default function Host(props) {
     const quizMusic = useRef({})
     const tap = useRef({})
 
-    const onPlayerJoined = (quizTitle, name, player) => {
+    const onPlayerJoined = (player) => {
         setPlayers((oldPlayers) => {
             if (oldPlayers.length >= 0) {
                 setCanStart(true)

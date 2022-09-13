@@ -25,12 +25,11 @@ export default function create(server, quizService, gameExpiryTimer, historyServ
                     const [gameId, name] = args
                     try {
                         const game = games.get(gameId)
+                        const [avatar, otherPlayers] = game.join(name)
                         webSocket.gameId = gameId
                         webSocket.playerName = name
-                        game.join(name)
+                        webSocket.send(JSON.stringify({ event: 'joiningOk', args: [game.quizTitle, name, avatar, otherPlayers] }))
                     } catch (error) {
-                        webSocket.gameId = null
-                        webSocket.playerName = null
                         webSocket.send(JSON.stringify({ event: 'joiningFailed', args: [error.message] }))
                     }
                 },
