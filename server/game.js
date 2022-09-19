@@ -7,6 +7,7 @@ export default function Game(quiz, timer, events, host) {
     let guessTimeoutId
     let roundStartTime
     let players = new Players(new Avatars())
+    const DEFAULT_SECONDS_TO_GUESS = 20
     const NETWORK_DELAY_IN_SECONDS = 2
 
     this.id = crypto.randomUUID()
@@ -22,8 +23,9 @@ export default function Game(quiz, timer, events, host) {
         roundStartTime = new Date()
 
         players.resetAllGuesses()
+        const secondsToGuess = quiz.secondsToGuess || DEFAULT_SECONDS_TO_GUESS
 
-        const timeToGuess = (timer.secondsToGuess + NETWORK_DELAY_IN_SECONDS) * 1000
+        const timeToGuess = (secondsToGuess + NETWORK_DELAY_IN_SECONDS) * 1000
         guessTimeoutId = timer.setTimeout(() => this.finishRound(question), timeToGuess)
 
         const question = quiz.questions[++currentQuestionIndex]
@@ -34,7 +36,7 @@ export default function Game(quiz, timer, events, host) {
             answers: question.answers.map(a => ({ text: a.text })),
             totalQuestions: quiz.questions.length
         }
-        events.publish(this.id, { event: 'roundStarted', args: [questionWithoutCorrectAnswer, timer.secondsToGuess] })
+        events.publish(this.id, { event: 'roundStarted', args: [questionWithoutCorrectAnswer, secondsToGuess] })
     }
 
     this.guess = (name, answerIndex) => {

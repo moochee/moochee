@@ -4,7 +4,7 @@ export default function Games(quizService, events, expiryTimer) {
     let games = []
     let shutdownCallback = null
 
-    const timer = { setTimeout, clearTimeout, secondsToGuess: 20 }
+    const timer = { setTimeout, clearTimeout }
 
     this.host = async (quizId, host) => {
         const quiz = await quizService.get(quizId)

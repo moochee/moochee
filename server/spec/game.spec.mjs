@@ -5,8 +5,8 @@ describe('Game', () => {
     const ALICE = 'Alice', BOB = 'Bob', HOST = 'Host'
 
     beforeEach(async () => {
-        quiz = { title: 'sample quiz', questions: [] }
-        timer = { setTimeout: () => null, clearTimeout: () => null, secondsToGuess: null }
+        quiz = { title: 'sample quiz', questions: [], secondsToGuess: null }
+        timer = { setTimeout: () => null, clearTimeout: () => null }
         events = {
             publish: function (_, message) { this.publishedMessage = message },
             notifyHost: function () { this.hostNotified = true }
@@ -28,13 +28,13 @@ describe('Game', () => {
         expect(() => game.join(ALICE)).toThrowError()
     })
 
-    it('presents first question without correct answer and seconds to guess when first round starts', () => {
+    it('first round starts', () => {
         quiz.questions = [{ text: 'q1', answers: [{ text: 'a1', correct: true }] }]
         game.join(ALICE)
         game.join(BOB)
         game.nextRound()
         const expectedQuestion = { id: 1, text: 'q1', answers: [{ text: 'a1' }], totalQuestions: 1 }
-        const expectedMessage = { event: 'roundStarted', args: [expectedQuestion, null] }
+        const expectedMessage = { event: 'roundStarted', args: [expectedQuestion, 20] }
         expect(events.publishedMessage).toEqual(expectedMessage)
     })
 
@@ -64,7 +64,7 @@ describe('Game', () => {
 
     it('presents the second question when the next round is started', () => {
         quiz.questions = [{ text: 'q1', answers: [] }, { text: 'q2', answers: [] }]
-        timer.secondsToGuess = 10
+        quiz.secondsToGuess = 10
         game.nextRound()
         game.nextRound()
         const expectedQuestion = { id: 2, text: 'q2', answers: [], totalQuestions: 2 }
