@@ -75,3 +75,7 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+.secondsToGuess {
+    margin-left: 1em;
+}

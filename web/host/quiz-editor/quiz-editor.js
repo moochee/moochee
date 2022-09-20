@@ -70,6 +70,7 @@ export default function QuizEditor(props) {
     const [title, setTitle] = useState('Untitled')
     const [tags, setTags] = useState('')
     const [isPublic, setIsPublic] = useState(false)
+    const [secondsToGuess, setSecondsToGuess] = useState(20)
     const [questions, setQuestions] = useState([createTemplateQuestion()])
 
     useEffect(() => {
@@ -82,6 +83,7 @@ export default function QuizEditor(props) {
                 setTags(tagsString)
                 setIsPublic(!quiz.isPrivate)
                 setQuestions(quiz.questions)
+                setSecondsToGuess(quiz.secondsToGuess || secondsToGuess)
             }
         }
         getQuiz()
@@ -93,6 +95,8 @@ export default function QuizEditor(props) {
     const updateTags = (e) => setTags(e.target.value)
 
     const updateIsPublic = (e) => setIsPublic(e.target.checked)
+
+    const updateSecondsToGuess = (e) => setSecondsToGuess(e.target.value)
 
     const save = () => {
         const saveQuiz = async (quiz) => {
@@ -115,7 +119,8 @@ export default function QuizEditor(props) {
             title: title,
             tags: tags ? tags.split(' ') : [],
             isPrivate: !isPublic,
-            questions: questions.map(q => ({ text: q.text, answers: q.answers.filter(a => a.text.trim() !== '') }))
+            questions: questions.map(q => ({ text: q.text, answers: q.answers.filter(a => a.text.trim() !== '') })),
+            secondsToGuess: secondsToGuess
         }
         saveQuiz(updatedQuiz).then(() => backToHome())
     }
@@ -166,6 +171,8 @@ export default function QuizEditor(props) {
                 <input class=tags value=${tags} onInput=${updateTags} placeholder='Add tags, separated by space.'/>
                 <input type=checkbox id=isPublic oninput=${updateIsPublic} checked=${isPublic}/>
                 <label for=isPublic>Public?</label>
+                <label class=secondsToGuess for=isPublic>Seconds to guess:</label>
+                <input value=${secondsToGuess} onInput=${updateSecondsToGuess} placeholder='Seconds to Guess'/>
             </div>
             <hr/>
             <div class=questions>${questionsBlock}</div>
