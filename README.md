@@ -1,4 +1,4 @@
-# moochee
+# Moochee
 
 A multi-person interactive quiz app
 
