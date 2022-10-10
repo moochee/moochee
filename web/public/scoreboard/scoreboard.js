@@ -1,4 +1,4 @@
-import { html, useEffect, useRef } from '../../../node_modules/htm/preact/standalone.mjs'
+import { html } from '../../../node_modules/htm/preact/standalone.mjs'
 
 window.loadCss('/web/public/scoreboard/scoreboard.css')
 
@@ -28,22 +28,8 @@ export default function Scoreboard(props) {
         </div>`
     })
 
-    const scoreboard = useRef()
-
-    const setDimensions = () => {
-        const height = Math.min(window.innerHeight, window.innerWidth * 9 / 16) / 100
-        scoreboard.current.style.setProperty('--height', height)
-        scoreboard.current.style.setProperty('--width', height * 16 / 9)
-    }
-
-    useEffect(() => {
-        setDimensions()
-        window.addEventListener('resize', setDimensions)
-        return () => window.removeEventListener('resize', setDimensions)
-    }, [])
-
     // REVISE check if we need the nested DIVs
-    return html`<div ref=${scoreboard} class=scoreboard>
+    return html`<div class=scoreboard>
         <div style='display: flex; flex-direction: column; align-items: center;'>
             ${entriesHtml}
         </div>
