@@ -1,6 +1,6 @@
 # Moochee
 
-A multi-person interactive quiz app
+A multi-person interactive quiz game
 
 ## Dev How-To
 
