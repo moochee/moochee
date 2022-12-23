@@ -9,7 +9,7 @@
     "scripts": {
         "start": "node server/main.js ./bindings-prod.js",
         "dev": "node server/main.js ./bindings-local.js",
-        "lint": "eslint server web **/*.mjs",
+        "lint": "eslint server web **/*.mjs --fix",
         "test": "jasmine server/spec/**/*.spec.mjs",
         "coverage": "c8 jasmine server/spec/**/*.spec.mjs",
         "prepare": "cp pre-commit .git/hooks/pre-commit"
@@ -25,6 +25,7 @@
         "memorystore": "^1.6.7",
         "openid-client": "^4.9.0",
         "passport": "^0.6.0",
+        "passport-openidconnect": "^0.1.1",
         "qr-image": "^3.2.0",
         "ws": "^8.2.1"
     },
@@ -38,6 +39,6 @@
         "supertest": "^6.1.6"
     },
     "engines": {
-        "node": "^16.16.0"
+        "node": "^18.12.1"
     }
 }
