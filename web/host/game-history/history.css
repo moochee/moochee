@@ -35,6 +35,19 @@
 
 .history .item .numberOfPlayers {
     position: absolute;
+    top: 5%;
+    right: 6%;
+    font-size: min(2vw, 1.5vh);
+    color: white;
+    padding: 1%;
+    margin: 1%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.history .item .playedTimeAgo {
+    position: absolute;
     bottom: 5%;
     right: 6%;
     font-size: min(2vw, 1.5vh);

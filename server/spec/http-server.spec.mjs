@@ -97,7 +97,7 @@ describe('Server', () => {
         it('supports getting history by host', async () => {
             const response = await client.get('/api/v1/history')
                 .expect(200)
-            expect(response.body.length).toBe(1)
+            expect(response.body.length).toBeGreaterThanOrEqual(1)
         })
     })
 })

@@ -23,7 +23,7 @@ describe('History service', () => {
 
     it('returns the content when getting the history item by id', async () => {
         const actualHistoryItem = await historyService.get(itemId)
-        const expectedHistoryItem = { ...dummyHistoryItem, host: dummyHost}
+        const expectedHistoryItem = { ...dummyHistoryItem, host: dummyHost, playedAt: jasmine.any(String)}
         expect(actualHistoryItem).toEqual(expectedHistoryItem)
     })
 })
