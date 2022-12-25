@@ -4,8 +4,8 @@ import Shell from '../../public/shell/shell.js'
 window.loadCss('/web/host/game-history/history.css')
 
 const timeAgo = (dateString) => {
-    const date = new Date(dateString);
-    const formatter = new Intl.RelativeTimeFormat('en');
+    const date = new Date(dateString)
+    const formatter = new Intl.RelativeTimeFormat('en')
     const ranges = {
         years: 3600 * 24 * 365,
         months: 3600 * 24 * 30,
