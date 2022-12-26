@@ -27,6 +27,10 @@ export default function Games(quizService, events, expiryTimer) {
         return game
     }
 
+    this.getNumberOfGames = () => { 
+        return games.length 
+    }
+
     this.onNoRunningGames = (callback) => {
         if (games.length === 0) {
             callback()

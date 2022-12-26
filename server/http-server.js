@@ -9,7 +9,7 @@ export default function create(client, auth, quizService, dedicatedOrigin, gameE
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
-        res.send('ok')
+        res.status(200).json({numberOfGames: games.getNumberOfGames()}).end()
     })
 
     app.post('/api/v1/stop', (req, res) => {
