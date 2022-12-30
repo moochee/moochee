@@ -2,7 +2,7 @@
 
 A multi-person interactive quiz game
 
-## DEV How-To
+## Dev How-To
 
 After cloning you can:
 - Run the tests: `npm test`
