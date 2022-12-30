@@ -1,9 +1,10 @@
-import { readFile, readdir, writeFile, access, mkdir, rm, stat } from 'fs/promises'
+import { readFile, readdir, writeFile, access, mkdir, rm } from 'fs/promises'
 
 export default function HistoryService(directory) {
 
     this.getAllMine = async (host) => {
         await createDirectoryIfNotExists()
+        const LAST_EVENT_DATE = '2022-08-19T22:06:32.637Z'
         const files = await readdir(directory)
         let historyItems = []
         for (let file of files) {
@@ -15,7 +16,7 @@ export default function HistoryService(directory) {
                         id: file, 
                         title: historyItem.title, 
                         scoreboard: historyItem.scoreboard,
-                        playedAt: historyItem.playedAt
+                        playedAt: historyItem.playedAt ? historyItem.playedAt : LAST_EVENT_DATE
                     })
                 }
             } catch (error) {
@@ -31,8 +32,6 @@ export default function HistoryService(directory) {
         let historyItem
         try {
             historyItem = JSON.parse(await readFile(historyItemPath, 'utf8'))
-            const fileStat = await stat(historyItemPath)
-            historyItem.playedAt = fileStat.birthtime?.toISOString()
         } catch (error) {
             console.error(historyItemPath, error)
         }
@@ -51,7 +50,7 @@ export default function HistoryService(directory) {
         await createDirectoryIfNotExists()
 
         const id = `${historyItem.gameId}.json`
-        const historyItemContent = { ...historyItem, host }
+        const historyItemContent = { ...historyItem, host, playedAt: new Date().toISOString() }
         await writeFile(`${directory}/${id}`, JSON.stringify(historyItemContent))
         return id
     }
