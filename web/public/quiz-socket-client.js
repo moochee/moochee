@@ -28,7 +28,9 @@ export default function QuizSocketClient(createWebSocket, createGame, timeout = 
             if (isPlayerClient) {
                 send({ command: 'reJoin', args: [currentGameId, name, avatar] })
             } else {
-                send({ command: 'joinAsHost', args: [currentGameId, currentQuizTitle] })
+                if (currentGameId) {
+                    send({ command: 'joinAsHost', args: [currentGameId, currentQuizTitle] })
+                }
             }
         }, 1000)
     }
