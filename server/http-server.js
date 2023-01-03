@@ -5,16 +5,11 @@ import quizRouter from './quiz-router.js'
 import historyRouter from './history-router.js'
 import qr from 'qr-image'
 
-export default function create(client, auth, quizService, dedicatedOrigin, gameExpiryTimer, historyService) {
+export default function create(auth, quizService, dedicatedOrigin, gameExpiryTimer, historyService) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
         res.status(200).json({numberOfGames: games.getNumberOfGames()}).end()
-    })
-
-    app.post('/api/v1/stop', (req, res) => {
-        res.status(202).end()
-        games.onNoRunningGames(() => client.stop())
     })
 
     const login = auth.setup(app)

@@ -23,7 +23,7 @@ describe('Server', () => {
         beforeAll(() => {
             port = 3001
             url = `http://localhost:${port}`
-            server = httpServer(null, new GoogleAuth(dummyConfig), { dir: '' }, url, noExpiryTimer, null)
+            server = httpServer(new GoogleAuth(dummyConfig), { dir: '' }, url, noExpiryTimer, null)
             server.listen(port)
             client = request(url)
         })
@@ -56,7 +56,7 @@ describe('Server', () => {
             quizId = await quizService.create(dummyQuiz, 'test@example.com')
             port = 3002
             url = `http://localhost:${port}`
-            server = httpServer(null, dummyAuth, quizService, url, noExpiryTimer, null)
+            server = httpServer(dummyAuth, quizService, url, noExpiryTimer, null)
             server.listen(port)
             client = request(url)
         })
@@ -84,7 +84,7 @@ describe('Server', () => {
             itemId = await historyService.create(dummyHistoryItem, dummyHost)
             port = 3003
             url = `http://localhost:${port}`
-            server = httpServer(null, dummyAuth, quizService, url, noExpiryTimer, historyService)
+            server = httpServer(dummyAuth, quizService, url, noExpiryTimer, historyService)
             server.listen(port)
             client = request(url)
         })
