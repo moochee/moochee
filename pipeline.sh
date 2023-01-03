@@ -12,7 +12,7 @@ new_app_name=app-${instance_id}
 alias dokku='ssh -t dokku@moochee.us'
 
 echo "Discover the old app name"
-old_app_name=$(dokku domains:report --domains-app-vhosts | grep -Eo -m 1 'app-[0-9]+')
+old_app_name=$(dokku apps:list | grep -Eo -m 1 'app-[0-9]+')
 echo the old app name is: ${old_app_name}
 
 echo "Deploy new version"
@@ -36,9 +36,10 @@ dokku config:set --no-restart ${new_app_name} \
     DEDICATED_ORIGIN=https://app.moochee.us
 git push dokku main
 
-echo "Unmapping and stopping old app"
+echo "Switch public route from old app to new app"
 dokku domains:remove ${old_app_name} app.moochee.us
-dokku apps:destroy ${old_app_name} --force
-
-echo "Maping public route to new app"
 dokku domains:add ${new_app_name} app.moochee.us
+
+echo "Clean up"
+dokku apps:destroy ${old_app_name} --force
+dokku domains:remove ${new_app_name} ${new_app_name}.moochee.us
