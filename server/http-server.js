@@ -24,18 +24,17 @@ export default function create(client, auth, quizService, dedicatedOrigin, gameE
     app.use('/play', express.static('web/play'))
     app.use('/node_modules/htm/preact/standalone.mjs', express.static('node_modules/htm/preact/standalone.mjs'))
     app.get('/qr-code', (req, res) => res.send(qr.imageSync(req.query.url, { type: 'svg' })))
-    app.use(express.json())
-    app.use('/api/v1/quizzes', quizRouter(quizService.dir))
 
     app.use('/', login)
 
+    app.use(express.json())
+    app.use('/api/v1/quizzes', quizRouter(quizService.dir))
+    app.use('/api/v1/history', historyRouter(historyService))
     app.post('/api/v1/games', async (req, res) => {
         const game = await games.host(req.body.quizId, req.user?.id)
         const url = `${dedicatedOrigin}/${game.id}`
         res.status(201).set('Location', url).end()
     })
-
-    app.use('/api/v1/history', historyRouter(historyService))
 
     app.use('/web/host', express.static('web/host'))
     app.use('/', express.static('web/host'))
