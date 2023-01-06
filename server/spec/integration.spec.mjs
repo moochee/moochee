@@ -16,7 +16,7 @@ describe('Integration', () => {
         const noExpiryTimer = { onTimeout: () => null }
         const dummyHistoryService = { create: () => null }
         const url = `http://localhost:${port}`
-        server = httpServer(dummyAuth, quizService, url, noExpiryTimer, dummyHistoryService)
+        server = httpServer(dummyAuth, quizService, url, noExpiryTimer, dummyHistoryService, null)
         await new Promise((resolve) => server.listen(port, () => resolve()))
         createGame = async (quizId) => {
             const response = await fetch(`${url}/api/v1/games`, {

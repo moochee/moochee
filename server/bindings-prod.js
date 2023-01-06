@@ -14,4 +14,9 @@ const port = process.env.PORT
 const gameExpiryTimer = { onTimeout: (callback) => setTimeout(callback, 1000 * 60 * 60 * 3)}
 const historyDir = process.env.HISTORY_DIR
 
-export { auth, quizzesDir, dedicatedOrigin, port, gameExpiryTimer, historyDir }
+const stripeConfig = {
+    API_KEY: process.env.STRIPE_API_KEY,
+    WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET
+}
+
+export { auth, quizzesDir, dedicatedOrigin, port, gameExpiryTimer, historyDir, stripeConfig }
