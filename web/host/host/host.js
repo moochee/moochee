@@ -5,6 +5,7 @@ import Shell from '../../public/shell/shell.js'
 import Countdown from '../../public/countdown/countdown.js'
 import Waiting from './waiting.js'
 import Transition from './transition.js'
+import QrCode from './qrcode.js'
 
 window.loadCss('/web/host/host/host.css')
 
@@ -148,8 +149,9 @@ export default function Host(props) {
     const isIos = window.navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${updateVolume} />`
 
+    const headerLeft = waitingToStart ? props.quizTitle : html`<div class=headerLeftContent><${QrCode} gameId=${props.gameId} /> ${props.quizTitle}</div>`
     // REVISE right now it seems more and more obvious that the shell should be included in the pages, and not be surrounding the pages
-    return html`<${Shell} headerLeft=${props.quizTitle} headerRight=${audioControl} footerLeft='${players.length} ${players.length < 2 ? 'Player' : 'Players'}' fullScreenContent=${isRoundFinished}>
+    return html`<${Shell} headerLeft=${headerLeft} headerRight=${audioControl} footerLeft='${players.length} ${players.length < 2 ? 'Player' : 'Players'}' fullScreenContent=${isRoundFinished}>
         <audio ref=${entranceMusic} volume=${volume.current} loop src=/web/public/sounds/21st_century.mp3></audio>
         <audio ref=${quizMusic} volume=${volume.current} loop src=/web/public/sounds/Attracting_drama.mp3></audio>
         <audio ref=${tap} volume=${volume.current} src=/web/public/sounds/Tap.mp3></audio>
