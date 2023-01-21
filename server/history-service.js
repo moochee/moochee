@@ -8,7 +8,6 @@ export default function HistoryService(directory) {
         const files = await readdir(directory)
         let historyItems = []
         for (let file of files) {
-            if (file.slice(-5) !== '.json') continue
             try {
                 const historyItem = await this.get(file)
                 if (historyItem.host === host) {
@@ -20,7 +19,7 @@ export default function HistoryService(directory) {
                     })
                 }
             } catch (error) {
-                console.error(file, error)
+                console.warn(file, error)
             }
         }
         historyItems.sort((a, b) => { return new Date(b.playedAt) - new Date(a.playedAt)})
@@ -48,8 +47,7 @@ export default function HistoryService(directory) {
 
     this.create = async (historyItem, host) => {
         await createDirectoryIfNotExists()
-
-        const id = `${historyItem.gameId}.json`
+        const id = historyItem.gameId
         const historyItemContent = { ...historyItem, host, playedAt: new Date().toISOString() }
         await writeFile(`${directory}/${id}`, JSON.stringify(historyItemContent))
         return id

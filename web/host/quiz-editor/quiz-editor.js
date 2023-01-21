@@ -157,7 +157,7 @@ export default function QuizEditor(props) {
         `
     })
 
-    const header = props.id ? 'Edit Quiz' : 'Create New Quiz'
+    const header = props.id ? 'Edit Quiz' : 'New Quiz'
     const actions = html`
         <div class=quizEditorMainActions>
             <button onclick=${save}>✓ Save</button>
