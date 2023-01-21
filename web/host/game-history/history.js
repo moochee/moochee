@@ -29,6 +29,7 @@ const Item = function (props) {
         ${props.title}
         <div class='numberOfPlayers ${props.backgroundClass}Secondary'>${props.numberOfPlayers}p</div>
         <div class='playedTimeAgo'>${props.playedAtTimeAgo}</div>
+        <button title=delete onClick=${props.onDelete} class=deleteButton>✕</button>
     </button>`
 }
 
@@ -48,10 +49,15 @@ const ItemList = function (props) {
 
     const itemList = items.map((item, i) => {
         const click = () => props.onClick(item)
+        const del = async (event) => {
+            event.stopPropagation()
+            const response = await fetch(`/api/v1/history/${item.id}`, { method: 'DELETE' })
+            if (response.ok) setItems(oldItems => { return oldItems.filter(o => o.id !== item.id) })
+        }
         const bg = `background${i % 4}`
         return html`<${Item} key=${item.id} title=${item.title} 
             numberOfPlayers=${item.scoreboard.length} playedAtTimeAgo=${timeAgo(item.playedAt)}
-            backgroundClass=${bg} onClick=${click} />`
+            backgroundClass=${bg} onClick=${click} onDelete=${del} />`
     })
     
     const back=html`<a class=historyBack href='#/'>${'<'}</a>`
