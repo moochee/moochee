@@ -1,44 +1,40 @@
 import { readFile, readdir, writeFile, access, mkdir, rm } from 'fs/promises'
+import crypto from 'crypto'
 
 export default function QuizService(directory) {
     this.dir = directory
 
     this.getAll = async (author) => {
         await createDirectoryIfNotExists()
-
-        const dirents = await readdir(directory, { withFileTypes: true })
+        const files = await readdir(directory)
         let quizzes = []
-        for (let dirent of dirents) {
-            if (dirent.isDirectory() || dirent.name.slice(-5) !== '.json') continue
+        for (let file of files) {
             try {
-                const quiz = await this.get(dirent.name)
+                const quiz = await this.get(file)
                 if (quiz.author === author || !quiz.isPrivate) {
                     // REVISE once the quiz builder has the capability to add tags AND we migrated existing date, remove the default tags: []
                     // REVISE add test for quiz builder
-                    quizzes.push({ id: dirent.name, title: quiz.title, tags: quiz.tags || [] })
+                    quizzes.push({ id: file, title: quiz.title, tags: quiz.tags || [] })
                 }
             } catch (error) {
-                console.error(dirent.name, error)
+                console.warn(file, error)
             }
         }
-
         return quizzes
     }
 
     this.getAllMine = async (author) => {
         await createDirectoryIfNotExists()
-
-        const dirents = await readdir(directory, { withFileTypes: true })
+        const files = await readdir(directory)
         let quizzes = []
-        for (let dirent of dirents) {
-            if (dirent.isDirectory() || dirent.name.slice(-5) !== '.json') continue
+        for (let file of files) {
             try {
-                const quiz = await this.get(dirent.name)
+                const quiz = await this.get(file)
                 if (quiz.author === author) {
-                    quizzes.push({ id: dirent.name, title: quiz.title, tags: quiz.tags || [] })
+                    quizzes.push({ id: file, title: quiz.title, tags: quiz.tags || [] })
                 }
             } catch (error) {
-                console.error(dirent.name, error)
+                console.warn(file, error)
             }
         }
         return quizzes
@@ -66,7 +62,7 @@ export default function QuizService(directory) {
     this.create = async (quiz, author) => {
         await createDirectoryIfNotExists()
 
-        const id = `${Date.now().toString(36).slice(-5)}.json`
+        const id = crypto.randomUUID()
         const quizContent = { ...quiz, author }
         await writeFile(`${directory}/${id}`, JSON.stringify(quizContent))
         return id
