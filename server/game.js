@@ -8,7 +8,6 @@ export default function Game(quiz, timer, events, host) {
     let roundStartTime
     let players = new Players(new Avatars())
     const DEFAULT_SECONDS_TO_GUESS = 20
-    const NETWORK_DELAY_IN_SECONDS = 2
 
     this.id = crypto.randomUUID()
     this.quizTitle = quiz.title
@@ -23,10 +22,9 @@ export default function Game(quiz, timer, events, host) {
         roundStartTime = new Date()
 
         players.resetAllGuesses()
-        const secondsToGuess = DEFAULT_SECONDS_TO_GUESS
-
-        const timeToGuess = (secondsToGuess + NETWORK_DELAY_IN_SECONDS) * 1000
-        guessTimeoutId = timer.setTimeout(() => this.finishRound(question), timeToGuess)
+        const secondsToGuess = quiz.secondsToGuess || DEFAULT_SECONDS_TO_GUESS
+        const millisecondsToGuess = secondsToGuess * 1000
+        guessTimeoutId = timer.setTimeout(() => this.finishRound(question), millisecondsToGuess)
 
         const question = quiz.questions[++currentQuestionIndex]
         question.answers.sort(() => Math.random() - .5)
@@ -47,7 +45,7 @@ export default function Game(quiz, timer, events, host) {
         const answer = question.answers[answerIndex]
         answer.count += 1
 
-        const responseTime = (new Date() - roundStartTime) - NETWORK_DELAY_IN_SECONDS * 1000
+        const responseTime = (new Date() - roundStartTime)
         const score = answer.correct ? Math.round(1000 * Math.pow(0.9, responseTime / 1000)) : 0
         players.addScore(name, score)
 
