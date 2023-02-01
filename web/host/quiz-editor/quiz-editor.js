@@ -172,7 +172,8 @@ export default function QuizEditor(props) {
                 <input type=checkbox id=isPublic oninput=${updateIsPublic} checked=${isPublic}/>
                 <label for=isPublic>Public?</label>
                 <label class=secondsToGuess for=isPublic>Seconds to guess:</label>
-                <input value=${secondsToGuess} onInput=${updateSecondsToGuess} placeholder='Seconds to Guess'/>
+                <input type=number min=10 max=30 step=1 
+                       value=${secondsToGuess} onInput=${updateSecondsToGuess} placeholder='Seconds to Guess'/>
             </div>
             <hr/>
             <div class=questions>${questionsBlock}</div>

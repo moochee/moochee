@@ -64,11 +64,11 @@ describe('Game', () => {
 
     it('presents the second question when the next round is started', () => {
         quiz.questions = [{ text: 'q1', answers: [] }, { text: 'q2', answers: [] }]
-        quiz.secondsToGuess = 20
+        quiz.secondsToGuess = '10'
         game.nextRound()
         game.nextRound()
         const expectedQuestion = { id: 2, text: 'q2', answers: [], totalQuestions: 2 }
-        const expectedMessage = { event: 'roundStarted', args: [expectedQuestion, 20] }
+        const expectedMessage = { event: 'roundStarted', args: [expectedQuestion, '10'] }
         expect(events.publishedMessage).toEqual(expectedMessage)
     })
 
