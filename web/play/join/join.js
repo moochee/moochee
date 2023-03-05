@@ -16,7 +16,7 @@ export default function Join(props) {
     useEffect(() => {
         props.client.subscribe('joiningFailed', onJoiningFailed)
         setTimeout(() => name.current.focus(), 1) // firefox needs 1ms to focus
-        const savedName = localStorage.getItem(nameKey)
+        const savedName = window.localStorage.getItem(nameKey)
         if (savedName) setPlayerName(savedName)
         return () => props.client.unsubscribe('joiningFailed')
     }, [])
@@ -27,7 +27,7 @@ export default function Join(props) {
 
     const join = async () => {
         const name = playerName.trim()
-        localStorage.setItem(nameKey, name)
+        window.localStorage.setItem(nameKey, name)
         props.client.join(props.gameId, name)
     }
 

@@ -45,7 +45,7 @@ describe('Server', () => {
         })
 
         it('allows anonymous access to play page', async () => {
-            await client.get('/play/').expect(200)
+            await client.get('/web/play/').expect(200)
         })
     })
 

@@ -7,8 +7,8 @@ export default function AudioControl(props) {
     const [muted, setMuted] = useState(false)
 
     useEffect(() => {
-        const isMuted = [null, 'true'].includes(localStorage.getItem('moochee-quiz.muted'))
-        const volume = Number(localStorage.getItem('moochee-quiz.volume') || 0.2)
+        const isMuted = [null, 'true'].includes(window.localStorage.getItem('moochee-quiz.muted'))
+        const volume = Number(window.localStorage.getItem('moochee-quiz.volume') || 0.2)
         setMuted(isMuted)
         volumeSlider.current.value = volume
         props.onVolume(isMuted ? 0 : volume)

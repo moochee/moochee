@@ -34,29 +34,21 @@ export default function create(auth, quizService, dedicatedOrigin, gameExpiryTim
 
     const login = auth.setup(app)
 
-    app.use('/web/public', express.static('web/public'))
-    app.use('/web/play', express.static('web/play'))
-    app.use('/play', express.static('web/play'))
+    app.use('/web', express.static('web'))
     app.use('/node_modules/htm/preact/standalone.mjs', express.static('node_modules/htm/preact/standalone.mjs'))
-    app.get('/qr-code', (req, res) => res.send(qr.imageSync(req.query.url, { type: 'svg' })))
+    app.get('/qr-code', (req, res) => res.set('Content-Type', 'image/svg+xml').send(qr.imageSync(req.query.url, { type: 'svg' })))
+    app.use('/', login, express.static('web/host'))
 
-    app.use('/', login)
-
-    app.use(express.json())
-    app.use('/api/v1/quizzes', quizRouter(quizService.dir))
-    app.use('/api/v1/history', historyRouter(historyService))
-    app.post('/api/v1/games', async (req, res) => {
+    app.use('/api/v1/quizzes', express.json(), quizRouter(quizService.dir))
+    app.use('/api/v1/history', express.json(), historyRouter(historyService))
+    app.post('/api/v1/games', express.json(), async (req, res) => {
         const game = await games.host(req.body.quizId, req.user?.id)
         const url = `${dedicatedOrigin}/${game.id}`
         res.status(201).set('Location', url).end()
     })
 
-    app.use('/web/host', express.static('web/host'))
-    app.use('/', express.static('web/host'))
-
     const httpServer = http.createServer(app)
-    const socketServer = quizSocketServer(httpServer, quizService, gameExpiryTimer, historyService)
-    const games = socketServer.games
+    const games = quizSocketServer(httpServer, quizService, gameExpiryTimer, historyService).games
 
     return httpServer
 }

@@ -16,11 +16,6 @@ export default function create(server, quizService, gameExpiryTimer, historyServ
             const { command, args } = JSON.parse(message)
 
             const commandHandlers = {
-                joinAsHost: () => {
-                    const [gameId, quizTitle] = args
-                    webSocket.gameId = gameId
-                    webSocket.send(JSON.stringify({ event: 'hostJoined', args: [gameId, quizTitle] }))
-                },
                 join: () => {
                     const [gameId, name] = args
                     try {
@@ -46,6 +41,17 @@ export default function create(server, quizService, gameExpiryTimer, historyServ
                         }
                     } catch (error) {
                         webSocket.send(JSON.stringify({ event: 'reJoiningFailed', args: [error.message] }))
+                    }
+                },
+                joinAsHost: () => {
+                    const [gameId] = args
+                    try {
+                        const game = games.get(gameId)
+                        webSocket.gameId = game.id
+                        webSocket.send(JSON.stringify({ event: 'hostJoined', args: [game.id, game.quizTitle] }))
+                    } catch (error) {
+                        console.error(error)
+                        webSocket.send(JSON.stringify({ event: 'hostJoinFailed', args: [error.message] }))
                     }
                 },
                 nextRound: () => {
