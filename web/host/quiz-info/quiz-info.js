@@ -26,7 +26,6 @@ export default function(props) {
 
     const actions = html`
         <div class=quizInfoMainActions>
-            <button onclick=${() => props.onPlay(props.id, title)}>Play</button>
             <button onclick=${() => props.onHost(props.id, title)}>Host</button>
         </div>
     `

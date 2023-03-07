@@ -8,7 +8,6 @@ import History from '../game-history/history.js'
 
 const HostGameWeb = function (props) {
     const [state, setState] = useState({ pageId: 'entrance', gameId: '', quizTitle: '', quizId: '' })
-    const [hostIsPlayer, setHostIsPlayer] = useState(false)
 
     const onHostJoined = (gameId, quizTitle) => {
         setState({ pageId: 'host', gameId, quizTitle, quizId: state.quizId })
@@ -20,12 +19,7 @@ const HostGameWeb = function (props) {
 
     const home = () => setState({ pageId: 'entrance', gameId: '', quizTitle: '', quizId: '' })
 
-    const hostAndPlay = async (quizId, quizTitle) => {
-        setHostIsPlayer(true)
-        await props.client.host(quizId, quizTitle)
-    }
-    const hostOnly = async (quizId, quizTitle) => {
-        setHostIsPlayer(false)
+    const host = async (quizId, quizTitle) => {
         await props.client.host(quizId, quizTitle)
     }
 
@@ -36,11 +30,11 @@ const HostGameWeb = function (props) {
 
     let page 
     if ( state.pageId === 'entrance' ) {
-        page = html`<${Entrance} client=${props.client} onShowInfo=${onShowInfo} onPlay=${hostOnly} />`
+        page = html`<${Entrance} client=${props.client} onShowInfo=${onShowInfo} onHost=${host} />`
     } else if (state.pageId === 'quiz-info') {
-        page = html`<${QuizInfo} id=${state.quizId} onBackHome=${home} onPlay=${hostAndPlay} onHost=${hostOnly} />`
+        page = html`<${QuizInfo} id=${state.quizId} onBackHome=${home} onHost=${host} />`
     } else if (state.pageId === 'host') {
-        page = html`<${Host} client=${props.client} gameId=${state.gameId} quizTitle=${state.quizTitle} hostIsPlayer=${hostIsPlayer} onBackHome=${home} />`
+        page = html`<${Host} client=${props.client} gameId=${state.gameId} quizTitle=${state.quizTitle} onBackHome=${home} />`
     }
     return page
 }

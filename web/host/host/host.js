@@ -12,7 +12,7 @@ const QuestionAndAnswers = function (props) {
     const progress = `(${props.question.id}/${props.question.totalQuestions})`
 
     const answersBlock = props.question.answers.map((answer, i) => {
-        return html`<button key=${i} class='answer background${i % 4}' onClick=${() => props.onGuess(i)}>${answer.text}</button>`
+        return html`<div key=${i} class='answer background${i % 4}'>${answer.text}</div>`
     })
 
     return html`<div class=hostRound>
@@ -111,15 +111,6 @@ export default function Host(props) {
         setVolume({ current: newVolume, previous: newVolume })
     }
 
-    // FIXME: hard code for now, should be changed to current user name
-    const HOST_NAME = 'guest'
-
-    const guess = (answerIndex) => {
-        props.client.guess(props.gameId, HOST_NAME, answerIndex)
-        setQuestion(null)
-        setWaitingForOtherResponses(true)
-    }
-
     useEffect(() => {
         entranceMusic.current.play()
         props.client.subscribe('playerJoined', onPlayerJoined)
@@ -138,13 +129,9 @@ export default function Host(props) {
         }
     }, [])
 
-    useEffect(() => {
-        if (props.hostIsPlayer) props.client.join(props.gameId, HOST_NAME)
-    }, [props.gameId, props.hostIsPlayer])
-
     const waitingToStart = !question && !isRoundFinished && !waitingForOtherResponses
     const waitingToStartBlock = waitingToStart ? html`<${Waiting} gameId=${props.gameId} players=${players} canStart=${canStart} client=${props.client} />` : ''
-    const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} onGuess=${guess} />` : ''
+    const questionBlock = question && (countDown !== null) ? html`<${QuestionAndAnswers} countDown=${countDown} question=${question} />` : ''
     // REVISE need to get terminology straight wrt result vs. distribution
     const transitionBlock = isRoundFinished
         ? html`<${Transition}
@@ -157,7 +144,6 @@ export default function Host(props) {
             volume=${volume} />`
         : ''
     const waitingBlockForOtherResponses = waitingForOtherResponses ? html`<h2>Waiting for other players...</h2>` : ''
-
 
     const isIos = window.navigator.userAgent.match(/ipad|iphone/i)
     const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${updateVolume} />`

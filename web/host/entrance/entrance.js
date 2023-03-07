@@ -65,7 +65,7 @@ export default function Entrance(props) {
             text=${q.title}
             backgroundClass=${q.backgroundClass}
             onInfo=${showInfo}
-            onClick=${() => props.onPlay(q.id, q.title)} />`
+            onClick=${() => props.onHost(q.id, q.title)} />`
     })
 
     const headerRight = html`
