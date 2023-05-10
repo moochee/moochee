@@ -122,10 +122,9 @@ export default function QuizEditor(props) {
             questions: questions.map(q => ({ text: q.text, answers: q.answers.filter(a => a.text.trim() !== '') })),
             secondsToGuess: secondsToGuess
         }
-        saveQuiz(updatedQuiz).then(() => backToHome())
+        saveQuiz(updatedQuiz).then(() => backToAdmin())
     }
 
-    const backToHome = () => window.location.href = '#/'
     const backToAdmin = () => window.location.href = '#/admin'
 
     const questionsBlock = questions.map((question, index) => {
