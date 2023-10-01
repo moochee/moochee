@@ -22,7 +22,7 @@ export default function Game(quiz, timer, events, host) {
         roundStartTime = new Date()
 
         players.resetAllGuesses()
-        const secondsToGuess = quiz.secondsToGuess || DEFAULT_SECONDS_TO_GUESS
+        const secondsToGuess = Number(quiz.secondsToGuess) || DEFAULT_SECONDS_TO_GUESS
         const millisecondsToGuess = secondsToGuess * 1000
         guessTimeoutId = timer.setTimeout(() => this.finishRound(question), millisecondsToGuess)
 

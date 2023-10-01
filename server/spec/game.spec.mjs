@@ -68,7 +68,7 @@ describe('Game', () => {
         game.nextRound()
         game.nextRound()
         const expectedQuestion = { id: 2, text: 'q2', answers: [], totalQuestions: 2 }
-        const expectedMessage = { event: 'roundStarted', args: [expectedQuestion, '10'] }
+        const expectedMessage = { event: 'roundStarted', args: [expectedQuestion, 10] }
         expect(events.publishedMessage).toEqual(expectedMessage)
     })
 
