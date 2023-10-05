@@ -1,6 +1,6 @@
 # Moochee
 
-A multi-person interactive quiz game!
+A multi-person interactive quiz game!!!
 
 ## Local Development
 
