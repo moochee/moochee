@@ -35,6 +35,7 @@ export default function HostClient(createWebSocket, origin, timeout = setTimeout
 
     const onClose = () => {
         timeout(() => {
+            if (!currentGameId) return
             connect()
             send({ command: 'joinAsHost', args: [currentGameId] })
         }, 1000)
