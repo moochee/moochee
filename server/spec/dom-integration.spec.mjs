@@ -10,7 +10,7 @@ import QuizService from '../quiz-service.js'
 import dummyQuiz from './dummy/quiz.js'
 import HistoryService from '../history-service.js'
 
-xdescribe('DOM integration', () => {
+describe('DOM integration', () => {
     let server, port = 3001, origin = `http://localhost:${port}`, quizService, quizId, historyService
     const dummyAuthor = 'test@example.com'
 
