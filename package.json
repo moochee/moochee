@@ -1,10 +1,10 @@
 {
     "name": "moochee-app",
     "version": "1.0.0",
-    "description": "An interactive multi-person quiz game",
+    "description": "An multi-person quiz game, like Kahoot",
     "repository": {
         "type": "git",
-        "url": "https://github.com/moochee/moochee-app"
+        "url": "https://github.com/moochee/moochee"
     },
     "scripts": {
         "start": "node server/main.js ./bindings-prod.js",
@@ -14,9 +14,8 @@
         "coverage": "c8 jasmine server/spec/**/*.spec.mjs"
     },
     "type": "module",
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "keywords": ["multi-person", "quiz", "game", "kahoot"],
+    "license": "MIT",
     "dependencies": {
         "dotenv": "^16.3.1",
         "express": "^4.17.1",
