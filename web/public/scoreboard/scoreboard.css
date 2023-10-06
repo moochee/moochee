@@ -1,0 +1,65 @@
+.scoreboard {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    font-size: 5vh;
+}
+
+/*Desktop Query*/
+@media only screen and (min-width: 768px) {
+    .scoreboard {
+        padding-top: 10vh;
+    }
+  }
+  
+/*Mobile Query*/
+@media only screen and (max-width: 480px) {
+    .scoreboard {
+        padding-top: 7vh;
+    }
+}
+  
+/*Tablet Query*/
+@media only screen and (min-width: 481px) and (max-width:768px) {
+    .scoreboard {
+        padding-top: 7vh;
+    }
+}
+
+/* REVISE could we classify all 3 categories as "move"? Maybe opacity change is not needed if it moves out of the visible areas and we set the overflow setting to disabled scrolling */
+
+.scoreboardMove {
+    animation: scoreboardMove 1s linear forwards;
+    animation-delay: 2s;
+}
+
+@keyframes scoreboardMove {
+    to {
+        transform: translateY(calc(var(--positions) * 100 * 1%));
+    }
+}
+
+.scoreboardMoveOut {
+    animation: scoreboardMoveOut 1s linear forwards;
+    animation-delay: 2s;
+}
+
+@keyframes scoreboardMoveOut {
+    to {
+        opacity: 0;
+        transform: translateY(500%);
+    }
+}
+
+.scoreboardMoveIn {
+    opacity: 0;
+    animation: scoreboardMoveIn 1s linear forwards;
+    animation-delay: 2s;
+}
+
+@keyframes scoreboardMoveIn {
+    to {
+        opacity: 1;
+        transform: translateY(calc(var(--positions) * 100 * 1%));
+    }
+}

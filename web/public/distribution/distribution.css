@@ -1,0 +1,78 @@
+.distribution {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.distribution .question {
+    text-align: center;
+    font-size: 4vh;
+    margin-block-end: 0.67em;
+}
+
+.distribution .answers {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.distribution .correctAnswer {
+    /* transform: scale(1.1); */
+    opacity: 0;
+    animation: correctAnswerAppear 1s linear forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes correctAnswerAppear {
+    to {
+        opacity: 1;
+    }
+}
+
+.distribution .wrongAnswer {
+    /* transform: scale(.9); */
+    opacity: 0;
+    animation: wrongAnswerAppear 1s linear forwards;
+    animation-delay: 1s;
+}
+
+@keyframes wrongAnswerAppear {
+    to {
+        opacity: .4;
+    }
+}
+
+.distribution .answer {
+    color: white;
+    user-select: none;
+    cursor: default;
+    position: relative;
+    height: min(32vw, 32vh);
+    width: min(32vw, 32vh);
+    padding: min(1vw, 1vh);
+    border-style: none;
+    border-radius: min(1.5vw, 1.5vh);
+    font-size: min(3.5vw, 3.5vh);
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: .5em;
+    word-break: break-word;
+}
+
+.distribution .count, .correct {
+    position: absolute;
+    font-size: min(5vw, 5vh);
+}
+
+.distribution .count {
+    bottom: 5%;
+    right: 8%;
+}
+
+.distribution .correct {
+    top: 5%;
+    right: 8%;
+}

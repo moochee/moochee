@@ -1,0 +1,77 @@
+.entrance {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.entranceSearch {
+    display: flex;
+}
+
+.entranceAdmin {
+    cursor: pointer;
+}
+
+.entranceSearch input {
+    font-size: .7em;
+    margin-right: 1em;
+}
+
+.entrance .quizzes {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    justify-content: center;
+}
+
+.entrance .quiz {
+    color: white;
+    position: relative;
+    height: min(28vw, 28vh);
+    width: min(28vw, 28vh);
+    padding: min(1vw, 1vh);
+    border: none;
+    border-radius: min(1.5vw, 1.5vh);
+    font-size: min(3.5vw, 3.5vh);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: .5em;
+}
+
+.entrance .quiz .tags {
+    width: 84%; /* width = 100% - 2 * 8% (for the margin) */
+    position: absolute;
+    bottom: 5%;
+    right: 8%;
+    display: flex;
+    justify-content: end;
+    flex-wrap: nowrap;
+}
+
+.entrance .quiz .tag {
+    font-size: min(2vw, 1.5vh);
+    color: white;
+    padding: 1%;
+    margin: 1%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.entrance .quiz .infoButton {
+    background-color: transparent;
+    color: white;
+    border-style: none;
+    position: absolute;
+    font-size: min(3vh, 3vw);
+    top: 2%;
+    right: 5%;
+    padding-right: 0px;
+}
+
+.entranceHistory {
+    color: inherit;
+    text-decoration: none;
+}

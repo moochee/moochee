@@ -1,0 +1,74 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+@font-face {
+    font-family: Brevia;
+    src: url(Brevia-Medium.woff2);
+}
+
+html {
+    color: #767671;
+    /* color: #464646; */
+    /* background-color: #262626; */
+    /* background-color: #f6f6f6; */
+    /* background-color: white; */
+    /* font-weight: lighter; */
+    font-family: Brevia, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+input {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+button {
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+.background0 {
+    /* background-color: #5F3475; */
+    /* background-color: hsl(136, 100%, 28%); */
+    background-color: hsl(134, 49%, 59%);
+}
+
+.background0Secondary {
+    /* background-color: hsl(136, 100%, 20%); */
+    background-color: hsl(134, 49%, 39%);
+}
+
+.background1 {
+    /* background-color: #B993D0; */
+    /* background-color: hsl(204, 100%, 36%); */
+    background-color: hsl(218, 79%, 63%);
+}
+
+.background1Secondary {
+    /* background-color: hsl(204, 100%, 28%); */
+    background-color: hsl(218, 79%, 43%);
+}
+
+.background2 {
+    /* background-color: #6B5775; */
+    /* background-color: hsl(42, 92%, 49%); */
+    background-color: hsl(46, 57%, 56%);
+}
+
+.background2Secondary {
+    /* background-color: hsl(42, 92%, 41%); */
+    background-color: hsl(46, 57%, 36%);
+}
+
+.background3 {
+    /* background-color: #9E55C2; */
+    /* background-color: hsl(299, 78%, 26%); */
+    background-color: hsl(18, 78%, 64%)
+}
+
+.background3Secondary {
+    /* background-color: hsl(299, 78%, 18%); */
+    background-color: hsl(18, 78%, 44%)
+}

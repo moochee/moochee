@@ -1,0 +1,28 @@
+.qrCodeThumbnail {
+    height: 9vh;
+    cursor: pointer;
+    margin-top: 15%;
+}
+
+@media (hover: hover) {
+    .qrCodeThumbnail:hover {
+        animation: zoominout 1s infinite;
+    }
+}
+
+.enlargedQrCode {
+    border: none;
+    width: 70vh;
+}
+
+@keyframes zoominout {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(1.2, 1.2);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}

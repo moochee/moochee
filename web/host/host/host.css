@@ -1,0 +1,43 @@
+.hostRound {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.hostRound .question {
+    text-align: center;
+    font-size: 4vh;
+    margin-block-end: 0.67em;
+}
+
+.hostRound .answers {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hostRound .countdown {
+    position: absolute;
+    bottom: 2vh;
+    right: 4vh;
+    font-size: 5vh;
+}
+
+.hostRound .answer {
+    color: white;
+    user-select: none;
+    position: relative;
+    height: min(32vw, 32vh);
+    width: min(32vw, 32vh);
+    padding: min(1vw, 1vh);
+    border-style: none;
+    border-radius: min(1.5vw, 1.5vh);
+    font-size: min(3.5vw, 3.5vh);
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: .5em;
+    word-break: break-word;
+}

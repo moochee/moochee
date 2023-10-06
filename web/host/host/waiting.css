@@ -1,0 +1,112 @@
+.hostWaiting {
+    height: 100%;
+    padding: 1em;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.hostWaitingJoinUrl {
+    display: flex;
+    height: 3em;
+}
+
+.hostWaitingJoinUrl input {
+    width: 100%;
+    margin-right: auto;
+}
+
+.hostWaitingJoinUrl button {
+    font-size: 2em;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.hostWaitingJoinUrl div {
+    display: flex;
+    align-items: center;
+}
+
+.hostWaitingSplitContainer {
+    display: flex;
+    align-items: center;
+    height: calc(100% - 3em);
+    padding-top: 1em;
+    box-sizing: border-box;
+}
+
+.hostWaitingPlayerInfo {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: min(20vh, 20vw);
+    overflow-y: auto;
+    justify-content: center;
+    align-items: center ;
+}
+
+.hostWaitingPlayerInfo.hostWaitingNoPlayersYet {
+    font-size: min(6vh, 6vw);
+}
+
+.hostWaiting .startButton {
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+    color: white;
+    background-color: hsl(218, 79%, 63%);
+    border-style: none;
+    font-size: min(3.5vw, 3.5vh);
+    border-radius: min(1.6vw, 1.4vh);
+    width: min(35vw, 35vh);
+    height: min(8.75vw, 8.75vh);
+}
+
+.hostWaitingQrCode svg {
+    height: 100%;
+}
+
+@media (orientation: landscape) {
+    .hostWaitingSplitContainer {
+        flex-direction: row;
+    }
+    .hostWaitingQrCode {
+        margin-right: 1em;
+        height: 100%;
+    }
+    .hostWaitingPlayerInfo {
+        height: 100%;
+    }
+}
+
+@media (orientation: portrait) {
+    .hostWaitingSplitContainer {
+        flex-direction: column;
+    }
+    .hostWaitingQrCode {
+        height: calc(min(35vh, 100vw - 2em));
+        margin-bottom: 1em;
+    }
+}
+
+.hostWaitingBounceIn {
+    animation: hostWaitingBounceIn 2s;
+}
+
+@keyframes hostWaitingBounceIn {
+    0%, 30% {
+        opacity: 0;
+    }
+    20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-.5em);
+    }
+    60% {
+        transform: translateY(-.25em);
+    }
+    99% {
+        opacity: 1;
+    }
+}

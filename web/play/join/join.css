@@ -1,0 +1,22 @@
+.join {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.join input {
+    width: 10em;
+    height: 3em;
+    text-align: center;
+}
+
+.join button {
+    margin-top: .5em;
+    background-color: hsl(218, 79%, 63%);
+    border-color: hsl(218, 79%, 63%);
+    color: white;
+    width: 10.5em;
+    height: 3em;
+}

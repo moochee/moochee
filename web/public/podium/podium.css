@@ -1,0 +1,38 @@
+/* Positioning must be relative to the podium. We set --height / --width in our js code on resize to use it here */
+
+.podium {
+    background-color: black;
+    height: 100%;
+    background-image: url(pedestal-4762661_1920.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: auto;
+    background-position: center;
+}
+
+.podiumRank1, .podiumRank2, .podiumRank3 {
+    transform: translateX(-50%);
+    font-size: calc(3 * var(--width) * 1px);
+    color: white;
+    position: absolute;
+    text-align: center;
+}
+
+.podiumAvatar {
+    font-size: 3em;
+}
+
+.podiumRank1 {
+    top: calc(50% - (28 * var(--height) * 1px));
+    left: 50%;
+}
+
+.podiumRank2 {
+    top: calc(50% - (16 * var(--height) * 1px));
+    left: calc(50% - (14 * var(--width) * 1px));
+}
+
+.podiumRank3 {
+    top: calc(50% - (10 * var(--height) * 1px));
+    left: calc(50% + (14.5 * var(--width) * 1px));
+}

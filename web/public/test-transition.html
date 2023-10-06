@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Moochee</title>
+    <meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='HandheldFriendly' content='true'>
+
+    <link rel='icon' href='/favicon.svg' />
+</head>
+
+<body>
+    <script src='/web/public/load-css.js'>
+    </script>
+    <script type='module'>
+        import { html, render, useState } from '/lib/htm/preact/standalone.module.js'
+        window.loadCss('/public/style.css')
+        import Shell from '/public/shell/shell.js'
+        import Transition from '/play/play/transition.js'
+        import AudioControl from '/public/audio/audio-control.js'
+
+        const distribution = {
+            "text": "Which one below is not mentioned in fairy tales of the Mid-Autumn Festival?",
+            "answers": [
+                { "id": "A", "text": "Chang'e, the goddess of the moon", "count": 25 },
+                { "id": "B", "text": "Pied magpie", "count": 2, "correct": true },
+                { "id": "C", "text": "Osmanthus tree", "count": 1 },
+                { "id": "D", "text": "Jade Rabbit", "count": 0 }
+            ],
+            totalQuestions: 1
+        }
+
+        const avatars = Array.from('🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐲🐙🦋🐞🦀🐔🐧🦆🦅🦉🦇🐺🐴🦄🐝🐛🐌🐜🐢🐍🦎🐠🐬🐳🐊🐦🐤🦂🐗🐽🙉🙊🐒🐣🐥🦑🦐🐡🐟🐋🦈🐅🐆🦍🐘🦏🐪🐫🐃🐎🐖🐏🐑🐐🦌🐕🐩🐈🦃🐇🐁🐀🐉👹👺🤡👻👽👾🤖🎃😺👮👷🤶🎅🌞🌝')
+        const scoreboard = avatars.map((a, index) => {
+            return {
+                avatar: a,
+                name: `player${index}`,
+                oldScore: index + 1,
+                score: index + 1,
+                oldRank: index + 1,
+                rank: avatars.length - index
+            }
+        })
+
+        // const scoreboard = [
+        //     { avatar: '🐻', name: 'alice', oldScore: 20000, score: 20000, oldRank: 1, rank: 2 },
+        //     { avatar: '🦊', name: 'bob', oldScore: 600, score: 20001, oldRank: 2, rank: 9 },
+        //     { avatar: '🐰', name: 'cindy', oldScore: 500, score: 600, oldRank: 3, rank: 5 },
+        //     { avatar: '🐹', name: 'dave', oldScore: 400, score: 500, oldRank: 4, rank: 8 },
+        //     { avatar: '🐭', name: 'elise', oldScore: 300, score: 400, oldRank: 5, rank: 3 },
+        //     { avatar: '🪲', name: 'frank', oldScore: 400, score: 500, oldRank: 6, rank: 6 },
+        //     { avatar: '🦅', name: 'gina', oldScore: 300, score: 400, oldRank: 7, rank: 4 },
+        //     { avatar: '🐛', name: 'helmut', oldScore: 400, score: 500, oldRank: 8, rank: 7 },
+        //     { avatar: '👽', name: 'ida', oldScore: 300, score: 400, oldRank: 9, rank: 1 }
+        // ]
+
+        // const scoreboard = [
+        //     { avatar: '🐻', name: 'alice', oldScore: 20000, score: 20000, oldRank: 1, rank: 3 },
+        //     { avatar: '🦊', name: 'bob', oldScore: 600, score: 20001, oldRank: 2, rank: 1 },
+        //     { avatar: '🐰', name: 'cindy', oldScore: 500, score: 600, oldRank: 3, rank: 2 },
+        // ]
+
+        // const scoreboard = [
+        //     { avatar: '🐻', name: 'alice', oldScore: 20000, score: 20000, oldRank: 1, rank: 2 },
+        //     { avatar: '🦊', name: 'bob', oldScore: 600, score: 20001, oldRank: 2, rank: 1 }
+        // ]
+
+        const Page = function() {
+            const [volume, setVolume] = useState(1)
+
+            const isFinal = true
+            const isIos = navigator.userAgent.match(/ipad|iphone/i)
+            const audioControl = isIos ? '' : html`<${AudioControl} onVolume=${setVolume} />`
+
+            return html`<${Shell} headerLeft='Passionate Product Ownership' headerRight=${audioControl} footerLeft='5 Players' footerRight='-' fullScreenContent=${true}>
+                <${Transition} volume=${volume} isFinal=${isFinal} distribution=${distribution} scoreboard=${scoreboard} onNextRound=${() => alert('next round')} onBackHome=${() => alert('back home')} onStopMusic=${() => console.log('stopping music')} />
+            <//>`
+        }
+        render(html`<${Page} />`, document.body)
+    </script>
+</body>
+
+</html>

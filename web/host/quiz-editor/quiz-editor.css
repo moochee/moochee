@@ -1,0 +1,116 @@
+.quizEditor {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.quizEditor .title {
+    margin-top: 1em;
+    width: 80%;
+    text-align: center;
+    font-size: min(4vh, 4vw);
+    color: inherit;
+}
+
+.quizEditor .tagsLine {
+    width: 100%;
+    text-align: center;
+}
+
+.quizEditor .tags {
+    margin-top: 1em;
+    width: 30%;
+    text-align: center;
+}
+
+.quizEditor hr {
+    width: 80%;
+}
+
+.quizEditorMainActions button {
+    margin-right: 1em;
+    border: none;
+    background-color: transparent;
+    color: inherit;
+}
+
+.quizEditor .questionAndAnswers,.questions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+}
+
+.quizEditor .question {
+    background-color: transparent;
+    border-style: none;
+    font-size: min(4vh, 4vw);
+    color: inherit;
+    width: 80%;
+    text-align: center;
+}
+
+.quizEditor .answers {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.quizEditor .answerEntry {
+    position: relative;
+}
+
+.quizEditor .answerEntry .delete {
+    background-color: transparent;
+    border-style: none;
+    padding: 0;
+    position: absolute;
+    width: min(3vh, 3vw);
+    height: min(3vh, 3vw);
+    font-size: min(3vh, 3vw);
+    display: flex;
+    align-items: center;
+    right: 8%;
+    bottom: 8%;
+}
+
+.quizEditor .answerEntry .correct {
+    margin: 0;
+    width: min(3vh, 3vw);
+    height: min(3vh, 3vw);
+    position: absolute;
+    left: 8%;
+    bottom: 8%;
+}
+
+.quizEditor .answer {
+    height: min(28vw, 28vh);
+    width: min(28vw, 28vh);
+    border-style: none;
+    border-radius: min(1.5vw, 1.5vh);
+    font-size: min(3.5vw, 3.5vh);
+    color: white;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: .5em;
+    padding: 0;
+    word-break: break-word;
+}
+
+.quizEditor .addAnswer {
+    background-color: #999999;
+}
+
+.quizEditor .addDeleteQuestion button {
+    background-color: #999999;
+    color: white;
+    border-style: none;
+    border-radius: min(1.5vw, 1.5vh);
+    font-size: min(3.5vw, 3.5vh);
+    height: min(6vw, 6vh);
+    width: min(6vw, 6vh);
+    margin: .5em;
+}
