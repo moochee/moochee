@@ -39,9 +39,9 @@ dokku config:set --no-restart ${new_app_name} \
 git push dokku main
 
 echo "Switch public route from old app to new app"
-dokku domains:remove ${old_app_name} app.moochee.us
+# dokku domains:remove ${old_app_name} app.moochee.us
 dokku domains:add ${new_app_name} app.moochee.us
 
-# echo "Clean up" 
-dokku apps:destroy ${old_app_name} --force
+echo "Clean up" 
+# dokku apps:destroy ${old_app_name} --force
 dokku domains:remove ${new_app_name} ${new_app_name}.moochee.us
