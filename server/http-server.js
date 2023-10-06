@@ -4,32 +4,12 @@ import quizSocketServer from './quiz-socket-server.js'
 import quizRouter from './quiz-router.js'
 import historyRouter from './history-router.js'
 import qr from 'qr-image'
-import Stripe from 'stripe'
 
-export default function create(auth, quizService, dedicatedOrigin, gameExpiryTimer, historyService, stripeConfig) {
+export default function create(auth, quizService, dedicatedOrigin, gameExpiryTimer, historyService) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
         res.status(200).json({numberOfGames: games.getNumberOfGames()}).end()
-    })
-
-    app.post('/api/v1/webhook', express.raw({type: 'application/json'}), (req, res) => {
-        const stripe = new Stripe(stripeConfig.API_KEY)
-        const payload = req.body
-        const signature = req.headers['stripe-signature']
-        const webhookSecret = stripeConfig.WEBHOOK_SECRET
-        let event
-        try {
-            event = stripe.webhooks.constructEvent(payload, signature, webhookSecret)
-        } catch (err) {
-            console.error(`Error message: ${err.message}`)
-            return res.status(400).send(`Webhook Error: ${err.message}`)
-        }
-        if (event.type === 'checkout.session.completed') {
-            //const session = event.data.object
-            //TODO: mark the email as premium customer
-        }
-        res.status(200).end()
     })
 
     const login = auth.setup(app)
