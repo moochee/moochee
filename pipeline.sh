@@ -11,9 +11,9 @@ new_app_name=app-${instance_id}
 
 alias dokku='ssh -t dokku@moochee.us'
 
-echo "Discover the old app name"
-old_app_name=$(dokku apps:list | grep -Eo -m 1 'app-[0-9]+')
-echo the old app name is: ${old_app_name}
+# echo "Discover the old app name"
+# old_app_name=$(dokku apps:list | grep -Eo -m 1 'app-[0-9]+')
+# echo the old app name is: ${old_app_name}
 
 echo "Deploy new version"
 if dokku apps:exists ${new_app_name}; then
