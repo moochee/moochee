@@ -6,4 +6,3 @@ export DEDICATED_ORIGIN=http://localhost:3000
 export QUIZZES_DIR=quizzes
 export HISTORY_DIR=history
 export PORT=3000
-export STRIPE_API_KEY=
