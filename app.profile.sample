@@ -1,8 +1,0 @@
-# environment variables required to run the app with production bindings
-export SESSION_SECRET=SuperStrongSecret
-export CLIENT_ID=GoogleClientId
-export CLIENT_SECRET=GoogleClientSecret
-export DEDICATED_ORIGIN=http://localhost:3000
-export QUIZZES_DIR=quizzes
-export HISTORY_DIR=history
-export PORT=3000

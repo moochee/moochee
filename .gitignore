@@ -3,5 +3,5 @@ node_modules
 coverage
 quiz/*-test.json
 quizzes
-*.profile
+.env
 history
