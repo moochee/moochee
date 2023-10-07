@@ -1,39 +1,14 @@
-import { html, useState, useRef, useEffect } from '../../../node_modules/htm/preact/standalone.mjs'
+import { html, useState, useRef } from '../../../node_modules/htm/preact/standalone.mjs'
 
 window.loadCss('/web/host/host/waiting.css')
-
-const QRCode = function (props) {
-    const qrContainer = useRef(null)
-    useEffect(async () => {
-        const svg = await (await fetch(`${window.location.origin}/qr-code?url=${encodeURIComponent(props.url)}`)).text()
-        qrContainer.current.innerHTML = svg
-    }, [])
-    return html`<div class=hostWaitingQrCode ref=${qrContainer}></div>`
-}
 
 export default function Waiting(props) {
     const joinUrl = `${window.location.origin}/web/play/#/game/${props.gameId}`
     const [copied, setCopied] = useState('')
     const joinUrlInput = useRef()
 
-    // REVISE check if still needed, clipboard now supported according to https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API
-    function iosCopyToClipboard(el) {
-        const range = document.createRange()
-        range.selectNodeContents(el)
-        const s = window.getSelection()
-        s.removeAllRanges()
-        s.addRange(range)
-        el.setSelectionRange(0, el.value.length)
-        document.execCommand('copy')
-        el.setSelectionRange(-1, -1)
-    }
-
     const copyToClipboard = () => {
-        if (navigator.userAgent.match(/ipad|iphone/i)) {
-            iosCopyToClipboard(joinUrlInput.current)
-        } else {
-            navigator.clipboard.writeText(joinUrl)
-        }
+        navigator.clipboard.writeText(joinUrl)
         setCopied('copied!')
     }
 
@@ -55,7 +30,7 @@ export default function Waiting(props) {
             <div>${copied}</div>
         </div>
         <div class=hostWaitingSplitContainer>
-            <${QRCode} url=${joinUrl} />
+            <img class=hostWaitingQrCode src='${window.location.origin}/qr-code?url=${encodeURIComponent(joinUrl)}'></img>
             ${players}
         </div>
 

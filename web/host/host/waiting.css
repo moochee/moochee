@@ -37,6 +37,7 @@
 }
 
 .hostWaitingPlayerInfo {
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
     font-size: min(20vh, 20vw);
@@ -62,19 +63,9 @@
     height: min(8.75vw, 8.75vh);
 }
 
-.hostWaitingQrCode svg {
-    height: 100%;
-}
-
 @media (orientation: landscape) {
-    .hostWaitingSplitContainer {
-        flex-direction: row;
-    }
     .hostWaitingQrCode {
         margin-right: 1em;
-        height: 100%;
-    }
-    .hostWaitingPlayerInfo {
         height: 100%;
     }
 }
@@ -84,8 +75,9 @@
         flex-direction: column;
     }
     .hostWaitingQrCode {
-        height: calc(min(35vh, 100vw - 2em));
         margin-bottom: 1em;
+        max-height: 60%;
+        width: 100%;
     }
 }
 

@@ -74,6 +74,11 @@ describe('Server', () => {
             expect(url.hostname).toEqual('localhost')
             expect(url.pathname).toMatch(/\/.+/)
         })
+
+        it('can create an svg QR code for a given URL', async () => {
+            const svg = await client.get('/qr-code?url=test')
+            expect(svg.body).toMatch('<svg .*</svg>')
+        })
     })
 
     describe('history API', () => {
