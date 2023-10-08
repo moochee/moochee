@@ -1,5 +1,5 @@
 {
-    "name": "moochee-app",
+    "name": "moochee",
     "version": "1.0.0",
     "description": "An multi-person quiz game, like Kahoot",
     "repository": {
@@ -7,8 +7,8 @@
         "url": "https://github.com/moochee/moochee"
     },
     "scripts": {
-        "start": "bun server/main.js ./bindings-prod.js",
-        "dev": "bun server/main.js ./bindings-local.js",
+        "start": "node server/main.js ./bindings-prod.js",
+        "dev": "node server/main.js ./bindings-local.js",
         "lint": "eslint server web **/*.mjs --fix",
         "test": "jasmine server/spec/**/*.spec.mjs",
         "coverage": "c8 jasmine server/spec/**/*.spec.mjs"

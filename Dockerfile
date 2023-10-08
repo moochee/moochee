@@ -1,4 +1,4 @@
-FROM oven/bun:1.0.4-alpine
+FROM node:18-alpine
 
 ENV NODE_ENV=production
 
@@ -8,8 +8,8 @@ COPY package*.json ./
 COPY server ./server/
 COPY web ./web/
 
-RUN bun i
+RUN npm ci --omit=dev
 
 EXPOSE 8080
 
-CMD [ "bun", "start" ]
+CMD [ "npm", "start" ]
