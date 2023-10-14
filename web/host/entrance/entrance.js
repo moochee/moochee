@@ -84,7 +84,16 @@ export default function Entrance(props) {
         </a>
     `
 
-    return html`<${Shell} headerLeft='😸 Moochee' headerRight=${headerRight} footerRight=${footerRight}>
+    const logo = html`
+        <div>
+            <a class=entranceLogo href='/'>
+                <img src='/web/public/logo.svg' height=70/>
+                <div>Moochee</div>
+            </a>
+        </div>
+    `
+
+    return html`<${Shell} headerLeft=${logo} headerRight=${headerRight} footerRight=${footerRight}>
         <!-- REVISE why do we need nested divs? -->
         <div class=entrance>
             <div class=quizzes>
