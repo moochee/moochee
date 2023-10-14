@@ -15,6 +15,7 @@
 
 .entranceSearch input {
     font-size: .7em;
+    color: inherit;
     margin-right: 1em;
 }
 
