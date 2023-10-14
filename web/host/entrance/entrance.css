@@ -29,8 +29,8 @@
 .entrance .quiz {
     color: white;
     position: relative;
-    height: min(28vw, 28vh);
-    width: min(28vw, 28vh);
+    height: min(26vw, 26vh);
+    width: min(26vw, 26vh);
     padding: min(1vw, 1vh);
     border: none;
     border-radius: min(1.5vw, 1.5vh);
