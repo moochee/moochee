@@ -3,6 +3,7 @@ export default function HostClient(createWebSocket, origin, timeout = setTimeout
     const subscribers = {}
 
     this.host = async (quizId) => {
+        connect()
         const response = await fetch(`${origin}/api/v1/games`, {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
@@ -51,6 +52,4 @@ export default function HostClient(createWebSocket, origin, timeout = setTimeout
     const send = (msg) => {
         ready.then(() => socket.send(JSON.stringify(msg)))
     }
-
-    connect()
 }
