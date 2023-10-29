@@ -28,10 +28,7 @@ export default function Scoreboard(props) {
         </div>`
     })
 
-    // REVISE check if we need the nested DIVs
     return html`<div class=scoreboard>
-        <div style='display: flex; flex-direction: column; align-items: center;'>
-            ${entriesHtml}
-        </div>
+        ${entriesHtml}
     </div>`
 }
