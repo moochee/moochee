@@ -36,7 +36,7 @@ export default function AuthorizerAuth(config) {
         const client = new idp.Client({
             client_id: config.AUTHORIZER_CLIENT_ID,
             client_secret: config.AUTHORIZER_CLIENT_SECRET,
-            redirect_uris: [config.AUTHORIZER.REDIRECT_URI]
+            redirect_uris: [config.AUTHORIZER_REDIRECT_URI]
         })
 
         passport.use(OPENID_CONNECT,
