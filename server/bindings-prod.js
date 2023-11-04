@@ -4,7 +4,7 @@ const authConfig = {
     SESSION_SECRET: process.env.SESSION_SECRET,
     AUTHORIZER_CLIENT_ID: process.env.AUTHORIZER_CLIENT_ID,
     AUTHORIZER_CLIENT_SECRET: process.env.AUTHORIZER_CLIENT_SECRET,
-    AUTHORIZER_REDIRECT_URI: process.env.APP_URL,
+    AUTHORIZER_REDIRECT_URI: `${process.env.APP_URL}/login/callback`,
 }
 
 const auth = new AuthorizerAuth(authConfig)
