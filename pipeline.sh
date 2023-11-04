@@ -34,8 +34,8 @@ dokku config:set --no-restart ${new_app_name} \
     QUIZZES_DIR=/quiz \
     HISTORY_DIR=/history \
     APP_URL=https://app.moochee.us \
-    AUTHORIZER_URL=$AUTHORIZER_URL \
-    AUTHORIZER_CLIENT_ID=$AUTHORIZER_CLIENT_ID
+    AUTHORIZER_CLIENT_ID=$AUTHORIZER_CLIENT_ID \
+    AUTHORIZER_CLIENT_SECRET=$AUTHORIZER_CLIENT_SECRET
 git push dokku main
 
 echo "Switch public route from old app to new app"
