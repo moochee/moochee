@@ -13,9 +13,9 @@ const FakeAuth = function () {
 
 const auth = new FakeAuth()
 const quizzesDir = 'quizzes'
-const dedicatedOrigin = 'http://localhost:3000'
+const appUrl = 'http://localhost:3000'
 const port = 3000
 const gameExpiryTimer = { onTimeout: (callback) => setTimeout(callback, 1000 * 60 * 60 * 3)}
 const historyDir = 'history'
 
-export { auth, quizzesDir, dedicatedOrigin, port, gameExpiryTimer, historyDir }
+export { auth, quizzesDir, appUrl, port, gameExpiryTimer, historyDir }

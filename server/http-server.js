@@ -5,7 +5,7 @@ import quizRouter from './quiz-router.js'
 import historyRouter from './history-router.js'
 import qr from 'qr-image'
 
-export default function create(auth, quizService, dedicatedOrigin, gameExpiryTimer, historyService) {
+export default function create(auth, quizService, appUrl, gameExpiryTimer, historyService) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
@@ -23,7 +23,7 @@ export default function create(auth, quizService, dedicatedOrigin, gameExpiryTim
     app.use('/api/v1/history', express.json(), historyRouter(historyService))
     app.post('/api/v1/games', express.json(), async (req, res) => {
         const game = await games.host(req.body.quizId, req.user?.id)
-        const url = `${dedicatedOrigin}/${game.id}`
+        const url = `${appUrl}/${game.id}`
         res.status(201).set('Location', url).end()
     })
 
