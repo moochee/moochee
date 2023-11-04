@@ -29,3 +29,5 @@ jobs:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          AUTHORIZER_URL: ${{ secrets.AUTHORIZER_URL }}
+          AUTHORIZER_CLIENT_ID: ${{ secrets.AUTHORIZER_CLIENT_ID }}
