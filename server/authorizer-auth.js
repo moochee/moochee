@@ -9,21 +9,7 @@ export default function AuthorizerAuth(config) {
         })
 
         const authMiddleware = async (req, res, next) => {
-            const authHeader = req.headers.authorization
-            if (!authHeader) {
-                return res.status(403).json({ error: "Authorization not found" })
-            }
-
-            const splitHeader = authHeader.split(" ")
-            if (splitHeader.length != 2) {
-                return res.status(403).json({ error: "Invalid auth header" })
-            }
-
-            if (splitHeader[0].toLowerCase() != "bearer") {
-                return res.status(403).json({ error: "Bearer token not found" })
-            }
-
-            const token = splitHeader[1]
+            const token = req.query.id_token
             // Validate jwt token via authorizer sdk
             try {
                 const res = await authRef.validateJWTToken({
