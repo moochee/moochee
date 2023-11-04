@@ -1,9 +1,9 @@
 import AuthorizerAuth from './authorizer-auth.js'
 
 const authConfig = {
-    AUTHORIZER_URL: process.env.AUTHORIZER_URL,
-    AUTHORIZER_REDIRECT_URL: process.env.APP_URL,
     AUTHORIZER_CLIENT_ID: process.env.AUTHORIZER_CLIENT_ID,
+    AUTHORIZER_CLIENT_SECRET: process.env.AUTHORIZER_CLIENT_SECRET,
+    AUTHORIZER_REDIRECT_URI: process.env.APP_URL,
 }
 
 const auth = new AuthorizerAuth(authConfig)
