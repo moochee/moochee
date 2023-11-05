@@ -3,16 +3,17 @@ import { JSDOM, VirtualConsole } from 'jsdom'
 import httpServer from '../http-server.js'
 import HostClient from '../../web/host/host-client.js'
 import PlayerClient from '../../web/play/player-client.js'
-import { auth, quizzesDir, gameExpiryTimer, historyDir } from '../bindings-local.js'
+import { auth, quizzesDir, gameExpiryTimer } from '../bindings-local.js'
 import until from './until.js'
 import fetch from 'node-fetch'
 import QuizService from '../quiz-service.js'
 import dummyQuiz from './dummy/quiz.js'
-import HistoryService from '../history-service.js'
+
 
 describe('DOM integration', () => {
-    let server, port = 3001, origin = `http://localhost:${port}`, quizService, quizId, historyService
+    let server, port = 3001, origin = `http://localhost:${port}`, quizService, quizId
     const dummyAuthor = 'test@example.com'
+    const noHistory = { create: () => null }
 
     const createDom = (url) => {
         const virtualConsole = new VirtualConsole()
@@ -27,8 +28,7 @@ describe('DOM integration', () => {
     beforeEach(async () => {
         quizService = new QuizService(quizzesDir)
         quizId = await quizService.create(dummyQuiz, dummyAuthor)
-        historyService = new HistoryService(historyDir)
-        server = httpServer(auth, quizService, origin, gameExpiryTimer, historyService).listen(port)
+        server = httpServer(auth, quizService, origin, gameExpiryTimer, noHistory).listen(port)
         globalThis.fetch = fetch
     })
 
