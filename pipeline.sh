@@ -23,7 +23,7 @@ dokku apps:create ${new_app_name}
 dokku storage:mount ${new_app_name} /var/lib/dokku/data/storage/moochee/quiz:/quiz
 dokku storage:mount ${new_app_name} /var/lib/dokku/data/storage/moochee/history:/history
 dokku certs:add ${new_app_name} /home/dokku/server.crt /home/dokku/server.key
-dokku proxy:ports-set ${new_app_name} http:80:8080 https:443:8080
+dokku ports:set ${new_app_name} http:80:8080 https:443:8080
 dokku nginx:set ${new_app_name} proxy-read-timeout 180m
 
 git remote add dokku dokku@moochee.us:${new_app_name} || git remote set-url dokku dokku@moochee.us:${new_app_name}
