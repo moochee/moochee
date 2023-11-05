@@ -34,8 +34,8 @@ export default function LogtoAuth(config) {
             jwks_uri: 'https://x2lcbf.logto.app/oidc/jwks'
         })
         const client = new idp.Client({
-            client_id: config.LOGTO_CLIENT_ID,
-            client_secret: config.LOGTO_CLIENT_SECRET,
+            client_id: config.CLIENT_ID,
+            client_secret: config.CLIENT_SECRET,
             redirect_uris: [config.REDIRECT_URI]
         })
 
