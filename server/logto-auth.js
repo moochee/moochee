@@ -40,7 +40,7 @@ export default function LogtoAuth(config) {
         })
 
         passport.use(OPENID_CONNECT,
-            new Strategy({ client, params: { scope: 'email profile' } }, (tokenSet, done) => {
+            new Strategy({ client, params: { scope: 'openid email profile' } }, (tokenSet, done) => {
                 const claims = tokenSet.claims()
                 return done(null, { id: claims.email })
             })
