@@ -28,16 +28,12 @@ dokku nginx:set ${new_app_name} proxy-read-timeout 180m
 
 git remote add dokku dokku@moochee.us:${new_app_name} || git remote set-url dokku dokku@moochee.us:${new_app_name}
 dokku config:set --no-restart ${new_app_name} \
-    CLIENT_ID=$CLIENT_ID \
-    CLIENT_SECRET=$CLIENT_SECRET \
-    SESSION_SECRET=$SESSION_SECRET \
     QUIZZES_DIR=/quiz \
     HISTORY_DIR=/history \
     APP_URL=https://app.moochee.us \
-    AUTHORIZER_CLIENT_ID=$AUTHORIZER_CLIENT_ID \
-    AUTHORIZER_CLIENT_SECRET=$AUTHORIZER_CLIENT_SECRET \
-    LOGTO_CLIENT_ID=$LOGTO_CLIENT_ID \
-    LOGTO_CLIENT_SECRET=$LOGTO_CLIENT_SECRET
+    SESSION_SECRET=$SESSION_SECRET \
+    CLIENT_ID=$CLIENT_ID \
+    CLIENT_SECRET=$CLIENT_SECRET
 git push dokku main
 
 echo "Switch public route from old app to new app"

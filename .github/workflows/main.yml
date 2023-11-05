@@ -26,10 +26,6 @@ jobs:
       - name: Build, test and deploy
         run: ./pipeline.sh
         env:
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
-          AUTHORIZER_CLIENT_ID: ${{ secrets.AUTHORIZER_CLIENT_ID }}
-          AUTHORIZER_CLIENT_SECRET: ${{ secrets.AUTHORIZER_CLIENT_SECRET }}
-          LOGTO_CLIENT_ID: ${{ secrets.LOGTO_CLIENT_ID }}
-          LOGTO_CLIENT_SECRET: ${{ secrets.LOGTO_CLIENT_SECRET }}

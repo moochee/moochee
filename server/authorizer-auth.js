@@ -34,9 +34,9 @@ export default function AuthorizerAuth(config) {
             jwks_uri: 'https://auth.moochee.us/.well-known/jwks.json'
         })
         const client = new idp.Client({
-            client_id: config.AUTHORIZER_CLIENT_ID,
-            client_secret: config.AUTHORIZER_CLIENT_SECRET,
-            redirect_uris: [config.AUTHORIZER_REDIRECT_URI]
+            client_id: config.CLIENT_ID,
+            client_secret: config.CLIENT_SECRET,
+            redirect_uris: [config.REDIRECT_URI]
         })
 
         passport.use(OPENID_CONNECT,

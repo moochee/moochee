@@ -1,13 +1,13 @@
-import LogtoAuth from './logto-auth.js'
+import AuthorizerAuth from './authorizer-auth.js'
 
 const authConfig = {
-    CLIENT_ID: process.env.LOGTO_CLIENT_ID,
-    CLIENT_SECRET: process.env.LOGTO_CLIENT_SECRET,
+    SESSION_SECRET: process.env.SESSION_SECRET,
+    CLIENT_ID: process.env.CLIENT_ID,
+    CLIENT_SECRET: process.env.CLIENT_SECRET,
     REDIRECT_URI: `${process.env.APP_URL}/login/callback`,
-    SESSION_SECRET: process.env.SESSION_SECRET
 }
 
-const auth = new LogtoAuth(authConfig)
+const auth = new AuthorizerAuth(authConfig)
 const quizzesDir = process.env.QUIZZES_DIR
 const appUrl = process.env.APP_URL
 const port = process.env.PORT
