@@ -31,3 +31,5 @@ jobs:
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           AUTHORIZER_CLIENT_ID: ${{ secrets.AUTHORIZER_CLIENT_ID }}
           AUTHORIZER_CLIENT_SECRET: ${{ secrets.AUTHORIZER_CLIENT_SECRET }}
+          LOGTO_CLIENT_ID: ${{ secrets.LOGTO_CLIENT_ID }}
+          LOGTO_CLIENT_SECRET: ${{ secrets.LOGTO_CLIENT_SECRET }}
