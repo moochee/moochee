@@ -46,10 +46,10 @@ export default function LogtoAuth(config) {
             })
         )
 
-        app.get('/login', passport.authenticate(OPENID_CONNECT))
+        app.get('/login', passport.authenticate('oidc:x2lcbf.logto.app'))
 
         app.get('/login/callback',
-            passport.authenticate(OPENID_CONNECT, { failureRedirect: '/' }),
+            passport.authenticate('oidc:x2lcbf.logto.app', { failureRedirect: '/' }),
             (req, res) => res.redirect('/')
         )
 
