@@ -20,7 +20,7 @@ export default function LogtoAuth(config) {
             cookie: { maxAge: twentyFourHours },
             store: new MemoryStore({ checkPeriod: twentyFourHours }),
             resave: false,
-            saveUninitialized: false,
+            saveUninitialized: true,
             secret: config.SESSION_SECRET
         }))
 
