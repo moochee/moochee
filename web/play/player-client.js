@@ -1,4 +1,4 @@
-export default function PlayerClient(createWebSocket, timeout = setTimeout) {
+export default function PlayerClient(createWebSocket, timeout = setInterval) {
     let currentGameId, currentName, currentAvatar, socket, ready
     const subscribers = {}
 
@@ -31,6 +31,7 @@ export default function PlayerClient(createWebSocket, timeout = setTimeout) {
     }
 
     const onClose = () => {
+        if (!currentGameId) return
         timeout(() => {
             connect()
             send({ command: 'reJoin', args: [currentGameId, currentName, currentAvatar] })

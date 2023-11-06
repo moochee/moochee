@@ -1,4 +1,4 @@
-export default function HostClient(createWebSocket, origin, timeout = setTimeout) {
+export default function HostClient(createWebSocket, origin, timeout = setInterval) {
     let currentGameId, socket, ready
     const subscribers = {}
 
@@ -35,8 +35,8 @@ export default function HostClient(createWebSocket, origin, timeout = setTimeout
     }
 
     const onClose = () => {
+        if (!currentGameId) return
         timeout(() => {
-            if (!currentGameId) return
             connect()
             send({ command: 'joinAsHost', args: [currentGameId] })
         }, 1000)
