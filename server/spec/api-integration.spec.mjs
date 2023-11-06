@@ -1,7 +1,6 @@
 import httpServer from '../http-server.js'
 import QuizService from '../quiz-service.js'
 import dummyQuiz from './dummy/quiz.js'
-import HistoryService from '../history-service.js'
 import WebSocket from 'ws'
 import HostClient from '../../web/host/host-client.js'
 import PlayerClient from '../../web/play/player-client.js'
@@ -12,16 +11,16 @@ const noAuth = { setup: () => noAuthMiddleware }
 const noExpiryTimer = { onTimeout: () => null }
 
 describe('API integration', () => {
-    let server, hostClient, playerClient, quizService, quizId, historyService
+    let server, hostClient, playerClient, quizService, quizId
+    const noHistory = { create: () => null }
     const port = 3000, origin = `http://localhost:${port}`, dummyAuthor = 'test@example.com'
 
     beforeEach(async () => {
         quizService = new QuizService('quizzes')
         quizId = await quizService.create(dummyQuiz, dummyAuthor)
-        historyService = new HistoryService('history')
         globalThis.fetch = fetch
         globalThis.window = { location: { origin } }
-        server = httpServer(noAuth, quizService, origin, noExpiryTimer, historyService).listen(port)
+        server = httpServer(noAuth, quizService, origin, noExpiryTimer, noHistory).listen(port)
         hostClient = new HostClient(() => new WebSocket(`ws://localhost:${port}`), origin)
         playerClient = new PlayerClient(() => new WebSocket(`ws://localhost:${port}`))
 
