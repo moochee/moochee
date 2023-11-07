@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Moochee</title>
+    <meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='HandheldFriendly' content='true'>
+
+    <link rel='icon' href='/favicon.png' />
+</head>
+
+<body>
+    <script src='/web/public/load-css.js'>
+    </script>
+    <script type='module'>
+        import { html, render, useState } from '../../node_modules/htm/preact/standalone.mjs'
+        window.loadCss('/web/public/style.css')
+        import Shell from './shell/shell.js'
+        import Podium from './podium/podium2.js'
+
+        const scoreboard = [
+            { avatar: '🐻', name: 'alice', score: 20000, rank: 1 },
+            { avatar: '🦊', name: 'bob', score: 20001, rank: 2 },
+            { avatar: '🐰', name: 'cindy', score: 600, rank: 3 },
+            { avatar: '🐹', name: 'dave', score: 500, rank: 4 },
+            { avatar: '🐭', name: 'elise', score: 400, rank: 5 },
+            { avatar: '🪲', name: 'frank', score: 500, rank: 6 },
+            { avatar: '🦅', name: 'gina', score: 400, rank: 7 }
+        ]
+
+        const Page = function() {
+            const isFinal = true
+            return html`<${Shell} headerLeft='Test' footerLeft='23 Players' footerRight='-' fullScreenContent=${true}>
+                <${Podium} scoreboard=${scoreboard} />
+            <//>`
+        }
+        render(html`<${Page} />`, document.body)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+/* Positioning must be relative to the podium. We set --height / --width in our js code on resize to use it here */
+
+.podiumPlayerList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 4vh;
+}
+
+.podiumPlayer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.podiumAvatar {
+    font-size: 3em;
+}
