@@ -48,10 +48,15 @@ export default function AuthorizerAuth(config) {
 
         app.get('/login', passport.authenticate(OPENID_CONNECT))
 
-        app.get('/login/callback',
-            passport.authenticate(OPENID_CONNECT, { failureRedirect: '/' }),
-            (req, res) => res.redirect('/')
-        )
+        app.get('/login/callback', passport.authenticate(OPENID_CONNECT, { 
+            successRedirect: '/', 
+            failureRedirect: '/error' }
+        ))
+
+        app.get('/logout', (req, res) => {
+            req.logout()
+            res.redirect('/')
+        })
 
         return (req, res, next) => {
             if (req.originalUrl === '/favicon.ico') return res.status(204).end()
