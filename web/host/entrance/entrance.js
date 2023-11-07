@@ -70,7 +70,7 @@ export default function Entrance(props) {
 
     const headerRight = html`
         <div class=entranceSearch>
-            <input placeholder=Search...
+            <input id=search placeholder=Search...
                     value=${searchTerm}
                     onkeyup=${event => search(event.target.value)}>
             </input>
