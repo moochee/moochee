@@ -1,39 +1,81 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Moochee</title>
-    <meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-    <meta name='HandheldFriendly' content='true'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-    <link rel='icon' href='/favicon.png' />
+    .card-container {
+      perspective: 1000px;
+    }
+
+    .card {
+      width: 200px;
+      height: 100px;
+      margin: 10px;
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+    }
+
+    .card:hover {
+      transform: rotateX(180deg);
+    }
+
+    .card-face {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+    }
+    .card-back {
+      transform: rotateX(180deg);
+    }
+  </style>
+  <title>Flipping Cards</title>
 </head>
-
 <body>
-    <div
-        style='font-size: 4vh; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: center;'>
-        <div style='box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); width: 95%;'>
-            <div
-                style='background-color: #f6f6f6; font-size: 4vh; display: flex; flex-direction: row; align-items: center;'>
-                <div style='margin-left: calc(50% - 1em); margin-right: 1em;'>
-                    a
-                </div>
-                <div>
-                    world
-                </div>
-            </div>
-            <div
-                style='background-color: #aeccf0; font-size: 4vh; display: flex; flex-direction: row; align-items: center;'>
-                <div style='margin-left: calc(50% - 1em); margin-right: 1em;'>
-                    a
-                </div>
-                <div>
-                    b
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
 
+  <div class="card-container">
+    <!-- Repeat the card div for the desired number of cards -->
+    <div class="card"> 
+      <div class="card-face">Card 1</div>
+      <div class="card-face card-back">Back Content 1</div>
+    </div>
+
+    <div class="card">
+      <div class="card-face">Card 2</div>
+      <div class="card-face card-back">Back Content 2</div>
+    </div>
+
+    <!-- Repeat for the remaining cards -->
+    <!-- ... -->
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Automatically flip each card after a delay
+      const cards = document.querySelectorAll('.card');
+      cards.forEach((card, index) => {
+        setInterval(() => {
+          card.classList.toggle('flipped', true);
+        }, (index + 1) * 500); // Adjust the delay (in milliseconds) between flips
+      });
+    });
+  </script>
+
+</body>
 </html>
