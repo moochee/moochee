@@ -1,4 +1,4 @@
-export default function PlayerClient(createWebSocket, timeout = setInterval) {
+export default function PlayerClient(createWebSocket, timeout = setTimeout) {
     let currentGameId, currentName, currentAvatar, socket, ready
     const subscribers = {}
 

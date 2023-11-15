@@ -1,4 +1,4 @@
-export default function HostClient(createWebSocket, origin, timeout = setInterval) {
+export default function HostClient(createWebSocket, origin, timeout = setTimeout) {
     let currentGameId, socket, ready
     const subscribers = {}
 
