@@ -15,11 +15,10 @@ export default function AuthorizerAuth(config) {
         })
 
         const MemoryStore = memorystore(session)
-        //const twentyFourHours = 86400000
-        const tenSeconds = 10000
+        const twentyFourHours = 24 * 60 * 60 * 1000
         app.use(session({
-            cookie: { maxAge: tenSeconds },
-            store: new MemoryStore({ checkPeriod: tenSeconds }),
+            cookie: { maxAge: twentyFourHours },
+            store: new MemoryStore({ checkPeriod: twentyFourHours }),
             resave: false,
             saveUninitialized: true,
             secret: config.SESSION_SECRET
