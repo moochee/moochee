@@ -1,7 +1,7 @@
 import request from 'supertest'
 import httpServer from '../http-server.js'
 import dummyConfig from './dummy/auth-config.js'
-import GoogleAuth from '../google-auth.js'
+import AuthorizerAuth from '../authorizer-auth.js'
 import QuizService from '../quiz-service.js'
 import dummyQuiz from './dummy/quiz.js'
 import dummyAuth from './dummy/auth.js'
@@ -23,7 +23,7 @@ describe('Server', () => {
         beforeAll(() => {
             port = 3001
             url = `http://localhost:${port}`
-            server = httpServer(new GoogleAuth(dummyConfig), { dir: '' }, url, noExpiryTimer, null)
+            server = httpServer(new AuthorizerAuth(dummyConfig), { dir: '' }, url, noExpiryTimer, null)
             server.listen(port)
             client = request(url)
         })
