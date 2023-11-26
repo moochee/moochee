@@ -1,22 +1,82 @@
-/* Positioning must be relative to the podium. We set --height / --width in our js code on resize to use it here */
+.podiumContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 6vh;
+}
 
 .podiumPlayerList {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    height: 100%;
-    font-size: 4vh;
+    align-items: flex-start;
+    perspective: 1000px;
+}
+
+.podiumPlayer .rank {
+    margin-right: 2vw;
+}
+
+.podiumPlayer .avatar {
+    margin-right: 2vw;
 }
 
 .podiumPlayer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2vh;
+    opacity: 0;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    animation: fadeInUp 2s ease forwards;
 }
 
-.podiumAvatar {
-    font-size: 3em;
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.rank10 {
+    animation-delay: 0s;
+}
+
+.rank9 {
+    animation-delay: 0s;
+}
+
+.rank8 {
+    animation-delay: 0s;
+}
+
+.rank7 {
+    animation-delay: 0s;
+}
+
+.rank6 {
+    animation-delay: 1s;
+}
+
+.rank5 {
+    animation-delay: 2s;
+}
+
+.rank4 {
+    animation-delay: 3s;
+}
+
+.rank3 {
+    animation-delay: 5s;
+}
+
+.rank2 {
+    animation-delay: 7s;
+}
+
+.rank1 {
+    animation-delay: 9s;
 }

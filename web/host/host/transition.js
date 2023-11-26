@@ -1,7 +1,7 @@
 import { html, useState, useEffect } from '../../../node_modules/htm/preact/standalone.mjs'
 import Scoreboard from '../../public/scoreboard/scoreboard.js'
 import Distribution from '../../public/distribution/distribution.js'
-import Podium from '../../public/podium/podium.js'
+import Podium from '../../public/podium/podium2.js'
 
 window.loadCss('/web/host/host/transition.css')
 

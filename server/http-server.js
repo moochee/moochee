@@ -16,6 +16,7 @@ export default function create(auth, quizService, appUrl, gameExpiryTimer, histo
 
     app.use('/web', express.static('web'))
     app.use('/node_modules/htm/preact/standalone.mjs', express.static('node_modules/htm/preact/standalone.mjs'))
+    app.use('/node_modules/canvas-confetti/dist/confetti.module.mjs', express.static('node_modules/canvas-confetti/dist/confetti.module.mjs'))
     app.get('/qr-code', (req, res) => res.set('Content-Type', 'image/svg+xml').send(qr.imageSync(req.query.url, { type: 'svg' })))
     app.use('/', login, express.static('web/host'))
 
