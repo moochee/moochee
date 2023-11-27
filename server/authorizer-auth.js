@@ -4,7 +4,7 @@ import memorystore from 'memorystore'
 import { Issuer, Strategy } from 'openid-client'
 
 export default function AuthorizerAuth(config) {
-    this.setup = (app) => {
+    this.setup = async (app) => {
         const OPENID_CONNECT = 'oidc'
 
         passport.serializeUser(function (user, done) {
@@ -27,31 +27,36 @@ export default function AuthorizerAuth(config) {
         app.use(passport.initialize())
         app.use(passport.session())
 
-        const idp = new Issuer({
-            issuer: 'https://auth.moochee.us',
-            authorization_endpoint: 'https://auth.moochee.us/authorize',
-            token_endpoint: 'https://auth.moochee.us/oauth/token',
-            jwks_uri: 'https://auth.moochee.us/.well-known/jwks.json'
-        })
-        const client = new idp.Client({
-            client_id: config.CLIENT_ID,
-            client_secret: config.CLIENT_SECRET,
-            redirect_uris: [config.REDIRECT_URI]
-        })
-
-        passport.use(OPENID_CONNECT,
-            new Strategy({ client, params: { scope: 'email profile' } }, (tokenSet, done) => {
-                const claims = tokenSet.claims()
-                return done(null, { id: claims.email })
+        try {
+            const issuer = await Issuer.discover('https://auth.moochee.us')
+        
+            const client = new issuer.Client({
+              client_id: config.CLIENT_ID,
+              client_secret: config.CLIENT_SECRET,
+              redirect_uris: [config.REDIRECT_URI]
             })
-        )
+        
+            passport.use(OPENID_CONNECT,
+                new Strategy({ client }, (tokenSet, done) => {
+                    const claims = tokenSet.claims()
+                    done(null, { id: claims.email })
+                })
+            )
+        } catch (err) {
+            console.error('Error setting up OpenID client:', err)
+        }
+
 
         app.get('/login', passport.authenticate(OPENID_CONNECT))
 
         app.get('/login/callback', passport.authenticate(OPENID_CONNECT, { 
             successRedirect: '/', 
-            failureRedirect: '/error' }
+            failureRedirect: '/login/error' }
         ))
+
+        app.get('/login/error', (req, res) => {
+            res.status(500).send('Authentication error')
+          })
 
         app.get('/logout', (req, res) => {
             req.logout()
@@ -59,7 +64,6 @@ export default function AuthorizerAuth(config) {
         })
 
         return (req, res, next) => {
-            if (req.originalUrl === '/favicon.ico') return res.status(204).end()
             if (!req.isAuthenticated()) {
                 req.session.originalUrl = req.originalUrl
                 return res.redirect('/login')

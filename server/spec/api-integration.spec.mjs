@@ -20,7 +20,7 @@ describe('API integration', () => {
         quizId = await quizService.create(dummyQuiz, dummyAuthor)
         globalThis.fetch = fetch
         globalThis.window = { location: { origin } }
-        server = httpServer(noAuth, quizService, origin, noExpiryTimer, noHistory).listen(port)
+        server = (await httpServer(noAuth, quizService, origin, noExpiryTimer, noHistory)).listen(port)
         hostClient = new HostClient(() => new WebSocket(`ws://localhost:${port}`), origin)
         playerClient = new PlayerClient(() => new WebSocket(`ws://localhost:${port}`))
 

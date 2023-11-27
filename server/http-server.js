@@ -5,14 +5,14 @@ import quizRouter from './quiz-router.js'
 import historyRouter from './history-router.js'
 import qr from 'qr-image'
 
-export default function create(auth, quizService, appUrl, gameExpiryTimer, historyService) {
+export default async function create(auth, quizService, appUrl, gameExpiryTimer, historyService) {
     const app = express()
 
     app.get('/api/v1/status', (req, res) => {
         res.status(200).json({numberOfGames: games.getNumberOfGames()}).end()
     })
 
-    const login = auth.setup(app)
+    const login = await auth.setup(app)
 
     app.use('/web', express.static('web'))
     app.use('/node_modules/htm/preact/standalone.mjs', express.static('node_modules/htm/preact/standalone.mjs'))

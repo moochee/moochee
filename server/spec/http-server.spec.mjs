@@ -20,10 +20,10 @@ describe('Server', () => {
 
     describe('endpoint protection', () => {
 
-        beforeAll(() => {
+        beforeAll(async () => {
             port = 3001
             url = `http://localhost:${port}`
-            server = httpServer(new AuthorizerAuth(dummyConfig), { dir: '' }, url, noExpiryTimer, null)
+            server = await httpServer(new AuthorizerAuth(dummyConfig), { dir: '' }, url, noExpiryTimer, null)
             server.listen(port)
             client = request(url)
         })
@@ -40,10 +40,6 @@ describe('Server', () => {
             await client.get('/api/v1/games').expect(302)
         })
 
-        it('allows anonymous access to favicon.ico at root', async () => {
-            await client.get('/favicon.ico').expect(204)
-        })
-
         it('allows anonymous access to play page', async () => {
             await client.get('/web/play/').expect(200)
         })
@@ -56,7 +52,7 @@ describe('Server', () => {
             quizId = await quizService.create(dummyQuiz, 'test@example.com')
             port = 3002
             url = `http://localhost:${port}`
-            server = httpServer(dummyAuth, quizService, url, noExpiryTimer, null)
+            server = await httpServer(dummyAuth, quizService, url, noExpiryTimer, null)
             server.listen(port)
             client = request(url)
         })
@@ -89,7 +85,7 @@ describe('Server', () => {
             itemId = await historyService.create(dummyHistoryItem, dummyHost)
             port = 3003
             url = `http://localhost:${port}`
-            server = httpServer(dummyAuth, quizService, url, noExpiryTimer, historyService)
+            server = await httpServer(dummyAuth, quizService, url, noExpiryTimer, historyService)
             server.listen(port)
             client = request(url)
         })

@@ -28,7 +28,7 @@ describe('DOM integration', () => {
     beforeEach(async () => {
         quizService = new QuizService(quizzesDir)
         quizId = await quizService.create(dummyQuiz, dummyAuthor)
-        server = httpServer(auth, quizService, origin, gameExpiryTimer, noHistory).listen(port)
+        server = (await httpServer(auth, quizService, origin, gameExpiryTimer, noHistory)).listen(port)
         globalThis.fetch = fetch
     })
 
