@@ -24,7 +24,7 @@ const PodiumPage = function (props) {
     const [canBackHome, setCanBackHome] = useState(false)
     useEffect(() => {
         props.onStopMusic()
-        setTimeout(() => setCanBackHome(true), 20000)
+        setTimeout(() => setCanBackHome(true), 12000)
     })
     const backHomeButton = canBackHome ? html`<button onClick=${props.onBackHome}>Home 🔥</button>` : ''
     return html`<div class=transition>
