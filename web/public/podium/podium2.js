@@ -16,13 +16,13 @@ export default function PodiumFinal(props) {
         }
         
         const interval = setInterval(() => {
-          var timeLeft = animationEnd - Date.now()
+          let timeLeft = animationEnd - Date.now()
         
           if (timeLeft <= 0) {
             return clearInterval(interval)
           }
         
-          var particleCount = 100 * (timeLeft / duration)
+          let particleCount = 100 * (timeLeft / duration)
           // since particles fall down, start a bit higher than random
           confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } })
           confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } })
@@ -31,9 +31,10 @@ export default function PodiumFinal(props) {
 
     const playerToRankHtml = (player, rank) => {
         return html`<div key=${player.name} class='podiumPlayer rank${rank}'>
-            <span class=rank>${rank}</span>
+            <span class=rank>${player.rank}</span>
             <span class=avatar>${player.avatar}</span>
             <span>${player.name}</span>
+            <span class=score>(${player.score})</span>
         </div>`
     }
     const topPlayers = props.scoreboard.filter(p => p.rank <= 7)

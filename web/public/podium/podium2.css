@@ -23,6 +23,11 @@
     margin-right: 2vw;
 }
 
+.podiumPlayer .score {
+    font-size: 3vh;
+    margin-left: 2vw;
+}
+
 .podiumPlayer {
     opacity: 0;
     backface-visibility: hidden;
