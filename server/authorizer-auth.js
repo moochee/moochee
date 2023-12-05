@@ -31,9 +31,9 @@ export default function AuthorizerAuth(config) {
             const issuer = await Issuer.discover('https://auth.moochee.us')
         
             const client = new issuer.Client({
-              client_id: config.CLIENT_ID,
-              client_secret: config.CLIENT_SECRET,
-              redirect_uris: [config.REDIRECT_URI]
+                client_id: config.CLIENT_ID,
+                client_secret: config.CLIENT_SECRET,
+                redirect_uris: [config.REDIRECT_URI]
             })
         
             passport.use(OPENID_CONNECT,
@@ -56,11 +56,16 @@ export default function AuthorizerAuth(config) {
 
         app.get('/login/error', (req, res) => {
             res.status(500).send('Authentication error')
-          })
+        })
 
         app.get('/logout', (req, res) => {
-            req.logout()
-            res.redirect('/')
+            req.logout({}, (err) => {
+                if (err) {
+                    console.error(err)
+                    return res.status(500).send('An error occurred during logout')
+                }
+                res.redirect('/')
+            })
         })
 
         return (req, res, next) => {

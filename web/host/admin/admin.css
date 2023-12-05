@@ -10,14 +10,14 @@
     text-decoration: none;
 }
 
-.admin .quizzes {
+.admin .tiles {
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
     justify-content: center;
 }
 
-.admin .quiz {
+.admin .tile {
     color: white;
     position: relative;
     height: min(26vw, 26vh);
@@ -30,52 +30,4 @@
     align-items: center;
     justify-content: center;
     margin: .5em;
-}
-
-.admin .quiz.add {
-    background-color: #999999;
-    color: white;
-    text-decoration: none;
-}
-
-.admin .quiz .editButton, .admin .quiz .deleteButton {
-    background-color: transparent;
-    color: white;
-    border-style: none;
-    position: absolute;
-    font-size: min(3vh, 3vw);
-    top: 2%;
-}
-
-.admin .quiz .editButton {
-    left: 5%;
-}
-
-.admin .quiz .deleteButton {
-    right: 5%;
-    padding-right: 0px;
-}
-
-.admin .quiz .tags {
-    width: 84%; /* width = 100% - 2 * 8% (for the margin) */
-    position: absolute;
-    bottom: 5%;
-    right: 8%;
-    display: flex;
-    justify-content: end;
-    flex-wrap: nowrap;
-}
-
-.admin .quiz .tag {
-    font-size: min(2vw, 1.5vh);
-    color: white;
-    padding: 1%;
-    margin: 1%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.secondsToGuess {
-    margin-left: 1em;
 }

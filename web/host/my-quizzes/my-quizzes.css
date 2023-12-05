@@ -1,47 +1,62 @@
-.entrance {
+.myQuizzes {
     align-items: center;
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
-.entranceSearch {
-    display: flex;
-}
-
-.entranceAdmin {
-    cursor: pointer;
-}
-
-.entranceSearch input {
-    font-size: .7em;
+.myQuizzesBack {
     color: inherit;
-    margin-right: 1em;
+    text-decoration: none;
 }
 
-.entrance .quizzes {
+.myQuizzes .quizzes {
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
     justify-content: center;
 }
 
-.entrance .quiz {
+.myQuizzes .quiz {
     color: white;
     position: relative;
     height: min(26vw, 26vh);
     width: min(26vw, 26vh);
-    padding: min(1vw, 1vh);
-    border: none;
+    border-style: none;
     border-radius: min(1.5vw, 1.5vh);
     font-size: min(3.5vw, 3.5vh);
     display: flex;
+    text-align: center;
     align-items: center;
     justify-content: center;
     margin: .5em;
 }
 
-.entrance .quiz .tags {
+.myQuizzes .quiz.add {
+    background-color: #999999;
+    color: white;
+    text-decoration: none;
+}
+
+.myQuizzes .quiz .editButton, .myQuizzes .quiz .deleteButton {
+    background-color: transparent;
+    color: white;
+    border-style: none;
+    position: absolute;
+    font-size: min(3vh, 3vw);
+    top: 2%;
+}
+
+.myQuizzes .quiz .editButton {
+    left: 5%;
+}
+
+.myQuizzes .quiz .deleteButton {
+    right: 5%;
+    padding-right: 0px;
+}
+
+.myQuizzes .quiz .tags {
     width: 84%; /* width = 100% - 2 * 8% (for the margin) */
     position: absolute;
     bottom: 5%;
@@ -51,7 +66,7 @@
     flex-wrap: nowrap;
 }
 
-.entrance .quiz .tag {
+.myQuizzes .quiz .tag {
     font-size: min(2vw, 1.5vh);
     color: white;
     padding: 1%;
@@ -61,20 +76,6 @@
     overflow: hidden;
 }
 
-.entrance .quiz .infoButton {
-    background-color: transparent;
-    color: white;
-    border-style: none;
-    position: absolute;
-    font-size: min(3vh, 3vw);
-    top: 2%;
-    right: 5%;
-    padding-right: 0px;
-}
-
-.entranceLogo {
-    align-items: center;
-    display: flex;
-    text-decoration: none;
-    color: inherit;
+.secondsToGuess {
+    margin-left: 1em;
 }

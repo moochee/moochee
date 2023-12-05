@@ -60,7 +60,7 @@ const ItemList = function (props) {
             backgroundClass=${bg} onClick=${click} onDelete=${del} />`
     })
     
-    const back=html`<a class=historyBack href='#/'>${'<'}</a>`
+    const back=html`<a class=historyBack href='#/admin'>${'<'}</a>`
     return html`<${Shell} headerLeft=${back} headerCenter='History'>
         <div class=history><div class=items>${itemList}</div></div>
     <//>`

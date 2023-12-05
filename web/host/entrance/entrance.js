@@ -8,6 +8,11 @@ const AdminButton = function() {
     return html`<div class=entranceAdmin onClick=${click}>⚙</div>`
 }
 
+const LogoutButton = function() {
+    const click = () => window.location.href = '/logout'
+    return html`<div class=entranceAdmin onClick=${click}>Exit</div>`
+}
+
 const Quiz = function (props) {
     const tags = props.tags
         .map(tag => html`<div class='tag ${props.backgroundClass}Secondary' title=${tag}>${tag}</div>`)
@@ -79,9 +84,9 @@ export default function Entrance(props) {
     `
     
     const footerRight = html`
-        <a class=entranceHistory href='#/history'>
-            History
-        </a>
+        <div>
+            <${LogoutButton} />
+        </div>
     `
 
     const logo = html`
