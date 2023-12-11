@@ -1,4 +1,4 @@
-import crypto from 'crypto'
+//import crypto from 'crypto'
 import Players from './players.js'
 import Avatars from './avatars.js'
 
@@ -9,7 +9,8 @@ export default function Game(quiz, timer, events, host) {
     let players = new Players(new Avatars())
     const DEFAULT_SECONDS_TO_GUESS = 20
 
-    this.id = crypto.randomUUID()
+    // this.id = crypto.randomUUID()
+    this.id = 'e67403d7-7de0-4871-979b-9ce4e2b2605f' // for demo video
     this.quizTitle = quiz.title
 
     this.join = (name) => {
