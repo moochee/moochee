@@ -1,4 +1,4 @@
-import AuthorizerAuth from './authorizer-auth.js'
+import GoogleAuth from './google-auth.js'
 
 const authConfig = {
     SESSION_SECRET: process.env.SESSION_SECRET,
@@ -7,7 +7,7 @@ const authConfig = {
     REDIRECT_URI: `${process.env.APP_URL}/login/callback`,
 }
 
-const auth = new AuthorizerAuth(authConfig)
+const auth = new GoogleAuth(authConfig)
 const quizzesDir = process.env.QUIZZES_DIR
 const appUrl = process.env.APP_URL
 const port = process.env.PORT
