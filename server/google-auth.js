@@ -48,10 +48,24 @@ export default function GoogleAuth(config) {
 
         app.get('/login', passport.authenticate(OPENID_CONNECT))
 
-        app.get('/login/callback',
-            passport.authenticate(OPENID_CONNECT, { failureRedirect: '/' }),
-            (req, res) => res.redirect('/')
-        )
+        app.get('/login/callback', passport.authenticate(OPENID_CONNECT, { 
+            successRedirect: '/', 
+            failureRedirect: '/login/error' }
+        ))
+
+        app.get('/login/error', (req, res) => {
+            res.status(500).send('Authentication error')
+        })
+
+        app.get('/logout', (req, res) => {
+            req.logout({}, (err) => {
+                if (err) {
+                    console.error(err)
+                    return res.status(500).send('An error occurred during logout')
+                }
+                res.redirect('/')
+            })
+        })
 
         return (req, res, next) => {
             if (req.originalUrl === '/favicon.ico') return res.status(204).end()
